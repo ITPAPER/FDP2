@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <link rel="stylesheet" href="plugins/datepicker/datepicker.min.css" />
+    <style>
+        /** DatePicker의 글꼴 설정 */
+        .datepicker-container { font-family: 'Helvetica','나눔고딕','맑은고딕' }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="datepicker" />
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/datepicker/datepicker.min.js"></script>
+    <script src="plugins/datepicker/i18n/datepicker.ko-KR.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker").datepicker({
+                autoHide: true,         // 날짜 선택 후 자동 숨김 (true/false)
+                format: 'yyyy-mm-dd',   // 날짜 형식
+                language: 'ko-KR',      // 언어
+                weekStart: 0,           // 시작요일(0=일요일~6=토요일)
+                // 선택 불가능한 날짜를 지정하기 위한 필터옵션 지정 (콜백함수)
+                filter: function(date) {
+                    /* 파라미터로 date객체는 DatePicker에 표시되는 날짜를 의미하는 Date 내장객체
+                       달력에 표시되는 날짜 수 만큼 콜백함수가 호출된다. */
+                    
+                    // 비활성 처리할 날짜 준비하기
+                    var disable_date = ['2018-01-15','2018-01-20','2018-01-25'];
+
+                    // 파라미터로 전달된 객체에서 날짜값 추출하기
+                    var yy = date.getFullYear();
+                    var mm = date.getMonth()+1;
+                    var dd = date.getDate();
+                    if (mm < 10) { mm = "0" + mm; }
+                    if (dd < 10) { dd = "0" + dd; }
+                    var today = yy + "-" + mm + "-" + dd;
+
+                    // 비활성 처리할 날짜 배열에서 구성한 문자열과 일치하는 데이터의 위치를 검색.
+                    // 찾지 못할 경우 -1이 리턴된다.
+                    var p = disable_date.indexOf(today);
+
+                    // p가 0보다 작다면?(일치하는것이 없다면) true 그렇지 않으면 false가 리턴된다.
+                    return (p < 0)
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

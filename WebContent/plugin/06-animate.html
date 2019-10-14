@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/animate/animate.css" />
+    <style>
+        .mybox {
+            width: 200px;
+            height: 200px;
+            background-color: #3399FF;
+            display: inline-block;
+            margin: 20px;
+            font-size: 30px;
+            color: white;
+            line-height: 200px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1" class="mybox animated bounceInDown">box1</div>
+    <div id="box2" class="mybox animated bounceInDown infinite">box2</div>
+    <div id="box3" class="mybox">box3</div>
+    <div id="box4" class="mybox">box4</div>
+    <div id="box5" class="mybox">box5</div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src='plugins/animate/jquery.animatecss.min.js'></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#box3").click(function() {
+                $(this).animateCSS('bounceInUp');   // 애니메이션 1회 수행 (기본재생시간)
+            });
+
+            $("#box4").click(function() {
+                // 애니메이션 이름과 옵션을 지정하여 수행
+                $(this).animateCSS('rollIn', {
+                    infinite: true,     // 반복수행 여부 (true, false)
+                    delay: 500,         // 수행전 딜레이시간 (1/1000초)
+                    duration: 1000      // 재생시간 (1/1000초)
+                });
+            });
+
+            $("#box5").click(function() {
+                // 애니메이션 이름, 옵션, 재생 완료 후 수행할 콜백함수 설정
+                $(this).animateCSS('rollIn', {
+                    infinite: true,     // 반복수행 여부 (true, false)
+                    delay: 500,         // 수행전 딜레이시간 (1/1000초)
+                    duration: 1000,     // 재생시간 (1/1000초)
+                    callback: function() {  // 콜백함수
+                        $(this).animateCSS('rollOut');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

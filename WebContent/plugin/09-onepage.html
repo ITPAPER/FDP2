@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery plugin</title>
+    <!-- 플러그인 CSS참조 -->
+    <link rel="stylesheet" href="plugins/onepage/onepage-scroll.css" />
+    <style>
+        html, body { padding: 0; margin: 0; width: 100%; height: 100%; }
+        .page { width: 100%; height: 100%; }
+        #page1 { background-color: #555; }
+        #page2 { background-color: #777; }
+        #page3 { background-color: #999; }
+        #page4 { background-color: #aaa; }
+        #page5 { background-color: #ccc; }
+
+        .menu {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 99999;
+        }
+
+        .menu a {
+            display: inline-block;
+            padding: 5px 10px;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none
+        }
+
+        .menu a.active {
+            border-color: yellow;
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="menu">
+        <a href="#page1" class="active">page1</a>
+        <a href="#page2">page2</a>
+        <a href="#page3">page3</a>
+        <a href="#page4">page4</a>
+        <a href="#page5">page5</a>
+    </nav>
+    <div class="container">
+        <div class="page" id="page1">#page1</div>
+        <div class="page" id="page2">#page2</div>
+        <div class="page" id="page3">#page3</div>
+        <div class="page" id="page4">#page4</div>
+        <div class="page" id="page5">#page5</div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 플러그인 스크립트 참조 -->
+    <script src="plugins/onepage/jquery.onepage-scroll.min.js"></script>
+    <script>
+        $(function() {
+            /** 섹션들을 묶는 박스에게 플러그인 함수 적용  */
+            $(".container").onepage_scroll({
+                sectionContainer: ".page",      // 하나의 섹션을 구성하는 클래스이름
+                easing: "ease",         // 애니메이션 가속 종류 (ease,linear,ease-in,ease-out,ease-in-out)
+                animationTime: 700,     // 재생시간
+                pagination: true,       // 페이지 위치 표시여부(화면 오른쪽의 동그란 버튼)
+                loop: true,             // 페이지 반복 표시 여부 (3페이지-->1페이지)
+                keyboard: true,         // 키보드 처리 여부(방향키에 따른 화면 전환)
+                direction: "vertical",  // 스크롤 방향 (vertical=세로, horizontal=가로)
+                beforeMove: function(index) {   // 페이지 이동 전 처리될 콜백함수
+                    var current = $(".menu a").eq(index - 1);
+                    current.addClass('active');
+                    $(".menu a").not(current).removeClass("active");
+                }, 
+                afterMove: function(index) {},  // 페이지 이동 후 처리될 콜백함수
+            });
+
+            /** 메뉴로 구성한 링크를 클릭한 경우 */
+            $(".menu a").click(function(e) {
+                // 링크의 기본 동작 차단
+                e.preventDefault();
+                // ".container"에 표시되는 페이지를 index+1 번째로 이동
+                $(".container").moveTo($(this).index() + 1);
+            });
+        });
+    </script>
+</body>
+
+</html>

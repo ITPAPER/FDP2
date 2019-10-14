@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <style type="text/css">
+        /** 카드 영역 전체 크기 설정 */
+        .card { width: 300px; height: 300px; }
+        /** 전면  */
+        .front { background-color: blue; }
+        /** 후면 */
+        .back { background-color: red; }
+    </style>
+</head>
+
+<body>
+    <div id="mycard" class="card">
+        <!-- 전면 -->
+        <div class="front"><h1>Front</h1></div>
+        <!-- 후면 -->
+        <div class="back"><h1>Back</h1></div>
+    </div>
+    
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/flip/jquery.flip.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        // 플립효과 적용 --> 클릭시 동작한다.
+        $("#mycard").flip();
+    });
+    </script>
+</body>
+
+</html>

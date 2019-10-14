@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/animate/animate.css" />
+    <style>
+        /** 화면 전체 여백 제거 */
+        body { padding: 0; margin: 0; }
+
+        /** 타이틀바 */
+        #site-header {
+            /** 스크롤 이동에 상관 없이 위치 고정 */
+            position: fixed; top: 0; left: 0; z-index: 10;
+            /** 사이즈,색상 설정 */
+            width: 100%; height: 50px; background: #f60;
+            /** 기타 꾸미기 */
+            line-height: 50px; color: white; text-align: center; font-size: 20px;
+            /** 타이틀바가 사라질 때 animate.css에 의해 적용될 애니메이션의 재생시간 설정 */
+            animation-duration: 500ms;
+        }
+
+        /** 서브타이틀 영역 */
+        #subtitle {
+            /** site-header에 가려지는 영역만큼 여백 설정 */
+            padding-top: 50px;
+            /** 꾸미기 설정 */
+            height: 300px; background-color: #05a; line-height: 300px; 
+            color: white; text-align: center; font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 메뉴바 영역 -->
+    <header id="site-header">Hello Menubar</header>
+    <!-- 서브타이틀 영역 -->
+    <div id="subtitle">subtitle</div>
+    <!-- 스크롤을 발생시키기 위한 박스의 높이 지정 -->
+    <div style="height:10000px"></div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 플러그인 참조 -->
+    <script src="plugins/headroom/features.js"></script>
+    <script src="plugins/headroom/Debouncer.js"></script>
+    <script src="plugins/headroom/Headroom.js"></script>
+    <script src="plugins/headroom/jQuery.headroom.js"></script>
+    <script>
+        $(function() {
+            $("#site-header").headroom({
+                    tolerance: 10,  // 스크롤 이동 거리(px) -> 이만큼의 스크롤이 이동되어야 동작함
+                    offset: 350,    // 타이틀바 유효 위치(px) -> 세로로 350px까지는 정상표시됨.
+                    classes: {      // 타이틀바에 적용할 CSS클래스
+                        initial: "animated",        // 초기화 클래스 (무조건 적용됨)
+                        pinned: "slideInDown",      // 스크롤이 위로 이동할 때 적용될 클래스
+                        unpinned: "slideOutUp",     // 스크롤이 아래로 이동할 때 적용될 클래스
+                        top: "headroom--top",       // 타이틀바가 화면에 표시중인 상태에서 적용될 클래스
+                        notTop: "headroom--not-top" // 타이틀바가 위로 사라진 상태에서 적용될 클래스
+                    }
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+

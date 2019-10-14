@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Hello World</title>
+    <style>
+    	html, body { padding: 0; margin: 0; width: 100%; height: 100%; }
+    	/* 지도 사이즈. 여기서 설정한 크기에 맞게 표시된다. */
+    	#gmap { width: 100%; height: 100%; }
+    </style>
+</head>
+
+<body>
+	<!-- 구글 맵을 표시하기 위한 div -->
+    <div id="gmap"></div>
+
+    <!-- 구글 맵 스크립트 참조 -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW32UIKoxVxO7MYMmf-arhD2Np3F_-IrM"></script>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- gmap 플러그인 참조 -->
+    <script src="plugins/gmaps/gmaps.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            /** 표시할 위치에 대한 위도,경도 */
+            var lat_value = 37.413072;
+            var lng_value = 127.134766;
+
+            /** 지도 표시하기 */
+            var map = new GMaps({
+                el: '#gmap',		// 지도를 표시할 div의 id값.
+                lat: lat_value,		// 지도가 표시될 위도
+                lng: lng_value,		// 지도가 표시될 경도
+                zoomControl: true 	// 줌 컨트롤 사용 여부
+            });
+
+            /** 표시중인 위치에 마커 추가 */
+    		// 필요한 만큼 반복하면 마커가 여러 개 표시된다.
+            map.addMarker({
+                // 마우스 오버시 노란 박스
+                title: '그린컴퓨터아트학원 강남캠퍼스(본관)',
+                lat: lat_value,		// 마커가 표시될 위도
+                lng: lng_value,		// 마커가 표시될 경도
+                icon: {				// 사용자 정의 아이콘
+                    url: "img/marker.png",
+                    scaledSize: new google.maps.Size(50, 50)
+                },
+                infoWindow: {		// 클릭시 표시될 말풍선 <-- HTML 코딩 가능함.
+                    content: '<img src="img/green.jpg" width="320" /><h4>그린컴퓨터아트학원 강남캠퍼스(본관)</h4><p>서울특별시 강남구 역삼동 강남대로 815-4</p><a href="#">상세보기</a>'
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

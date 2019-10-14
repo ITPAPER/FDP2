@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <style>
+        /* 전체 여백과 목록 정의 스타일 제거 */
+        * { padding: 0; margin: 0; list-style: none; }
+
+        /* 아이템 하나당 넓이 > 한 줄에 4개씩 구성 */
+        #grid .item { width: 25%; }
+
+        /* 각 아이템의 여백을 구성하기 위한 박스 */
+        #grid .item .item-box { padding: 5px; width: auto; }
+
+        /* 각 아이템별 내용을 구성하기 위한 박스 */
+        #grid .item .item-box .item-content { border: 1px solid #eee; }
+
+        /* 각 이이템 내의 이미지에 대한 크기 및 아래 테두리 지정 */
+        #grid .item .item-box .item-content .img {
+            width: 100%; border-bottom: 1px solid #eee;
+        }
+
+        /* 아이템별 제목영역 */
+        #grid .item .item-box .item-content .title {
+            color: #333; font-size: 14px; font-weight: bold; padding: 5px 10px;
+        }
+
+        /* 아이템별 내용영역 */
+        #grid .item .item-box .item-content .desc {
+            color: #555; font-size: 12px; padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- grid 목록 -->
+    <ul id="grid"></ul>
+
+    <!-- 동적으로 생성될 HTML의 기본 틀 -->
+    <script type="text/x-handlebars-template" id="list-item-tmpl">
+        {{#item}}
+            <li class="item">
+                <div class="item-box">
+                    <div class="item-content">
+                        <img src="{{img}}" class="img" />
+                        <h3 class="title">{{title}}</h3>
+                        <p class="desc">{{desc}}</p>
+                    </div>
+                </div>
+            </li>
+        {{/item}}
+    </script>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/handlebars/handlebars-v4.0.11.js"></script>
+    <script src="plugins/masonry/masonry.pkgd.min.js"></script>
+    <script src="plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <!-- json 데이터를 정의한 외부 파일 로드하기 -->
+    <script src="item.js"></script>
+    <script>
+        /** json 데이터의 배열만큼 컨텐츠를 동적으로 추가하기 위한 함수 */
+        function add_item() {
+            // 미리 준비한 HTML틀을 읽어온다.
+            var template = Handlebars.compile($("#list-item-tmpl").html());
+            var html = template(data);
+            // 동적으로 생성된 결과를 jQuery객체로 변환한다.
+            var el = $(html);
+
+            // 이미지 로딩이 완료됨을 감지함
+            el.imagesLoaded(function() {
+                // 박스 요소 동적 추가
+                $("#grid").append(el).masonry('appended', el).masonry();
+            });
+        } // end function
+
+        /** jquery 초기화 */
+        $(function() {
+            /** 플러그인 초기화 */
+            $('#grid').masonry({
+                itemSelector: '.item'
+            });
+
+            /** 컨텐츠 동적 추가를 위한 함수 호출 */
+            add_item();
+
+            /** 스크롤이벤트 정의 */
+            $(window).scroll(function(e) {
+                // 스크롤이 화면 맨 끝에 도달한 경우
+                if ($(window).height() + $(window).scrollTop() == $(document).height()) {
+                    // 컨텐츠 동적 추가
+                    add_item();
+                };
+            });
+        });
+    </script>
+</body>
+
+</html>

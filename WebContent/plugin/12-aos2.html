@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/aos/aos.css" />
+    <style>
+        /* 페이지 전체 여백 제거 */
+        body { padding: 0; margin: 0; }
+        /* 각 섹션별 높이 지정, 내용의 위치 지정을 위한 position부여 */
+        .section { height: 500px; position: relative; }
+        /* 홀수 번째 섹션에 대한 배경 색상 처리 */
+        .section:nth-child(odd) { background-color: #d5d5d5; }
+        /* 짝수 번째 섹션에 대한 배경이미지 공통 속성 */
+        .section:nth-child(2n) {
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        /* 짝수 번째의 각 요소에 대한 배경이미지 지정 */
+        .section:nth-child(2) { background-image: url(img/mac1.jpg); }
+        .section:nth-child(4) { background-image: url(img/mac2.jpg); }
+        .section:nth-child(6) { background-image: url(img/mac3.jpg); }
+        .section:nth-child(6) { background-image: url(img/mac4.jpg); }
+        .section:nth-child(8) { background-image: url(img/mac5.jpg); }
+
+        /* 각 섹션별 내용을 가정한 박스 */
+        .box {
+            /* 크기와 배경 색상 지정 */
+            width: 400px;
+            height: 200px;
+            background-color: #f60;
+            /* 왼쪽 상단을 부모 요소 중심에 맞춤 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* 세로축으로 높이의 반만큼 위로 이동시켜 중앙에 맞춤 */
+            margin-top: -100px;
+            /* 글자 위치,색상 */
+            text-align: center;
+            color: white;
+            line-height: 200px;
+            font-size: 40px;
+        }
+
+        /* 첫 번째 박스는 자신의 사이즈+50(여백)만큼 왼쪽으로 이동 */
+        .box-left { margin-left: -450px; }
+        /* 두 번째 박스는 50(여백)만큼 오른쪽으로 이동 */
+        .box-right { margin-left: 50px; }
+    </style>
+</head>
+
+<body>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <div class="section">
+        <div class="box box-left" data-aos="fade-right">Hello</div>
+        <div class="box box-right" data-aos="fade-left">World</div>
+    </div>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/aos/aos.js"></script>
+    <script>
+        $(function() {
+            /** 여러 요소에게 동시에 지정할 경우 jQuery 함수로 일괄처리 가능 */
+            AOS.init({
+                offset: 200,
+                easing: 'ease-in-sign',
+                duration: 600,
+                delay: 100,
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>jquery plugin</title>
+    <!-- 플러그인 CSS 참조 -->
+    <link rel="stylesheet" href="./plugins/youcover/youCover.css">
+    <style>
+        /** 동영상 영역의 전체 크기를 설정한다. */
+        .my-youtube-wrapper { width: 640px; height: 480px; margin: auto; }
+        /** 내부적으로 사용되는 <iframe>태그의 border 제거 */
+        iframe { border: 0; }
+    </style>
+</head>
+<body>
+    <!-- 동영상 영역 : 크기 지정을 위한 div -->
+    <div class="my-youtube-wrapper">
+        <!-- 동영상 플레이어 -->
+        <div data-youcover data-id='9hWgA7qjK2c'></div>
+    </div>
+    <!-- jQuery 참조 -->
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 플러그인 JS 참조 -->
+    <script src='./plugins/youcover/youCover.js'></script>
+</body>
+</html>
+

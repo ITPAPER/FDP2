@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <style type="text/css">
+        /** 카드 영역 전체 크기 설정 */
+        .card { width: 300px; height: 300px; border: 1px solid #ff6600; }
+        /** 전면  */
+        .hello { background-color: blue; }
+        /** 후면 */
+        .world { background-color: red; }
+    </style>
+</head>
+
+<body>
+    <div id="mycard" class="card">
+        <!-- 전면 -->
+        <div class="hello"><h1>Hello</h1></div>
+        <!-- 후면 -->
+        <div class="world"><h1>World</h1></div>
+    </div>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/flip/jquery.flip.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            // 플립효과 적용 --> 옵션 지정
+            $("#mycard").flip({
+                axis: "x",              // 회전축 (x,y)
+                reverse: true,          // 역방향 회전 여부 (true,false)
+                trigger: "hover",       // 동작조건 (click, hover)
+                front: $('.hello'),     // 전면용 박스의 jQuery객체
+                back: $('.world'),      // 후면용 박스의 jQuery객체
+                speed: '250',           // 재생시간 (1/1000초)
+                autoSize: false         // 전면,후면의 자동 크기 옵션
+                                        // --> 카드영역을 채울지 여부-true,false
+            });
+        });
+    </script>
+</body>
+
+</html>

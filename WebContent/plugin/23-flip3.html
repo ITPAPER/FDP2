@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <style type="text/css">
+        /** 페이지 전체 여백 설정 */
+        html, body { padding: 0; margin: 0; width: 100%; height: 100%; }
+
+        /** 배경 지정용 박스 > 배경이미지 고정 처리 */
+        .reserve-table {
+            width: 100%;
+            height: 400px;
+            background: url(img/reserve_bg.jpg) center center no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 400px auto;
+            display: table;
+        }
+
+        /** 플립박스를 세로 중앙에 배치하기 위한 처리 */
+        .reserve-cell { display: table-cell; vertical-align: middle; }
+
+        /* 플립박스 */
+        #reserve { width: 250px; height: 250px; margin: auto; }
+
+        /* 전면 */
+        #reserve-front {
+            background: url(img/reserve_medal01.png) center center no-repeat;
+            background-size: cover;
+        }
+
+        /* 후면 */
+        #reserve-back {
+            background: url(img/reserve_medal02.png) center center no-repeat;
+            background-size: cover;
+            text-align: center;
+        }
+
+        /* 플립박스 내의 링크 */
+        #reserve-back a {
+            display: inline-block;
+            width: 170px;
+            padding: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 160px;
+            text-align: center;
+            border: 3px solid #222;
+            color: #222;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 배경 지정용 박스 -->
+    <div class="reserve-table">
+        <!-- 플립박스를 세로 중앙에 배치하기 위한 처리 -->
+        <div class="reserve-cell">
+            <!-- 플립박스 -->
+            <div id="reserve">
+                <!-- 전면 -->
+                <div id="reserve-front"></div>
+                <!-- 후면 -->
+                <div id="reserve-back">
+                    <a href="#">매장보기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/flip/jquery.flip.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#reserve").flip({
+                trigger: "hover",           // 마우스 오버시 발생
+                front: $('#reserve-front'), // 전면 지정
+                back: $('#reserve-back'),   // 후면 지정
+                speed: '250'                // 애니메이션 속도
+            });
+        });
+    </script>
+</body>
+
+</html>

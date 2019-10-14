@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/aos/aos.css" />
+    <style>
+        .box {
+            width: 300px;
+            height: 200px;
+            font-size: 40px;
+            color: white;
+            background-color: #f60;
+            text-align: center;
+            line-height: 200px;
+            margin: 250px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" data-aos="fade-zoom-in" data-aos-offset="100" 
+                     data-aos-easing="ease-in-sine" data-aos-duration="600">AOS</div>
+
+    <div class="box" data-aos="fade-left" data-aos-offset="100" 
+                     data-aos-easing="ease-in-sine" data-aos-duration="600">AOS</div>
+
+    <div class="box" data-aos="fade-right" data-aos-offset="100" 
+                     data-aos-easing="ease-in-sine" data-aos-duration="600">AOS</div>
+
+    <div class="box" data-aos="fade-up" data-aos-offset="100" 
+                     data-aos-easing="ease-in-sine" data-aos-duration="600">AOS</div>
+
+    <div class="box" data-aos="fade-down" data-aos-offset="100" 
+                     data-aos-easing="ease-in-sine" data-aos-duration="600">AOS</div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/aos/aos.js"></script>
+    <script>
+        $(function() {
+            AOS.init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <style type="text/css">
+        /* 전체 여백과 목록 정의 스타일 제거 */
+        * { padding: 0; margin: 0; list-style: none; }
+
+        /* 아이템 하나당 넓이 > 한 줄에 4개씩 구성 */
+        #grid .item { width: 25%; }
+
+        /* 각 아이템의 여백을 구성하기 위한 박스 */
+        #grid .item .item-box { padding: 5px; width: auto; }
+
+        /* 각 아이템별 내용을 구성하기 위한 박스 */
+        #grid .item .item-box .item-content { border: 1px solid #eee; }
+
+        /* 각 이이템 내의 이미지에 대한 크기 및 아래 테두리 지정 */
+        #grid .item .item-box .item-content .img {
+            width: 100%; border-bottom: 1px solid #eee;
+        }
+
+        /* 아이템별 제목영역 */
+        #grid .item .item-box .item-content .title {
+            color: #333; font-size: 14px; font-weight: bold; padding: 5px 10px;
+        }
+
+        /* 아이템별 내용영역 */
+        #grid .item .item-box .item-content .desc {
+            color: #555; font-size: 12px; padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- grid 목록 -->
+    <ul id="grid">
+        <!-- 게시글 하나 단위 -->
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/1.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/2.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/3.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/4.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/5.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/6.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/7.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/8.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/9.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <div class="item-box">
+                <div class="item-content">
+                    <img src="img/sample/10.jpg" class='img'/>
+                    <h3 class="title">Item Title</h3>
+                    <p class="desc">This is description message.</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/masonry/masonry.pkgd.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#grid').masonry({    // 플러그인 적용하기
+                itemSelector: '.item'
+            });
+        });
+    </script>
+</body>
+
+</html>

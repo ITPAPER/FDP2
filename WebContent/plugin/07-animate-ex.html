@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/animate/animate.css" />
+    <style>
+    .clearfix:after { clear:both; content: ''; float: none; display: block; }
+    .pull-left { float: left; }
+    /* 화면에 표시하지 않음 */
+    #coffee1, #coffee2, #coffee3 { visibility: hidden; }
+    </style>
+</head>
+
+<body>
+    <div class="clearfix">
+        <div id="coffee1" class="pull-left"><img src="img/coffee1.jpg" /></div>
+        <div id="coffee2" class="pull-left"><img src="img/coffee2.jpg" /></div>
+        <div id="coffee3" class="pull-left"><img src="img/coffee3.jpg" /></div>
+    </div>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src='plugins/animate/jquery.animatecss.min.js'></script>
+    <script type="text/javascript">
+        $(function() {
+            // 페이지 실행 즉시 2초 동안 재생
+            $("#coffee1").animateCSS('fadeIn', { duration: 2000 });
+            // 페이지 실행 0.7초 이후 2초동안 재생
+            $("#coffee2").animateCSS('fadeIn', { duration: 2000, delay: 700 });
+            // 페이지 실행 1.4초 이후 2초동안 재생
+            $("#coffee3").animateCSS('fadeIn', { duration: 2000, delay: 1400 });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/animate/animate.css" />
+    <style>
+        html, body { padding: 0; margin: 0; width: 100%; height: 100%;  }
+
+        #header {
+            width: 100%;
+            height: 100%;
+            background: url(img/bg5.jpg) center center no-repeat;
+            background-size: cover;
+            display: table;     /* 자식요소를 세로 중앙에 놓기 위한 처리 */
+        }
+
+        #header .header-container {
+            color: white;
+            text-align: center;
+            display: table-cell;    /* 이 요소를 세로 중앙에 놓기 위한 처리 (1) */
+            vertical-align: middle; /* 이 요소를 세로 중앙에 놓기 위한 처리 (2) */
+        }
+
+        #header .header-container h1 {
+            font-size: 72px;
+            border-bottom: 1px solid #fff;
+            visibility: hidden;     /* 화면에서 숨김 */
+        }
+
+        #header .header-container p {
+            font-size: 16px;
+            visibility: hidden;     /* 화면에서 숨김 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div class="header-container">
+            <h1>Hello Animate</h1>
+            <p>Just-add-water CSS animations</p>
+            <p>A jQuery plugin to dynamically apply Dan Eden's animate.css
+                animations with callbacks</p>
+        </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src='plugins/animate/jquery.animatecss.min.js'></script>
+    <script type="text/javascript">
+        $(function() {
+            // 페이지 실행 후 즉시 1초동안
+            $(".header-container h1").animateCSS('bounceInUp', {
+                duration: 1000
+            });
+
+            // 페이지 실행 0.5초 후 0.8초동안
+            $(".header-container p:eq(0)").animateCSS('bounceInUp', {
+                duration: 800,
+                delay: 500
+            });
+            // 페이지 실행 0.8초 후 1.3초동안
+            $(".header-container p:eq(1)").animateCSS('bounceInUp', {
+                duration: 1300,
+                delay: 800
+            });
+        });
+    </script>
+</body>
+
+</html>

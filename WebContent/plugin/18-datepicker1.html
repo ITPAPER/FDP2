@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+    <link rel="stylesheet" href="plugins/datepicker/datepicker.min.css" />
+    <style>
+        /** DatePicker의 글꼴 설정 */
+        .datepicker-container { font-family: 'Helvetica','나눔고딕','맑은고딕' }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="datepicker" />
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="plugins/datepicker/datepicker.min.js"></script>
+    <script src="plugins/datepicker/i18n/datepicker.ko-KR.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker").datepicker({
+                autoHide: true,         // 날짜 선택 후 자동 숨김 (true/false)
+                format: 'yyyy-mm-dd',   // 날짜 형식
+                language: 'ko-KR',      // 언어
+                weekStart: 0            // 시작요일(0=일요일~6=토요일)
+            });
+        });
+    </script>
+</body>
+
+</html>

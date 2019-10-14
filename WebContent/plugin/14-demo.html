@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery plugin</title>
+    <link rel="stylesheet" href="plugins/animate/animate.css" />
+    <link rel="stylesheet" href="plugins/superslides/stylesheets/superslides.css">
+    <style>
+        /*------------------------------------------------------------
+         | 기본설정
+         -------------------------------------------------------------*/
+        /** 문서 전체 크기, 여백 설정 */
+        html, body { width: 100%; height: 100%; padding: 0; margin: 0; }
+
+        /** Float 처리 클래스 */
+        .pull-left { float: left; }
+        .pull-right { float: right; }
+        .clearfix:after { content: ''; display: block; clear: both; float: none; }
+
+        /*------------------------------------------------------------
+         | 메뉴바 설정
+         -------------------------------------------------------------*/
+        /** Headroom 플러그인이 적용될 메뉴바 */
+        #site-header {
+            /** 스크롤 이동에 상관 없이 위치 고정 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            /** 사이즈,색상 설정 */
+            width: 100%;
+            height: 55px;
+            background: rgba(0, 0, 0, 0.5);
+            /** animate.css에 의해 적용될 애니메이션의 재생시간 설정 */
+            animation-duration: 500ms;
+        }
+
+        /** 메뉴바 > 메뉴영역 넓이 제한 */
+        #site-header .container { width: 1200px; margin: auto; }
+        /** 메뉴바 > 메뉴영역 > 좌측 로고 */
+        #site-header h1 { font-size: 24px; color: white; padding: 13px 0; margin: 0; }
+        /** 메뉴바 > 메뉴영역 > 우측 메뉴 목록 */
+        #site-header .menu { display: inline-block; list-style: none; padding: 0; margin: 0; }
+        /** 메뉴바 > 메뉴영역 > 우측 메뉴 목록 > 목록 아이템 */
+        #site-header .menu .menu-item { font-size: 18px; color: white; margin: 17px 20px; }
+
+        /*------------------------------------------------------------
+         | 슬라이드 설정
+         -------------------------------------------------------------*/
+        /* 슬라이드 영역의 크기. 여기서 설정한 크기 만큼 슬라이드가 표시된다. */
+        #slide-container { width: 100%; height: 100%; }
+        
+        /* 내용영역 정의 (슬라이드영역을 가득 채운다) */
+        #slides .slide-contents { height: 100%; width: 100%; display: table; }
+
+        /* 내용영역의 컨텐츠 */
+        #slides .slide-contents-cell {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px #000;
+        }
+
+        /* 각 슬라이드의 제목 */
+        #slides .slide-contents-cell h1 {
+            font-size: 72px;
+            font-weight: bold;
+            padding: 5px 20px;
+            margin: 0;
+            margin-bottom: 20px;
+            border: 3px solid #fff;
+            display: inline-block;
+        }
+
+        /* 각 슬라이드의 내용 */
+        #slides .slide-contents-cell p {
+            color: #fff;
+            text-shadow: 0 1px #000;
+            font-size: 28px;
+            padding: 0;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+
+        /** 좌우 화살표 처리 */
+        #slides .slides-navigation { height: 100%; top: 0; }
+
+        #slides .slides-navigation a {
+            display: block;
+            text-indent: -10000px;
+            width: 50px;
+            height: 100%;
+            background: url(img/arrow.png) no-repeat;
+        }
+
+        #slides .slides-navigation a:first-child {
+            background-position: -50px center;
+        }
+
+        #slides .slides-navigation a:last-child {
+            background-position: 0px center;
+        }
+
+        /*------------------------------------------------------------
+         | 이미지 목록 설정
+         -------------------------------------------------------------*/
+        /* 이미지 목록 */
+        #gallery { width: 1100px; margin: 20px auto; list-style: none; padding: 0; }
+
+        /* 이미지 목록 > 아이템(li) */
+        #gallery .item { width: 33.3%; height: 250px; }
+
+        /* 이미지 목록 > 아이템 > 박스(여백 설정용) */
+        #gallery .item-box { width: auto; height: 230px; padding: 10px; }
+
+        /* 이미지 목록 > 아이템 > 박스 > 링크 */
+        #gallery .item-box .item-link {
+            display: block; width: auto; height: 100%;
+            /* 자식요소의 scale이 확대되더라도 링크를 벗어나는 영역을 잘라낸다 */
+            overflow: hidden; 
+            /* 자식요소의 위치가 이 링크를 기준으로 설정되도록 한다 */
+            position: relative;
+        }
+
+        /* 이미지 목록 > 아이템 > 박스 > 링크 > 배경박스 */
+        #gallery .item-box .item-link .item-bg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            transition: transform 0.3s;     /* CSS에 변화가 생길 때 애니메이션 적용 */
+        }
+
+        /* 이미지 목록 > 아이템 > 박스 > 링크 > 내용박스(오버레이) */
+        #gallery .item-box .item-link .item-content {
+            /* 반투명 배경 */
+            background-color: rgba(0, 0, 0, 0.4);   
+            /* 위치,크기 설정 : 부모요소인 링크를 기준으로 좌표를 잡는다 */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;                                
+            height: 100%;
+            /* 텍스트를 세로 중앙에 배치하기 위한 처리 */
+            display: table;
+            /* 투명하게 설정 */
+            opacity: 0;
+            /* CSS에 변화가 생길 때 애니메이션 적용 */
+            transition: all 0.5s;
+        }
+
+        /* 이미지 목록 > 아이템 > 박스 > 링크 > 내용박스(오버레이) > 텍스트 */
+        #gallery .item-link .item-content .item-text {
+            /* 텍스트를 세로 중앙에 배치하기 위한 처리 */
+            display: table-cell;
+            vertical-align: middle;
+            /* 글자색상,정렬 */
+            color: white;
+            text-align: center;
+        }
+
+        /* 마우스 오버 효과 - 확대 */
+        #gallery .item-link:hover .item-bg { transform: scale(1.1, 1.1); }
+
+        /* 마우스 오버 효과 - 불투명 처리 */
+        #gallery .item-link:hover .item-content { opacity: 1; }
+    </style>
+</head>
+
+<body>
+    <!-- 메뉴바 영역 -->
+    <header id="site-header">
+        <div class="container clearfix">
+            <h1 class='pull-left'>My Site</h1>
+            <ul class="menu pull-right">
+                <li class='menu-item pull-left'>Item1</li>
+                <li class='menu-item pull-left'>Item2</li>
+                <li class='menu-item pull-left'>Item3</li>
+                <li class='menu-item pull-left'>Item4</li>
+                <li class='menu-item pull-left'>Item5</li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 슬라이드의 부모(높이와 넓이를 구성한다) -->
+    <div id="slide-container">
+        <div id="slides">
+            <ul class="slides-container">
+                <!-- 슬라이드 1 -->
+                <li>
+                    <div class="slide-contents">
+                        <div class="slide-contents-cell">
+                            <h1>HTML</h1>
+                            <p>HTML은 웹 페이지의 뼈대를 구성하는 마크업 언어 입니다.</p>
+                        </div>
+                    </div>
+                    <img src="img/bg1.jpg" />
+                </li>
+                <!-- 슬라이드 2 -->
+                <li>
+                    <div class="slide-contents">
+                        <div class="slide-contents-cell">
+                            <h1>CSS</h1>
+                            <p>CSS는 준비한 HTML문서에 디자인을 적용하는 언어 입니다.</p>
+                        </div>
+                    </div>
+                    <img src="img/bg2.jpg" />
+                </li>
+                <!-- 슬라이드 3 -->
+                <li>
+                    <div class="slide-contents">
+                        <div class="slide-contents-cell">
+                            <h1>Javascript</h1>
+                            <p>Javascript를 사용하여 사용자 경험을 구현할 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <img src="img/bg3.jpg" />
+                </li>
+            </ul>
+            <!-- 좌우 이동 버튼 (필요 없을 경우 구현하지 않아도 된다) -->
+            <nav class="slides-navigation">
+                <a href="#" class="next">Next</a>
+                <a href="#" class="prev">Previous</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 이미지 목록 -->
+    <div>
+        <ul id="gallery" class="list-unstyled clearfix">
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img01.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img02.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img03.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img04.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img05.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img01.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img02.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img03.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img04.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img05.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img01.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img02.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img03.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img04.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <li class="item pull-left">
+                <div class="item-box">
+                    <a href="#" class="item-link">
+                        <span class="item-bg" style="background-image: url(img/img05.jpg);"></span>
+                        <span class="item-content">
+                            <span class="item-text">
+                                <h3>Hello World</h3>
+                                <p>HTML,CSS,Javascript Example</p>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 플러그인 JS 참조 -->
+    <script src="plugins/headroom/features.js"></script>
+    <script src="plugins/headroom/Debouncer.js"></script>
+    <script src="plugins/headroom/Headroom.js"></script>
+    <script src="plugins/headroom/jQuery.headroom.js"></script>
+    <script src="plugins/superslides/jquery.easing.1.3.js"></script>
+    <script src="plugins/superslides/jquery.superslides.min.js"></script>
+    <script>
+        $(function() {
+            /** headroom 플러그인 적용 */
+            $("#site-header").headroom({
+                "tolerance": 10,
+                // 슬라이더 높이에서 메뉴바 높이를 뺀 만큼까지 표시되도록 설정
+                "offset": $("#slide-container").height() - $("#site-header").height(),
+                "classes": {
+                    initial: "animated",
+                    pinned: "slideInDown",
+                    unpinned: "slideOutUp",
+                    top: "headroom--top",
+                    notTop: "headroom--not-top"
+                }
+            });
+
+            /** `#slides`요소에 대해 플러그인 적용 */
+            $('#slides').superslides({
+                inherit_width_from: '#slide-container', // 슬라이드의 넓이를 구성할 부모 요소
+                inherit_height_from: '#slide-container', // 슬라이드의 높이를 구성할 부모 요소
+                play: 4000, // 재생시간 (1/1000초 단위). 미지정시 자동재생 안됨.
+                animation: 'slide' // 애니메이션 옵션(fade/slide) (미적용시 슬라이드)
+            });
+        });
+    </script>
+</body>
+
+</html>
