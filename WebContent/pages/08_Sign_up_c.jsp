@@ -16,7 +16,7 @@
 			border-radius: 30px;
 			background-color:  #ffa500;
 			font-size: 30px;
-			opacity: 0.7;
+			opacity: 0.6;
 		}
 		
 		.patient {
@@ -29,21 +29,21 @@
 			border-radius: 30px;
 			background-color:  #ffa500;
 			font-size: 30px;
-			opacity: 0.7;
+			opacity: 0.6;
 		}
 		
 		.innerbox {
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%); 
 			color: white;
 			font: 20px;
 		}
 		
-		a { color: white;}
-		a:hover {color: white;}
-		input {
+		.next2 { color: white;}
+		.next2:hover {color: white;}
+		button {
 			background-color:#ffa500;
 			color: white;
 			width: 200px;
@@ -57,9 +57,15 @@
 			height: 200px;
 			position: absolute;
 			top: 800px;
-			marign-auto;
+			marign: auto;
 			text-align: center;
 		}
+		
+		.doc, .pat, .doc:hover, .pat:hover {
+			color: white;
+		}
+		
+		
 		
 	</style>
   </head>
@@ -67,12 +73,12 @@
 	<%@ include file="../inc/top.jsp" %>
 	
 	<div class="container"style="height:900px;">
-		<div class="doctor"><div class="innerbox"><strong><a href="#">의사</a></strong></div></div>
+		<div class="doctor"><div class="innerbox"><strong><a class="doc" href="#">의사</a></strong></div></div>
 		
-		<div class="patient"><div class="innerbox"><strong><a href="#">일반인</a></strong></div></div>
+		<div class="patient"><div class="innerbox"><strong><a class="pat" href="#">일반인</a></strong></div></div>
 	 	
 	 	<div class="next">
-	 		<input type="button" class="btn btn-lg" value="next  >" style="font-weight: bold; font-size: 23px;"/>
+	 		<button type="button" class="btn btn-lg" style="font-weight: bold; font-size: 23px;"/><a class="next2" href="09_Sign_up_a.jsp">next  ></a></button>
 	 	</div>
 	</div>
 	
