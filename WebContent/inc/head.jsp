@@ -57,7 +57,6 @@
      		
      	}
      	.page-move{
-     		display:table-cell;
      		text-align:center;
        		height:70px;
        		vertical-align:middle;
@@ -81,6 +80,18 @@
      		display : block;
      		position: relative;
 			top : 15px;
+     	}
+     	#droph{
+     		list-style: none;
+     		padding:0;
+     		width: 100%;
+     	}
+     	#gnb{
+     		padding:0;
+     		
+     	}
+     	#droph li{
+     		width:20%;
      	}
 	</style>
   </head>

@@ -5,15 +5,84 @@
 <html lang="ko">
   <head>
     <%@ include file="../inc/head.jsp" %>
+    <link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
+    <style type="text/css">
+    	#gmap{width: 1000px;	height: 1000px;}
+    </style>
   </head>
   <body>
 	<%@ include file="../inc/top.jsp" %>
 	
-	<div class="container"style="height:500px;">
-	<h1>여기다가 내용 추가하심 됩니다~</h1>
-	 
+	<br/>
+	<div class="container">
+		<button class="btn btn-warning gu" value="1">강북 지역</button>
+		<button class="btn btn-warning gu" value="2">동서울 지역</button>
+		<button class="btn btn-warning gu" value="3">동남 지역</button>
+		<button class="btn btn-warning gu" value="4">강남 지역</button>
+		<button class="btn btn-warning gu" value="5">남서울 지역</button>
+		<button class="btn btn-warning gu" value="6">서남 지역</button>
+		<button class="btn btn-warning gu" value="7">서서울 지역</button>
+		<button class="btn btn-warning gu" value="8">도심 지역</button>
+	</div>
+	<div class="container">
+		<div class="prog"></div>
+		<div id="result"></div>
+		<div id="gmap"></div>
 	</div>
 	
+	 
+	
 	<%@ include file="../inc/bottom.jsp" %>
+	<script src="../plugins/ajax/ajax_helper.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAYjCPxyhxx8fGlitbS4U2qMUJwWiY6yk"></script>
+	<script src="../plugins/gmaps/gmaps.min.js"></script>
+	<script type="text/javascript">
+    $(function(){
+    	$(".gu").click(function(){
+			var gu = $(this).val();
+			$(".prog").html( $(this).html()+ " 응급실 위치");
+			$.ajax( {
+				url:'../api/eroom.do',
+				method:'get',
+				data:{data:gu},
+				dataType:'json',
+				success:function(req){
+					
+					var map = new GMaps({
+						el: '#gmap',		//지도를 표시할 div의 id값
+						lat: req.items[0].lon,		//지도가 표시될 위도
+						lng: req.items[0].lan,		//지도가 표시될 경도
+						zoom: 14
+					});
+					
+					
+					for(var i=0; i <req.items.length; i++){
+						
+						var desc = "<h3>";						
+						desc += req.items[i].dutyName;
+						desc += "</h3><br/>";
+						desc += req.items[i].dutyAddr;
+					
+						map.addMarker({
+						//마우스 오버시 노란박스
+							title: req.items[i].dutyName,
+							lat: req.items[i].lon,
+							lng: req.items[i].lan,
+							icon:{
+								url:"../plugins/gmaps/map-marker.png",
+								scaledSize: new google.maps.Size(50, 50)
+							},
+							
+							infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
+								content: desc
+							}
+						})
+					};
+				} 		
+				});
+			}); //end ajax
+   		 });
+   
+    </script>
   </body>
 </html>
