@@ -115,8 +115,7 @@ public class ErDaoImpl implements ErDao{
 			
 			 } else { 
 				 JSONObject documents = c.getJSONObject("item");
-					//배열의 각 요소 추출
-					System.out.println(documents);
+					
 					//값 추출
 					String addr = documents.getString("dutyAddr");
 					String name = documents.getString("dutyName");
