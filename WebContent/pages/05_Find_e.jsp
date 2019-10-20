@@ -8,6 +8,35 @@
     <link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
     <style type="text/css">
      	#gmap{	height: 800px;}
+     	/* 전체 박스 크기 및 정렬 */
+    	.accord { width: auto; margin: auto; }
+	
+		.accord-item{
+			width:255px;
+		}
+        /* 제목 영역의 배경색상과 태두리 */
+    	.accord-title {  background: #eeeeee; border: 1px solid #d5d5d5; }
+
+        /* 제목영역의 링크에 대한 크기, 글자모양 */
+    	 .accord-title > a {
+    		display: block; width: auto;
+    		padding: 10px;
+    		color: #222;
+    		font-size: 14px; 
+    		text-decoration: none
+    	} 
+
+        /* 내용영역의 여백, 글자크기, 태두리, 숨김 */
+    	.content {
+    		padding: 10px 15px;
+    		font-size: 12px;
+    		border-left: 1px solid #d5d5d5;
+    		border-right: 1px solid #d5d5d5;
+    		display: none;
+    	}
+
+        /* 마지막 내용 박스의 테두리 보정 */
+    	.content:last-child { border-bottom: 1px solid #d5d5d5;	}
     </style>
   </head>
   <body>
@@ -25,13 +54,22 @@
 		<button class="btn btn-warning gu" value="8">도심 지역</button>
 	</div>
 	<div class="container">
-		<div class="prog"></div>
+		<div class="prog">
+			<span class="progtext">지역을 선택해 주세요</span>
+		</div>
 		<div class="row">
 			<div class="col-md-9" id="gmap"></div>
-			<div class="col-md-3 panel-group" id="accordion">
+			<div class="col-md-3 accord">
+				<div class='accord-item'>
+    				<h4 class='accord-title'><a href="#content"></a></h4>
+    				<div id="content" class="content">
 				
+				<a href="tel:{{dutyTel}}"> </a>
+			</div>
+    	</div>
 			</div>
 		</div>
+		
 		
 	</div>
 	
@@ -40,16 +78,13 @@
 	
 	<!-- 동적으로 생성될 HTML의 기본틀 -->
 	<script type="text/x-handlebars-template" id="list-item-tmpl">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{num}}"> {{num}}. {{dutyName}} </a></h4>
+		<div class='accord-item'>
+    		<h4 class='accord-title'><a href="#content{{num}}" value="{{num}}">{{num}}.{{dutyName}}</a></h4>
+    		<div id="content{{num}}" class="content">
+				주소 : {{dutyAddr}}<br/>
+				<a href="tel:{{dutyTel}}"> 전화번호 : {{dutyTel}}</a>
 			</div>
-			<div id="collapse{{num}}" class="panel-collapse collapse in">
-				<div class="panel-body">
-					{{dutyAddr}}
-				</div>
-			</div>
-		</div>
+    	</div>
 	</script>
 	
 	
@@ -61,6 +96,17 @@
 	<script src="../plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script type="text/javascript">
     $(function(){
+    	var map = new GMaps({
+			el: '#gmap',		//지도를 표시할 div의 id값
+			lat: 37,		//지도가 표시될 위도
+			lng: 127,		//지도가 표시될 경도
+			zoom: 9
+		});
+    	
+    	
+    	
+    	
+    	
     	$(".gu").click(function(){
 			var gu = $(this).val();
 			$(".prog").html( $(this).html()+ " 응급실 위치");
@@ -78,10 +124,10 @@
 						zoom: 14
 					});
 					
-					$("#accordion").empty();
+					$(".accord").empty();
 					
 					for(var i=0; i <req.items.length; i++){
-						var desc = "<h3>";						
+						var desc = "<h3>";				
 						desc += req.items[i].dutyName;
 						desc += "</h3><br/>";
 						desc += req.items[i].dutyAddr;
@@ -92,8 +138,26 @@
 						var html = template(req.items[i]);
 						
 						//#list에 읽어온 내용을 추가한다.
-						$("#accordion").append(html);
-						//
+						$(".accord").append(html);
+						
+						
+						if(i == req.items.length-1){
+							$(".accord-title a").click(function(e) {
+					            // 링크의 기본 동작(페이지 이동) 방지
+								e.preventDefault();
+
+								var target = $(this).attr('href');
+								$(target).slideToggle(100);
+								$(".content").not($(target)).slideUp(100);
+							
+								var title = $(this).html();
+								var num = title.indexOf(".");
+								var key = title.substring(num+1);
+								
+								$("#gmap").find("div[title='"+key+"']").click();
+
+							});	
+						}
 						
 						
 						map.addMarker({
@@ -114,7 +178,11 @@
 				} 		
 				});
 			}); //end ajax
-   		 });
+			
+    	
+    	
+			
+   	});
    
     </script>
   </body>
