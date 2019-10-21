@@ -86,7 +86,7 @@
 	
 	<div class="container"style="width: 1170px; height:1300px;">
 	 
-	<div class="agrtitle1"><h3> 이용약관</h3></div>
+	<div class="agrtitle1"><h3><strong>이용약관</strong></h3></div>
 	 
 	<div class="agrment1">
 	 AGREEMENT1<br>
@@ -145,7 +145,7 @@
 	 	<input class="agree" type="checkbox" /> <span>&nbsp; 위의 이용약관에 동의합니다. </span> <br/>
 	 </div>
 	 
-	 <div class="agrtitle2"><h3>개인정보 수집 및 이용에 대한 안내</h3></div>
+	 <div class="agrtitle2"><h3><strong>개인정보 수집 및 이용에 대한 안내</strong></h3></div>
 	 
 	 <div class="agrment2">
 	 AGREEMENT2<br>
@@ -200,37 +200,33 @@
 	 </div>
 	 
 	 <div class="agrmsg2-1">
-	 <form name="form1">
-	 	<input class="agree" id="agree" type="checkbox" /> <span>&nbsp; 위의 개인정보 수집 및 이용에 대한 안내에 동의합니다.</span> <br/>
-	</form>
+		 	<input class="agree"  type="checkbox" /> <span>&nbsp; 위의 개인정보 수집 및 이용에 대한 안내에 동의합니다.</span> <br/>
 	 </div>
 	 
-	 <div class="all"><input type='checkbox' id='all_check'>전체선택</div>
+	 <div class="all"><input type='checkbox' id='all_check'> &nbsp; 전체선택</div>
 	 
 	 <div class="confirm">
-		 <button type="button" class="btn btn-lg" style="font-weight: bold; font-size: 23px;"><a href="10_Sign_up_i_d.jsp">확인</a></button>
+		 <button type="button" class="btn btn-lg btn-warning" onclick="location.href='10_Sign_up_i_d.jsp'" style="font-size: 23px; color: white;">
+		 	
+		 	확인
+		 </button>
 		 &nbsp; 
-		 <button type="button" class="btn btn-lg" style="font-weight: bold; font-size: 23px;"><a href="01_Main.jsp">취소</a></button>
+		 <button type="button" class="btn btn-lg btn-warning" onclick="location.href='01_Main.jsp'"style="font-size: 23px; color: white;">취소</button>
 	 </div>
 	 </div>
 	 
 	 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	 <script type="text/javascript">
-        $(function() {
-            /* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
-            $("#all_check").change(function() {
-                // 모든 `.hobby`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
-                $(".agree").prop('checked', $(this).prop('checked'));
-            });
+		$(function() {
+			$("#all_check").change(function() {
+				$(".agree").prop('checked', $(this).prop('checked'));
+			});
+		});
             
-        
+        	
        
     </script>
 </body>
-	 
-	 
-	
-	
 	<%@ include file="../inc/bottom.jsp" %>
   </body>
 </html>
