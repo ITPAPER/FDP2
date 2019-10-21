@@ -48,8 +48,6 @@
 		<!DOCTYPE html>
 		<html lang="ko">
 
-
-
 	<h1 id="title">Q & A</h1>
 	<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 	
@@ -61,7 +59,7 @@
 	</form>
 	
 
-	<div class="container">
+	
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
@@ -146,7 +144,7 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+	
 
 <ul class="pagination pagination-md">
 			  <li class="disabled"><a href="#">&laquo;</a></li>
