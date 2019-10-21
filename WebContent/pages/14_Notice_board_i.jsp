@@ -4,6 +4,7 @@
 <!doctype html>
 <html lang="ko">
 <style type="text/css">
+
 .menu-right {
 		margin-left: 980px;
 	}
@@ -12,6 +13,18 @@
 		display: inline-block;
 		
 	}
+	
+	img {
+		width: 20px;
+		height: 20px;
+		padding-right: 5px;
+	}
+	
+	th {
+	height: 60px;
+	background: #E0E0E0;
+	}
+	
 	
 </style>
   <head>
@@ -33,26 +46,41 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th class="text-center">제목</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td class="text-center">안녕하세요. </br>
+							<td><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+						</tr>
+						<tr>
+							<td>
+							<p></p>
+							안녕하세요. </br>
 							3살 아기가 며칠전부터 피부에 빨간 반점이 올라오는 등 이상 증상이 있네요. </br> 
-							미열도 있습니다. 사진 첨부합니다. 조언부탁드려요.</td>
+							미열도 있습니다. 사진 첨부합니다. 조언부탁드려요.
+							<p></p>
+							</td>
 						</tr>
 						<tr>
-							<td class="text-center">첨부파일</td>
+							<td>
+							<a href="../img/baby_redspot.jpg"><img alt="첨부파일" src="../img/attachment.png">피부 붉은 반점.jpg</a>
+							</td>
 						</tr>
 						<tr>
-							<td class="text-center">수두인 것으로 예측됩니다.
-							빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.</td>
+							<td><b>답변일: 2019-09-09 | 전문의: 박기협 | 전문 분야 : 소아과</b></td>
 						</tr>
+						<td>
+							<p></p>
+							수두인 것으로 예측됩니다.
+							빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
+							<p></p>
+							</td>
+						
 						
 						<tr>
 							<td>
-							<h4><b>댓글</b></h4></br>
+							<h5><b>댓글</b></h5></br>
 								<!-- 웹진 박스를 목록으로 구성하기 위한 구조 입니다. -->
 			<ul class="media-list">
 				<!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
@@ -60,7 +88,7 @@
 						<!-- 제목영역의 float 처리를 위한 마감제 박스 -->
 						<div class="clearfix">
 							<!-- 제목에 float: left 적용 - pull-left -->
-							<h4 class="media-heading pull-left">cpfl***</h4>
+							<h5 class="media-heading pull-left">cpfl***</h5>
 							<!-- 제목에 float: right 적용 - pull-right -->
 							<div class="pull-right">
 								<a href="#" title="수정"><i class="glyphicon glyphicon-edit"></i></a>
@@ -79,7 +107,6 @@
 	
 	 <span class="menu-right">
 				<li class="a"><a href="14_Notice_board_i.jsp" class="btn btn-default btn-sm" id="btn4">삭제
-				
 				</a></li>
 				<li class="a"><a href="14_Notice_board_i.jsp" class="btn btn-default btn-sm">수정</a></li>
 				<li class="a"><a href="13_Notice_board.jsp" class="btn btn-default btn-sm">메뉴</a></li>
@@ -89,7 +116,7 @@
 	
 	 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="plugins/sweetalert/sweetalert2.all.min.js"></script> 
-				  <script>
+			<script>
 			  $(function() {
 				  $(".menu-right #btn4").click(function() {
 		                // 확인, 취소버튼에 따른 후속 처리 구현

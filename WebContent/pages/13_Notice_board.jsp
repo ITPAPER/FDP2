@@ -157,7 +157,7 @@
 			</ul>
 			
 			<span class="menu-right">
-				<li class="a"><a href="Notice_board_i.jsp" class="btn btn-default btn-sm">글쓰기</a></li>
+				<li class="a"><a href="16_Notice_board_new.jsp" class="btn btn-default btn-sm">글쓰기</a></li>
 				<li class="a"><a href="Notice_board_i.jsp" class="btn btn-default btn-sm">삭제</a></li>
 			</span>
 		</html>
