@@ -7,7 +7,7 @@
     <%@ include file="../inc/head.jsp" %>
     
     <style>
-    * {
+   	    * {
 			padding: 0;
 			margin: 0;
 			text-decoration: none;
@@ -85,16 +85,10 @@
 			left: 7px;
 		}
 
-		ul > .list {
-			width: 100%;
-			height: 50px;
+		tbody tr td {
+			height: 50px;	
 		}
-
-		ul > .list a {
-			display: block;
-			width: 100%;
-			height: 50px;
-		}
+			
     </style>
   </head>
   <body>
@@ -109,7 +103,8 @@
 			<div class="box-high pull-left" style="background: #ffa500;">
 				<div class="mlogin">
 					<h4>Find Doctor를 더 안전하고 편리하게 관리하세요.</h4>
-					<button type="button" class="btn btn-gray">
+					<button type="button" class="btn btn-gray" 
+					onclick = "location.href ='20_Login_s.jsp'">
 						Find Doctor 관리자 로그인	
 					</button>
 				</div>
@@ -121,39 +116,64 @@
 						더보기
 					</button>
 				</div>
-				<div class="high-bototm">
-					<ul>			
-						<li class="list"><a href="#">리스트1</a></li>						
-						<li class="list"><a href="#">리스트2</a></li>
-						<li class="list"><a href="#">리스트3</a></li>
-						<li class="list"><a href="#">리스트4</a></li>
-						<li class="list"><a href="#">리스트5</a></li>
-					</ul>
-				</div>
+				<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td class="text-center">1</td>
+						<td class="text-center">게시물 삭제</td>						
+					</tr>
+					<tr>
+						<td class="text-center">2</td>
+						<td class="text-center">게시물 옮기기</td>						
+					</tr>
+					<tr>
+						<td class="text-center">3</td>
+						<td class="text-center">게시물 수정</td>	
+					</tr>
+					<tr>
+						<td class="text-center">4</td>
+						<td class="text-center">뭐하지</td>	
+					</tr>
+					<tr>
+						<td class="text-center">5</td>
+						<td class="text-center">뭐넣을까?</td>	
+					</tr>
+				</tbody>
+				</table>
 			</div>
 		</div>
 		<div class="box-l">
 			<div class="box-low pull-left">
 				<div class="low-top">
-					<h4 class="pull-left">누적 접속회원 통계</h4>
+					<h4 class="pull-left">누적 접속회원 통계(modal)</h4>
 					<button type="button" class="btn btn-primary pull-right">
 						더보기
 					</button>
 				</div>
-				<div class="low-bottom">
-					<ul>			
-						<li class="list">
-							<a data-toggle="modal" 
-								href="#myModal">
-								회원 연령별 통계
-							</a>
-						</li>						
-						<li class="list"><a href="#">리스트2</a></li>
-						<li class="list"><a href="#">리스트3</a></li>
-						<li class="list"><a href="#">리스트4</a></li>
-						<li class="list"><a href="#">리스트5</a></li>
-					</ul>
-				</div>
+				<table class="table table-hover">
+				<tbody>
+					<tr data-toggle="modal" data-target="#myModal">
+						<td class="text-center">1</td>
+						<td class="text-center">연령별 통계</td>						
+					</tr>
+					<tr  data-toggle="modal" data-target="#myModal">
+						<td class="text-center">2</td>
+						<td class="text-center">나이별 통계</td>						
+					</tr>
+					<tr  data-toggle="modal" data-target="#myModal">
+						<td class="text-center">3</td>
+						<td class="text-center">지역별 통계</td>	
+					</tr>
+					<tr  data-toggle="modal" data-target="#myModal">
+						<td class="text-center">4</td>
+						<td class="text-center">계절별 통계</td>	
+					</tr>
+					<tr  data-toggle="modal" data-target="#myModal">
+						<td class="text-center">5</td>
+						<td class="text-center">통계</td>	
+					</tr>
+				</tbody>
+				</table>
 			</div>
 			<div class="box-low pull-right">
 				<div class="low-top">
@@ -162,15 +182,30 @@
 						더보기
 					</button>
 				</div>
-				<div class="low-bottom">
-					<ul>			
-						<li class="list"><a href="#">리스트1</a></li>						
-						<li class="list"><a href="#">리스트2</a></li>
-						<li class="list"><a href="#">리스트3</a></li>
-						<li class="list"><a href="#">리스트4</a></li>
-						<li class="list"><a href="#">리스트5</a></li>
-					</ul>   
-				</div>
+				<table class="table table-hover">
+				<tbody>
+					<tr>
+						<td class="text-center">1</td>
+						<td class="text-center">일반 회원정보 열람</td>						
+					</tr>
+					<tr>
+						<td class="text-center">2</td>
+						<td class="text-center">의사 회원정보 열람</td>						
+					</tr>
+					<tr>
+						<td class="text-center">3</td>
+						<td class="text-center">신고회원 조회</td>	
+					</tr>
+					<tr>
+						<td class="text-center">4</td>
+						<td class="text-center">대기회원 조회</td>	
+					</tr>
+					<tr>
+						<td class="text-center">5</td>
+						<td class="text-center">회원 강퇴</td>	
+					</tr>
+				</tbody>
+				</table>
 			</div>
 		</div>
 		<!-- box-top 끝 -->
@@ -214,16 +249,7 @@
 	<%@ include file="../inc/bottom.jsp" %>
 	
 	<script type="text/javascript">
-	$(function(){
-		$(".list").hover(
-			function(e){
-				$(this).css("background-color","#fff").css("color","white");
-			},
-			function(e){
-				$(this).css("background-color","#ccc").css("color","#ffa500");
-			}   
-			);
-	});
+	
 	</script>
   </body>
 </html>
