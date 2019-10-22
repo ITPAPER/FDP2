@@ -74,69 +74,69 @@
 					<tbody>
 						<tr>
 							<td class="text-center">1</td>
-							<td class="text-center">목이 아파요</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">목이 아파요</td>
 							<td class="text-center">김체리</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">456</td>
 						</tr>
 						<tr>
 							<td class="text-center">2</td>
-							<td class="text-center">열과 두통</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">열과 두통</td>
 							<td class="text-center">이승석</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">4345</td>
 						</tr>
 						<tr>
 							<td class="text-center">3</td>
-							<td class="text-center">피부 알레르기</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">피부 알레르기</td>
 							<td class="text-center">정민기</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">536</td>
 						</tr>
 						<tr>
 							<td class="text-center">4</td>
-							<td class="text-center">환절기 질병</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">환절기 질병</td>
 							<td class="text-center">조지현</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">865</td>
 						</tr>
 						<tr>
 							<td class="text-center">5</td>
-							<td class="text-center">유행성 독감</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">유행성 독감</td>
 							<td class="text-center">박기협</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">5678</td>
 						<tr>
 							<td class="text-center">6</td>
-							<td class="text-center">목이 아파요</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">목이 아파요</td>
 							<td class="text-center">첼첼</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">34543</td>
 						</tr>
 						<tr>
 							<td class="text-center">7</td>
-							<td class="text-center">열과 두통</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">열과 두통</td>
 							<td class="text-center">조장님</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">4567</td>
 						</tr>
 						<tr>
 							<td class="text-center">8</td>
-							<td class="text-center">피부 알레르기</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">피부 알레르기</td>
 							<td class="text-center">밍키밍키</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">7885</td>
 						</tr>
 						<tr>
 							<td class="text-center">9</td>
-							<td class="text-center">환절기 질병</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">환절기 질병</td>
 							<td class="text-center">젼</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">7899</td>
 						</tr>
 						<tr>
 							<td class="text-center">10</td>
-							<td class="text-center">유행성 독감</td>
+							<td class="text-center" onClick="location.href='14_Notice_board_i.jsp'" style="cursor:pointer;">유행성 독감</td>
 							<td class="text-center">쿨켭</td>
 							<td class="text-center">2019-10-18</td>
 							<td class="text-center">6785</td>
