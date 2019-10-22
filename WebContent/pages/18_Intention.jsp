@@ -24,10 +24,10 @@
 	background:#fff;
 }
 
-img {
+#gnb img {
 	dispaly: block;
 	width: 60px;
-	padding: 6px;
+	padding: 10px;
 }
 
 .icon1 {
@@ -41,8 +41,6 @@ img {
 	position:relative;
 	right:19px;
 }
-
-
 
 .menu .navbar .collapse .btn-group .btn-info {
 	background-color: #aaaaaa;
@@ -73,7 +71,7 @@ div#box1 {
 	height: 600px;
 	margin: 0 40px 0 5px;
 	border-color: #fff;
-	background: url(../img/healing2.jpg) no-repeat;
+	background: url(../img/heart_c2.jpg) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 		}
@@ -95,7 +93,7 @@ p {
 				<!-- 메뉴 항목 -->
 				<div class="collapse navbar-collapse" id="gnb">
 					<ul class="nav navbar-nav">
-								<li><span class="icon"><a href="#"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
+								<li><span class="icon"><a href="01_Main.jsp"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
 				<div class="btn-group">
 				<button  type="button"  class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 					메뉴
@@ -125,17 +123,17 @@ p {
 			</div>
 			</div>
 				
-					 <a href="#"><span class="icon1"> <img src="../img/list.png" alt="병원찾기" /></span></a>
+					 <a href="#"><span class="icon1"> <img src="../img/URLcopy.png" alt="URL복사" /></span></a>
 						
-					 <a href="#"><span class="icon1"> <img src="../img/share.png" alt="링크연결" /></span></a> 
+					 <a href="#"><span class="icon1"> <img src="../img/print.png" alt="페이지 인쇄" /></span></a> 
 							
-					 <a href="#"><span class="icon1"> <img src="../img/bookmark.png" alt="북마크" /></span></a>
+					 <a href="#"><span class="icon1"> <img src="../img/heart_e.png" alt="나만의 메뉴" /></span></a>
 				</div>
 			</nav>
 			<!--// 메뉴바 -->
 		</div>
 				<div class="box" style="height: 1100px;">
-				<h1> 제작의도 </h1>
+				<h1> 사이트 소개 </h1>
 				<h5> Find Doctor의 현재와 미래를 함께해 주세요! </h5>
 			<div id="box1"> </div>
 

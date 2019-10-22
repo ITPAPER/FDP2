@@ -13,7 +13,7 @@
 	right:15px;
 	padding:0 0 0 20px;
 	margin: 0 0 0 0;
-	background:#696969;
+	background:#eee;
 	width:1170px;
 }
 
@@ -25,10 +25,10 @@
 	background:#fff;
 }
 
-img {
+#gnb img {
 	dispaly: block;
 	width: 60px;
-	padding: 6px;
+	padding: 10px;
 }
 
 .icon1 {
@@ -70,7 +70,7 @@ img {
 	list-style: none;
 	width: 350px;
 	float: left;
-	padding: 150px 80px 0 80px;
+	padding: 170px 80px 0 80px;
 }
 
 /* 링크의 영역 확장 (공식)
@@ -92,7 +92,9 @@ img {
 /* 이미지는 가득 채움
  * -------------------------------------- */
 #gallery .thumb img {
-	width: 100%;
+	width: 80%;
+	position: relative;
+	left:22px;
 }
 
 /* 텍스트 영역 처리
@@ -104,7 +106,7 @@ img {
 	text-align: center;
 	padding-top: 10px;
 	padding-bottom: 20px;
-	color: #eee;
+	color: #777;
 	font-size: 20px;
 }
 
@@ -127,7 +129,7 @@ img {
 				<!-- 메뉴 항목 -->
 				<div class="collapse navbar-collapse" id="gnb">
 					<ul class="nav navbar-nav">
-								<li><span class="icon"><a href="#"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
+								<li><span class="icon"><a href="01_Main.jsp"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
 				<div class="btn-group">
 				<button  type="button"  class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 					메뉴
@@ -157,11 +159,11 @@ img {
 			</div>
 			</div>
 				
-					 <a href="#"><span class="icon1"> <img src="../img/list.png" alt="병원찾기" /></span></a>
+					 <a href="#"><span class="icon1"> <img src="../img/URLcopy.png" alt="URL복사" /></span></a>
 						
-					 <a href="#"><span class="icon1"> <img src="../img/share.png" alt="링크연결" /></span></a> 
+					 <a href="#"><span class="icon1"> <img src="../img/print.png" alt="페이지 인쇄" /></span></a> 
 							
-					 <a href="#"><span class="icon1"> <img src="../img/bookmark.png" alt="북마크" /></span></a>
+					 <a href="#"><span class="icon1"> <img src="../img/heart_e.png" alt="나만의 메뉴" /></span></a>
 				</div>
 			</nav>
 			<!--// 메뉴바 -->
@@ -190,7 +192,7 @@ img {
 							src="../img/board1.png" alt="게시판" />
 					</span> <span class="text">게시판</span>
 				</a></li>
-				<li><a href="18_Team_introduction.jsp"> <span class="thumb"> <img
+				<li><a href="19_Team_introduction.jsp"> <span class="thumb"> <img
 							src="../img/developer1.png" alt="개발자들" />
 					</span> <span class="text">개발자들</span>
 				</a></li>

@@ -35,10 +35,10 @@ background-color: eee;
 	background:#ffffff;
 }
 
-img {
+#gnb img {
 	dispaly: block;
 	width: 60px;
-	padding: 6px;
+	padding: 10px;
 }
 
 .icon1 {
@@ -141,7 +141,7 @@ img {
 				<!-- 메뉴 항목 -->
 				<div class="collapse navbar-collapse" id="gnb">
 					<ul class="nav navbar-nav">
-								<li><span class="icon"><a href="#"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
+								<li><span class="icon"><a href="01_Main.jsp"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
 				<div class="btn-group">
 				<button  type="button"  class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 					메뉴
@@ -171,11 +171,11 @@ img {
 			</div>
 			</div>
 				
-					 <a href="#"><span class="icon1"> <img src="../img/list.png" alt="병원찾기" /></span></a>
+					 <a href="#"><span class="icon1"> <img src="../img/URLcopy.png" alt="URL복사" /></span></a>
 						
-					 <a href="#"><span class="icon1"> <img src="../img/share.png" alt="링크연결" /></span></a> 
+					 <a href="#"><span class="icon1"> <img src="../img/print.png" alt="페이지 인쇄" /></span></a> 
 							
-					 <a href="#"><span class="icon1"> <img src="../img/bookmark.png" alt="북마크" /></span></a>
+					 <a href="#"><span class="icon1"> <img src="../img/heart_e.png" alt="나만의 메뉴" /></span></a>
 				</div>
 			</nav>
 			<!--// 메뉴바 -->
