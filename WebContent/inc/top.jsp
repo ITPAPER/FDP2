@@ -1,14 +1,13 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<header class="container">
-		<div class="row">
-			<div class="col-md-12 headd">
+<header class="header-box">
+<div class= "topbar">
 				<a href="02_Login.jsp" class="header-btn">로그인</a>
 				<a href="08_Sign_up_c.jsp" class="header-btn">회원가입</a>
-			</div>
-		</div>
+</div>
+
 		<div class="row head-border">
-			<div class="col-md-3 ww"><img src="../img/main_logo.png" class="logo "></div>
+			<div class="col-md-3 ww"><img src="../img/FindDoctor1.png" class="logo "></div>
 			<div class="col-md-9 ww">
 				<div class="btn-cover collapse navbar-collapse" id="gnb">
 				<ul class="nav navbar-nav" id="droph">
@@ -23,7 +22,7 @@
 								<li><a href="#">응급실 현황</a></li>
 						</ul>
 					</li>
-					<li><a href="18_Team_introduction.jsp" class="page-move">센터소개</a></li>
+					<li><a href="18_Intention.jsp" class="page-move">센터소개</a></li>
 				</ul>
 				</div>
 			</div>
