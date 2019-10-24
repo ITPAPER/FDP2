@@ -17,42 +17,57 @@
 }
 
 .menu {
-	background:#696969;
+	with: 1300px;
 	display: block;
-	width: auto;
-	padding: 5px;
+	padding: 5px 0 70px 0 ;
 	background:#fff;
+	position: relative;
+	right: 12px;
+	
 }
 
-#gnb img {
-	dispaly: block;
-	width: 60px;
-	padding: 10px;
+
+/* 리모컨바 박스 */
+.navbar {
+	width:1170px;
+	margin:auto;
+	padding: 1px 0 0 0;
+	background:##f9f9f9;
+
+	
+}
+ /* 리모컨 바 버튼 */
+.menu .navbar .collapse .btn-group .btn-info {
+	background-color: #fff;
+	display:inline-block;
+	padding: 0;
+	margin: 3px 2px;
+	border-color: #bbb;
+	width:158px;
+	height: 40px;
+	color: #555;
+	font-size: 15px;
+	border-radius: 0;
 }
 
+/* 리모컨 바 이미지 박스 */
 .icon1 {
 	display: block;
-	width: 55px;
+	width: 35px;
+	height:35px;
 	float: right;
+	padding: 5px 0 0 0 ;
+	margin: 0 5px;
+
 }
 
-.navbar {
-	width : 1170px;
-	position:relative;
-	right:19px;
+/* 리모컨 바 이미지 */
+#gnb img {
+	dispaly: block;
+	width: 35px;
+	padding:0;
 }
 
-.menu .navbar .collapse .btn-group .btn-info {
-	background-color: #aaaaaa;
-	display:inline-block;
-	padding: 5px;
-	margin: 6px;
-	border-color: #696969;
-	width:100px;
-	height: 50px;
-	color: #ffffff;
-	font-size: 20px;
-}
 
 h1 {
 	padding: 50px 0 10px 0;
@@ -65,7 +80,7 @@ h5 {
 	margin:0 0 0 50px;
 	font-size:25px;
 }
-
+/* 이미지 박스 */
 div#box1 {
 	width: 400px;
 	height: 600px;
@@ -86,43 +101,44 @@ p {
 	<%@ include file="../inc/top.jsp" %>
 	
 	<div class="container"style="min-height:500px;">
-	<div class="menu" style="height: 69px;">
+	<div class="menu" style="height: 60px;">
 	
 		  <nav class="navbar navbar-default" role="navigation">
 
 				<!-- 메뉴 항목 -->
 				<div class="collapse navbar-collapse" id="gnb">
 					<ul class="nav navbar-nav">
-								<li><span class="icon"><a href="01_Main.jsp"><img src="../img/home.png" alt="병원찾기" /></a></span></li></ul>
+								<li><span class="icon1"><a href="01_Main.jsp"><img src="../img/home.png" alt="메뉴" /></a></span></li></ul>
 				<div class="btn-group">
-				<button  type="button"  class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-					메뉴
-				</button>
+				<button  type="button"  class="btn btn-info" data-toggle="dropdown">자기 페이지이름  <span class="caret"></span></button>
 				<!-- 재사용될 코드 입니다. -->
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
+					<li><a href="#">주요사업</a></li>
 					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
+					<li><a href="#">응급의료체계</a></li>
+					<li class="divider"></li>
+					<li><a href="#">정보자료</a></li>
+					<li class="divider"></li>
+					<li><a href="#">센터소개</a></li>
 				</ul>
 				<!-- 재사용될 코드 입니다. -->
 			<div class="btn-group">
-				<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-					Action <span class="caret"></span>
-				</button>
+				<button type="button" class="btn btn-info" data-toggle="dropdown"> Action <span class="caret"></span></button>
 				<!-- 재사용될 코드 입니다. -->
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">Action</a></li>
-					<li><a href="#">Another action</a></li>
-					<li><a href="#">Something else here</a></li>
+					<li><a href="#">센터소개</a></li>
 					<li class="divider"></li>
-					<li><a href="#">Separated link</a></li>
+					<li><a href="#">인사말</a></li>
+					<li class="divider"></li>
+					<li><a href="#">설립배경</a></li>
+					<li class="divider"></li>
+					<li><a href="#">미션/비전</a></li>
+					<li class="divider"></li>
+					<li><a href="#">오시는 길</a></li>
 				</ul>
 				<!--// 재사용될 코드 입니다. -->
 			</div>
 			</div>
-				
 					 <a href="#"><span class="icon1"> <img src="../img/URLcopy.png" alt="URL복사" /></span></a>
 						
 					 <a href="#"><span class="icon1"> <img src="../img/print.png" alt="페이지 인쇄" /></span></a> 
@@ -132,6 +148,7 @@ p {
 			</nav>
 			<!--// 메뉴바 -->
 		</div>
+
 				<div class="box" style="height: 1100px;">
 				<h1> 사이트 소개 </h1>
 				<h5> Find Doctor의 현재와 미래를 함께해 주세요! </h5>

@@ -60,7 +60,7 @@ width:100%
 /* 메뉴바 밑줄 */
 .head-border {
 	border-bottom: 1px solid #E0E0E0;
-	width: 1000px;
+	width: 100%;
 }
 
 
@@ -174,10 +174,9 @@ width:100%
 }
 
 /* 하단 주소 박스 */
-.col-md-8 {
+.adbox {
+float:left;
 width: 1100px;
-positon:relative;
-left: 380px;
 }
 
 /* 주소 및 연락처 */
@@ -185,14 +184,16 @@ address {
 margin:0px;
 width:1100px;
 padding:9px;
+position:relative;
+left: 384px;
 }
 
 .bottom-img img{
-dispaly:inline-block;
- height: 90px;
- position:relative;
-left: 100px;
-top: 10px;
+ 	dispaly:inline-block;
+	height: 90px;
+	top: 10px;
+	position:relative;
+	left: 90px;
 }
 
 </style>
