@@ -104,7 +104,7 @@
 				<div class="mlogin">
 					<h4>Find Doctor를 더 안전하고 편리하게 관리하세요.</h4>
 					<button type="button" class="btn btn-gray" 
-					onclick = "location.href ='20_Login_s.jsp'">
+					onclick = "location.href ='22_Login_s.jsp'">
 						Find Doctor 관리자 로그인	
 					</button>
 				</div>

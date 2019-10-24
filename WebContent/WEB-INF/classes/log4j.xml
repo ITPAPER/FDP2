@@ -31,9 +31,9 @@
         <!-- 에러와 관련된 로그만 기록하도록 지정 -->
         <param name="Threshold" value="ERROR" ></param>
         <!-- 로그 파일 생성위치 -->
-        <param name="File" value="D:/JJH/pj/log/error.log" />
+        <param name="File" value="C:/team project/github/workspace_cherry/log/error.log" />
         <!-- 하루에 한 개씩 날짜를 적용하며 파일이름이 생성되도록 함 -->
-        <param name="Append" value="true" />
+        <param name="Append" value="true" ></param>
         <param name="DatePattern" value="'.'yyMMdd" />
         <!-- 로그의 출력패턴 정의 -->
         <layout class="org.apache.log4j.PatternLayout">
