@@ -1,12 +1,13 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <header class="header-box">
+<div class="topbar-box">
 <div class= "topbar">
 				<a href="02_Login.jsp" class="header-btn">로그인</a>
-				<a href="08_Sign_up_c.jsp" class="header-btn">회원가입</a>
+				<a href="09_Sign_up_a.jsp" class="header-btn">회원가입</a>
 </div>
-
-		<div class="row head-border">
+</div>
+		<div class="topm head-border">
 			<div class="col-md-3 ww"><img src="../img/FindDoctor1.png" class="logo "></div>
 			<div class="col-md-9 ww">
 				<div class="btn-cover collapse navbar-collapse" id="gnb">

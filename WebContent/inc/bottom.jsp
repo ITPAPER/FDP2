@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<footer>	
+<footer>
+		<div class= "bottom-box">	
 		<div class="row-fottt">
 			<div class="col-md-2 fottt"><img src="../img/foot_logo.png" class="blogo"></div>
 			<div class="col-md-8 ">
@@ -13,6 +14,7 @@
 				</address>
 			</div>
 			<a href="http://www.ezenac.co.kr"> <span class="bottom-img"> <img src="../img/ezen.jpg" alt="이젠" /></span></a>
+		</div>
 		</div>
 	</footer>
 	<!-- Javascript -->

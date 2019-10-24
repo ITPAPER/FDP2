@@ -28,9 +28,16 @@
 .container {
 	
 }
+
+/* 최상단 바 블록 */
+.topbar-box {
+width:100%
+}
+
+
 /* 최상단 바 */
 .topbar {
-	width: 2000px;
+	width: 100%;
 	margin: auto;
 	background-color: #757575;
 	height: 30px;
@@ -53,14 +60,22 @@
 /* 메뉴바 밑줄 */
 .head-border {
 	border-bottom: 1px solid #E0E0E0;
-	width: 1170px;
+	width: 1000px;
 }
 
+
 /* 메뉴바 */
-.row {
+.topm {
+	width: 1170px;
 	position: relative;
 	left: 384px;
+	margin-left: -15px;
+    margin-right: -15px;
+    box-sizing: border-box;
+    content: " ";
+    display: table;
 }
+
 
 /* 로고박스 */
 .ww {
@@ -136,11 +151,15 @@
 }
 
 
+/* 최하단 바 박스 */
+.bottom-box {
+width:100%
+}
 
 /* 최 하단 바 */
 .row-fottt {
 	height: 120px;
-	width:2000px;
+	width: 100%;
 	margin:auto;
 	background-color: #E0E0E0;
 }

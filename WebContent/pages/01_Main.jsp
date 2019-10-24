@@ -10,6 +10,8 @@
     		background-color: #E0E0E0;
     		padding : 5px;
     		height:150px;
+    		
+    		
     	}
     	.login_cover{
     		height: 70px;
