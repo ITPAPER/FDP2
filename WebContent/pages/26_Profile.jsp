@@ -25,7 +25,11 @@
 	margin: auto;
 }
 
-
+.col-md-2 {
+	display: block;
+	position: releative;
+	
+}
 
 </style>
 
@@ -45,12 +49,12 @@
   				<div class="form-group col-md-6">
       				<label for='user_id'>아이디</label>
       				<input type="text" class="form-control" id="user_id" name="user_id" 
-      				placeholder="nobin****">
+      				placeholder="nobin****" readonly />
     			</div>
     			<div class="form-group col-md-6">
       				<label for='user_name'>이름</label>
       				<input type="text" class="form-control" id="user_name" name="user_name"
-      				placeholder="박*협">
+      				placeholder="박*협" readonly />
     			</div>
   			</div>
   		
@@ -86,8 +90,8 @@
                		<input type="date" name="birthdate" id="birthdate" class="form-control" />
             	</div>
         	</div>
-        	
-        	<div class="form-group">
+        	        	
+        	<div class="form-group ggender">
             	<label for='gender1' class="col-md-2">성별</label>
             	<div class="col-md-10">
                 	<label>
