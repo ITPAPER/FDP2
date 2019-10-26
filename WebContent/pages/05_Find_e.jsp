@@ -7,6 +7,10 @@
     <%@ include file="../inc/head.jsp" %>
     <link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
     <style type="text/css">
+    	.line{
+    		padding-bottom:20px !important;
+    		border-bottom:1px solid #eee ;
+    	}
      	#gmap{	height: 800px;}
      	/* 전체 박스 크기 및 정렬 */
     	.accord { width: auto; margin: auto; }
@@ -41,7 +45,9 @@
   </head>
   <body>
 	<%@ include file="../inc/top.jsp" %>
-	
+	<div class='container'>
+		<h1 class="line">응급실 찾기</h1>
+	</div>
 	<br/>
 	<div class="container">
 		<button class="btn btn-warning gu" value="1">강북 지역</button>

@@ -12,7 +12,8 @@
     		background-color: #E0E0E0;
     		padding : 5px;
     		height:150px;
-    		border-radius:5px;
+    		border-radius: 10px;
+    		
     	}
     	.login_cover{
     		height: 70px;
@@ -58,10 +59,10 @@
     	}
     	.e-container{
     		border:1px solid #E0E0E0;
-    		visibility:hidden;
+			z-index:10000;
     		background-color:white;
-    		height:0px;
-    		transition:0.3s;
+    		height:756px;
+
     	}
     	.e-btncover{
     		border-top: 1px solid #e0e0e0;
@@ -69,10 +70,10 @@
 
     	}
     	.e-title{height:60px;}
-    	.pp{ margin-left:5px;}
+    	.rr{ margin-left:5px;}
     	#gmap{
     		height:0;
-    		transition:0.3s;
+			width:66.66666% !important;
     	}
     	/* 전체 박스 크기 및 정렬 */
     	.accord { 
@@ -113,14 +114,16 @@
     	.content:last-child { border-bottom: 1px solid #d5d5d5;	}
     	#move{
     		position:relative;
-    		bottom: 650px;
+    		bottom: 690px;
+    		padding:0;
+    		left:-15px;
     	}
     	#myer{
     		text-align:center;
     		color:black;
     		border-radius:10px;
     		position:relative;
-    		bottom:757px;
+    		bottom:756px;
     		left:370px;
     		display:block;
     		font-size:50px;
@@ -129,8 +132,50 @@
     		padding:25px;
 
     	}
+    	.sub-info{
+    		display:block;
+    		width: 288px;
+    		height: 100px;
+    		margin:auto;
+    		background-color: #FED593;
+    		border-radius: 15px;
+    		text-align: center;
+    	}
+    	.mynav{
+    		margin:0;
+    	}
     	
-    	
+    	.nav-btn{
+    		text-align:center;
+    		background-color:#F8A90e;
+    	}
+    	.nav-btn-cent{
+    		background-color:#FDD25D;
+    	}
+    	.nav-btn-cent > a{
+    		color:black;
+    	}
+    	.nav-txt{
+    		color:black;
+    		font-size:30px;
+    		font-weight:bold;
+    	}
+    	.ll{padding:0;}
+    	.beinline{
+    		display:inline-block;
+    		text-align:center;
+    		width: 32%;
+    	}
+    	.thumb{
+    		display:block;
+    		margin:auto;
+    		width:120px;
+    		height:110px;
+    	}
+    	.text{
+    		color:black;
+    		display:block;
+    	}
     </style>
   </head>
   <body>
@@ -148,14 +193,14 @@
 						<a href="#" class="find_id">아이디/비밀번호 찾기</a>
 						<a href="08_Sign_up_c.jsp" class="sign_up">회원 가입</a>
 					</div>
-					<div class="row" style="text-align:center; font-size:50px; height:550px;"></div>
+
 					
 				</div>
-				<div class="col-md-9 e-container">
-					<div class="row e-title pp">
+				<div class="col-md-9 e-container" id="erer">
+					<div class="row e-title rr">
 						<h2><strong>응급실 찾기</strong><button id="xx"type="button" class="close" aria-hidden="true">&times;&nbsp;&nbsp;</button>	</h2>
 					</div>
-					<div class="row e-btncover pp">
+					<div class="row e-btncover rr">
 						<br/>
 						<button class="btn btn-warning gu" value="1">강북 지역</button>
 						<button class="btn btn-warning gu" value="2">동서울 지역</button>
@@ -166,7 +211,7 @@
 						<button class="btn btn-warning gu" value="7">서서울 지역</button>
 						<button class="btn btn-warning gu" value="8">도심 지역</button>
 					</div>
-					<div class="row pp">
+					<div class="row rr">
 						<div class="prog">
 							<span class="progtext">지역을 선택해 주세요</span>
 						</div>
@@ -180,25 +225,63 @@
 					
 				</div>
 			</div>
-			<a href="#"id="myer"><img src="../img/siren.png" width="100px"> 응급실 찾기</a>
-			
+			<a href="#erer"id="myer"><img src="../img/siren.png" width="100px"> <b>응급실 찾기</b></a>
+
 
 			<div class="container" id="move">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="find_hos">국민 질병 간편 통계</div>
-						<div style="height:350px; border:3px solid black"></div>
+				<div class="row mynav">
+					<div class="col-md-3 nav-btn">
+						<a href="#" class="nav-txt">데이터 통계
+							<br/>
+							<img src="../img/chart_o.png" width="150px" height="160px">
+						</a>	
 					</div>
-					<div class="col-md-6">
-						<div class="find_hos">서울 응급실 포화도</div>
-						<div style="height:350px; border:3px solid black"></div>
+					<div class="col-md-6 nav-btn-cent">						
+						<span  class="nav-txt">병원찾기</span>
+						<br/><br/>
+						<ul class="ll">
+							<li class="beinline">
+								<a class="hos-btn" href="#">
+									<img  class="thumb" src="../img/hosicon.png" >
+									<span class="text">일반 병원 찾기</span>
+								</a>
+							</li>
+							<li class="beinline">
+								<a class="hos-btn" href="#">
+									<img  class="thumb" src="../img/siren1.png" >
+									<span class="text">응급실 찾기</span>
+								</a>
+							</li>
+							<li class="beinline">
+								<a class="hos-btn" href="#">
+									<img  class="thumb" src="../img/monitor.jpg" >
+									<span class="text">응급실 상황판</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-3 nav-btn">
+						<a href="#" class="nav-txt">게시판
+						<br/>
+						<img src="../img/navlist.png" width="150px" height="160px">
+						</a>
 					</div>
 				</div>
 				
 				<div class="container blank" style="height:40px;"></div>
 				
 				
-				
+				<div class="row">
+					<div class="col-md-4">
+						<a href="#" class="sub-info">질병 관련</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#" class="sub-info">유용한 정보</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#" class="sub-info">알아 보기</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -221,6 +304,8 @@
 	<script src="../plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script type="text/javascript">
 	$(function(){
+		$("#erer").slideToggle(100);
+		
 		var map = new GMaps({
 			el: '#gmap',		//지도를 표시할 div의 id값
 			lat: 37,		//지도가 표시될 위도
@@ -238,19 +323,16 @@
 		$("#myer").click(
 			function(e){
 				e.preventDefault();	
-				$(".e-container").css("visibility","visible").css("z-index","100000").css("height","756");
+
+				$("#erer").slideDown(100);
 				$("#gmap").css("height","600px");
-				$("#myer").css("visibility","hidden");
-				$(".accord-item").css("visibility","visible").css("transition","0");				
 			}
 		);
 		$("#xx").click(
 				function(e){
 					e.preventDefault();		
-					$(".e-container").css("visibility","hidden").css("height","0");
+					$("#erer").slideUp(100);
 					$("#gmap").css("height","0");
-					$("#myer").css("visibility","visible");
-					$(".accord-item").css("visibility","hidden").css("transition","0.3");
 				}
 			);
 		
@@ -346,6 +428,7 @@
 				});
 			}); //end ajax
 		$("button[value='6']").click()
+
 	});
 	</script>
   </body>
