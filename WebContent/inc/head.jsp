@@ -54,7 +54,7 @@ width:100%
 	margin-top: 2px;
 	margin-right: 12px;
 	position: relative;
-	left: 1360px;
+	left: 1400px;
 }
 
 /* 메뉴바 밑줄 */
@@ -130,10 +130,11 @@ width:100%
 }
 
 .blogo {
-	width: 100%;
+	width: 140px;
 	display: block;
 	position: relative;
 	top: 15px;
+
 }
 
 #droph {
@@ -158,19 +159,20 @@ width:100%
 
 /* 최 하단 바 */
 .row-fottt {
-	height: 120px;
+	height: 130px;
 	width: 100%;
 	margin:auto;
 	background-color: #E0E0E0;
 }
 
-/* 하단바 이미지 박스 */
+/* 하단바 좌측 로고 박스 */
 .fottt {
-	width:140px;
+	float:left;
+	width:200px;
 	height:103px;
 	padding:5px 15px;
 	position:relative;
-	left: 380px;
+	left: 360px;
 }
 
 /* 하단 주소 박스 */
@@ -181,19 +183,18 @@ width: 1100px;
 
 /* 주소 및 연락처 */
 address {
-margin:0px;
+padding:5px 0 0 0 ;
 width:1100px;
-padding:9px;
 position:relative;
-left: 384px;
+left: 334px;
 }
-
+/* 이젠 아카데미 로고 */
 .bottom-img img{
  	dispaly:inline-block;
 	height: 90px;
-	top: 10px;
 	position:relative;
-	left: 90px;
+	top: 15px;
+	left: 65px;
 }
 
 </style>

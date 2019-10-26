@@ -6,6 +6,7 @@
 <head>
 
 <%@ include file="../inc/head.jsp"%>
+<%@ include file="../inc/remote_css.jsp"%>
 <style type="text/css">
 
 .box {
@@ -16,57 +17,6 @@
 	background:#eee;
 	width:1170px;
 }
-
-.menu {
-	background:#696969;
-	display: block;
-	width: auto;
-	padding: 5px;
-	background:#fff;
-}
-
-/* 리모컨바 박스 */
-.navbar {
-	width:1170px;
-	margin:auto;
-	padding: 1px 0 0 0;
-	background:##f9f9f9;
-	position:relative;
-	right: 15px;
-	
-}
- /* 리모컨 바 버튼 */
-.menu .navbar .collapse .btn-group .btn-info {
-	background-color: #fff;
-	display:inline-block;
-	padding: 0;
-	margin: 3px 2px;
-	border-color: #bbb;
-	width:158px;
-	height: 40px;
-	color: #555;
-	font-size: 15px;
-	border-radius: 0;
-}
-
-/* 리모컨 바 이미지 박스 */
-.icon1 {
-	display: block;
-	width: 35px;
-	height:35px;
-	float: right;
-	padding: 5px 0 0 0 ;
-	margin: 0 5px;
-
-}
-
-/* 리모컨 바 이미지 */
-#gnb img {
-	dispaly: block;
-	width: 35px;
-	padding:0;
-}
-
 
 /* 갤러리 영역 박스
  * -------------------------------------- */
@@ -132,54 +82,8 @@
 	<%@ include file="../inc/top.jsp"%>
 
 	<div class="container" style="min-height: 500px;">
+	<%@ include file="../inc/remote.jsp"%>
 	
-	<div class="menu" style="height: 60px;">
-	
-		  <nav class="navbar navbar-default" role="navigation">
-
-				<!-- 메뉴 항목 -->
-				<div class="collapse navbar-collapse" id="gnb">
-					<ul class="nav navbar-nav">
-								<li><span class="icon1"><a href="01_Main.jsp"><img src="../img/home.png" alt="메뉴" /></a></span></li></ul>
-				<div class="btn-group">
-				<button  type="button"  class="btn btn-info" data-toggle="dropdown">자기 페이지이름  <span class="caret"></span></button>
-				<!-- 재사용될 코드 입니다. -->
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">주요사업</a></li>
-					<li class="divider"></li>
-					<li><a href="#">응급의료체계</a></li>
-					<li class="divider"></li>
-					<li><a href="#">정보자료</a></li>
-					<li class="divider"></li>
-					<li><a href="#">센터소개</a></li>
-				</ul>
-				<!-- 재사용될 코드 입니다. -->
-			<div class="btn-group">
-				<button type="button" class="btn btn-info" data-toggle="dropdown"> Action <span class="caret"></span></button>
-				<!-- 재사용될 코드 입니다. -->
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">센터소개</a></li>
-					<li class="divider"></li>
-					<li><a href="#">인사말</a></li>
-					<li class="divider"></li>
-					<li><a href="#">설립배경</a></li>
-					<li class="divider"></li>
-					<li><a href="#">미션/비전</a></li>
-					<li class="divider"></li>
-					<li><a href="#">오시는 길</a></li>
-				</ul>
-				<!--// 재사용될 코드 입니다. -->
-			</div>
-			</div>
-					 <a href="#"><span class="icon1"> <img src="../img/URLcopy.png" alt="URL복사" /></span></a>
-						
-					 <a href="#"><span class="icon1"> <img src="../img/print.png" alt="페이지 인쇄" /></span></a> 
-							
-					 <a href="#"><span class="icon1"> <img src="../img/heart_e.png" alt="나만의 메뉴" /></span></a>
-				</div>
-			</nav>
-			<!--// 메뉴바 -->
-		</div>
 
 
 		<div class="box" style="height: 900px;">

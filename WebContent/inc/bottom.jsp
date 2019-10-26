@@ -3,7 +3,7 @@
 <footer>
 		<div class= "bottom-box">	
 		<div class="row-fottt">
-			<div class="col-md-2 fottt"><img src="../img/foot_logo.png" class="blogo"></div>
+			<div class="fottt"><img src="../img/foot_logo.png" class="blogo"></div>
 			<div class="adbox ">
 
 				<address>파이썬 빅데이터반 2조 <br/>
