@@ -72,7 +72,7 @@
 				<br/>
 				<label id="check"><input type="checkbox" value="?????">자동로그인</label>
 				<a href="#" class="find_id">아이디/비밀번호 찾기</a>
-				<a href="08_Sign_up_c.jsp" class="sign_up">회원 가입</a>
+				<a href="08_Sign_up_a.jsp" class="sign_up">회원 가입</a>
 				<!-- 여기까지 입니다. -->
 			</fieldset>
 		</form>
