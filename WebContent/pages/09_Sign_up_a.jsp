@@ -87,7 +87,6 @@
 	<div class="container"style="width: 1170px; height:1300px;">
 	 
 	<div class="agrtitle1"><h3><strong>이용약관</strong></h3></div>
-	 
 	<div class="agrment1">
 	 AGREEMENT1<br>
 	 제 1장 총칙<br/><br/>
@@ -142,7 +141,7 @@
 	 
 	 
 	 <div class="agrmsg1-1">
-	 	<input class="agree" type="checkbox" /> <span>&nbsp; 위의 이용약관에 동의합니다. </span> <br/>
+	 	<input id = "agree2" class="agree" name="agree" type="checkbox" value="이용약관동의" /> <span>&nbsp; 위의 이용약관에 동의합니다. </span> <br/>
 	 </div>
 	 
 	 <div class="agrtitle2"><h3><strong>개인정보 수집 및 이용에 대한 안내</strong></h3></div>
@@ -200,29 +199,58 @@
 	 </div>
 	 
 	 <div class="agrmsg2-1">
-		 	<input class="agree"  type="checkbox" /> <span>&nbsp; 위의 개인정보 수집 및 이용에 대한 안내에 동의합니다.</span> <br/>
+		 	<input id = "agree1" class="agree" name="agree"  type="checkbox" value="개인정보수집동의" /> <span>&nbsp; 위의 개인정보 수집 및 이용에 대한 안내에 동의합니다.</span> <br/>
 	 </div>
 	 
-	 <div class="all"><input type='checkbox' id='all_check'> &nbsp; 전체선택</div>
+	 <div class="all"><input type='checkbox' id='all_check'  > &nbsp; 전체선택</div>
 	 
 	 <div class="confirm">
-		 <button type="button" class="btn btn-lg btn-warning" onclick="location.href='10_Sign_up_i_d.jsp'" style="font-size: 23px; color: white;">
-		 	
-		 	확인
-		 </button>
-		 &nbsp; 
-		 <button type="button" class="btn btn-lg btn-warning" onclick="location.href='01_Main.jsp'"style="font-size: 23px; color: white;">취소</button>
+		 <button type="submit" id="proceedD" class="btn btn-lg btn-warning" style="font-size: 23px; color: white;">의사 </button>
+		 &nbsp;
+		 <button type="submit" id="proceedN" class="btn btn-lg btn-warning" style="font-size: 23px; color: white;">일반인</button>
 	 </div>
+	 
 	 </div>
 	 
 	 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	 <script type="text/javascript">
-		$(function() {
+	 function moveD() {
+			location.href = '10_Sign_up_i_d.jsp';
+		}
+	 
+	 function moveN() {
+			location.href = '11_Sign_up_i_n.jsp';
+		}
+	 
+	 $(function() {
 			$("#all_check").change(function() {
 				$(".agree").prop('checked', $(this).prop('checked'));
 			});
-		});
-            
+			
+			$('#proceedD').click(function(e) {
+				e.preventDefault;
+				
+				var value1 = $("#agree1:checked").val();
+				var value2 = $("#agree2:checked").val();
+				
+				if (value1 != null && value2 != null) {
+					moveD();
+				} else {alert("약관에 동의해 주세요.");}
+				
+			});
+			
+			$('#proceedN').click(function(e) {
+				e.preventDefault;
+				
+				var value1 = $("#agree1:checked").val();
+				var value2 = $("#agree2:checked").val();
+				
+				if (value1 != null && value2 != null) {
+					moveN();
+				} else {alert("약관에 동의해 주세요.");}
+				
+			});
+	 })
         	
        
     </script>
