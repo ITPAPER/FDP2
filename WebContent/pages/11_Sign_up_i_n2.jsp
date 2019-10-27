@@ -82,7 +82,7 @@
 	<%@ include file="../inc/top.jsp" %>
 	
 	<div class="container"style="height:800px;">
-	<form name="myform" id="myform" action="01_Main.jsp">
+	<form name="myform" id="myform" action="12_Sign_up_s.jsp">
 		<div id="box1">
 			<h3 class="title"><strong>입력하신 정보를 확인해 주세요.</strong></h3>	
 		</div>
@@ -135,11 +135,11 @@
 	
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
-		$(function() {
+	/* 	$(function() {
 			$('#myform').submit(function() {
 				alert("가입을 축하드립니다!!")	
 			});
-		});
+		}); */
 	</script>
 	<%@ include file="../inc/bottom.jsp" %>
   </body>

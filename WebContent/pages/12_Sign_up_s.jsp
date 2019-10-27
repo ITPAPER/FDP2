@@ -1,18 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
+
 <!doctype html>
 <html lang="ko">
   <head>
     <%@ include file="../inc/head.jsp" %>
+    
+    <style type="text/css">
+    	 .container {
+			position: relative;
+			text-align: center;
+		}
+    	
+    	#welcome {
+    		display: inline;
+    		position: absolute;
+    		top: 100px;
+    		left: 200px;
+    		width: 400px;
+    		height: 400px;
+    	}
+    	
+    	h1 {
+    		display: inline;
+    		position: absolute;
+    		top: 180px;
+    		left: 650px;
+    	}
+    	#move {
+    		position: absolute;
+    		top: 300px;
+    		left: 670px;
+    		color: #273347;
+    		width: 270px;
+    		height: 60px;
+    		letter-spacing: 1px;
+    		font-size: 20px;
+    	}
+    	#move:hover {
+    		text-decoration: underline;
+    	}
+    	
+    </style>
   </head>
   <body>
 	<%@ include file="../inc/top.jsp" %>
 	
-	<div class="container"style="height:500px;">
-	<h1>여기다가 내용 추가하심 됩니다~</h1>
+	<div class="container"style="height:700px;">
+		<span><img id="welcome" alt="가입환영" src="../img/welcome.png"></span>
+		<h1>가입을 환영합니다!!</h1>
+		<button type="button" id="move" class="btn btn-lg" onclick="location.href='01_Main.jsp'"><strong>메인페이지로 이동</strong></button>
+	 </div>
 	 
-	</div>
+
 	
 	<%@ include file="../inc/bottom.jsp" %>
   </body>
