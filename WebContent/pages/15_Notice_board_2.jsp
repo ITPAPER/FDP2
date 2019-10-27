@@ -26,17 +26,20 @@ img {
 #e {
 	height: 50px;
 }
+
+
 </style>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <head>
 <%@ include file="../inc/head.jsp"%>
+<%@ include file="../inc/remote_css.jsp"%>
 </head>
 
 <body>
 	<%@ include file="../inc/top.jsp"%>
 
 	<div class="container" style="min-height: 500px;">
-
+<%@ include file="../inc/remote.jsp"%>
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div id="tb"></div>
@@ -65,8 +68,9 @@ img {
 									<div>
 										<label for="photo">첨부파일</label> <input type="file"
 											name="photo" id="photo" />
+											<button type="button" class="close" aria-hidden="true">&times;</button>
 									</div>
-								</fieldset>
+							</fieldset>
 							</form>
 
 						</td>
@@ -75,9 +79,11 @@ img {
 						<td><b>답변일: 2019-09-09 | 전문의: 박기협 | 전문 분야 : 소아과</b></td>
 					</tr>
 					<tr style="">
-						<td><input ="textarea" style="height: 200px;">
+						<td>
 							<p></p> 수두인 것으로 예측됩니다. 빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
-							<p></p> </input></td>
+							<button type="button" class="close" aria-hidden="true">&times;</button>
+							<p></p>
+						</td>
 					</tr>
 
 					<tr>

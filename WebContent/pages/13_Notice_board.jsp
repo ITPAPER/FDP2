@@ -5,6 +5,7 @@
 <html lang="ko">
 <head>
 <%@ include file="../inc/head.jsp"%>
+<%@ include file="../inc/remote_css.jsp"%>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
@@ -53,7 +54,7 @@ table {
 	<%@ include file="../inc/top.jsp"%>
 
 	<div class="container" style="min-height: 500px;">
-
+<%@ include file="../inc/remote.jsp"%>
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 

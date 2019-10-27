@@ -5,7 +5,7 @@
 <html lang="ko">
 <style type="text/css">
 .menu-right {
-	margin-left: 980px;
+	margin-left: 920px;
 }
 
 .a {
@@ -103,10 +103,12 @@ th {
 
 		<span class="menu-right">
 			<li class="a"><a href="14_Notice_board_i.jsp"
-				class="btn btn-default btn-sm" id="btn4">삭제 </a></li>
-			<li class="a"><a href="15_Notice_board_2.jsp"
+				class="btn btn-default btn-sm" id="btn1">삭제 </a></li>
+			<li class="a"><a href="24_Notice_board_s_2.jsp"
 				class="btn btn-default btn-sm">수정</a></li>
-			<li class="a"><a href="13_Notice_board.jsp"
+			<li class="a"><a href="14_Notice_board_i.jsp"
+				class="btn btn-default btn-sm" id="btn2">공지등록 </a></li>
+			<li class="a"><a href="23_Notice_board_s.jsp"
 				class="btn btn-default btn-sm">메뉴</a></li>
 		</span>
 
@@ -116,7 +118,7 @@ th {
 	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
 			  $(function() {
-				  $("#btn4").click(function(e) {
+				  $("#btn1").click(function(e) {
 					  
 					  	e.preventDefault();
 					  	
@@ -137,6 +139,29 @@ th {
 		                });
 		            });
 			  });
+			  
+			  $(function() {
+					$("#btn2").click(function(e) {
+
+						e.preventDefault();
+
+						// 확인, 취소버튼에 따른 후속 처리 구현
+						swal({
+							title : '확인', // 제목
+							text : "공지사항으로 등록하시겠습니까?", // 내용
+							type : 'warning', // 종류
+							confirmButtonText : 'Yes', // 확인버튼 표시 문구
+							showCancelButton : true, // 취소버튼 표시 여부
+							cancelButtonText : 'No', // 취소버튼 표시 문구
+						}).then(function(result) { // 버튼이 눌러졌을 경우의 콜백 연결
+							if (result.value) { // 확인 버튼이 눌러진 경우
+								swal('삭제', '성공적으로 등록되었습니다.', 'success');
+							} else if (result.dismiss === 'cancel') { // 취소버튼이 눌러진 경우
+								swal('취소', '공지사항 등록이 취소되었습니다.', 'error');
+							}
+						});
+					});
+				});
 			  
 			  </script>
 
