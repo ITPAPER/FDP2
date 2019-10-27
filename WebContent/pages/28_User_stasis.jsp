@@ -102,7 +102,7 @@
 									<th class="text-center">나이</th>
 									<th class="text-center">성별</th>
 									<th class="text-center">회원 등급</th>
-									<th class="text-center">의사 인증 대기</th>
+									<th class="text-center">의사 인증</th>
 								</tr>
 							</thead>
 							<tbody>

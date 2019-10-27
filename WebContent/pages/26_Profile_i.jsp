@@ -5,7 +5,7 @@
 <html lang="ko">
   <head>
     <%@ include file="../inc/head.jsp" %>
-    
+
     <style>
     .top {
 			text-align: center;
@@ -24,8 +24,14 @@
 		border-radius:10px;
 		text-align: center;
 	}
-	.content label {
+	.content span {
 		display: block;
+		font-size: 20px;
+		margin: 20px;
+		padding-top: 20px;
+	}
+	
+	.content label {
 		font-size: 20px;
 	}
 	
@@ -42,11 +48,12 @@
 	
 	.content > .form-block > .btn {
 		margin: auto;
+		margin-top: 75px;
 		width: 80%;
 	}
-		
+	
+	
     </style>
-    
   </head>
   <body>
 	<%@ include file="../inc/top.jsp" %>
@@ -54,22 +61,21 @@
 	<div class="container"style="min-height:500px;">
 		<div class="top">
 			<span> <img src="../img/user.png">
-			</span> <span> 관리자 로그인 </span>
+			</span> <span> 회원 정보 수정 </span>
 		</div>
 		<div class="content" style="background: #ffa500;">
-			<form id="login-form" class="form-block clearfix" method="post">
-				<label for="user_id">아이디</label>
-				<input type="text" name="user_id" id="user_id" class="form-control"
-					placeholder="ID를 입력하세요." />
+			<span>
+				<strong>개인정보 보호를 위해 한번 더 비밀번호를 입력해주세요.</strong>
+			</span>
+			<form id="login-form" class="form-block" method="post">
 				<label for="user_pw">비밀번호</label>	
 				<input type="password" name="user_pw" id="user_pw" class="form-control"
 					placeholder="비밀번호를 입력하세요." />
-				<button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
+				<button type="submit" class="btn btn-primary btn-lg btn-block" onclick="location.href ='27_Profile'">로그인</button>
 			</form>
 		</div>
 	 
 	</div>
-
 	
 	<%@ include file="../inc/bottom.jsp" %>
   </body>

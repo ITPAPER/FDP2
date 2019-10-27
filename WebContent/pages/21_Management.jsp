@@ -88,7 +88,26 @@
 		tbody tr td {
 			height: 50px;	
 		}
+		
+		.modal-body > .graph {
+			background: #ccc;
+			min-height: 400px;	
+		}
+		
+		.modal-body .graph span {
+			dislplay: block;
+		
+		}
+		.modal-body .graph {
+			text-align: center;
 			
+		}
+		.modal-body .graph img {
+			width: 100%;
+		}
+		
+		
+		
     </style>
   </head>
   <body>
@@ -226,11 +245,10 @@
 					</div>
 					<!-- 내용 -->
 					<div class="modal-body">
-						<h4>팝업창의 내용 영역</h4>
-						<p>
-							내용
-						</p>
-						<div id="chart_div"></div>
+						<div class="graph">
+							<span><img src="../img/chart.png"></span>
+							<span>그래프1</span>
+						</div>					
 					</div>
 					<!-- 하단 -->
 					<div class="modal-footer">
