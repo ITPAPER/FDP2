@@ -6,9 +6,8 @@
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta http-equiv="X-UA-Compatible" content="TE=edge,chrome=1">
+<!-- <meta name="viewport"content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />  -->
+
 <!-- Bootstrap CSS -->
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
@@ -30,31 +29,28 @@
 }
 
 /* 최상단 바 블록 */
-.topbar-box {
-width:100%
+.topbox {
+	width: 100%;
+	background-color: #757575;
 }
-
 
 /* 최상단 바 */
 .topbar {
-	width: 100%;
+	width: 1170px;
 	margin: auto;
 	background-color: #757575;
 	height: 30px;
 }
 
 /* 최상단 메뉴바 글자 */
-.header-box .topbar a {
+.header-btn {
 	color: #fff;
-	font-size: 16px;
-	font-weight: bold;
-	background: #757575;
+	font-size: small;
+	float: right;
 	display: inline-block;
 	padding: 3px;
 	margin-top: 2px;
 	margin-right: 12px;
-	position: relative;
-	left: 1400px;
 }
 
 /* 메뉴바 밑줄 */
@@ -63,19 +59,13 @@ width:100%
 	width: 100%;
 }
 
-
 /* 메뉴바 */
 .topm {
 	width: 1170px;
-	position: relative;
-	left: 384px;
-	margin-left: -15px;
-    margin-right: -15px;
-    box-sizing: border-box;
-    content: " ";
-    display: table;
+	height: 61px;
+	margin: auto;
+	display: block;
 }
-
 
 /* 로고박스 */
 .ww {
@@ -107,10 +97,40 @@ width:100%
 	margin: 0;
 	position: relative;
 	top: 9px;
-	font-size: 23px;
+	font-size:23px;
 	font-weight: 300px;
 }
 
+.navbar-nav>li>.dropdown-menu {
+	width: 130px;
+	height: 130px;
+	padding: 0;
+	text-align: center;
+}
+#droph .dropdown li {
+display:block;
+width:100%;
+height:30px;
+margin:0;
+
+
+}
+/* 드롭다운 메뉴 버튼 */
+#droph .dropdown li a {
+	display: block;
+	width: 130px;
+	height: 30px;
+	margin: auto;
+	font-size: 17px;
+}
+
+#droph .dropdown #divider {
+	border-bottom: 1px solid #E0E0E0;
+	width: 100%;
+	height:9px;
+}
+
+/* 메뉴버튼 */
 .page-move {
 	text-align: center;
 	height: 70px;
@@ -134,7 +154,6 @@ width:100%
 	display: block;
 	position: relative;
 	top: 15px;
-
 }
 
 #droph {
@@ -151,51 +170,43 @@ width:100%
 	width: 20%;
 }
 
-
 /* 최하단 바 박스 */
 .bottom-box {
-width:100%
+	width: 100%;
+	background-color: #E0E0E0;
 }
 
 /* 최 하단 바 */
 .row-fottt {
 	height: 130px;
-	width: 100%;
-	margin:auto;
+	width: 1170px;
+	margin: auto;
 	background-color: #E0E0E0;
 }
 
 /* 하단바 좌측 로고 박스 */
 .fottt {
-	float:left;
-	width:200px;
-	height:103px;
-	padding:5px 15px;
-	position:relative;
-	left: 360px;
+	float: left;
+	width: 200px;
+	height: 103px;
+	padding: 5px 15px;
 }
 
 /* 하단 주소 박스 */
-.adbox {
-float:left;
-width: 1100px;
-}
 
 /* 주소 및 연락처 */
 address {
-padding:5px 0 0 0 ;
-width:1100px;
-position:relative;
-left: 334px;
+	padding: 10px 0 0 0;
+	width: 700px;
+	float: left;
 }
 /* 이젠 아카데미 로고 */
-.bottom-img img{
- 	dispaly:inline-block;
+.bottom-img img {
+	dispaly: inline-block;
 	height: 90px;
-	position:relative;
+	position: relative;
 	top: 15px;
 	left: 65px;
 }
-
 </style>
 </head>

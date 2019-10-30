@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <footer>
-		<div class= "bottom-box">	
+		<div class= "bottom-box">
 		<div class="row-fottt">
 			<div class="fottt"><img src="../img/foot_logo.png" class="blogo"></div>
-			<div class="adbox ">
 
 				<address>파이썬 빅데이터반 2조 <br/>
 				만든이 : 조지현 박기협 정민기 이승석 김체리<br/>
@@ -12,7 +11,6 @@
 				 <br/>
 				<a href="tel:010-5458-6321">고객센터 : 010-5458-6321</a> / 사이트에 대한 문의 <a href="mailto:lss0238@gmail.com">lss0238@gmail.com</a>
 				</address>
-			</div>
 			<a href="http://www.ezenac.co.kr"> <span class="bottom-img"> <img src="../img/ezen.jpg" alt="이젠" /></span></a>
 		</div>
 		</div>
