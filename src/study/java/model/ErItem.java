@@ -1,17 +1,16 @@
 package study.java.model;
 
-import java.io.Serializable;
 
-public class ErItem implements Serializable {
+public class ErItem  {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8116286722229613235L;
+	
 	private String dutyAddr = null;
 	private String dutyName = null;
 	private String dutyTel = null;
-	private Double Lon = null;
-	private Double Lan = null;
+	private Double wgs84Lat = null;
+	private Double wgs84Lon = null;
 	public String getDutyAddr() {
 		return dutyAddr;
 	}
@@ -30,30 +29,31 @@ public class ErItem implements Serializable {
 	public void setDutyTel(String dutyTel) {
 		this.dutyTel = dutyTel;
 	}
-	public Double getLon() {
-		return Lon;
+	public Double getWgs84Lat() {
+		return wgs84Lat;
 	}
-	public void setLon(Double lon) {
-		Lon = lon;
+	public void setWgs84Lat(Double wgs84Lat) {
+		this.wgs84Lat = wgs84Lat;
 	}
-	public Double getLan() {
-		return Lan;
+	public Double getWgs84Lon() {
+		return wgs84Lon;
 	}
-	public void setLan(Double lan) {
-		Lan = lan;
+	public void setWgs84Lon(Double wgs84Lon) {
+		this.wgs84Lon = wgs84Lon;
 	}
-	public ErItem(String dutyAddr, String dutyName, String dutyTel, Double lon, Double lan) {
+	@Override
+	public String toString() {
+		return "ErItem [dutyAddr=" + dutyAddr + ", dutyName=" + dutyName + ", dutyTel=" + dutyTel + ", wgs84Lat="
+				+ wgs84Lat + ", wgs84Lon=" + wgs84Lon + "]";
+	}
+	public ErItem(String dutyAddr, String dutyName, String dutyTel, Double wgs84Lat, Double wgs84Lon) {
 		super();
 		this.dutyAddr = dutyAddr;
 		this.dutyName = dutyName;
 		this.dutyTel = dutyTel;
-		Lon = lon;
-		Lan = lan;
+		this.wgs84Lat = wgs84Lat;
+		this.wgs84Lon = wgs84Lon;
 	}
-	@Override
-	public String toString() {
-		return "ErItem [dutyAddr=" + dutyAddr + ", dutyName=" + dutyName + ", dutyTel=" + dutyTel + ", Lon=" + Lon
-				+ ", Lan=" + Lan + "]";
-	}
+		
 	
 }

@@ -359,16 +359,15 @@
 			}
 			$(".prog").html( $(this).html() +" 응급실 위치 " + place);
 			$.ajax( {
-				url:'../api/eroom.do',
+				url:'06_Find_e_i.jsp',
 				method:'get',
 				data:{data:gu},
 				dataType:'json',
 				success:function(req){
-					
 					var map = new GMaps({
 						el: '#gmap',		//지도를 표시할 div의 id값
-						lat: req.items[0].lon,		//지도가 표시될 위도
-						lng: req.items[0].lan,		//지도가 표시될 경도
+						lat: req.items[0].wgs84Lat,		//지도가 표시될 위도
+						lng: req.items[0].wgs84Lon,		//지도가 표시될 경도
 						zoom: 14
 					});
 					
@@ -412,8 +411,8 @@
 						map.addMarker({
 						//마우스 오버시 노란박스
 							title: req.items[i].dutyName,
-							lat: req.items[i].lon,
-							lng: req.items[i].lan,
+							lat: req.items[i].wgs84Lat,
+							lng: req.items[i].wgs84Lon,
 							icon:{
 								url:"../plugins/gmaps/map-marker.png",
 								scaledSize: new google.maps.Size(50, 50)
