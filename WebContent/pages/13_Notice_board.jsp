@@ -6,79 +6,101 @@
 <head>
 <%@ include file="../inc/head.jsp"%>
 <%@ include file="../inc/remote_css.jsp"%>
-<meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
 <title>Notice_board</title>
 
 <style type="text/css">
-table {
+
+/** 테이블 설정 */
+.table {
+	width: 1170px;
 	margin: auto;
+	border: 1px solid #ccc;
 }
 
+/** 게시판 thead 색상 설정 */
+thead {
+	background-color: #ffb011;
+}
+
+/** 테이블 상단의 전체 선택과 search가 묶여 있는 박스 -> 테이블 크기와 맞춘 박스(고정시켜 페이지가 줄어도 search와 전체선택이 아래로 내려가지 않도록) */
+#h {
+	margin: auto;
+	width: 1170px;
+}
+
+/** 우측 상단 전체 선택 체크박스 설정 */
+#all_check {
+	display: inline-block;
+	margin-top: 40px;
+	margin-left: 8px;
+}
+
+/** 우측 상단 검색 부분 설정 */
+#search {
+	padding: 5px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	display: inline-block;
+}
+
+/** 검색에 placeholder 색상 밑 투명도 조절 */
+::placeholder {
+	color: #999;
+	opacity: 1;
+}
+
+/** 하단 페이지 번호 표시 */
 .pagination {
 	padding-left: 450px;
 	display: inline-block;
 }
 
-.menu-right {
-	padding-left: 330px;
-}
-
+/** 하단 우측 버튼 부분 가로로 정렬 */
 .a {
 	display: inline-block;
 }
 
-#e {
-	height: 50px;
+/** 하단 번호 표시와 우측 버튼들 묶은 박스 -> 페이지 크기 변화에 따라 반응하지 않도록 박스로 고정 */
+#g {
+	margin: auto;
+	width: 1170px;
 }
 
-#all_check {
-	margin-right: 800px;
-}
-
-#ck {
-	width: 5px;
+/** 검색 부분과 하단의 버튼들 위치 조절 */
+.pull-right {
+	padding: 15px 0;
 }
 </style>
-
-<!-- bootstrap -->
-<link rel="stylesheet" type="text/css"
-	href="assets/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/nanumfont.css" />
-
 </head>
 
 <body>
 	<%@ include file="../inc/top.jsp"%>
 
 	<div class="container" style="min-height: 500px;">
-<%@ include file="../inc/remote.jsp"%>
+		<%@ include file="../inc/remote.jsp"%>
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
+		<form id="h" class="clearfix">
+			<fieldset class="pull-left">
+				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
+			</fieldset>
 
-
-		<form class="navbar-form navbar-right" role="search">
-			<label>전체선택&nbsp;&nbsp;<input type='checkbox' id='all_check'></label>
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-			<button type="submit" class="btn btn-default">검색</button>
+			<fieldset class="pull-right">
+				<input type="text" id="search" name="search" placeholder="Search" />
+				<button type="submit" class="btn btn-default">검색</button>
+			</fieldset>
 		</form>
 
-
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
+		<div class="table1">
+			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th id="ck"></th>
-
-						<th class="text-center">#</th>
+						<th></th>
+						<th>#</th>
 						<th class="text-center">제목</th>
-						<th class="tedt-center">작성자</th>
+						<th class="text-center">작성자</th>
 						<th class="text-center">작성일</th>
 						<th class="text-center">조회수</th>
 					</tr>
@@ -87,7 +109,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">1</td>
+						<td>1</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">목이 아파요</td>
@@ -98,7 +120,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">2</td>
+						<td>2</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">열과 두통</td>
@@ -109,7 +131,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">3</td>
+						<td>3</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">피부 알레르기</td>
@@ -120,7 +142,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">4</td>
+						<td>4</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">환절기 질병</td>
@@ -131,7 +153,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">5</td>
+						<td>5</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">유행성 독감</td>
@@ -141,7 +163,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">6</td>
+						<td>6</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">목이 아파요</td>
@@ -152,7 +174,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">7</td>
+						<td>7</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">열과 두통</td>
@@ -163,7 +185,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">8</td>
+						<td>8</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">피부 알레르기</td>
@@ -174,7 +196,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">9</td>
+						<td>9</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">환절기 질병</td>
@@ -185,7 +207,7 @@ table {
 					<tr>
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td class="text-center">10</td>
+						<td>10</td>
 						<td class="text-center"
 							onClick="location.href='14_Notice_board_i.jsp'"
 							style="cursor: pointer;">유행성 독감</td>
@@ -196,8 +218,9 @@ table {
 				</tbody>
 			</table>
 		</div>
+	</div>
 
-
+	<div id="g" class="clearfix">
 		<ul class="pagination pagination-md">
 			<li class="disabled"><a href="#">&laquo;</a></li>
 			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
@@ -208,52 +231,49 @@ table {
 			<li><a href="#">&raquo;</a></li>
 		</ul>
 
-		<span class="menu-right">
+		<ul class="pull-right">
 			<li class="a"><a href="16_Notice_board_new.jsp"
 				class="btn btn-default btn-sm">글쓰기</a></li>
 			<li class="a"><a href="Notice_board_i.jsp"
-				class="btn btn-default btn-sm" id="btn4">삭제</a></li>
-		</span>
+				class="btn btn-default btn-sm" id="btn1">삭제</a></li>
+		</ul>
+	</div>
 
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script>
+			$(function() {
+				$("#btn1").click(function(e) {
 
+					e.preventDefault();
 
-
-<div id="e"></div>
-<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script>
-	$(function() {
-		$("#btn4").click(function(e) {
-
-			e.preventDefault();
-
-			// 확인, 취소버튼에 따른 후속 처리 구현
-			swal({
-				title : '확인', // 제목
-				text : "정말 선택하신 항목을 삭제하시겠습니까?", // 내용
-				type : 'warning', // 종류
-				confirmButtonText : 'Yes', // 확인버튼 표시 문구
-				showCancelButton : true, // 취소버튼 표시 여부
-				cancelButtonText : 'No', // 취소버튼 표시 문구
-			}).then(function(result) { // 버튼이 눌러졌을 경우의 콜백 연결
-				if (result.value) { // 확인 버튼이 눌러진 경우
-					swal('삭제', '성공적으로 삭제되었습니다.', 'success');
-				} else if (result.dismiss === 'cancel') { // 취소버튼이 눌러진 경우
-					swal('취소', '삭제가 취소되었습니다.', 'error');
-				}
+					// 확인, 취소버튼에 따른 후속 처리 구현
+					swal({
+						title : '확인', // 제목
+						text : "정말 선택하신 항목을 삭제하시겠습니까?", // 내용
+						type : 'warning', // 종류
+						confirmButtonText : 'Yes', // 확인버튼 표시 문구
+						showCancelButton : true, // 취소버튼 표시 여부
+						cancelButtonText : 'No', // 취소버튼 표시 문구
+					}).then(function(result) { // 버튼이 눌러졌을 경우의 콜백 연결
+						if (result.value) { // 확인 버튼이 눌러진 경우
+							swal('삭제', '성공적으로 삭제되었습니다.', 'success');
+						} else if (result.dismiss === 'cancel') { // 취소버튼이 눌러진 경우
+							swal('취소', '삭제가 취소되었습니다.', 'error');
+						}
+					});
+				});
 			});
-		});
-	});
 
-	$(function() {
-		/* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
-		$("#all_check").change(function() {
-			// 모든 `.hobby`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
-			$(".all").prop('checked', $(this).prop('checked'));
-		});
-	});
-</script>
-</div>
-<%@ include file="../inc/bottom.jsp"%>
+			$(function() {
+				/* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
+				$("#all_check").change(function() {
+					// 모든 `.hobby`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
+					$(".all").prop('checked', $(this).prop('checked'));
+				});
+			});
+		</script>
+
+	<%@ include file="../inc/bottom.jsp"%>
 </body>
 </html>
