@@ -7,6 +7,13 @@
     <%@ include file="../inc/head.jsp" %>
 
     <style>
+    
+    .bbox {
+    	width: 1170px;
+    	margin: auto;
+    	padding-top: 50px;
+   	 }
+    
     .top {
 			text-align: center;
 			margin: 20px 0;
@@ -57,26 +64,27 @@
   </head>
   <body>
 	<%@ include file="../inc/top.jsp" %>
-	
-	<div class="container"style="min-height:500px;">
-		<div class="top">
-			<span> <img src="../img/user.png">
-			</span> <span> 회원 정보 수정 </span>
+	<div class="bbox">
+		<div class="container"style="min-height:700px;">
+			<div class="top">
+				<span> <img src="../img/user.png">
+				</span> <span> 회원 정보 수정 </span>
+			</div>
+			<div class="content" style="background: #ffa500;">
+				<span>
+					<strong>개인정보 보호를 위해 한번 더 비밀번호를 입력해주세요.</strong>
+				</span>
+				<form id="login-form" class="form-block" method="post">
+					<label for="user_pw">비밀번호</label>	
+					<input type="password" name="user_pw" id="user_pw" class="form-control"
+						placeholder="비밀번호를 입력하세요." />
+					<button type="button" class="btn btn-primary btn-lg btn-block" 
+							onclick="location.href ='27_Profile.jsp'">로그인</button>
+				</form>
+			</div>
+		 
 		</div>
-		<div class="content" style="background: #ffa500;">
-			<span>
-				<strong>개인정보 보호를 위해 한번 더 비밀번호를 입력해주세요.</strong>
-			</span>
-			<form id="login-form" class="form-block" method="post">
-				<label for="user_pw">비밀번호</label>	
-				<input type="password" name="user_pw" id="user_pw" class="form-control"
-					placeholder="비밀번호를 입력하세요." />
-				<button type="submit" class="btn btn-primary btn-lg btn-block" onclick="location.href ='27_Profile'">로그인</button>
-			</form>
-		</div>
-	 
 	</div>
-	
 	<%@ include file="../inc/bottom.jsp" %>
   </body>
 </html>
