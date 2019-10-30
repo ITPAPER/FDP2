@@ -1,874 +1,149 @@
+<%@page import="study.jsp.model1.model.Hospital"%>
+<%@page import="study.jsp.model1.service.ApiHospitalService"%>
+<%@page import="retrofit2.Call"%>
+<%@page import="retrofit2.Retrofit"%>
+<%@page import="study.jsp.model1.helper.RetrofitHelper"%>
+<%@page import="study.jsp.model1.helper.WebHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%
+	/** 1) 필요한 객체 생성 부분 */
+	// Helper 객체 생성
+	// -> import study.jsp.model1.helper.WebHelper;
+	WebHelper webHelper = WebHelper.getInstance(request, response);
 
+	// -> import study.jsp.model1.helper.RetrofitHelper;
+	RetrofitHelper retrofitHelper = RetrofitHelper.getInstance();
+
+	// Retrofit 객체 생성
+	// -> import retrofit2.Retrofit;
+	// -> import study.jsp.model1.service.ApiKobisService;
+	Retrofit retrofit = retrofitHelper.getRetrofit(ApiHospitalService.BASE_URL);
+
+	// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
+	ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
+
+	/** 2) 검색일 파라미터 처리 */
+	// 검색어 키워드 받기
+	String query = webHelper.getString("query", "");
+
+	// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 나짜 값을 yyyy-mm-dd 형식으로 생성한다.
+	if (query == null) {
+		query = "서울특별시";
+	}
+
+	/** 3) API 연동 */
+
+	// 검색 결과를 저장할 Beans 객체 선언
+	Hospital hospital = null;
+
+	// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
+	if (query.equals("")) {
+		Call<Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 15);
+		try {
+			hospital = call.execute().body();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 나짜 값을 yyyy-mm-dd 형식으로 생성한다.
+%>
 <!doctype html>
-<html lang="ko">
+<html>
 <head>
-<%@ include file="../inc/head.jsp"%>
 <meta charset="UTF-8">
-<!-- <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">  -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Notice_board</title>
-
+<title>Hello JSP</title>
+<%@ include file="../inc/head.jsp"%>
 <style type="text/css">
-.container {
-	width: 1400px;
-}
 
-table {
-	margin: auto;
-}
-
-.text-left {
-	background: #777;
-}
-
-.menu-right {
-	padding-left: 330px;
-}
-
-h1 {
-	font-size: 40px;
-	margin: 20px 0 10px 0;
-	font-weight: 900;
-	color: #2F9D27;
-}
-
-h2 {
-	color: #fff;
-	font-size: 20px;
-	margin: 0 0 10px 0;
-	font-weight: 700px;
-}
-
-h3 {
-	color: #fff;
-	font-size: 14px;
-	margin: 0;
-}
-
-h6 {
-	display: inline-block;
-	font-size: 14px;
-	margin: 0;
-}
-
-hr {
-	margin: 5px 0 5px 0;
-}
 </style>
+<script type="text/javascript">
+	function printTime() {
+		// 현재 시각을 구한다.
+		var days = [ "일", "월", "화", "수", "목", "금", "토" ];
+		var mydate = new Date();
 
-<!-- bootstrap -->
-<link rel="stylesheet" type="text/css"
-	href="assets/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/nanumfont.css" />
+		var yy = mydate.getFullYear();
+		var mm = mydate.getMonth() + 1;
+		var dd = mydate.getDate();
+		var i = mydate.getDay();
+		var day = days[i];
+		var hh = mydate.getHours();
+		var mi = mydate.getMinutes();
+		var ss = mydate.getSeconds();
+
+		// 완성된 현재 시각
+		var result = yy + "-" + mm + "-" + dd + " " + day + "요일 " + hh + ":"
+				+ mi + ":" + ss;
+
+		// id속성값이 timer인 요소에게 결과를 출력한다.
+		document.getElementById("timer").innerHTML = result;
+	}
+
+	function startTimer() {
+		// printTime 함수를 1초에 한번씩 반복해서 자동 호출한다.
+		setInterval(printTime, 100);
+	}
+</script>
 </head>
+<body onload="startTimer()">
+<%@ include file="../inc/top.jsp"%>
+	<header>
+		<h1>서울 응급실 현황</h1>
+		<h2 id="timer"></h2>
+	</header>
 
-<body>
-	<%@ include file="../inc/top.jsp"%>
+	<%if (hospital != null) {%>
+	<hr />
+	<%for (Hospital.Response.Body.Items.Item item : hospital.getResponse().getBody().getItems().getItem()) {%>
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th colspan="10" class="text-left"><h3><%=item.getDutyName()%></h3>
+						<hr />
+						<h4>
+							연락처:<%=item.getTel()%></h4></th>
+				</tr>
+				<tr>
+					<th class="text-center"><h5>응급실</h5></th>
+					<th class="text-center"><h5>내과 중환자실</h5></th>
+					<th class="text-center"><h5>외과 중환자실</h5></th>
+					<th class="text-center"><h5>외과입원실</h5></th>
+					<th class="text-center"><h5>신경과입원실</h5></th>
+					<th class="text-center"><h5>신경외과 중환자실</h5></th>
+					<th class="text-center"><h5>인큐베이터 유무</h5></th>
+					<th class="text-center"><h5>소아당직의 직통번호</h5></th>
+					<th class="text-center"><h5>신경 중환자실</h5></th>
+					<th class="text-center"><h5>신생아중환자실</h5></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
 
-	<div class="container" style="min-height: 100px;">
-		<div>
-			<h1 id="title">종합상황판</h1>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>한양대학교병원</h2>
-							<hr />
-							<h3>서울특별시 성동구 왕십리로 222-1 (사근동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>(학)고려중앙학원
-								고려대학교의과대학부속병원(안암병원)</h2>
-							<hr />
-							<h3>서울특별시 성북구 고려대로 73, 고려대병원 (안암동5가)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>고려대학교의과대학부속구로병원</h2>
-							<hr />
-							<h3>서울특별시 구로구 구로동로 148, 고려대부속구로병원 (구로동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>서울대학교병원</h2>
-							<hr />
-							<h3>서울특별시 종로구 대학로 101 (연건동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">5 /
-							<h6>18</h6>
-						</td>
-						<td class="text-center">0 /
-							<h6>2</h6>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>이화여자대학교의과대학부속목동병원
-							</h2>
-							<hr />
-							<h3>서울특별시 양천구 안양천로 1071 (목동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">3 /
-							<h6>5</h6>
-						</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>학교법인가톨릭학원가톨릭대학교서울성모병원</h2>
-							<hr />
-							<h3>서울특별시 서초구 반포대로 222 (반포동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>중앙대학교병원</h2>
-							<hr />
-							<h3>서울특별시 동작구 흑석로 102 (흑석동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>경희대학교병원</h2>
-							<hr />
-							<h3>서울특별시 동대문구 경희대로 23 (회기동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>학교법인연세대학교의과대학세브란스병원</h2>
-							<hr />
-							<h3>서울특별시 서대문구 연세로 50-1 (신촌동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">3 /
-							<h6>17</h6>
-						</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>강북삼성병원</h2>
-							<hr />
-							<h3>서울특별시 종로구 새문안로 29 (평동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>건국대학교병원</h2>
-							<hr />
-							<h3>서울특별시 광진구 능동로 120-1 (화양동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>재단법인아산사회복지재단서울아산병원</h2>
-							<hr />
-							<h3>서울특별시 송파구 올림픽로43길 88, 서울아산병원 (풍납동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">8 /
-							<h6>23</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>연세대학교의과대학강남세브란스병원</h2>
-							<hr />
-							<h3>서울특별시 강남구 언주로 211, 강남세브란스병원 (도곡동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-						<td class="text-center"></td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>삼성서울병원</h2>
-							<hr />
-							<h3>서울특별시 강남구 일원로 81 (일원동, 삼성의료원)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>2</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">1 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">7 /
-							<h6>13</h6>
-						</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th colspan="10" class="text-left"><h2>의료법인한전의료재단한일병원</h2>
-							<hr />
-							<h3>서울특별시 도봉구 우이천로 308 (쌍문동)</h3></th>
-					</tr>
-					<tr>
-						<th class="text-center">응급실 일반 병상</th>
-						<th class="text-center">응급실 소아 병상</th>
-						<th class="text-center">응급실 음압 격리 병상</th>
-						<th class="tedt-center">응급실 일반 격리 병상</th>
-						<th class="text-center">응급전용 중환자실</th>
-						<th class="text-center">내과중환자실</th>
-						<th class="text-center">외과중환자실</th>
-						<th class="text-center">신생아중환자실</th>
-						<th class="text-center">소아 중환자실</th>
-						<th class="text-center">소아응급전용 중환자실 병상</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="text-center">6 /
-							<h6>27</h6>
-						</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">4 /
-							<h6>4</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-						<td class="text-center">2 /
-							<h6>20</h6>
-						</td>
-						<td class="text-center">-</td>
-						<td class="text-center">-</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
+					<td class="apitext"><h6><%=item.getHvec()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv2()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv3()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv4()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv5()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv6()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv11()%></h6></td>
+					<td class="apitext"><h6><%=item.getHv12()%></h6></td>
+					<td class="apitext"><h6><%=item.getHvcc()%></h6></td>
+					<td class="apitext"><h6><%=item.getHvncc()%></h6></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-
-	<%@ include file="../inc/bottom.jsp"%>
+	<br />
+	<%
+		}
+	%>
+	<%
+		}
+	%>
+<%@ include file="../inc/bottom.jsp"%>
 </body>
 </html>
