@@ -16,7 +16,7 @@
 }
 
 /** 첨부파일 클립모양 이미지 설정 */
-img {
+.attachment {
 	width: 20px;
 	height: 20px;
 	padding-right: 5px;
@@ -31,6 +31,17 @@ th {
 /** 하단의 버튼들 위치 조절 */
 .bottom-button {
 	padding: 15px 0 30px 15px;
+}
+
+/** 댓글 설정 */
+.comment {
+	list-style: none;
+	padding-left: 0;
+}
+
+/** 하단 버튼이 있는 박스 크기 설정 */
+.b {
+	width: 1170px;
 }
 </style>
 <head>
@@ -66,7 +77,7 @@ th {
 					</tr>
 					<tr>
 						<td><a href="../img/baby_redspot.jpg">
-								<img alt="첨부파일" src="../img/attachment.png" />
+								<img class="attachment" alt="첨부파일" src="../img/attachment.png" />
 								피부 붉은 반점.jpg
 							</a>
 						</td>
@@ -87,13 +98,13 @@ th {
 								<b>댓글</b>
 							</h5> <br /> 
 							<!-- 웹진 박스를 목록으로 구성하기 위한 구조 입니다. -->
-							<ul class="media-list">
+							<ul class="comment">
 								<!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
-								<li class="media">
+								<li>
 									<!-- 제목영역의 float 처리를 위한 마감제 박스 -->
 									<div class="clearfix">
 										<!-- 제목에 float: left 적용 - pull-left -->
-										<h5 class="media-heading pull-left">cpfl***</h5>
+										<h5 class="pull-left">cpfl***</h5>
 										<!-- 제목에 float: right 적용 - pull-right -->
 										<div class="pull-right">
 											<a href="#" title="수정"><i
@@ -110,16 +121,16 @@ th {
 				</tbody>
 			</table>
 		</div>
-
-		<ul class="pull-right bottom-button">
-			<li class="a"><a href="14_Notice_board_i.jsp"
-				class="btn btn-default btn-sm" id="btn1">삭제 </a></li>
-			<li class="a"><a href="15_Notice_board_2.jsp"
-				class="btn btn-default btn-sm">수정</a></li>
-			<li class="a"><a href="13_Notice_board.jsp"
-				class="btn btn-default btn-sm">메뉴</a></li>
-		</ul>
-
+		<div class="clearfix b" >
+			<ul class="pull-right bottom-button">
+				<li class="a"><a href="14_Notice_board_i.jsp"
+					class="btn btn-default btn-sm" id="btn1">삭제 </a></li>
+				<li class="a"><a href="15_Notice_board_2.jsp"
+					class="btn btn-default btn-sm">수정</a></li>
+				<li class="a"><a href="13_Notice_board.jsp"
+					class="btn btn-default btn-sm">메뉴</a></li>
+			</ul>
+		</div>
 	</div>
 	
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
