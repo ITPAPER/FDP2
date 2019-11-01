@@ -13,7 +13,7 @@
 
 /** 테이블 설정 */
 .table {
-	width: 1170px;
+	width: 1140px;
 	margin: auto;
 	border: 1px solid #ccc;
 }
@@ -26,7 +26,7 @@ thead {
 /** 테이블 상단의 전체 선택과 search가 묶여 있는 박스 -> 테이블 크기와 맞춘 박스(고정시켜 페이지가 줄어도 search와 전체선택이 아래로 내려가지 않도록) */
 #h {
 	margin: auto;
-	width: 1170px;
+	width: 1140px;
 }
 
 /** 우측 상단 전체 선택 체크박스 설정 */
@@ -68,7 +68,7 @@ thead {
 /** 하단 번호 표시와 우측 버튼들 묶은 박스 -> 페이지 크기 변화에 따라 반응하지 않도록 박스로 고정 */
 #g {
 	margin: auto;
-	width: 1170px;
+	width: 1140px;
 }
 
 /** 검색 부분과 하단의 버튼들 위치 조절 */

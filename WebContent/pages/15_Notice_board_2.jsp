@@ -9,20 +9,14 @@
 	display: inline-block;
 }
 
-/** thead 부분 대신 테이블 상단 부분 설정 */
-#tb {
-	height: 60px;
-	background: #ffb011;
-}
-
 /** 하단 버튼 부분 박스 설정 */
 .b {
-	width: 1170px;
+	width: 1140px;
 }
 
 /** 테이블을 감싸는 박스로 테이블 크기 고정 (반응형 x)*/
 .table1 {
-	width: 1170px;
+	width: 1140px;
 }
 
 /** 댓글 부분 설정 */
@@ -30,6 +24,15 @@
 	list-style: none;
 	padding-left: 0;
 }
+
+/** 테이블 최소 크기 설정 */
+.table {
+	min-height: 400px;
+}
+
+.table1 .table .d {
+	vertical-align : middle;
+} 
 
 </style>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -46,11 +49,10 @@
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table1">
-			<div id="tb"></div>
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
-						<td><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+						<td class="d"><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
 					</tr>
 					<tr>
 					<td>

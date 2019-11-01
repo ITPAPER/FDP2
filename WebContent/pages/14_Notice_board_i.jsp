@@ -6,8 +6,13 @@
 <style type="text/css">
 /** 테이블 설정 */
 .table2 {
-	width: 1170px;
+	width: 1140px;
 	margin: auto;
+}
+
+/** 테이블 최소 크기 설정 */
+.table {
+	min-height: 500px;
 }
 
 /** 하단 버튼들 li를 가로로 정렬하기 */
@@ -20,12 +25,6 @@
 	width: 20px;
 	height: 20px;
 	padding-right: 5px;
-}
-
-/** 테이블 헤드 부분 설정 */
-th {
-	height: 60px;
-	background: #ffb011;
 }
 
 /** 하단의 버튼들 위치 조절 */
@@ -41,7 +40,7 @@ th {
 
 /** 하단 버튼이 있는 박스 크기 설정 */
 .b {
-	width: 1170px;
+	width: 1140px;
 }
 </style>
 <head>
@@ -59,11 +58,6 @@ th {
 
 		<div class="table2">
 			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th></th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr>
 						<td><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
