@@ -5,7 +5,7 @@ am4core.useTheme(am4themes_animated);
 // Themes end
  
 // Create chart instance
-var chart = am4core.create("chartdiv1", am4charts.XYChart);
+var chart = am4core.create("chartdiv", am4charts.XYChart);
  
 // Export
 chart.exporting.menu = new am4core.ExportMenu();
@@ -21,7 +21,7 @@ var data = [
         "3단질병명": "노년백내장",
         "환자수": "303,204",
         "요양급여비용총액": "413,297"
-    }*/,
+    }, */
     {
         "3단질병명": "출산장소에 따른 생존출생",
         "환자수": "293,265",

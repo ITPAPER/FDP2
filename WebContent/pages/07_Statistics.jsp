@@ -74,7 +74,7 @@
 	<%@ include file="../inc/top.jsp" %>
 	<!-- 자바스크립트 차트 라이브러리 amCharts4 사용 예시 -->
 	<div class="container"style="min-height:3000px;">
-		<h3 class="title"><strong>국민 관심 보건의료 통계</strong></h3>
+		<h3 class="title"><strong>국민 관심 보건의료 통계자료</s trong></h3>
 		<!-- 차트 삽입 예시 -->
 		<div>
 			<h4 class="chart1">[2018년 다빈도 질병(환자 수 &amp; 요양급여비용총액)]</h4>
