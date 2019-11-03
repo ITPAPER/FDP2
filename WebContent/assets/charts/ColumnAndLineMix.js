@@ -1,18 +1,18 @@
 am4core.ready(function() {
-
+ 
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
-
+ 
 // Create chart instance
 var chart = am4core.create("chartdiv1", am4charts.XYChart);
-
+ 
 // Export
 chart.exporting.menu = new am4core.ExportMenu();
-
+ 
 // Data for both series
 var data = [
-    {
+    /*{
         "3단질병명": "감염성 및 상세불명 기원의 기타 위장염 및 결장염",
         "환자수": "341,132",
         "요양급여비용총액": "244,793"
@@ -21,7 +21,7 @@ var data = [
         "3단질병명": "노년백내장",
         "환자수": "303,204",
         "요양급여비용총액": "413,297"
-    },
+    }*/,
     {
         "3단질병명": "출산장소에 따른 생존출생",
         "환자수": "293,265",
@@ -113,38 +113,38 @@ var data = [
         "요양급여비용총액": "61,254"
     }
 ];
-
+ 
 /* Create axes */
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 categoryAxis.dataFields.category = "3단질병명";
 categoryAxis.renderer.minGridDistance = 30;
-
+ 
 /* Create value axis */
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
+ 
 /* Create series */
 var columnSeries = chart.series.push(new am4charts.ColumnSeries());
 columnSeries.name = "환자수";
 columnSeries.dataFields.valueY = "환자수";
 columnSeries.dataFields.categoryX = "3단질병명";
-
+ 
 columnSeries.columns.template.tooltipText = "[#fff font-size: 15px]{name} in {categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"
 columnSeries.columns.template.propertyFields.fillOpacity = "fillOpacity";
 columnSeries.columns.template.propertyFields.stroke = "stroke";
 columnSeries.columns.template.propertyFields.strokeWidth = "strokeWidth";
 columnSeries.columns.template.propertyFields.strokeDasharray = "columnDash";
 columnSeries.tooltip.label.textAlign = "middle";
-
+ 
 var lineSeries = chart.series.push(new am4charts.LineSeries());
 lineSeries.name = "요양급여비용총액";
 lineSeries.dataFields.valueY = "요양급여비용총액";
 lineSeries.dataFields.categoryX = "3단질병명";
-
+ 
 lineSeries.stroke = am4core.color("#fdd400");
 lineSeries.strokeWidth = 3;
 lineSeries.propertyFields.strokeDasharray = "lineDash";
 lineSeries.tooltip.label.textAlign = "middle";
-
+ 
 var bullet = lineSeries.bullets.push(new am4charts.Bullet());
 bullet.fill = am4core.color("#fdd400"); // tooltips grab fill from parent by default
 bullet.tooltipText = "[#fff font-size: 15px]{name} in {categoryX}:\n[/][#fff font-size: 20px]{valueY}[/] [#fff]{additional}[/]"
@@ -152,7 +152,7 @@ var circle = bullet.createChild(am4core.Circle);
 circle.radius = 4;
 circle.fill = am4core.color("#fff");
 circle.strokeWidth = 3;
-
+ 
 chart.data = data;
-
+ 
 }); // end am4core.ready()
