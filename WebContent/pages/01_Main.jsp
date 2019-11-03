@@ -6,8 +6,12 @@
   <head>
     <%@ include file="../inc/head.jsp" %>
     <link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
-    
+    <link rel="stylesheet" href="../plugins/youcover/youCover.css">
     <style type="text/css">
+    	#bigbox{
+    		height:710px;
+    		overflow:hidden;
+    	}
     	.login_box{
     		background-color: #E0E0E0;
     		padding : 5px;
@@ -132,18 +136,13 @@
     		padding:25px;
 
     	}
-    	.sub-info{
-    		display:block;
-    		width: 288px;
-    		height: 100px;
-    		margin:auto;
-    		background-color: #FED593;
-    		border-radius: 15px;
-    		text-align: center;
-    	}
     	.mynav{
     		margin:0;
     	}
+    	.tl{border-radius: 15px 0 0 0;	}
+    	.tr{border-radius: 0 15px 0 0;}
+    	.bl{border-radius: 0 0 0 15px;}
+    	.br{border-radius: 0 0 15px 0;}
     	
     	.nav-btn{
     		text-align:center;
@@ -176,6 +175,13 @@
     		color:black;
     		display:block;
     	}
+    	.mymodal{
+    		width:1000px;
+    	}
+    	/** 동영상 영역의 전체 크기를 설정한다. */
+        .my-youtube-wrapper { width: 926px; height: 544px; margin: auto; }
+        /** 내부적으로 사용되는 <iframe>태그의 border 제거 */
+        iframe { border: 0; }
     </style>
   </head>
   <body>
@@ -185,7 +191,7 @@
 		  	
 		<div class="container blank" style="height:40px;"></div>
 
-		<div class="container">
+		<div class="container" id="bigbox">
 			<div class="row contentsbox">
 				<div class="col-md-3">
 					<div class="row  login_box">
@@ -230,7 +236,7 @@
 
 			<div class="container" id="move">
 				<div class="row mynav">
-					<div class="col-md-3 nav-btn">
+					<div class="col-md-3 nav-btn tl">
 						<a href="#" class="nav-txt">데이터 통계
 							<br/>
 							<img src="../img/chart_o.png" width="150px" height="160px">
@@ -260,27 +266,237 @@
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 nav-btn">
+					<div class="col-md-3 nav-btn tr">
 						<a href="#" class="nav-txt">게시판
 						<br/>
 						<img src="../img/navlist.png" width="150px" height="160px">
 						</a>
 					</div>
 				</div>
+				<div class="row mynav blr">
+					<div class="col-md-3 nav-btn bl">
+						<a href="#" class="nav-txt">질병 관련 정보
+							<br/>
+							<img src="../img/virus.png" width="150px" height="160px">
+						</a>	
+					</div>
+					<div class="col-md-6 nav-btn-cent">						
+						<span  class="nav-txt">유용한 정보</span>
+						<br/><br/>
+						<ul class="ll">
+							<li class="beinline">
+								<a class="hos-btn" data-toggle="modal" href="#myModal"	>
+									<img  class="thumb" src="../img/YouTube.png" >
+									<span class="text">체형 교정 운동</span>
+								</a>
+							</li>
+							<li class="beinline">
+								<a class="hos-btn" href="#">
+									<img  class="thumb" src="../img/AED.png" >
+									<span class="text">AED사용 방법</span>
+								</a>
+							</li>
+							<li class="beinline">
+								<a class="hos-btn" href="#">
+									<img  class="thumb" src="../img/news.png" >
+									<span class="text">의료 신문</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-3 nav-btn br">
+						<a href="#" class="nav-txt">센터소개
+						<br/>
+						<img src="../img/center_intro.png" width="150px" height="160px">
+						</a>
+					</div>
+				</div>
 				
 				<div class="container blank" style="height:40px;"></div>
 				
-				
-				<div class="row">
-					<div class="col-md-4">
-						<a href="#" class="sub-info">질병 관련</a>
+				<!-- .modal -->
+				<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<!-- .modal-dialog -->
+					<div class="modal-dialog mymodal">
+						<!-- .modal-content -->
+						<div class="modal-content">
+							<!-- 제목 -->
+							<div class="modal-header">
+								<!-- 닫기버튼 -->
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+								&times;
+								</button>
+								<h3 class="modal-title" id="myModalLabel">체형 교정 운동</h3>
+							</div>
+							<!-- 내용 -->
+							<div class="modal-body">
+								<!-- 탭 메뉴 시작 -->
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#neck" data-toggle="tab">목</a></li>
+									<li><a href="#pelvis" data-toggle="tab">골반</a></li>
+									<li><a href="#leg" data-toggle="tab">다리</a></li>
+									<li><a href="#shoulder" data-toggle="tab">어께</a></li>
+									<li><a href="#spine" data-toggle="tab">척추</a></li>
+								</ul>
+								<!--// 탭 메뉴 끝 -->
+								<div class="tab-content">
+									<div class="tab-pane fade in active" id="neck">
+										<div class="panel-group" id="accordion">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 거북목 교정 </a></h4>
+												</div>
+												<div id="collapseOne" class="panel-collapse collapse in">
+													<div class="panel-body">
+														<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    													<div class="my-youtube-wrapper">
+        													<!-- 동영상 플레이어 -->
+        													<div data-youcover data-id='Io5NYpzfsEU'></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-heading">
+													<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseEig"> 일자목 및 거북목 교정 </a></h4>
+												</div>
+												<div id="collapseEig" class="panel-collapse collapse in">
+													<div class="panel-body">
+														<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    													<div class="my-youtube-wrapper">
+        													<!-- 동영상 플레이어 -->
+        													<div data-youcover data-id='ILbiDeN5GK0'></div>
+														</div>
+													</div>
+												</div>
+    										</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="pelvis">
+										<div class="panel-group" id="accordion">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> 골반 전방 경사 교정 </a></h4>
+												</div>
+												<div id="collapseTwo" class="panel-collapse collapse in">
+													<div class="panel-body">
+														<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    													<div class="my-youtube-wrapper">
+        													<!-- 동영상 플레이어 -->
+        													<div data-youcover data-id='iQ7MnBxZpN8'></div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-heading">
+													<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThr"> 골반 후방 경사 교정 </a></h4>
+												</div>
+												<div id="collapseThr" class="panel-collapse collapse in">
+													<div class="panel-body">
+														<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    													<div class="my-youtube-wrapper">
+        													<!-- 동영상 플레이어 -->
+        													<div data-youcover data-id='lOvwwhL7UPg'></div>
+														</div>
+													</div>
+												</div>
+    										</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="leg">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFou"> O다리 교정 </a></h4>
+											</div>
+											<div id="collapseFou" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    												<div class="my-youtube-wrapper">
+        												<!-- 동영상 플레이어 -->
+        												<div data-youcover data-id='8a3KwdlNysw'></div>
+													</div>
+												</div>
+											</div>
+											<div class="panel-heading">
+												<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFiv"> X다리 교정 </a></h4>
+											</div>
+											<div id="collapseFiv" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    												<div class="my-youtube-wrapper">
+        												<!-- 동영상 플레이어 -->
+        												<div data-youcover data-id='Be-o2hLUt-0'></div>
+													</div>
+												</div>
+											</div>
+											<div class="panel-heading">
+												<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSix"> 반장슬(back knee) 교정 </a></h4>
+											</div>
+											<div id="collapseSix" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    												<div class="my-youtube-wrapper">
+        												<!-- 동영상 플레이어 -->
+        												<div data-youcover data-id='lu4QOucD0c4'></div>
+													</div>
+												</div>
+											</div>
+    									</div>
+									</div>
+									<div class="tab-pane fade" id="shoulder">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseSev"> 라운드 숄더 교정 </a></h4>
+											</div>
+											<div id="collapseSev" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    												<div class="my-youtube-wrapper">
+        												<!-- 동영상 플레이어 -->
+        												<div data-youcover data-id='qMtyhDDmJ-U'></div>
+													</div>
+												</div>
+											</div>
+    									</div>
+									</div>
+									<div class="tab-pane fade" id="spine">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseNin"> 일자 척추 교정 </a></h4>
+											</div>
+											<div id="collapseNin" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    												<div class="my-youtube-wrapper">
+        												<!-- 동영상 플레이어 -->
+        												<div data-youcover data-id='NO1mncOrbdI'></div>
+													</div>
+												</div>
+											</div>
+											<div class="panel-heading">
+												<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTen"> 스웨이백 교정 </a></h4>
+											</div>
+											<div id="collapseTen" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<!-- 동영상 영역 : 크기 지정을 위한 div -->
+    												<div class="my-youtube-wrapper">
+        												<!-- 동영상 플레이어 -->
+        												<div data-youcover data-id='hMSc3sglcH4'></div>
+													</div>
+												</div>
+											</div>
+    									</div>
+									</div>
+								</div>
+								<!-- 하단 -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">
+									Close
+									</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
 					</div>
-					<div class="col-md-4">
-						<a href="#" class="sub-info">유용한 정보</a>
-					</div>
-					<div class="col-md-4">
-						<a href="#" class="sub-info">알아 보기</a>
-					</div>
+					<!-- /.modal -->
 				</div>
 			</div>
 		</div>
@@ -301,6 +517,7 @@
 	<script src="../plugins/ajax/ajax_helper.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAYjCPxyhxx8fGlitbS4U2qMUJwWiY6yk"></script>
 	<script src="../plugins/gmaps/gmaps.min.js"></script>
+	<script src='../plugins/youcover/youCover.js'></script>
 	<script src="../plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script type="text/javascript">
 	$(function(){
