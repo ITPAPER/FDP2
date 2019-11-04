@@ -1,52 +1,56 @@
-
+<%@page import="study.jsp.model1.helper.WebHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8"%>
+<%
+	WebHelper webHelper = WebHelper.getInstance(request, response);
+%>
 <!doctype html>
 <html lang="ko">
 <head>
-	<%@ include file="../inc/head.jsp"%>
-	<link rel="stylesheet" type="text/css" href="../assets/css/reset.css " />
-	<link rel="stylesheet" href="../plugins/sweetalert/sweetalert2.min.css" />
-	<style>
-		
-		.bbox {
-    		width: 1170px;
-    		margin: auto;
-    		padding-top: 50px;
-    	}
-		
-		.top {
-			text-align: center;
-			margin: 20px 0;
-		}
+<%@ include file="../inc/head.jsp"%>
+<link rel="stylesheet" type="text/css" href="../assets/css/reset.css " />
+<link rel="stylesheet" href="../plugins/sweetalert/sweetalert2.min.css" />
+<style>
+.bbox {
+	width: 1170px;
+	margin: auto;
+	padding-top: 50px;
+}
 
-		.top span {
-			display: block;
-		}
+.top {
+	text-align: center;
+	margin: 20px 0;
+}
 
-		.content {
-			border: 3px solid #ffa500;
-			min-height: 300px;
-			margin: auto;
-			width: 550px;
-		}
+.top span {
+	display: block;
+}
 
-		.form-row {
-			padding-top: 15px;
-			margin: auto;
-		}
+.content {
+	width: 900px;
+	border: 3px solid #ffa500;
+	margin: auto;
+}
 
-		.col-md-2 {
-			display: block;
-			position: releative;
-		}
+.form-group {
+	margin: 15px;
+}
 
-		.identify {
-			font-size: 15px;
-			color: #f00;
-		}
-	</style>
+.form-group>div>select {
+	display: inline-block;
+	width: 15%;
+}
+
+.form-group>div>input {
+	display: inline-block;
+	width: 34%;
+}
+
+.identify {
+	color: #f00;
+}
+input
+</style>
 
 
 </head>
@@ -56,58 +60,103 @@ pageEncoding="UTF-8"%>
 		<div class="container" style="min-height: 700px;">
 			<div class="top">
 				<span> <img src="../img/user.png">
-				</span> <span> 회원 정보 수정 </span>
+				</span> <span> <b>회원 정보 수정</b> </span>
 			</div>
 			<!-- 가입폼 시작 -->
-			<form class="content" name="join_form" id="join_form">
+			<form class="content" name="join_form" id="join_form"
+				action="01_Main.jsp">
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group">
 						<label for='user_id'>아이디</label> <input type="text"
-						class="form-control" id="user_id" name="user_id"
-						placeholder="nobin****" readonly />
+							class="form-control" id="user_id" name="user_id"
+							placeholder="nobin****" readonly />
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group">
 						<label for='user_name'>이름</label> <input type="text"
-						class="form-control" id="user_name" name="user_name"
-						placeholder="박*협" readonly />
+							class="form-control" id="user_name" name="user_name"
+							placeholder="박*협" readonly />
 					</div>
 				</div>
-	
+
 				<div class="form-row">
-					<div class="form-group col-md-6">
+					<div class="form-group">
 						<label for='user_pw'>비밀번호&nbsp;<span class='identify'>*</span></label>
 						<input type="password" class="form-control" id="user_pw"
-						name="user_pw" placeholder="비밀번호">
+							name="user_pw" placeholder="비밀번호">
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group">
 						<label for='user_pw'>비밀번호 확인&nbsp;<span class='identify'>*</span></label>
 						<input type="password" class="form-control" id="user_pw_re"
-						name="user_pw_re" placeholder="비밀번호 확인">
+							name="user_pw_re" placeholder="비밀번호 확인">
 					</div>
 				</div>
-	
+
 				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for='tel'>연락처</label> <input type="tel" class="form-control"
-						id="tel" name="tel" placeholder="연락처">
+					<div class="form-group">
+						<label for='tel'>연락처</label> <input type="tel"
+							class="form-control" id="tel" name="tel" placeholder="연락처">
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group">
 						<label for='email'>이메일</label> <input type="email"
-						class="form-control" id="email" name="email" placeholder="이메일">
+							class="form-control" id="email" name="email" placeholder="이메일">
 					</div>
 				</div>
-	
+
+				<div class="form-row">
+					<div class="form-group">
+						<label for='address'>주소</label>
+						<div>
+							<select name="address1" id="address1" class="form-control">
+								<option value="">-----시/도-----</option>
+								<option value="서울특별시">서울특별시</option>
+							</select> <select name="address2" id="address2" class="form-control">
+								<option value="">-----군/구-----</option>
+								<option value="강서구">강서구</option>
+								<option value="양천구">양천구</option>
+								<option value="구로구">구로구</option>
+								<option value="영등포구">영등포구</option>
+								<option value="금천구">금천구</option>
+								<option value="동작구">동작구</option>
+								<option value="관악구">관악구</option>
+								<option value="서초구">서초구</option>
+								<option value="강남구">강남구</option>
+								<option value="송파구">송파구</option>
+								<option value="강동구">강동구</option>
+								<option value="광진구">광진구</option>
+								<option value="성동구">성동구</option>
+								<option value="동대문구">동대문구</option>
+								<option value="중랑구">중랑구</option>
+								<option value="노원구">노원구</option>
+								<option value="도봉구">도봉구</option>
+								<option value="강북구">강북구</option>
+								<option value="성북구">성북구</option>
+								<option value="종로구">종로구</option>
+								<option value="중구">중구</option>
+								<option value="용산구">용산구</option>
+								<option value="은평구">은평구</option>
+								<option value="서대문구">서대문구</option>
+								<option value="마포구">마포구</option>
+							</select> <input type="text" name="address3" id="address3"
+								placeholder="동/읍/면 입력" class="form-control"> <input
+								type="text" name="address4" id="address4" placeholder="상세주소"
+								class="form-control">
+						</div>
+
+					</div>
+				</div>
+
 				<div class="form-group">
-					<label for='birthdate' class="col-md-2">생년월일</label>
-					<div class="col-md-10">
+					<label for='birthdate'>생년월일</label>
+					<div>
 						<input type="date" name="birthdate" id="birthdate"
-						class="form-control" value="1991-09-11" />
+							class="form-control" value="1991-09-11" />
 					</div>
+
 				</div>
-	
+
 				<div class="form-group">
-					<label for='gender1' class="col-md-2">성별</label>
-					<div class="col-md-10">
+					<label for='gender1'>성별</label>
+					<div>
 						<label> <input type='radio' name='gender' id='gender1'
 							value='M' checked>남자
 						</label> <label> <input type='radio' name='gender' id='gender2'
@@ -115,67 +164,74 @@ pageEncoding="UTF-8"%>
 						</label>
 					</div>
 				</div>
+
 				<div class="form-group">
 					<div class="text-center">
-						<button type="submit">수정하기</button>
+						<button type="submit" name="btn9" id="btn9">수정하기</button>
 					</div>
 				</div>
-	
+
 			</form>
-	
-			<script src="../assets/js/jquery.min.js"></script>
-			<script type="text/javascript">
-				var mydate = new Date();
-	
-				$(function() {
-					$("#join_form")
-					.submit(
-	
-						function(e) {
-							e.preventDefault();
-	
-							if ($('#user_pw').val().length < 4) {
-								alert('비밀번호는 4글자 이상 입력하셔야 합니다.');
-								$('#user_pw').val('');
-								$('#user_pw').focus();
-								return false;
-							}
-	
-							if ($('#user_pw').val() !== $('#user_pw_re')
-								.val()) {
-	
-								alert('비빌번호를 다시 확인 해 주세요.');
-								$('#user_pw_re').val('');
-								$('#user_pw_re').focus();
-								return false;
-							}
-	
-						var pattern1 = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
-						if ($('#tel').val() !== "") {
-							if (!pattern1.test($('#tel').val())) {
-								alert('연락처를 입력해주세요.');
-								$('#tel').val('');
-								$('#tel').focus();
-								return false;
-							}
-						}
-	
-						var pattern2 = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-						if ($('#email').val() !== "") {
-							if (!pattern2.test($('#email').val())) {
-								alert('이메일을 입력해 주세요.');
-								$('#eamil').val('');
-								$('#eamil').focus();
-								return false;
-							}
-						}
-	
-						alert("수정 완료!!");
-					});
-				});
-			</script>
+
 		</div>
 	</div>
 	<%@ include file="../inc/bottom.jsp"%>
+
+	<script src="../assets/js/jquery.min.js"></script>
+	<script src="regex.js"></script>
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#btn9").click(
+					function(e) {
+						e.preventDefault();
+
+						if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
+							return false;
+						}
+						if (!regex.min_length('#user_pw', 4,
+								'비밀번호는 최소 4자 이상 입력 가능합니다.')) {
+							return false;
+						}
+						if (!regex.max_length('#user_pw', 20,
+								'비밀번호는 최대 20자 까지만 입력 가능합니다.')) {
+							return false;
+						}
+						if (!regex.compare_to('#user_pw', '#user_pw_re',
+								'비밀번호 확인이 잘못되었습니다.')) {
+							return false;
+						}
+
+						if ($('#tel').val() !== "") {
+							if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) {
+								return false;
+							}
+						}
+
+						if ($('#email').val() !== "") {
+							if (!regex.email('#email', '이메일이 잘못되었습니다.')) {
+								return false;
+							}
+						}
+
+						swal({
+							title : '확인', // 제목
+							text : "회원정보 수정을 완료하시겠습니까?", // 내용
+							type : 'warning', // 종류
+							confirmButtonText : 'Yes', // 확인버튼 표시 문구
+							showCancelButton : true, // 취소버튼 표시 여부
+							cancelButtonText : 'No', // 취소버튼 표시 문구
+						}).then(function(result) { // 버튼이 눌러졌을 경우의 콜백 연결
+							if (result.value) { // 확인 버튼이 눌러진 경우
+								swal('완료', '회원정보 수정이 완료되었습니다.', 'success')
+								$('.swal2-confirm').click(function() {
+									$('form').submit();
+								});
+							}
+						})
+					});
+			});
+	</script>
 </body>
 </html>
