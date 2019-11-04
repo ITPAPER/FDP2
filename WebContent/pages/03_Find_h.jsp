@@ -176,7 +176,7 @@
 				var txt = $("#finddong").val();
 				
 				$.ajax( {
-					url:'../api/myhos.do',
+					url:'04_Find_h_i.jsp',
 					method:'get',
 					data:{data:gu, subject:subj, dong:txt},
 					dataType:'json',

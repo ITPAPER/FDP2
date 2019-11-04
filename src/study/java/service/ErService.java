@@ -4,6 +4,7 @@ package study.java.service;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import study.java.model.HosItem;
 import study.java.model.MyErList;
 import study.java.model.MyErListUno;
 
@@ -15,4 +16,7 @@ public interface ErService {
 	
 	@GET("/B552657/ErmctInfoInqireService/getEgytListInfoInqire?_type=json&Q0=서울특별시&ServiceKey=yt%2Fieh%2Fbe%2Fjap6NlGQZMqUd%2Bu0hfmIjkuSp4ROnxTK9TgWw5rx%2F2uNEI7TvW%2BGOGQUsN%2BXNsVSmNBz0xmICjOA%3D%3D&")
 	Call<MyErListUno> getMyErListUno(@Query("Q1") String mygu);
+
+	@GET("/B551182/hospInfoService/getHospBasisList?ServiceKey=yt%2Fieh%2Fbe%2Fjap6NlGQZMqUd%2Bu0hfmIjkuSp4ROnxTK9TgWw5rx%2F2uNEI7TvW%2BGOGQUsN%2BXNsVSmNBz0xmICjOA%3D%3D&_type=json&sidoCd=110000&numOfRows=100")
+	Call<HosItem> getHospi(@Query("dgsbjtCd") String dgsbjtCd, @Query("sgguCd") int sgguCd,  @Query("emdongNm") String emdongNm);
 }
