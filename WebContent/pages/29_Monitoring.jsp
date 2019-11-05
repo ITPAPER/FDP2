@@ -78,7 +78,7 @@
 	
 	.container2 {
 		position: absolute;
-		left: 85px;
+		
 	}
 	
 	.ththth {
@@ -143,13 +143,13 @@
 	<% if (hospital != null) { %>
 	<% for (Hospital.Response.Body.Items.Item item : hospital.getResponse().getBody().getItems().getItem()) { %>
 	<div class="table-responsive">
-		<table class="table table-bordered table-hover" style="width: 1200px;">
+		<table class="table table-bordered table-hover" style="width: 1130px;">
 			<thead>
 				<tr>
 					<th colspan="10" class="text-left" style="line-height: 1; font-size: 20px; padding: 15px 0px; border-bottom: 0;">&nbsp; <%=item.getDutyName()%></th>
 				</tr>
 				<tr>
-					<td colspan="10" style="font-size: 13px; border-bottom: 0;  padding: 8px 15px;">연락처:<%=item.getTel()%></td>
+					<td colspan="10" style="font-size: 13px; border-bottom: 0;  padding: 8px 15px;">연락처:&nbsp;<%=item.getTel()%></td>
 				</tr>
 				<% if (emergencyAddr != null) {
 					for (EmergencyAddr.Response.Body.Items.Item item1 : emergencyAddr.getResponse().getBody().getItems().getItem()) { 
