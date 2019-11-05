@@ -11,6 +11,13 @@
     		padding-bottom:20px !important;
     		border-bottom:1px solid #eee ;
     	}
+    	.pppp{
+    		padding-left : 15px;
+    		padding-right :15px;
+    	}
+    	.accord-item:first-child > .accord-title {
+        	margin-top:0;
+        }
      	#gmap{	height: 800px;}
      	/* 전체 박스 크기 및 정렬 */
     	.accord { width: auto; margin: auto; }
@@ -63,7 +70,7 @@
 		<div class="prog">
 			<span class="progtext">지역을 선택해 주세요</span>
 		</div>
-		<div class="row">
+		<div class="row pppp">
 			<div class="col-md-9" id="gmap"></div>
 			<div class="col-md-3 accord">
 				<div class='accord-item'>
@@ -117,16 +124,15 @@
 			var gu = $(this).val();
 			$(".prog").html( $(this).html()+ " 응급실 위치");
 			$.ajax( {
-				url:'../api/eroom.do',
+				url:'06_Find_e_i.jsp',
 				method:'get',
 				data:{data:gu},
 				dataType:'json',
 				success:function(req){
-					
 					var map = new GMaps({
 						el: '#gmap',		//지도를 표시할 div의 id값
-						lat: req.items[0].lon,		//지도가 표시될 위도
-						lng: req.items[0].lan,		//지도가 표시될 경도
+						lat: req.items[0].wgs84Lat,		//지도가 표시될 위도
+						lng: req.items[0].wgs84Lon,		//지도가 표시될 경도
 						zoom: 14
 					});
 					
@@ -139,7 +145,7 @@
 						desc += req.items[i].dutyAddr;
 					
 						//
-						req.items[i].num=i;
+						req.items[i].num=i+1;
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req.items[i]);
 						
@@ -163,14 +169,15 @@
 								$("#gmap").find("div[title='"+key+"']").click();
 
 							});	
+							
 						}
 						
 						
 						map.addMarker({
 						//마우스 오버시 노란박스
 							title: req.items[i].dutyName,
-							lat: req.items[i].lon,
-							lng: req.items[i].lan,
+							lat: req.items[i].wgs84Lat,
+							lng: req.items[i].wgs84Lon,
 							icon:{
 								url:"../plugins/gmaps/map-marker.png",
 								scaledSize: new google.maps.Size(50, 50)
@@ -184,11 +191,7 @@
 				} 		
 				});
 			}); //end ajax
-			
-    	
-    	
-			
-   	});
+ 	  	});
    
     </script>
   </body>

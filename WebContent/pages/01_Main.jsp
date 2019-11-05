@@ -597,7 +597,7 @@
 						desc += req.items[i].dutyAddr;
 					
 						//
-						req.items[i].num=i;
+						req.items[i].num=i+1;
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req.items[i]);
 						

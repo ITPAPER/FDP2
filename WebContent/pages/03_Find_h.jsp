@@ -13,14 +13,17 @@
 	<style type="text/css">
 		#gmap{	height: 800px;}
      	/* 전체 박스 크기 및 정렬 */
-    	.accord { width: auto; margin: auto; }
+    	.accord { width: auto; margin: auto; height: 800px; overflow:auto;}
 	
 		.accord-item{
-			width:255px;
+			width:240px;
 		}
+		.accord-item:first-child > .accord-title {
+        	margin-top:0;
+        }
         /* 제목 영역의 배경색상과 태두리 */
     	.accord-title {  background: #eeeeee; border: 1px solid #d5d5d5; }
-
+		
         /* 제목영역의 링크에 대한 크기, 글자모양 */
     	 .accord-title > a {
     		display: block; width: auto;
@@ -37,6 +40,10 @@
     		border-left: 1px solid #d5d5d5;
     		border-right: 1px solid #d5d5d5;
     		display: none;
+    	}
+    	.pppp{
+    		padding-left :0;
+    		padding-right :15px;
     	}
 		.input-group{
 			width:300px;
@@ -75,10 +82,6 @@
 				<select class="form-control">
 					<option value="110000" >서울특별시</option>
 				</select>
-			</div>
-			
-			<!-- 2차 카테고리 -->
-			<div class="form-group">
 				<select  id="child" class="form-control">
 					<option class="gu" value="">---- 구를 선택해 주세요 ----</option>
 					<option class="gu" value="110001">강남구</option>
@@ -108,8 +111,10 @@
 					<option class="gu" value="110025">금천구</option>					
 				</select>
 			</div>
+			
+			
 			<div class="form-group">
-			<div class="input-group">
+				<div class="input-group">
 					<input id="finddong" type="text" class="form-control" placeholder="동을 입력해 주세요.">
 					<span class="input-group-btn">
 						<button  id="gofind" class="btn btn-default" type="button">검색</button>
@@ -118,26 +123,27 @@
 			</div>
 		</form>
 		<div class="container">
-		<div class="prog">
-			<span class="progtext">지역을 선택해 주세요</span>
-		</div>
-		<div class="row">
-			<div class="col-md-9" id="gmap"></div>
-			<div class="col-md-3 accord">
-				<div class='accord-item'>
-    				<h4 class='accord-title'><a href="#content"></a></h4>
-    				<div id="content" class="content">	
-						<a href="tel:{{dutyTel}}"> </a>
-					</div>
-    			</div>
+			<div class="prog">
+				<span class="progtext">지역을 선택해 주세요</span>
+			</div>
+			<div class="row pppp">
+				<div class="col-md-9" id="gmap"></div>
+				<div class="col-md-3 accord">
+					<div class='accord-item'>
+    					<h4 class='accord-title'><a href="#content"></a></h4>
+	    				<div id="content" class="content">	
+							<a href="tel:{{dutyTel}}"> </a>
+						</div>
+    				</div>
+				</div>
 			</div>
 		</div>
-	</div>
+		<div class="container blank" style="height:40px;"></div>
 	</div>
 	<!-- Ajax로 읽어온 내용을 출력하는데 사용될 HTML 템플릿 -->
 	<script id="list-item-tmpl" type="text/x-hendlebars-template">
 		<div class='accord-item'>
-    		<h4 class='accord-title'><a href="#content{{num}}" value="{{num}}">{{num}}.{{yadmNm}}</a></h4>
+    		<h4 class='accord-title'><a href="#content{{num}}" value="{{num}}">{{yadmNm}}</a></h4>
     		<div id="content{{num}}" class="content">
 				주소 : {{addr}}<br/>
 				<a href="tel:{{telno}}"> 전화번호 : {{telno}}</a>
@@ -193,13 +199,17 @@
 						$(".accord").empty();
 						
 						for(var i=0; i <req.items.length; i++){
+							if(req.items[i].YPos ==null){
+								continue;
+							}
+							req.items[i].yadmNm= i+1 + "." + req.items[i].yadmNm;
 							var desc = "<h3>";				
 							desc += req.items[i].yadmNm;
 							desc += "</h3><br/>";
 							desc += req.items[i].addr;
-						
-							//
-							req.items[i].num=i;
+							
+							req.items[i].num = i+1;
+							
 							var template = Handlebars.compile($("#list-item-tmpl").html());
 							var html = template(req.items[i]);
 							
@@ -211,17 +221,38 @@
 								$(".accord-title a").click(function(e) {
 						            // 링크의 기본 동작(페이지 이동) 방지
 									e.preventDefault();
-
+									var a=0;
 									var target = $(this).attr('href');
-									$(target).slideToggle(100);
+									$(target).slideDown(100);
 									$(".content").not($(target)).slideUp(100);
 								
 									var title = $(this).html();
-									var num = title.indexOf(".");
-									var key = title.substring(num+1);
 									
-									$("#gmap").find("div[title='"+key+"']").click();
-								});	
+									a++;
+									console.log(a);
+									$("#gmap").find("div[title='"+ title +"']").click();
+									
+								});
+							 	
+								$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
+									var aa= $(this).attr('title');
+									console.log($(this).attr('title'));
+									
+									var num = aa.indexOf(".");
+									var key = aa.substring(0, num);
+									console.log(key);
+									
+									
+									$('.accord').animate({scrollTop : 254}, 0);
+									var offset = $("#content" + key).parent('.accord-item').offset();
+									console.log(offset);
+									$("#content" +key).slideDown(100);
+									$(".content").not($("#content" +key)).slideUp(100);
+									var cc=$(".accord-item:first-child").offset();
+									console.log(cc);
+									
+									$('.accord').animate({scrollTop : offset.top-100}, 50);
+								}); 
 							}
 							map.addMarker({
 							//마우스 오버시 노란박스
