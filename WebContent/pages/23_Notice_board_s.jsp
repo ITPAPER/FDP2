@@ -76,9 +76,15 @@ thead {
 	padding: 15px 0;
 }
 
+/** 공지사항 설정 */
 .f {
 	font-style: bold;
 	background: #ddd;
+}
+
+/** 게시판 레스트에 대한 테이블 비율 설정 */
+.subject {
+	width:60%;
 }
 </style>
 </head>
@@ -88,8 +94,8 @@ thead {
 
 	<div class="container" style="min-height: 500px;">
 		<%@ include file="../inc/remote.jsp"%>
-		<h1 id="title">Q &amp; A</h1>
-		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
+		<h1 id="title">관리자게시판</h1>
+		<p id="description">Q &amp; A 에 대한 리스트를 보여주는 페이지입니다.</p>
 
 		<form id="h" class="clearfix">
 			<fieldset class="pull-left">
@@ -106,12 +112,12 @@ thead {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th id="ck"></th>
-						<th>#</th>
-						<th class="text-center">제목</th>
-						<th class="text-center">작성자</th>
-						<th class="text-center">작성일</th>
-						<th class="text-center">조회수</th>
+						<th class="cbox"></th>
+						<th class="numbering">#</th>
+						<th class="subject">제목</th>
+						<th class="text-center writer">작성자</th>
+						<th class="text-center write_date">작성일</th>
+						<th class="text-center hit">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -119,9 +125,9 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td><img src="../img/announce.png" class="e">1</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
-							style="cursor: pointer;">목이 아파요</td>
+							style="cursor: pointer;">목이 아파요. 감기인지 아닌지 진단 부탁드립니다 ㅠㅠ</td>
 						<td class="text-center">김체리</td>
 						<td class="text-center">2019-10-18</td>
 						<td class="text-center">456</td>
@@ -130,7 +136,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>2</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">열과 두통</td>
 						<td class="text-center">이승석</td>
@@ -141,7 +147,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>3</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">피부 알레르기</td>
 						<td class="text-center">정민기</td>
@@ -152,7 +158,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>4</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">환절기 질병</td>
 						<td class="text-center">조지현</td>
@@ -163,7 +169,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>5</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">유행성 독감</td>
 						<td class="text-center">박기협</td>
@@ -173,7 +179,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>6</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">목이 아파요</td>
 						<td class="text-center">첼첼</td>
@@ -184,7 +190,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>7</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">열과 두통</td>
 						<td class="text-center">조장님</td>
@@ -195,7 +201,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>8</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">피부 알레르기</td>
 						<td class="text-center">밍키밍키</td>
@@ -206,7 +212,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>9</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">환절기 질병</td>
 						<td class="text-center">젼</td>
@@ -217,7 +223,7 @@ thead {
 						<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 						<td>10</td>
-						<td class="text-center"
+						<td
 							onClick="location.href='24_Notice_board_s_2.jsp'"
 							style="cursor: pointer;">유행성 독감</td>
 						<td class="text-center">쿨켭</td>

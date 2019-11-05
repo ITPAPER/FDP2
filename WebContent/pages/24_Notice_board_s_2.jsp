@@ -37,6 +37,11 @@
 .b {
 	width: 1140px;
 }
+
+/** 게시물 상단 타이틀바 설정 */
+.subject_content {
+	background-color: #eee;
+}
 </style>
 <head>
 	<%@ include file="../inc/head.jsp"%>
@@ -48,14 +53,15 @@
 
 	<div class="container" style="min-height: 700px;">
 	<%@ include file="../inc/remote.jsp"%>
-		<h1 id="title">Q &amp; A</h1>
-		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
+		<h1 id="title">관리자게시판</h1>
+		<p id="description">게시글을 수정, 삭제, 공지등록 할 수 있습니다.</p>
 
 		<div class="table2">
 			<table class="table table-bordered">
 				<tbody>
-					<tr>
-						<td><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+					<tr class="subject_content">
+						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ </h4>
+						<b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
 					</tr>
 					<tr>
 						<td>

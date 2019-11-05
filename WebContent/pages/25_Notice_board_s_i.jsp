@@ -12,7 +12,7 @@
 	display: inline-block;
 }
 
-img {
+.attachment {
 	width: 20px;
 	height: 20px;
 	padding-right: 5px;
@@ -25,6 +25,11 @@ th {
 
 #e {
 	height: 50px;
+}
+
+/** 게시물 상단 타이틀바 설정 */
+.subject_content {
+	background-color: #eee;
 }
 </style>
 <head>
@@ -48,8 +53,9 @@ th {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+					<tr class="subject_content">
+						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ </h4>
+						<b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
 					</tr>
 					<tr>
 						<td>
@@ -59,7 +65,7 @@ th {
 						</td>
 					</tr>
 					<tr>
-						<td><a href="../img/baby_redspot.jpg"><img alt="첨부파일"
+						<td><a href="../img/baby_redspot.jpg"><img class="attachment" alt="첨부파일"
 								src="../img/attachment.png">피부 붉은 반점.jpg</a></td>
 					</tr>
 					<tr>

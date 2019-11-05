@@ -34,6 +34,15 @@
 	vertical-align : middle;
 } 
 
+/** ckeditor 박스 크기 설정 */
+#cke_1_contents {
+	min-height: 600px"WebContent/pages/15_Notice_board_2.jsp" !important;
+}
+
+/** 게시물 상단 타이틀바 설정 */
+.subject_content {
+	background-color: #eee;
+}
 </style>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
@@ -51,8 +60,9 @@
 		<div class="table1">
 			<table class="table table-bordered">
 				<tbody>
-					<tr>
-						<td class="d"><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+					<tr class="subject_content">
+						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ </h4>
+						<b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
 					</tr>
 					<tr>
 					<td>

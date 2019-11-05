@@ -42,6 +42,11 @@
 .b {
 	width: 1140px;
 }
+
+/** 게시물 상단 타이틀바 설정 */
+.subject_content {
+	background-color: #eee;
+}
 </style>
 <head>
 	<%@ include file="../inc/head.jsp"%>
@@ -59,9 +64,11 @@
 		<div class="table2">
 			<table class="table table-bordered">
 				<tbody>
-					<tr>
-						<td><b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+					<tr class="subject_content">
+						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ </h4>
+						<b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
 					</tr>
+				
 					<tr>
 						<td>
 							<p></p> 안녕하세요. <br /> 3살 아기가 며칠전부터 피부에 빨간 반점이 올라오는 등 이상 증상이 있네요.
