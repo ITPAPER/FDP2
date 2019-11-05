@@ -34,8 +34,8 @@
 		query = "서울특별시";
 	}
 
-	/** 3) API 연동 */
 
+	/** 3) API 연동 */
 	// 검색 결과를 저장할 Beans 객체 선언
 	Hospital hospital = null;
 	EmergencyAddr emergencyAddr = null;
@@ -67,20 +67,6 @@
 <title>Hello JSP</title>
 <%@ include file="../inc/head.jsp"%>
 <style type="text/css">
-	
-	* {
-		padding: 0;
-		margin: 0;
-	}
-	.container {
-		position: relative;
-	}
-	
-	.container2 {
-		position: absolute;
-		
-	}
-	
 	.ththth {
 		font-size: 12px;
 		vertical-align: middle !important;
@@ -133,8 +119,7 @@
 </head>
 <body onload="startTimer()">
 <%@ include file="../inc/top.jsp"%>
-<div class="container" style="min-height: 11200px;" >
-<div class="container2">
+<div class="container" style="min-height: 500px;" >
 	<header>
 		<h1 style="padding: 15px;"> 서울시 응급실 현황</h1>
 		<h2 id="timer" style="padding: 15px; color: red;"></h2>
@@ -192,8 +177,8 @@
 	<br />
 	<% } %>
 	<% } %>
-</div>	
+
 </div>
-<%@ include file="../inc/bottom.jsp"%>
+	<%@ include file="../inc/bottom.jsp"%>
 </body>
 </html>

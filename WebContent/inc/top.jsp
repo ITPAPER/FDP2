@@ -16,8 +16,8 @@
 					<li><a href="07_Statistics.jsp" class="page-move">데이터통계</a></li>
 					<li><a href="13_Notice_board.jsp" class="page-move">게시판</a></li>
 					<li class="dropdown">
-						<a href="#" class="page-move dropdown-toggle" data-toggle="dropdown">병원 검색<b class="caret"></b></a>
-						<ul class="dropdown-menu center">
+						<a href="#" class="page-move" data-toggle="dropdown">병원 검색<b class="caret"></b></a>
+						<ul class="dropdown-menu">
 								<li><a href="03_Find_h.jsp">일반 병원 찾기</a></li>
 								<li id="divider"></li>
 								<li><a href="05_Find_e.jsp">응급실 찾기</a></li>

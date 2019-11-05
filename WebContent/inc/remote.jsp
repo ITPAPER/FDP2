@@ -13,30 +13,30 @@
 					목록
 				</button>
 				<!-- 재사용될 코드 입니다. -->
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="20_Strong_point.jsp">주요사업</a></li>
-					<li class="divider"></li>
-					<li><a href="19_Team_introduction.jsp">팀원소개</a></li>
-					<li class="divider"></li>
-					<li><a href="17_Navigator.jsp">정보자료</a></li>
-					<li class="divider"></li>
-					<li><a href="18_Intention.jsp">센터소개</a></li>
-				</ul>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="03_Find_h.jsp">병원검색</a></li>
+						<li class="divider"></li>
+						<li><a href="29_Monitoring.jsp">응급실 현황</a></li>
+						<li class="divider"></li>
+						<li><a href="07_Statistics.jsp">보건의료 통계</a></li>
+						<li class="divider"></li>
+						<li><a href="#">질병검색</a></li>
+					</ul>
 				<!-- 재사용될 코드 입니다. -->
 				<div class="btn-group">
 					<button type="button" class="btn btn-info" data-toggle="dropdown">
 						Action <span class="caret"></span>
 					</button>
-					<!-- 재사용될 코드 입니다. -->
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="07_Statistics.jsp">보건의료 통계</a></li>
-						<li class="divider"></li>
-						<li><a href="29_Monitoring.jsp">응급실 현황</a></li>
-						<li class="divider"></li>
-						<li><a href="#">공란이요</a></li>
-						<li class="divider"></li>
-						<li><a href="#">오시는길</a></li>
-					</ul>
+				<!-- 재사용될 코드 입니다. -->
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="20_Strong_point.jsp">주요사업</a></li>
+					<li class="divider"></li>
+					<li><a href="19_Team_introduction.jsp">팀원소개</a></li>
+					<li class="divider"></li>
+					<li><a href="17_Navigator.jsp">사이트맵</a></li>
+					<li class="divider"></li>
+					<li><a href="18_Intention.jsp">사이트 소개</a></li>
+				</ul>
 					<!--// 재사용될 코드 입니다. -->
 				</div>
 			</div>

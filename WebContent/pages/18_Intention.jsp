@@ -18,7 +18,7 @@
 }
 
 h1 {
-	padding: 50px 0 10px 0;
+	padding: 80px 0 10px 0;
 	margin:0 0 4px 40px;
 	font-size:50px;
 }
@@ -28,6 +28,7 @@ h5 {
 	margin:0 0 0 50px;
 	font-size:25px;
 }
+
 /* 이미지 박스 */
 div#box1 {
 	width: 400px;
@@ -40,7 +41,7 @@ div#box1 {
 		}
 		
 p {
-	font-size:20px;
+	font-size:17px;
 }
 
 </style>
@@ -52,7 +53,7 @@ p {
 	
 	<%@ include file="../inc/remote.jsp"%>
 	
-				<div class="box" style="height: 1100px;">
+				<div class="box" style="height: 950px;">
 				<h1> 사이트 소개 </h1>
 				<h5> Find Doctor의 현재와 미래를 함께해 주세요! </h5>
 			<div id="box1"> </div>
