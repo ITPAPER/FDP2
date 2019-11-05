@@ -47,6 +47,7 @@ public class Hospital {
 					@SerializedName("hvccc")	private String hvccc;		// 흉부 중환자
 					@SerializedName("hvncc")	private String hvncc;		// 신생 중환자
 					@SerializedName("hvicc")	private String hvicc;		// 일반 중환자
+					@SerializedName("hpid")		private String hpid;		// 기관코드(기관ID)
 				}
 			}
 		}

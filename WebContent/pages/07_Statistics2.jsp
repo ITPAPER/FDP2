@@ -49,15 +49,6 @@
     </style>
   	
   	<link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
-	<script src="../plugins/ajax/ajax_helper.js"></script> 
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-	
-	<!-- Resources -->
-	<script src="https://www.amcharts.com/lib/4/core.js"></script>
-	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-	
-  
   </head>
 
   <body>
@@ -86,160 +77,95 @@
 		</div>	
 	</div>
 	
+	<%@ include file="../inc/bottom.jsp" %>
+	
+	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="../plugins/ajax/ajax_helper.js"></script> 
+	
+	<!-- Resources -->
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+	
 	<!-- Javascript -->
 	<script type="text/javascript">
+		$(function() {
+			$("#ct1").click(function(e) {
+				$.ajax({
+					/** ajax 기본 옵션 */
+					url: '../api/chart1.jsp',// 읽어들일 파일의 경로
+					method: 'get',			 // 통신방법 (get(기본값), post)
+					data: {},				 // 접속대상에게 전달할 파라미터
+					dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
 	
-	$(function() {
-		$("#ct1").click(function(e) {
-			$.ajax( {
-				/** ajax 기본 옵션 */
-				cache: false,			 // 캐쉬 사용 금지 처리
-				url: '../api/chart1.jsp',// 읽어들일 파일의 경로
-				method: 'get',			 // 통신방법 (get(기본값), post)
-				data: {},				 // 접속대상에게 전달할 파라미터
-				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-				timeout: 30000,			 // 타임아웃 (30초)
-
-				// 통신 시작전 실행할 기능 (ex: 로딩바 표시)
-				beforeSend: function() {
-					// 현재 통신중인 대상 페이지를 로그로 출력함
-					console.log(">> Ajax 통신 시작 >> " + this.url);
-				},
-				// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
-				success: function(req) {
-					console.log(">> 성공!!!! >> " + req);
-					// 준비된 요소에게 읽어온 내용을 출력한다.
-					$("#dept").append(req);
-				},
-				// 통신 실패시 호출될 함수 (파라미터는 에러내용)
-				error: function(error) {
-					// 404 -> Page Not Found
-					// 50x -> Server Error(웹 프로그램 에러)
-					// 200, 0 -> 내용의 형식 에러(JSON,XML)
-					console.log(">> 에러!!!! >> " + error.status);
-				},
-				// 성공,실패에 상관 없이 맨 마지막에 무조건 호출됨 ex) 로딩바 닫기
-				complete: function() {
-					console.log(">> Ajax 통신 종료!!!!");
-				}
-			});
-		}); // end #mybutton click
-		
-		$("#ct2").click(function(e) {
-			$.ajax( {
-				/** ajax 기본 옵션 */
-				cache: false,			 // 캐쉬 사용 금지 처리
-				url: '../api/chart2.jsp',// 읽어들일 파일의 경로
-				method: 'get',			 // 통신방법 (get(기본값), post)
-				data: {},				 // 접속대상에게 전달할 파라미터
-				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-				timeout: 30000,			 // 타임아웃 (30초)
-
-				// 통신 시작전 실행할 기능 (ex: 로딩바 표시)
-				beforeSend: function() {
-					// 현재 통신중인 대상 페이지를 로그로 출력함
-					console.log(">> Ajax 통신 시작 >> " + this.url);
-				},
-				// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
-				success: function(req) {
-					console.log(">> 성공!!!! >> " + req);
-					// 준비된 요소에게 읽어온 내용을 출력한다.
-					$("#dept").append(req);
-				},
-				// 통신 실패시 호출될 함수 (파라미터는 에러내용)
-				error: function(error) {
-					// 404 -> Page Not Found
-					// 50x -> Server Error(웹 프로그램 에러)
-					// 200, 0 -> 내용의 형식 에러(JSON,XML)
-					console.log(">> 에러!!!! >> " + error.status);
-				},
-				// 성공,실패에 상관 없이 맨 마지막에 무조건 호출됨 ex) 로딩바 닫기
-				complete: function() {
-					console.log(">> Ajax 통신 종료!!!!");
-				}
-			});
-		}); // end #mybutton click
-		
-		$("#ct3").click(function(e) {
-			$.ajax( {
-				/** ajax 기본 옵션 */
-				cache: false,			 // 캐쉬 사용 금지 처리
-				url: '../api/chart3.jsp',// 읽어들일 파일의 경로
-				method: 'get',			 // 통신방법 (get(기본값), post)
-				data: {},				 // 접속대상에게 전달할 파라미터
-				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-				timeout: 30000,			 // 타임아웃 (30초)
-
-				// 통신 시작전 실행할 기능 (ex: 로딩바 표시)
-				beforeSend: function() {
-					// 현재 통신중인 대상 페이지를 로그로 출력함
-					console.log(">> Ajax 통신 시작 >> " + this.url);
-				},
-				// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
-				success: function(req) {
-					console.log(">> 성공!!!! >> " + req);
-					// 준비된 요소에게 읽어온 내용을 출력한다.
-					$("#dept").append(req);
-				},
-				// 통신 실패시 호출될 함수 (파라미터는 에러내용)
-				error: function(error) {
-					// 404 -> Page Not Found
-					// 50x -> Server Error(웹 프로그램 에러)
-					// 200, 0 -> 내용의 형식 에러(JSON,XML)
-					console.log(">> 에러!!!! >> " + error.status);
-				},
-				// 성공,실패에 상관 없이 맨 마지막에 무조건 호출됨 ex) 로딩바 닫기
-				complete: function() {
-					console.log(">> Ajax 통신 종료!!!!");
-				}
-			});
-		}); // end #mybutton click
-		
-		$("#ct4").click(function(e) {
-			$.ajax( {
-				/** ajax 기본 옵션 */
-				cache: false,			 // 캐쉬 사용 금지 처리
-				url: '../api/chart4.jsp',// 읽어들일 파일의 경로
-				method: 'get',			 // 통신방법 (get(기본값), post)
-				data: {},				 // 접속대상에게 전달할 파라미터
-				dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
-				timeout: 30000,			 // 타임아웃 (30초)
-
-				// 통신 시작전 실행할 기능 (ex: 로딩바 표시)
-				beforeSend: function() {
-					// 현재 통신중인 대상 페이지를 로그로 출력함
-					console.log(">> Ajax 통신 시작 >> " + this.url);
-				},
-				// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
-				success: function(req) {
-					console.log(">> 성공!!!! >> " + req);
-					// 준비된 요소에게 읽어온 내용을 출력한다.
-					$("#dept").append(req);
-				},
-				// 통신 실패시 호출될 함수 (파라미터는 에러내용)
-				error: function(error) {
-					// 404 -> Page Not Found
-					// 50x -> Server Error(웹 프로그램 에러)
-					// 200, 0 -> 내용의 형식 에러(JSON,XML)
-					console.log(">> 에러!!!! >> " + error.status);
-				},
-				// 성공,실패에 상관 없이 맨 마지막에 무조건 호출됨 ex) 로딩바 닫기
-				complete: function() {
-					console.log(">> Ajax 통신 종료!!!!");
-				}
-			});
-		}); // end #mybutton click
-	});
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success: function(req) {
+						console.log(">> 성공!!!! >> " + req);
+						// 준비된 요소에게 읽어온 내용을 출력한다.
+						$("#dept").append(req);
+					}
+				});//end $.ajax
+			}); // end #ct1 click
+			
+			$("#ct2").click(function(e) {
+				$.ajax({
+					/** ajax 기본 옵션 */
+					url: '../api/chart2.jsp',// 읽어들일 파일의 경로
+					method: 'get',			 // 통신방법 (get(기본값), post)
+					data: {},				 // 접속대상에게 전달할 파라미터
+					dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
 	
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success: function(req) {
+						console.log(">> 성공!!!! >> " + req);
+						// 준비된 요소에게 읽어온 내용을 출력한다.
+						$("#dept").append(req);
+					}
+				});
+			}); // end #ct2 click
+			
+			$("#ct3").click(function(e) {
+				$.ajax({
+					/** ajax 기본 옵션 */
+					url: '../api/chart3.jsp',// 읽어들일 파일의 경로
+					method: 'get',			 // 통신방법 (get(기본값), post)
+					data: {},				 // 접속대상에게 전달할 파라미터
+					dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
 	
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success: function(req) {
+						console.log(">> 성공!!!! >> " + req);
+						// 준비된 요소에게 읽어온 내용을 출력한다.
+						$("#dept").append(req);
+					},
+					// 통신 실패시 호출될 함수 (파라미터는 에러내용)
+					error: function(error) {
+						// 404 -> Page Not Found
+						// 50x -> Server Error(웹 프로그램 에러)
+						// 200, 0 -> 내용의 형식 에러(JSON,XML)
+						console.log(">> 에러!!!! >> " + error.status);
+					}
+				});
+			}); // end #ct3 click
+			
+			$("#ct4").click(function(e) {
+				$.ajax({
+					/** ajax 기본 옵션 */
+					url: '../api/chart4.jsp',// 읽어들일 파일의 경로
+					method: 'get',			 // 통신방법 (get(기본값), post)
+					data: {},				 // 접속대상에게 전달할 파라미터
+					dataType: 'html',		 // 읽어올 내용 형식 (html,xml,json)
+					timeout: 30000,			 // 타임아웃 (30초)
+	
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success: function(req) {
+						console.log(">> 성공!!!! >> " + req);
+						// 준비된 요소에게 읽어온 내용을 출력한다.
+						$("#dept").append(req);
+					}
+				});
+			}); // end #ct4 click
+		});
 	</script>
-	
-	
-	
-	
-	
-	
-
-	<%@ include file="../inc/bottom.jsp" %>
   </body>
 </html>

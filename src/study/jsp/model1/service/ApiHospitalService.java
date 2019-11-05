@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 import retrofit2.http.Query;
+import study.jsp.model1.model.EmergencyAddr;
 import study.jsp.model1.model.Hospital;
 
 public interface ApiHospitalService {
@@ -19,4 +20,7 @@ public interface ApiHospitalService {
      */
     @GET("/B552657/ErmctInfoInqireService/getEmrrmRltmUsefulSckbdInfoInqire?ServiceKey=O8gvumE%2FwKA8ZHjxTpD336sl4GhoffDlYlPPtN2jQOdelGf60J1urLLAJm0Vcj3lEypo%2B4tm36OePX8%2Bcf%2FI0g%3D%3D&_type=json")
     Call<Hospital> getHospital(@Query("STAGE1") String stage, @Query("pageNo") int page, @Query("numOfRows") int row);
+    
+    @GET("/B552657/ErmctInfoInqireService/getEgytListInfoInqire?ServiceKey=6uch9Il5RNbCxMbov%2BBH%2FQej6hm4KxgsbZ3tizOMq5omTbpKzWArZGTdnAtw%2FJ019Bowf7qakavrs%2Frn8k%2Ft%2Fg%3D%3D&_type=json")
+    Call<EmergencyAddr> getEmergencyAddr(@Query("Q0") String stage, @Query("pageNo") int page, @Query("numOfRows") int row);
 }
