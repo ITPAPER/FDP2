@@ -1,3 +1,4 @@
+<%@page import="study.jsp.model1.model.EmergencyAddr"%>
 <%@page import="study.jsp.model1.model.Hospital"%>
 <%@page import="study.jsp.model1.service.ApiHospitalService"%>
 <%@page import="retrofit2.Call"%>
@@ -28,7 +29,7 @@
 	// 검색어 키워드 받기
 	String query = webHelper.getString("query", "");
 
-	// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 나짜 값을 yyyy-mm-dd 형식으로 생성한다.
+	// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 날짜 값을 yyyy-mm-dd 형식으로 생성한다.
 	if (query == null) {
 		query = "서울특별시";
 	}
@@ -37,18 +38,27 @@
 
 	// 검색 결과를 저장할 Beans 객체 선언
 	Hospital hospital = null;
+	EmergencyAddr emergencyAddr = null;
 
 	// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
 	if (query.equals("")) {
-		Call<Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 15);
+		Call<Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
 		try {
 			hospital = call.execute().body();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	if (query.equals("")) {
+		Call<EmergencyAddr> call = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
+		try {
+			emergencyAddr = call.execute().body();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-	// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 나짜 값을 yyyy-mm-dd 형식으로 생성한다.
 %>
 <!doctype html>
 <html>
@@ -57,7 +67,40 @@
 <title>Hello JSP</title>
 <%@ include file="../inc/head.jsp"%>
 <style type="text/css">
-
+	
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	.container {
+		position: relative;
+	}
+	
+	.container2 {
+		position: absolute;
+		left: 85px;
+	}
+	
+	.ththth {
+		font-size: 12px;
+		vertical-align: middle !important;
+		font-weight: normal;	
+		text-align: center;	
+		line-height: 1;
+		background: #eeeeee;
+	}
+	
+	.tdtdtd {
+		font-size: 12px;
+		vertical-align: middle !important;
+		font-weight: normal;	
+		text-align: center;	
+		line-height: 1;
+	}
+	
+	h5 {
+		margin: 0px;
+	}
 </style>
 <script type="text/javascript">
 	function printTime() {
@@ -90,60 +133,67 @@
 </head>
 <body onload="startTimer()">
 <%@ include file="../inc/top.jsp"%>
+<div class="container" style="min-height: 11200px;" >
+<div class="container2">
 	<header>
-		<h1>서울 응급실 현황</h1>
-		<h2 id="timer"></h2>
+		<h1 style="padding: 15px;"> 서울시 응급실 현황</h1>
+		<h2 id="timer" style="padding: 15px; color: red;"></h2>
 	</header>
 
-	<%if (hospital != null) {%>
-	<hr />
-	<%for (Hospital.Response.Body.Items.Item item : hospital.getResponse().getBody().getItems().getItem()) {%>
+	<% if (hospital != null) { %>
+	<% for (Hospital.Response.Body.Items.Item item : hospital.getResponse().getBody().getItems().getItem()) { %>
 	<div class="table-responsive">
-		<table class="table table-bordered table-hover">
+		<table class="table table-bordered table-hover" style="width: 1200px;">
 			<thead>
 				<tr>
-					<th colspan="10" class="text-left"><h3><%=item.getDutyName()%></h3>
-						<hr />
-						<h4>
-							연락처:<%=item.getTel()%></h4></th>
+					<th colspan="10" class="text-left" style="line-height: 1; font-size: 20px; padding: 15px 0px; border-bottom: 0;">&nbsp; <%=item.getDutyName()%></th>
 				</tr>
 				<tr>
-					<th class="text-center"><h5>응급실</h5></th>
-					<th class="text-center"><h5>내과 중환자실</h5></th>
-					<th class="text-center"><h5>외과 중환자실</h5></th>
-					<th class="text-center"><h5>외과입원실</h5></th>
-					<th class="text-center"><h5>신경과입원실</h5></th>
-					<th class="text-center"><h5>신경외과 중환자실</h5></th>
-					<th class="text-center"><h5>인큐베이터 유무</h5></th>
-					<th class="text-center"><h5>소아당직의 직통번호</h5></th>
-					<th class="text-center"><h5>신경 중환자실</h5></th>
-					<th class="text-center"><h5>신생아중환자실</h5></th>
+					<td colspan="10" style="font-size: 13px; border-bottom: 0;  padding: 8px 15px;">연락처:<%=item.getTel()%></td>
 				</tr>
+				<% if (emergencyAddr != null) {
+					for (EmergencyAddr.Response.Body.Items.Item item1 : emergencyAddr.getResponse().getBody().getItems().getItem()) { 
+						String aa= item.getHpid();
+						if (aa.equals(item1.getHpid())) { %>
+							<tr><td colspan="10" style="font-size: 13px; padding: 8px 15px;"><%= item1.getDutyAddr() %></td></tr>
+						<% }%>
+					<% } %>
+				<% } %>
 			</thead>
 			<tbody>
 				<tr>
-
-					<td class="apitext"><h6><%=item.getHvec()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv2()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv3()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv4()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv5()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv6()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv11()%></h6></td>
-					<td class="apitext"><h6><%=item.getHv12()%></h6></td>
-					<td class="apitext"><h6><%=item.getHvcc()%></h6></td>
-					<td class="apitext"><h6><%=item.getHvncc()%></h6></td>
+					<th class="text-center ththth"> 응급실  		</th>
+					<th class="text-center ththth"> 내과 중환자실	</th>
+					<th class="text-center ththth"> 외과 중환자실	</th>
+					<th class="text-center ththth"> 외과입원실		</th>
+					<th class="text-center ththth"> 신경과입원실	</th>
+					<th class="text-center ththth"> 신경외과 중환자실</th>
+					<th class="text-center ththth"> 인큐베이터 유무 	</th>
+					<th class="text-center ththth"> 소아당직의 직통번호 </th>
+					<th class="text-center ththth"> 신경 중환자실	  </th>
+					<th class="text-center ththth"> 신생아중환자실	  </th>
+				</tr>
+				
+				<tr>
+					<td class="tdtdtd"><%=item.getHvec()%></td>
+					<td class="tdtdtd"><%=item.getHv2()%></td>
+					<td class="tdtdtd"><%=item.getHv3()%></td>
+					<td class="tdtdtd"><%=item.getHv4()%></td>
+					<td class="tdtdtd"><%=item.getHv5()%></td>
+					<td class="tdtdtd"><%=item.getHv6()%></td>
+					<td class="tdtdtd"><%=item.getHv11()%></td>
+					<td class="tdtdtd"><%=item.getHv12()%></td>
+					<td class="tdtdtd"><%=item.getHvcc()%></td>
+					<td class="tdtdtd"><%=item.getHvncc()%></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<br />
-	<%
-		}
-	%>
-	<%
-		}
-	%>
+	<% } %>
+	<% } %>
+</div>	
+</div>
 <%@ include file="../inc/bottom.jsp"%>
 </body>
 </html>
