@@ -14,7 +14,7 @@
 .bbox {
 	width: 1170px;
 	margin: auto;
-	padding-top: 50px;
+	padding: 25px 0;
 }
 
 .top {
@@ -57,7 +57,7 @@ input
 <body>
 	<%@ include file="../inc/top.jsp"%>
 	<div class="bbox">
-		<div class="container" style="min-height: 700px;">
+		<div class="container" style="min-height: 750px;">
 			<div class="top">
 				<span> <img src="../img/user.png">
 				</span> <span> <b>회원 정보 수정</b> </span>
@@ -228,6 +228,8 @@ input
 								$('.swal2-confirm').click(function() {
 									$('form').submit();
 								});
+							} else if (result.dismiss === 'cancel') {
+								swal('취소', '삭제가 취소되었습니다.', 'error');
 							}
 						})
 					});

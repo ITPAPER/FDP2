@@ -21,14 +21,15 @@
 .bbox {
 	width: 1170px;
 	margin: auto;
-	font-size: 15px;
-	font-weight: bold;
 }
 
 /** 탭 */
 .nav>li>a {
 	width: 100px;
 	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #757575;
 }
 
 /* 테이블 조정 */
@@ -36,8 +37,13 @@ td {
 	vertical-align: middle !important;
 }
 
-tr td div {
-	display: inline-block;
+thead > tr {
+	background: #ffa500; 
+	border-top: 2px solid #ccc;
+}
+
+thead > tr > th:nth-child(1) {
+	width: 300px;
 }
 
 .bo1 {
@@ -55,6 +61,7 @@ tr td div {
 #chartdiv {
 	width: 100%;
 	height: 500px;
+	padding-bottom: 50px;
 }
 </style>
 </head>
@@ -85,7 +92,7 @@ tr td div {
 							<table
 								class="table table-striped table-bordered table-hover clearfix">
 								<thead>
-									<tr style="background: #ffa500; border-top: 2px solid #ccc;">
+									<tr>
 										<th class="text-center">회원 아이디</th>
 										<th class="text-center">지역(구)</th>
 									</tr>
@@ -160,7 +167,7 @@ tr td div {
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
-									<tr style="background: #ffa500; border-top: 2px solid #ccc;">
+									<tr>
 										<th class="text-center">회원 아이디</th>
 										<th class="text-center">나이</th>
 									</tr>
@@ -229,7 +236,7 @@ tr td div {
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
-									<tr style="background: #ffa500; border-top: 2px solid #ccc;">
+									<tr>
 										<th class="text-center">회원 아이디</th>
 										<th class="text-center">성별</th>
 									</tr>
@@ -299,7 +306,7 @@ tr td div {
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
-									<tr style="background: #ffa500; border-top: 2px solid #ccc;">
+									<tr>
 										<th class="text-center">회원 아이디</th>
 										<th class="text-center">게시글 수</th>
 										<th class="text-center">댓글 수</th>
@@ -374,7 +381,7 @@ tr td div {
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
-									<tr style="background: #ffa500; border-top: 2px solid #ccc;">
+									<tr>
 										<th class="text-center">회원 아이디</th>
 										<th class="text-center">접속시간</th>
 									</tr>
@@ -444,7 +451,7 @@ tr td div {
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
-									<tr style="background: #ffa500; border-top: 2px solid #ccc;">
+									<tr>
 										<th class="text-center">회원 아이디</th>
 										<th class="text-center">회원 등급</th>
 										<th class="text-center">의사 인증</th>

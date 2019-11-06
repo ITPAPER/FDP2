@@ -58,7 +58,6 @@
 .mybox {
 	width: auto;
 	height: 200px;
-	visibility: hidden;
 }
 
 /* 중앙 박스 조절 */
@@ -407,12 +406,6 @@ tbody tr td {
 	<script src="../plugins/animate/jquery.animatecss.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-
-			$("#box2").animateCSS('bounceInDown', {
-				delay : 200,
-				duration : 1500,
-				infinite : false
-			});
 
 			/** 페이지 열린 직후의 처리*/
 			var box = $(".page").find(".box1"); // 0번째 `.page`요소에 있는 .box 얻기

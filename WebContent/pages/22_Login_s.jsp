@@ -63,12 +63,12 @@
 				</span> <span> 관리자 로그인 </span>
 			</div>
 			<div class="content" style="background: #ffa500;">
-				<form id="login-form" class="form-block" method="post" action="아직">
+				<form id="login-form" class="form-block" method="post" action="21_Management.jsp">
 					<label for="user_id">아이디</label> <input type="text" name="user_id"
 						id="user_id" class="form-control" placeholder="ID를 입력하세요." /> <label
 						for="user_pw">비밀번호</label> <input type="password" name="user_pw"
 						id="user_pw" class="form-control" placeholder="비밀번호를 입력하세요." />
-					<button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
+					<button type="submit" id="btn8" class="btn btn-primary btn-lg btn-block">로그인</button>
 				</form>
 			</div>
 
@@ -76,5 +76,25 @@
 
 	</div>
 	<%@ include file="../inc/bottom.jsp"%>
+	<script src="regex.js"></script>
+	<script>
+	$(function() {
+		$("#btn8").click(function(e) {
+					e.preventDefault();
+
+					if (!regex.value('#user_id', '아이디를 입력하세요.')) {
+						return false;
+					}
+					if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
+						return false;
+					}
+					
+					$('form').submit();
+					
+		
+
+				});
+		});
+	</script>
 </body>
 </html>

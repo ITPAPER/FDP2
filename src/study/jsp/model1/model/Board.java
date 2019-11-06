@@ -9,7 +9,7 @@ import lombok.Data;
 public class Board {
 	
 	// 임시 변수 명
-	// 수정할 파일 -> FindBoardMapper
+	// 수정할 파일 -> BoardMapper
 	private int titno;			// 글 번호 (PK AI)
 	private String title;		// 글 제목
 	private String bname;		// 게시판 작성자

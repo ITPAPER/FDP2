@@ -66,22 +66,38 @@
 		<div class="container" style="min-height: 700px;">
 			<div class="top">
 				<span> <img src="../img/user.png">
-				</span> <span> <b>회원 정보 수정</b> </span>
+				</span> <span> <b>회원 정보 수정</b>
+				</span>
 			</div>
 			<div class="content" style="background: #ffa500;">
 				<span> <strong>개인정보 보호를 위해 한번 더 비밀번호를 입력해주세요.</strong>
 				</span>
-				<form id="login-form" class="form-block" method="post">
+				<form id="login-form" class="form-block" method="post" action="27_Profile.jsp">
 					<label for="user_pw">비밀번호</label> <input type="password"
 						name="user_pw" id="user_pw" class="form-control"
 						placeholder="비밀번호를 입력하세요." />
-					<button type="button" class="btn btn-primary btn-lg btn-block"
-						onclick="location.href ='27_Profile.jsp'">로그인</button>
+					<button type="submit" class="btn btn-primary btn-lg btn-block" id="btn7">로그인</button>
 				</form>
 			</div>
 
 		</div>
 	</div>
 	<%@ include file="../inc/bottom.jsp"%>
+	<script src="regex.js"></script>
+	<script>
+		$(function() {
+			$("#btn7").click(function(e) {
+				e.preventDefault();
+
+				if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
+					return false;
+				}
+
+				$('form').submit();
+
+			});
+		});
+
+	</script>
 </body>
 </html>
