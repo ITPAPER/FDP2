@@ -92,7 +92,7 @@
 	<!-- 동적으로 생성될 HTML의 기본틀 -->
 	<script type="text/x-handlebars-template" id="list-item-tmpl">
 		<div class='accord-item'>
-    		<h4 class='accord-title'><a href="#content{{num}}" value="{{num}}">{{num}}.{{dutyName}}</a></h4>
+    		<h4 class='accord-title'><a href="#content{{num}}" value="{{num}}">{{dutyName}}</a></h4>
     		<div id="content{{num}}" class="content">
 				주소 : {{dutyAddr}}<br/>
 				<a href="tel:{{dutyTel}}"> 전화번호 : {{dutyTel}}</a>
@@ -139,12 +139,12 @@
 					$(".accord").empty();
 					
 					for(var i=0; i <req.items.length; i++){
+						req.items[i].dutyName= i+1 + "." + req.items[i].dutyName;
 						var desc = "<h3>";				
 						desc += req.items[i].dutyName;
 						desc += "</h3><br/>";
 						desc += req.items[i].dutyAddr;
 					
-						//
 						req.items[i].num=i+1;
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req.items[i]);
@@ -163,12 +163,25 @@
 								$(".content").not($(target)).slideUp(100);
 							
 								var title = $(this).html();
-								var num = title.indexOf(".");
-								var key = title.substring(num+1);
 								
-								$("#gmap").find("div[title='"+key+"']").click();
+								$("#gmap").find("div[title='"+title+"']").click();
 
 							});	
+							
+							$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
+								var aa= $(this).attr('title');
+								console.log($(this).attr('title'));
+								
+								var num = aa.indexOf(".");
+								var key = aa.substring(0, num);
+								console.log(key);
+								
+								
+								$('.accord').animate({scrollTop : 254}, 0);
+								$("#content" +key).slideDown(100);
+								$(".content").not($("#content" +key)).slideUp(100);
+								
+							}); 
 							
 						}
 						
