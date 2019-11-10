@@ -18,6 +18,16 @@
 	width: 1140px;
 }
 
+/** 상단 제목 설정 */
+.subject {
+	width: 500px;
+	height: 30px;	
+}
+
+/** 상단 '제목' 글씨 크기 설정 */
+.subject1 {
+	width: 50px;
+}
 </style>
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -37,7 +47,15 @@
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
-					<td>
+						<td align="center" class="subject1">
+							<h5 class="subject1">제목</h5>
+						</td>
+						<td>
+							<textarea name="subject" class="subject"></textarea>
+						</td>
+					</tr>
+					<tr>
+					<td colspan="2">
 					<form class="c">
 						<fieldset>
 							<textarea name="content" class="ckeditor">
@@ -47,7 +65,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<td colspan="2">
 							<form enctype="multipart/form-data">
 								<fieldset>
 									<div>

@@ -61,6 +61,7 @@ thead {
 	display: inline-block;
 }
 
+/** 공지 이모티콘 크기 설정 */
 .e {
 	width: 15px;
 }

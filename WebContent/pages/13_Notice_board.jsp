@@ -10,7 +10,6 @@
 <title>Notice_board</title>
 
 <style type="text/css">
-
 /** 테이블 설정 */
 .table {
 	width: 1140px;
