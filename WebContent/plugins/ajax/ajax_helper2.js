@@ -18,6 +18,7 @@ $(function() {
 			console.log(">>Ajax통신 시작>>" + this.url);
 			loader.show();
 		},
+		
 		//통신 실패시 호출될 함수(파라미터는 에러내용)
 		error: function(error) {
 			//404: Page Not Found\
