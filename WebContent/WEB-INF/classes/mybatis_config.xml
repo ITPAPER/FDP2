@@ -33,7 +33,7 @@
     <!-- 실행할 SQL문을 정의한 Mapper XML의 경로를 지정한다. -->
     <mappers>
     
-        <mapper resource="study/jsp/model1/mybatis/mapper/Board.xml" />
+        <mapper resource="study/jsp/model1/mybatis/mapper/Document.xml" />
         
     </mappers>
 

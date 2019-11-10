@@ -47,7 +47,7 @@
 }
 
 .content input {
-	width: 80%;
+	width: 75%;
 	height: 50px;
 	margin: auto;
 	margin-bottom: 30px;
@@ -57,6 +57,14 @@
 	margin: auto;
 	margin-top: 75px;
 	width: 80%;
+}
+
+#login-form #btn7 {
+	width: 450px;
+	height: 100px;
+	margin: auto;
+	background-color: #696969;
+	font-size: 50px;
 }
 </style>
 </head>

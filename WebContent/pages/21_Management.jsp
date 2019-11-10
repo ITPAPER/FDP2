@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="study.jsp.model1.model.Board"%>
-<%@page import="study.jsp.model1.service.impl.BoardServiceImpl"%>
-<%@page import="study.jsp.model1.service.BoardService"%>
+<%@page import="study.jsp.model1.model.Document"%>
+<%@page import="study.jsp.model1.service.impl.DocumentServiceImpl"%>
+<%@page import="study.jsp.model1.service.DocumentService"%>
 <%@page import="study.jsp.model1.mybatis.MybatisConnectionFactory"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
 <%
@@ -140,22 +140,11 @@ tbody tr td {
 	cursor: pointer;
 }
 
-/* Modal */
-.modal-body>.graph {
-	background: #ccc;
-	min-height: 400px;
-}
-
-.modal-body .graph span {
-	dislplay: block;
-}
-
-.modal-body .graph {
-	text-align: center;
-}
-
-.modal-body .graph img {
-	width: 70%;
+/* 차트 */
+#chartdiv {
+	width: 100%;
+	height: 500px;
+	padding-bottom: 50px;
 }
 </style>
 </head>
@@ -182,7 +171,7 @@ tbody tr td {
 				<div class="top">
 					<h4 class="pull-left">게시판 관리</h4>
 					<button type="button" class="btn btn-primary pull-right"
-						onclick="location.href ='13_Notice_board.jsp'">더보기</button>
+						onclick="location.href ='23_Notice_board_s.jsp'">더보기</button>
 				</div>
 				<table class="table table-hover">
 					<thead>
@@ -246,6 +235,8 @@ tbody tr td {
 			<div class="box1 box-left">
 				<div class="top">
 					<h4 class="pull-left">누적 접속회원 통계(modal)</h4>
+					<button type="button" class="btn btn-primary pull-right"
+						onclick="location.href ='28_User_stasis.jsp'">더보기</button>
 				</div>
 
 				<table class="table table-hover">
@@ -383,11 +374,8 @@ tbody tr td {
 					</div>
 					<!-- 내용 -->
 					<div class="modal-body">
-						<div class="graph-body">
-							<div class="graph">
-								<span><img src="../img/chart.png"></span> <span>그래프1</span>
-							</div>
-						</div>
+						<h3>그래프 예제</h3>
+						<div id="chartdiv"></div>
 					</div>
 					<!-- 하단 -->
 					<div class="modal-footer">
@@ -402,6 +390,10 @@ tbody tr td {
 		<!-- /.modal -->
 	</div>
 	<%@ include file="../inc/bottom.jsp"%>
+	
+	<script src="https://www.amcharts.com/lib/4/core.js"></script>
+	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
 	<script src="../plugins/animate/jquery.animatecss.min.js"></script>
 	<script type="text/javascript">
@@ -426,6 +418,48 @@ tbody tr td {
 				duration : 1500
 			});
 		});
+		am4core.ready(function() {
+
+			// Themes begin
+			am4core.useTheme(am4themes_animated);
+			// Themes end
+
+			// Create chart
+			var chart = am4core.create("chartdiv", am4charts.PieChart);
+			chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+			chart.data = [ {
+				country : "당산",
+				value : 100
+			}, {
+				country : "분당",
+				value : 95
+			}, {
+				country : "사당",
+				value : 90
+			}, {
+				country : "강남",
+				value : 85
+			}, {
+				country : "마포",
+				value : 80
+			}, {
+				country : "용산",
+				value : 75
+			} ];
+
+			var series = chart.series.push(new am4charts.PieSeries());
+			series.dataFields.value = "value";
+			series.dataFields.radiusValue = "value";
+			series.dataFields.category = "country";
+			series.slices.template.cornerRadius = 6;
+			series.colors.step = 3;
+
+			series.hiddenState.properties.endAngle = -90;
+
+			chart.legend = new am4charts.Legend();
+
+		}); // end am4core.ready()
 	</script>
 
 

@@ -6,10 +6,10 @@ import lombok.Data;
  */
 
 @Data
-public class Board {
+public class Document {
 	
 	// 임시 변수 명
-	// 수정할 파일 -> BoardMapper
+	// 수정할 파일 -> DocumentMapper
 	private int titno;			// 글 번호 (PK AI)
 	private String title;		// 글 제목
 	private String bname;		// 게시판 작성자
@@ -24,7 +24,7 @@ public class Board {
 	}
 	
 	public static void setOffset(int offset) {
-		Board.offset = offset;
+		Document.offset = offset;
 	}
 	
 	public static int getListCount() {
@@ -32,7 +32,7 @@ public class Board {
 	}
 	
 	public static void setListCount(int listCount) {
-		Board.listCount = listCount;
+		Document.listCount = listCount;
 	}
 
 }

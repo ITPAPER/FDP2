@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="BoardMapper">
+<mapper namespace="DocumentMapper">
 
 	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
-	<resultMap id="boardMap" type="study.jsp.model1.model.Board" >
+	<resultMap id="documentMap" type="study.jsp.model1.model.Document" >
 		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="titno" column="titno" />
 		<result property="title" column="title" />
@@ -15,15 +15,15 @@
 	
 	<!-- 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
-		parameterType="study.jsp.model1.model.Board"
-		resultMap="boardMap">
+		parameterType="study.jsp.model1.model.Document"
+		resultMap="documentMap">
 		SELECT titno, title, bname, contents FROM Board WHERE titno=#{titno};
 	</select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="selectList"
-		parameterType="study.jsp.model1.model.Board"
-		resultMap="boardMap">
+		parameterType="study.jsp.model1.model.Document"
+		resultMap="documentMap">
 		SELECT titno, title, bname, contents FROM Board
 		
 		<where>
