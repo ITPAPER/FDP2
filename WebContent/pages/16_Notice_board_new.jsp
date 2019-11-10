@@ -38,7 +38,7 @@
 <body>
 	<%@ include file="../inc/top.jsp"%>
 
-	<div class="container" style="min-height: 500px;">
+	<div class="container" style="min-height: 720px;">
 <%@ include file="../inc/remote.jsp"%>
 
 		<h1 id="title">Q &amp; A</h1>

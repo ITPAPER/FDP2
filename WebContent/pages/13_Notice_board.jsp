@@ -81,7 +81,7 @@ thead {
 <body>
 	<%@ include file="../inc/top.jsp"%>
 
-	<div class="container" style="min-height: 500px;">
+	<div class="container" style="min-height: 870px;">
 		<%@ include file="../inc/remote.jsp"%>
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
@@ -222,7 +222,7 @@ thead {
 				</tbody>
 			</table>
 		</div>
-	</div>
+	
 
 	<div id="g" class="clearfix">
 		<ul class="pagination pagination-md">
@@ -242,7 +242,7 @@ thead {
 				class="btn btn-default btn-sm" id="btn1">삭제</a></li>
 		</ul>
 	</div>
-
+	</div>
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>

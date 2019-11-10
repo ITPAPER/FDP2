@@ -251,7 +251,7 @@
 			<div class="container" id="move">
 				<div class="row mynav">
 					<div class="col-md-3 nav-btn tl">
-						<a href="07_Statistics.jsp" class="nav-txt">데이터 통계
+						<a href="07_Statistics.jsp" class="nav-txt">보건의료 통계
 							<br/>
 							<img src="../img/chart_o.png" width="150px" height="160px">
 						</a>	
@@ -273,7 +273,7 @@
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="29_Monitoring.jsp">
+								<a class="hos-btn" href="30_Monitoring.jsp">
 									<img  class="thumb" src="../img/monitor.jpg" >
 									<span class="text">응급실 상황판</span>
 								</a>

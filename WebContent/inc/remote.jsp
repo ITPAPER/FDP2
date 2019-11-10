@@ -9,10 +9,10 @@
 							src="../img/home.png" alt="메뉴" /></a></span></li>
 			</ul>
 			<div class="btn-group">
-				<button type="button" class="btn btn-info" data-toggle="dropdown">
+				<!-- <button type="button" class="btn btn-info" data-toggle="dropdown">
 					목록
 				</button>
-				<!-- 재사용될 코드 입니다. -->
+				재사용될 코드 입니다.
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="03_Find_h.jsp">병원검색</a></li>
 						<li class="divider"></li>
@@ -21,11 +21,11 @@
 						<li><a href="07_Statistics.jsp">보건의료 통계</a></li>
 						<li class="divider"></li>
 						<li><a href="#">질병검색</a></li>
-					</ul>
+					</ul> -->
 				<!-- 재사용될 코드 입니다. -->
 				<div class="btn-group">
 					<button type="button" class="btn btn-info" data-toggle="dropdown">
-						Action <span class="caret"></span>
+						센터 소개 <span class="caret"></span>
 					</button>
 				<!-- 재사용될 코드 입니다. -->
 				<ul class="dropdown-menu" role="menu">

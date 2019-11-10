@@ -37,7 +37,7 @@
 
 /* 리모컨바 박스 */
 .navbar {
-	width: 1170px;
+	width: 1100px;
 	margin: auto;
 	padding: 1px 0 0 0;
 	background: ##f9f9f9;

@@ -14,7 +14,6 @@
 				<ul class="nav navbar-nav" id="droph">
 					<li><a href="01_Main.jsp"class="page-move">홈</a></li>
 					<li><a href="07_Statistics.jsp" class="page-move">데이터통계</a></li>
-					<li><a href="13_Notice_board.jsp" class="page-move">게시판</a></li>
 					<li class="dropdown">
 						<a href="#" class="page-move" data-toggle="dropdown">병원 검색<b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -22,9 +21,10 @@
 								<li id="divider"></li>
 								<li><a href="05_Find_e.jsp">응급실 찾기</a></li>
 								<li id="divider"></li>
-								<li><a href="#">응급실 현황</a></li>
+								<li><a href="30_Monitoring.jsp">응급실 현황</a></li>
 						</ul>
 					</li>
+					<li><a href="13_Notice_board.jsp" class="page-move">게시판</a></li>
 					<li><a href="18_Intention.jsp" class="page-move">센터소개</a></li>
 				</ul>
 				</div>

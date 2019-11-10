@@ -18,7 +18,7 @@
 }
 
 h1 {
-	padding: 80px 0 10px 0;
+	padding: 50px 0 10px 0;
 	margin:0 0 4px 40px;
 	font-size:50px;
 }
