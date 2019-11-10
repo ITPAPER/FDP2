@@ -13,7 +13,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("utf-8");
 		
 	/** 1) 필요한 객체 생성 부분 */
 	// Helper 객체 생성

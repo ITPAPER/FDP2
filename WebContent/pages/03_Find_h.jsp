@@ -123,7 +123,7 @@
 			</div>
 		</form>
 		<div class="container">
-			<div class="prog">
+			<div class="prog">	
 				<span class="progtext">지역을 선택해 주세요</span>
 			</div>
 			<div class="row pppp">
@@ -213,7 +213,6 @@
 							var template = Handlebars.compile($("#list-item-tmpl").html());
 							var html = template(req.items[i]);
 							
-							//#list에 읽어온 내용을 추가한다.
 							$(".accord").append(html);
 							
 							

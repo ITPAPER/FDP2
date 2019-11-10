@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../plugins/youcover/youCover.css">
     <style type="text/css">
     	#bigbox{
-    		height:710px;
+    		height:760px;
     		overflow:hidden;
     	}
     	.login_box{
@@ -139,6 +139,9 @@
     	.mynav{
     		margin:0;
     	}
+    	.tl, .tr, .bl, .br{
+    		padding: 10px 0 10px 0;
+    	}
     	.tl{border-radius: 15px 0 0 0;	}
     	.tr{border-radius: 0 15px 0 0;}
     	.bl{border-radius: 0 0 0 15px;}
@@ -149,6 +152,7 @@
     		background-color:#F8A90e;
     	}
     	.nav-btn-cent{
+    		padding: 10px 0 10px 0;
     		background-color:#FDD25D;
     	}
     	.nav-btn-cent > a{
@@ -158,6 +162,9 @@
     		color:black;
     		font-size:30px;
     		font-weight:bold;
+    	}
+    	.cccc{
+    		margin-left: 20px;
     	}
     	.ll{padding:0;}
     	.beinline{
@@ -178,10 +185,17 @@
     	.mymodal{
     		width:1000px;
     	}
+    	.bodypart{
+    		color:orange;
+    	}
     	/** 동영상 영역의 전체 크기를 설정한다. */
         .my-youtube-wrapper { width: 926px; height: 544px; margin: auto; }
         /** 내부적으로 사용되는 <iframe>태그의 border 제거 */
         iframe { border: 0; }
+        .aeddesc{
+        	width:480px;
+        	margin:auto;
+        }
     </style>
   </head>
   <body>
@@ -196,8 +210,8 @@
 				<div class="col-md-3">
 					<div class="row  login_box">
 						<div class="login_cover"><a class="login_btn" href="02_Login.jsp">Find Doctor  로그인</a></div>
-						<a href="#" class="find_id">아이디/비밀번호 찾기</a>
-						<a href="08_Sign_up_c.jsp" class="sign_up">회원 가입</a>
+						<a href="26_Profile_i.jsp" class="find_id">아이디/비밀번호 찾기</a>
+						<a href="09_Sign_up_a.jsp" class="sign_up">회원 가입</a>
 					</div>
 
 					
@@ -237,29 +251,29 @@
 			<div class="container" id="move">
 				<div class="row mynav">
 					<div class="col-md-3 nav-btn tl">
-						<a href="#" class="nav-txt">데이터 통계
+						<a href="07_Statistics.jsp" class="nav-txt">데이터 통계
 							<br/>
 							<img src="../img/chart_o.png" width="150px" height="160px">
 						</a>	
 					</div>
 					<div class="col-md-6 nav-btn-cent">						
-						<span  class="nav-txt">병원찾기</span>
+						<span  class="nav-txt cccc">병원찾기</span>
 						<br/><br/>
 						<ul class="ll">
 							<li class="beinline">
-								<a class="hos-btn" href="#">
+								<a class="hos-btn" href="03_Find_h.jsp">
 									<img  class="thumb" src="../img/hosicon.png" >
 									<span class="text">일반 병원 찾기</span>
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="#">
+								<a class="hos-btn" href="05_Find_e.jsp">
 									<img  class="thumb" src="../img/siren1.png" >
 									<span class="text">응급실 찾기</span>
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="#">
+								<a class="hos-btn" href="29_Monitoring.jsp">
 									<img  class="thumb" src="../img/monitor.jpg" >
 									<span class="text">응급실 상황판</span>
 								</a>
@@ -267,7 +281,7 @@
 						</ul>
 					</div>
 					<div class="col-md-3 nav-btn tr">
-						<a href="#" class="nav-txt">게시판
+						<a href="13_Notice_board.jsp" class="nav-txt">게시판
 						<br/>
 						<img src="../img/navlist.png" width="150px" height="160px">
 						</a>
@@ -281,7 +295,7 @@
 						</a>	
 					</div>
 					<div class="col-md-6 nav-btn-cent">						
-						<span  class="nav-txt">유용한 정보</span>
+						<span  class="nav-txt cccc">유용한 정보</span>
 						<br/><br/>
 						<ul class="ll">
 							<li class="beinline">
@@ -291,13 +305,13 @@
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="#">
+								<a class="hos-btn" data-toggle="modal" href="#myModal2">
 									<img  class="thumb" src="../img/AED.png" >
 									<span class="text">AED사용 방법</span>
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="#">
+								<a class="hos-btn" href="http://www.doctorsnews.co.kr/">
 									<img  class="thumb" src="../img/news.png" >
 									<span class="text">의료 신문</span>
 								</a>
@@ -305,7 +319,7 @@
 						</ul>
 					</div>
 					<div class="col-md-3 nav-btn br">
-						<a href="#" class="nav-txt">센터소개
+						<a href="18_Intention.jsp" class="nav-txt">센터소개
 						<br/>
 						<img src="../img/center_intro.png" width="150px" height="160px">
 						</a>
@@ -326,17 +340,17 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 								&times;
 								</button>
-								<h3 class="modal-title" id="myModalLabel">체형 교정 운동</h3>
+								<h1 class="modal-title" id="myModalLabel">&nbsp;체형 교정 운동</h1>
 							</div>
 							<!-- 내용 -->
 							<div class="modal-body">
 								<!-- 탭 메뉴 시작 -->
 								<ul class="nav nav-tabs">
-									<li class="active"><a href="#neck" data-toggle="tab">목</a></li>
-									<li><a href="#pelvis" data-toggle="tab">골반</a></li>
-									<li><a href="#leg" data-toggle="tab">다리</a></li>
-									<li><a href="#shoulder" data-toggle="tab">어께</a></li>
-									<li><a href="#spine" data-toggle="tab">척추</a></li>
+									<li class="active"><a class="bodypart" href="#neck" data-toggle="tab">목</a></li>
+									<li><a class="bodypart" href="#pelvis" data-toggle="tab">골반</a></li>
+									<li><a class="bodypart" href="#leg" data-toggle="tab">다리</a></li>
+									<li><a class="bodypart" href="#shoulder" data-toggle="tab">어께</a></li>
+									<li><a class="bodypart" href="#spine" data-toggle="tab">척추</a></li>
 								</ul>
 								<!--// 탭 메뉴 끝 -->
 								<div class="tab-content">
@@ -487,7 +501,7 @@
 								</div>
 								<!-- 하단 -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">
+									<button type="button" class="btn btn-warning" data-dismiss="modal">
 									Close
 									</button>
 								</div>
@@ -498,6 +512,66 @@
 					</div>
 					<!-- /.modal -->
 				</div>
+				
+				<!-- .modal -->
+				<div id="myModal2" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<!-- .modal-dialog -->
+					<div class="modal-dialog mymodal">
+						<!-- .modal-content -->
+						<div class="modal-content">
+							<!-- 제목 -->
+							<div class="modal-header">
+								<!-- 닫기버튼 -->
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h1 class="modal-title" id="myModalLabel"><strong>자동심장충격기(AED) 사용법</strong></h1>
+								<p>자동심장충격기 설명 및 사용방법에 대한 정보를 확인하 실 수 있습니다.</p>
+							</div>
+							<!-- 내용 -->
+							<div class="modal-body">
+								<h3><b>자동심장충격기(AED) 란?</b></h3>
+								<p>
+									자동심장충격기(AED)란 심실세동(심장의 박동에 의해서 심실의 각 부분이 불규칙적으로 수착하는 상태)환자들에게 극히 짧은 순간에 강한 전류를 심장에 통과시켜서 대부분의 심근에 활동전위를 유발하여 
+									심실세동이 유지될 수 없도록 함으로써 심실세동을 종료시키고 심장이 다시 정상적인 전기활동을 할 수 있도록 유도하는 것이다.
+								</p>
+								<hr/>
+								<h3><b>자동심장충격기(AED) 사용법</b></h3>
+								<div class="aeddesc">
+									<img  src="../img/aed1.gif">
+									<p>자동심장충격기(AED)를 심폐소생술에 방해가 되지 않는 위치에 놓은 뒤에 전원 버튼을 눌러 전원을 켠다.</p>
+									<img  src="../img/aed2.gif">
+									<p>준비된 자동심장충격기(AED)의 패드를 부착부위에 정확히 부착한다.</p>
+
+									<p><strong>패드1 : 오른쪽 빗장뼈 바로 아래 부착<br/>
+										패드2 : 왼쪽 젖꼭지 옆 겨드랑이 부착</strong></p>
+
+									<p>* 패드와 자동심장충격기 본체가 분리되어 있는 경우 연결하며, 패드 부착부위에 이물질이 있다면 제거한다.</p>
+									<img  src="../img/aed3.gif">
+									<p>"분석 중...." 이라는 음성 지시가 나오면 심폐소생술을 멈추고 환자에게서 손을 뗀다.</p>
+
+									<p>* 자동심장충격이 필요 없는 경우에는 "환자의 상태를 확인하고, 심폐소생술을 계속 하십시오" 라는 음성 지시가 나온다.</p>
+									<img  src="../img/aed4.gif">
+									<p>"쇼크 버튼을 누르십시오" 라는 음성 지시가 나오면 점멸하고 있는 쇼크 버튼을 눌러 자동심장충격을 시행한다.</p>
+
+									<p>* 쇼크버튼을 누르기 전에는 반드시 다른 사람이 환자에게서 떨어져 있는지 확인하여야 한다.</p>
+									<img  src="../img/aed5.gif">
+									<p>자동심장충격을 시행한 뒤에는 즉시 가슴압박과 인공호흡 비율을 30 : 2로 심폐소생술을 다시 시행한다.</p>
+									<p>* 자동심장충격기는 2분마다 심장리듬 분석을 반복해서 시행하며, 자동심장충격기 사용과 심폐소생술 시행은 119구급대가 현장에 도착할 때까지 지속되어야 한다.</p>
+								</div>
+							</div>
+							<!-- 하단 -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-warning" data-dismiss="modal">
+									Close
+								</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
 			</div>
 		</div>
 	</section>
@@ -505,7 +579,7 @@
 	<!-- 동적으로 생성될 HTML의 기본틀 -->
 	<script type="text/x-handlebars-template" id="list-item-tmpl">
 		<div class='accord-item'>
-    		<h4 class='accord-title'><a class="hinfo" href="#content{{num}}" value="{{num}}">{{num}}.{{dutyName}}</a></h4>
+    		<h4 class='accord-title'><a class="hinfo" href="#content{{num}}" value="{{num}}">{{dutyName}}</a></h4>
     		<div id="content{{num}}" class="content">
 				주소 : {{dutyAddr}}<br/>
 				<a href="tel:{{dutyTel}}"> 전화번호 : {{dutyTel}}</a>
@@ -591,12 +665,12 @@
 					$(".accord").empty();
 					
 					for(var i=0; i <req.items.length; i++){
+						req.items[i].dutyName= i+1 + "." + req.items[i].dutyName;
 						var desc = "<h3>";				
 						desc += req.items[i].dutyName;
 						desc += "</h3><br/>";
 						desc += req.items[i].dutyAddr;
 					
-						//
 						req.items[i].num=i+1;
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req.items[i]);
@@ -615,12 +689,26 @@
 								$(".content").not($(target)).slideUp(100);
 							
 								var title = $(this).html();
-								var num = title.indexOf(".");
-								var key = title.substring(num+1);
 								
-								$("#gmap").find("div[title='"+key+"']").click();
+								
+								$("#gmap").find("div[title='"+title+"']").click();
 
 							});	
+							
+							$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
+								var aa= $(this).attr('title');
+								console.log($(this).attr('title'));
+								
+								var num = aa.indexOf(".");
+								var key = aa.substring(0, num);
+								console.log(key);
+								
+								
+								$('.accord').animate({scrollTop : 254}, 0);
+								$("#content" +key).slideDown(100);
+								$(".content").not($("#content" +key)).slideUp(100);
+								
+							}); 
 							
 						}
 						
