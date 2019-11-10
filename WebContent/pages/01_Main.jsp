@@ -210,8 +210,8 @@
 				<div class="col-md-3">
 					<div class="row  login_box">
 						<div class="login_cover"><a class="login_btn" href="02_Login.jsp">Find Doctor  로그인</a></div>
-						<a href="#" class="find_id">아이디/비밀번호 찾기</a>
-						<a href="08_Sign_up_c.jsp" class="sign_up">회원 가입</a>
+						<a href="26_Profile_i.jsp" class="find_id">아이디/비밀번호 찾기</a>
+						<a href="09_Sign_up_a.jsp" class="sign_up">회원 가입</a>
 					</div>
 
 					
