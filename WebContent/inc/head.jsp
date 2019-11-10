@@ -192,7 +192,6 @@ margin:0;
 	padding: 5px 15px;
 }
 
-/* 하단 주소 박스 */
 
 /* 주소 및 연락처 */
 address {

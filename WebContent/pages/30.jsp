@@ -18,8 +18,9 @@
 	.title1 {
 	display:block;
 	padding: 30px 0 0  70px;
-	
 	}
+	
+	
 	.chart1name {
 	display: block;
 	padding : 0 0 0 70px;
