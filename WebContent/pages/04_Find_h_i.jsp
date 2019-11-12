@@ -45,7 +45,6 @@
             e.printStackTrace();
         }
     }
-	System.out.println(hos);
 	list = hos.getResponse().getBody().getItems().getItem();
 	JSONObject json = new JSONObject();
 	json.put("items", list);

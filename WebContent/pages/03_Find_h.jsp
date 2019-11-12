@@ -194,7 +194,7 @@
 							lat: req.items[0].YPos,		//지도가 표시될 위도
 							lng: req.items[0].XPos,		//지도가 표시될 경도
 							zoom: 15
-						});
+						});   
 						
 						$(".accord").empty();
 						
@@ -228,27 +228,21 @@
 									var title = $(this).html();
 									
 									a++;
-									console.log(a);
 									$("#gmap").find("div[title='"+ title +"']").click();
 									
 								});
 							 	
 								$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
 									var aa= $(this).attr('title');
-									console.log($(this).attr('title'));
 									
 									var num = aa.indexOf(".");
 									var key = aa.substring(0, num);
-									console.log(key);
-									
 									
 									$('.accord').animate({scrollTop : 254}, 0);
 									var offset = $("#content" + key).parent('.accord-item').offset();
-									console.log(offset);
 									$("#content" +key).slideDown(100);
 									$(".content").not($("#content" +key)).slideUp(100);
 									var cc=$(".accord-item:first-child").offset();
-									console.log(cc);
 									
 									$('.accord').animate({scrollTop : offset.top-100}, 50);
 								}); 

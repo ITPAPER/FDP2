@@ -1,3 +1,4 @@
+<%@page import="com.google.gson.Gson"%>
 <%@page import="study.java.model.MyErListUno.Response.Body.Items.Itema"%>
 <%@page import="study.java.model.MyErListUno"%>
 <%@page import="study.java.model.MyErList"%>
@@ -5,8 +6,6 @@
 <%@page import="study.java.service.ErService"%>
 <%@page import="study.jsp.model1.helper.RetrofitHelper"%>
 <%@page import="study.jsp.model1.helper.WebHelper"%>
-<%@page import="org.json.JSONArray" %>
-<%@page import="org.json.JSONObject"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="study.java.model.ErItem"%>
 <%@page import="retrofit2.Call"%>
@@ -69,8 +68,6 @@
 	
 	List<Item> list = null;
 	List<ErItem> result = new ArrayList<ErItem>();
-	JSONObject json = new JSONObject();
-	JSONArray jarray = new JSONArray();
 	for(int i=0; i<ergu.size(); i++){
 		String mygu = ergu.get(i);
 		
@@ -84,24 +81,19 @@
 		}
 		
 		if(myErList != null){
-			System.out.println("]]]]]]]]]]]0000]"+myErList.getResponse().getBody().getItems().getItem());
 			list = myErList.getResponse().getBody().getItems().getItem();
-			json.put("items", list);
-			JSONArray jsarray = json.getJSONArray("items"); 
-			for(int j  =0 ; j < jsarray.length(); j++){
-				JSONObject item = jsarray.getJSONObject(j);
-				
-				String dutyAddr = item.getString("dutyAddr"); 
-				String dutyName = item.getString("dutyName");
-				String dutyTel = item.getString("dutyTel");
-				Double wgs84Lat = item.getDouble("wgs84Lat");
-				Double wgs84Lon = item.getDouble("wgs84Lon");	  
+			
+			for(Item abc : list ){
+				String dutyAddr = abc.getDutyAddr(); 
+				String dutyName = abc.getDutyName();
+				String dutyTel = abc.getDutyTel();
+				Double wgs84Lat = abc.getWgs84Lat();
+				Double wgs84Lon = abc.getWgs84Lon();	
 				
 				result.add( new ErItem(dutyAddr, dutyName, dutyTel, wgs84Lat, wgs84Lon));
 			}
 
 		} else{
-			JSONObject json1 = new JSONObject();
 			Call<MyErListUno> call1 = erService.getMyErListUno(mygu);
 			MyErListUno myErListUno = null;
 			myErListUno = call1.execute().body();
@@ -117,7 +109,6 @@
 
 		}
 	}
-	json.put("items", result);
-	response.getWriter().print(json);
-	
+	Gson gson = new Gson();
+	response.getWriter().print(gson.toJson(result));	
 %>
