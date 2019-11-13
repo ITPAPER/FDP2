@@ -4,11 +4,11 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <%@ include file="../inc/head.jsp" %>
+	<jsp:include page="./assets/inc/head.jsp" />
     <!-- AjaxHelper -->
-	<link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
+	<link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css">
 	<!-- handlebar plugin -->
-	<script src="../plugins/handlebars/handlebars-v4.3.1.js"></script>
+	<script src="./assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
 	
 	<style type="text/css">
 		#gmap{	height: 800px;}
@@ -53,7 +53,7 @@
 	</style>
   </head>
   <body>
-	<%@ include file="../inc/top.jsp" %>
+	<jsp:include page="./assets/inc/top.jsp" />
 	
 	<div class="container">
 		<h1 class="page-header">병원 검색</h1>
@@ -152,11 +152,11 @@
     	</div>
 	</script>
 	
-	<%@ include file="../inc/bottom.jsp" %>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 	<!-- 사용자 정의 스크립트 -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAYjCPxyhxx8fGlitbS4U2qMUJwWiY6yk"></script>
-	<script src="../plugins/gmaps/gmaps.min.js"></script>
-	<script src="../plugins/ajax/ajax_helper.js"></script>
+	<script src="./assets/plugins/gmaps/gmaps.min.js"></script>
+	<script src="./assets/plugins/ajax/ajax_helper.js"></script>
 	<script type="text/javascript">
 	
 		$(function(){
@@ -259,7 +259,7 @@
 								lat: req.items[i].YPos,
 								lng: req.items[i].XPos,
 								icon:{
-									url:"../plugins/gmaps/map-marker.png",
+									url:"./assets/plugins/gmaps/map-marker.png",
 									scaledSize: new google.maps.Size(50, 50)
 								},
 								

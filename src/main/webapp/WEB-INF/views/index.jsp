@@ -4,9 +4,9 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <%-- <%@ include file="../inc/head.jsp" %> --%>
-    <link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
-    <link rel="stylesheet" href="../plugins/youcover/youCover.css">
+	<jsp:include page="./assets/inc/head.jsp" />
+    <link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css">
+    <link rel="stylesheet" href="./assets/plugins/youcover/youCover.css">
     <style type="text/css">
     	#bigbox{
     		height:760px;
@@ -199,7 +199,7 @@
     </style>
   </head>
   <body>
-	<%-- <%@ include file="../inc/top.jsp" %> --%>
+	<jsp:include page="./assets/inc/top.jsp" />
 	
 	<section>
 		  	
@@ -245,7 +245,7 @@
 					
 				</div>
 			</div>
-			<a href="#erer"id="myer"><img src="../img/siren.png" width="100px"> <b>응급실 찾기</b></a>
+			<a href="#erer"id="myer"><img src="./assets/img/siren.png" width="100px"> <b>응급실 찾기</b></a>
 
 
 			<div class="container" id="move">
@@ -253,7 +253,7 @@
 					<div class="col-md-3 nav-btn tl">
 						<a href="07_Statistics.do" class="nav-txt">보건의료 통계
 							<br/>
-							<img src="../img/chart_o.png" width="150px" height="160px">
+							<img src="./assets/img/chart_o.png" width="150px" height="160px">
 						</a>	
 					</div>
 					<div class="col-md-6 nav-btn-cent">						
@@ -262,19 +262,19 @@
 						<ul class="ll">
 							<li class="beinline">
 								<a class="hos-btn" href="03_Find_h.do">
-									<img  class="thumb" src="../img/hosicon.png" >
+									<img  class="thumb" src="./assets/img/hosicon.png" >
 									<span class="text">일반 병원 찾기</span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" href="05_Find_e.do">
-									<img  class="thumb" src="../img/siren1.png" >
+									<img  class="thumb" src="./assets/img/siren1.png" >
 									<span class="text">응급실 찾기</span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" href="30_Monitoring.do">
-									<img  class="thumb" src="../img/monitor.jpg" >
+									<img  class="thumb" src="./assets/img/monitor.jpg" >
 									<span class="text">응급실 상황판</span>
 								</a>
 							</li>
@@ -283,7 +283,7 @@
 					<div class="col-md-3 nav-btn tr">
 						<a href="13_Notice_board.do" class="nav-txt">게시판
 						<br/>
-						<img src="../img/navlist.png" width="150px" height="160px">
+						<img src="./assets/img/navlist.png" width="150px" height="160px">
 						</a>
 					</div>
 				</div>
@@ -291,7 +291,7 @@
 					<div class="col-md-3 nav-btn bl">
 						<a href="#" class="nav-txt">질병 관련 정보
 							<br/>
-							<img src="../img/virus.png" width="150px" height="160px">
+							<img src="./assets/img/virus.png" width="150px" height="160px">
 						</a>	
 					</div>
 					<div class="col-md-6 nav-btn-cent">						
@@ -300,19 +300,19 @@
 						<ul class="ll">
 							<li class="beinline">
 								<a class="hos-btn" data-toggle="modal" href="#myModal"	>
-									<img  class="thumb" src="../img/YouTube.png" >
+									<img  class="thumb" src="./assets/img/YouTube.png" >
 									<span class="text">체형 교정 운동</span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" data-toggle="modal" href="#myModal2">
-									<img  class="thumb" src="../img/AED.png" >
+									<img  class="thumb" src="./assets/img/AED.png" >
 									<span class="text">AED사용 방법</span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" href="http://www.doctorsnews.co.kr/">
-									<img  class="thumb" src="../img/news.png" >
+									<img  class="thumb" src="./assets/img/news.png" >
 									<span class="text">의료 신문</span>
 								</a>
 							</li>
@@ -321,7 +321,7 @@
 					<div class="col-md-3 nav-btn br">
 						<a href="18_Intention.do" class="nav-txt">센터소개
 						<br/>
-						<img src="../img/center_intro.png" width="150px" height="160px">
+						<img src="./assets/img/center_intro.png" width="150px" height="160px">
 						</a>
 					</div>
 				</div>
@@ -538,24 +538,24 @@
 								<hr/>
 								<h3><b>자동심장충격기(AED) 사용법</b></h3>
 								<div class="aeddesc">
-									<img  src="../img/aed1.gif">
+									<img  src="./assets/img/aed1.gif">
 									<p>자동심장충격기(AED)를 심폐소생술에 방해가 되지 않는 위치에 놓은 뒤에 전원 버튼을 눌러 전원을 켠다.</p>
-									<img  src="../img/aed2.gif">
+									<img  src="./assets/img/aed2.gif">
 									<p>준비된 자동심장충격기(AED)의 패드를 부착부위에 정확히 부착한다.</p>
 
 									<p><strong>패드1 : 오른쪽 빗장뼈 바로 아래 부착<br/>
 										패드2 : 왼쪽 젖꼭지 옆 겨드랑이 부착</strong></p>
 
 									<p>* 패드와 자동심장충격기 본체가 분리되어 있는 경우 연결하며, 패드 부착부위에 이물질이 있다면 제거한다.</p>
-									<img  src="../img/aed3.gif">
+									<img  src="./assets/img/aed3.gif">
 									<p>"분석 중...." 이라는 음성 지시가 나오면 심폐소생술을 멈추고 환자에게서 손을 뗀다.</p>
 
 									<p>* 자동심장충격이 필요 없는 경우에는 "환자의 상태를 확인하고, 심폐소생술을 계속 하십시오" 라는 음성 지시가 나온다.</p>
-									<img  src="../img/aed4.gif">
+									<img  src="./assets/img/aed4.gif">
 									<p>"쇼크 버튼을 누르십시오" 라는 음성 지시가 나오면 점멸하고 있는 쇼크 버튼을 눌러 자동심장충격을 시행한다.</p>
 
 									<p>* 쇼크버튼을 누르기 전에는 반드시 다른 사람이 환자에게서 떨어져 있는지 확인하여야 한다.</p>
-									<img  src="../img/aed5.gif">
+									<img  src="./assets/img/aed5.gif">
 									<p>자동심장충격을 시행한 뒤에는 즉시 가슴압박과 인공호흡 비율을 30 : 2로 심폐소생술을 다시 시행한다.</p>
 									<p>* 자동심장충격기는 2분마다 심장리듬 분석을 반복해서 시행하며, 자동심장충격기 사용과 심폐소생술 시행은 119구급대가 현장에 도착할 때까지 지속되어야 한다.</p>
 								</div>
@@ -587,12 +587,12 @@
     	</div>
 	</script>
 	
-	<%-- <%@ include file="../inc/bottom.jsp" %> --%>
-	<script src="../plugins/ajax/ajax_helper.js"></script>
+	<jsp:include page="./assets/inc/bottom.jsp" />
+	<script src="./assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAYjCPxyhxx8fGlitbS4U2qMUJwWiY6yk"></script>
-	<script src="../plugins/gmaps/gmaps.min.js"></script>
-	<script src='../plugins/youcover/youCover.js'></script>
-	<script src="../plugins/handlebars/handlebars-v4.3.1.js"></script>
+	<script src="./assets/plugins/gmaps/gmaps.min.js"></script>
+	<script src='./assets/plugins/youcover/youCover.js'></script>
+	<script src="./assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		$("#erer").slideToggle(100);
@@ -731,7 +731,7 @@
 				} 		
 				});
 			}); //end ajax
-		$("button[value='6']").click()
+		//$("button[value='6']").click()
 
 	});
 	</script>

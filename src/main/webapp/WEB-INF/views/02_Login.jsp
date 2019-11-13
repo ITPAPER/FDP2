@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <%@ include file="../inc/head.jsp" %>
+	<jsp:include page="./assets/inc/head.jsp" />
     <style type="text/css">
     	.lbox{
     		width:600px;
@@ -44,7 +44,7 @@
     </style>
   </head>
   <body>
-	<%@ include file="../inc/top.jsp" %>
+	<jsp:include page="./assets/inc/top.jsp" />
 	
 	<section>
 		<div class="container lbox" style="height:718px;">
@@ -78,8 +78,8 @@
 		</form>
 		</div>
 	</section>
-	<%@ include file="../inc/bottom.jsp" %>
-	<script src="../assets/js/regex.js"></script>
+	<jsp:include page="./assets/inc/bottom.jsp" />
+	<script src="./assets/js/regex.js"></script>
 	<script type="text/javascript">
 	$(function(){
 		

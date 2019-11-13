@@ -4,8 +4,8 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <%@ include file="../inc/head.jsp" %>
-    <link rel="stylesheet" type="text.css" href="../plugins/ajax/ajax_helper.css">
+	<jsp:include page="./assets/inc/head.jsp" />
+    <link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css">
     <style type="text/css">
     	.line{
     		padding-bottom:20px !important;
@@ -51,7 +51,7 @@
     </style>
   </head>
   <body>
-	<%@ include file="../inc/top.jsp" %>
+	<jsp:include page="./assets/inc/top.jsp" />
 	<div class='container'>
 		<h1 class="line">응급실 찾기</h1>
 	</div>
@@ -102,11 +102,11 @@
 	
 	
 	
-	<%@ include file="../inc/bottom.jsp" %>
-	<script src="../plugins/ajax/ajax_helper.js"></script>
+	<jsp:include page="./assets/inc/bottom.jsp" />
+	<script src="./assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAYjCPxyhxx8fGlitbS4U2qMUJwWiY6yk"></script>
-	<script src="../plugins/gmaps/gmaps.min.js"></script>
-	<script src="../plugins/handlebars/handlebars-v4.3.1.js"></script>
+	<script src="./assets/plugins/gmaps/gmaps.min.js"></script>
+	<script src="./assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script type="text/javascript">
     $(function(){
     	var map = new GMaps({
@@ -192,7 +192,7 @@
 							lat: req.items[i].wgs84Lat,
 							lng: req.items[i].wgs84Lon,
 							icon:{
-								url:"../plugins/gmaps/map-marker.png",
+								url:"./assets/plugins/gmaps/map-marker.png",
 								scaledSize: new google.maps.Size(50, 50)
 							},
 							
