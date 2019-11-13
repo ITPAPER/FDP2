@@ -269,9 +269,9 @@
 							})
 						};
 					} 		
-				});	
+				}); //end ajax	
 			});
-		}); //end ajax
+		});
 	</script>
   </body>
 </html>
