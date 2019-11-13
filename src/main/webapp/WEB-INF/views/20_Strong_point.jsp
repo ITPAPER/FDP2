@@ -4,8 +4,10 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<%@ include file="../inc/head.jsp"%>
-<%@ include file="../inc/remote_css.jsp"%>
+<%-- <%@ include file="../inc/head.jsp"%> --%>
+<%-- <%@ include file="../inc/remote_css.jsp"%> --%>
+<jsp:include page="./assets/inc/head.jsp" />
+<jsp:include page="./assets/inc/remote_css.jsp" />
 <style type="text/css">
 .box {
 	position: relative;
@@ -122,10 +124,12 @@ h6 {
 </style>
 </head>
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<%-- <%@ include file="../inc/top.jsp"%> --%>
+	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="container" style="min-height: 500px;">
-		<%@ include file="../inc/remote.jsp"%>
+		<%-- <%@ include file="../inc/remote.jsp"%> --%>
+		<jsp:include page="./assets/inc/remote.jsp" />
 
 		<div class="box" style="height: 1100px;">
 			<h1>미션/비젼</h1>
@@ -164,6 +168,7 @@ h6 {
 		</div>
 	</div>
 
-	<%@ include file="../inc/bottom.jsp"%>
+	<%-- <%@ include file="../inc/bottom.jsp"%> --%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 </body>
 </html>

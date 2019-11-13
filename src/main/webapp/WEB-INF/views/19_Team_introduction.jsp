@@ -5,8 +5,10 @@
 <html lang="ko">
 <head>
 
-<%@ include file="../inc/head.jsp"%>
-<%@ include file="../inc/remote_css.jsp"%>
+<%-- <%@ include file="../inc/head.jsp"%> --%>
+<%-- <%@ include file="../inc/remote_css.jsp"%> --%>
+<jsp:include page="./assets/inc/head.jsp" />
+<jsp:include page="./assets/inc/remote_css.jsp" />
 <style type="text/css">
 body {
 background-color: eee;
@@ -93,10 +95,12 @@ background-color: eee;
 </style>
 </head>
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<%-- <%@ include file="../inc/top.jsp"%> --%>
+	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="container" style="min-height: 1000px;">
-	<%@ include file="../inc/remote.jsp"%>
+	<%-- <%@ include file="../inc/remote.jsp"%> --%>
+	<jsp:include page="./assets/inc/remote.jsp" />
 
 		<div class="box1" style="height: 400px;">
 			<ul id="gallery">
@@ -128,6 +132,7 @@ background-color: eee;
 		</div>
 	</div>
 
-	<%@ include file="../inc/bottom.jsp"%>
+	<%-- <%@ include file="../inc/bottom.jsp"%> --%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 </body>
 </html>
