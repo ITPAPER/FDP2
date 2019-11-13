@@ -47,14 +47,14 @@
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 <head>
-<%@ include file="../inc/head.jsp"%>
-<%@ include file="../inc/remote_css.jsp"%>
+	<jsp:include page="./assets/inc/head.jsp" />
+	<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 720px;">
-<%@ include file="../inc/remote.jsp"%>
+	<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table1">
@@ -95,13 +95,13 @@
 		</div>
 		<div class="b">
 			<ul class="pull-right">
-				<li class="a"><a href="13_Notice_board.jsp"
+				<li class="a"><a href="13_Notice_board.do"
 					class="btn btn-default btn-sm">취소</a></li>
-				<li class="a"><a href="14_Notice_board_i.jsp"
+				<li class="a"><a href="14_Notice_board_i.do"
 					class="btn btn-default btn-sm">완료</a></li>
 			</ul>
 		</div>
 	</div>
-	<%@ include file="../inc/bottom.jsp"%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 </body>
 </html>

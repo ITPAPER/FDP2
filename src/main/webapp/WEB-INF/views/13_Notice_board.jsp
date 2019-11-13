@@ -4,9 +4,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<%@ include file="../inc/head.jsp"%>
-<%@ include file="../inc/remote_css.jsp"%>
-
+<jsp:include page="./assets/inc/head.jsp" />
+<jsp:include page="./assets/inc/remote_css.jsp" />
 <title>Notice_board</title>
 
 <style type="text/css">
@@ -79,10 +78,9 @@ thead {
 </head>
 
 <body>
-	<%@ include file="../inc/top.jsp"%>
-
+	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 870px;">
-		<%@ include file="../inc/remote.jsp"%>
+		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
@@ -115,7 +113,7 @@ thead {
 								value="checked"></label></td>
 						<td>1</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">목이 아파요. 감기인지 아닌지 진단 부탁드립니다 ㅠㅠ</td>
 						<td class="text-center">김체리</td>
 						<td class="text-center">2019-10-18</td>
@@ -126,7 +124,7 @@ thead {
 								value="checked"></label></td>
 						<td>2</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">열과 두통</td>
 						<td class="text-center">이승석</td>
 						<td class="text-center">2019-10-18</td>
@@ -137,7 +135,7 @@ thead {
 								value="checked"></label></td>
 						<td>3</td>
 						<td 
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">피부 알레르기</td>
 						<td class="text-center">정민기</td>
 						<td class="text-center">2019-10-18</td>
@@ -148,7 +146,7 @@ thead {
 								value="checked"></label></td>
 						<td>4</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">환절기 질병</td>
 						<td class="text-center">조지현</td>
 						<td class="text-center">2019-10-18</td>
@@ -159,7 +157,7 @@ thead {
 								value="checked"></label></td>
 						<td>5</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">유행성 독감</td>
 						<td class="text-center">박기협</td>
 						<td class="text-center">2019-10-18</td>
@@ -169,7 +167,7 @@ thead {
 								value="checked"></label></td>
 						<td>6</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">목이 아파요</td>
 						<td class="text-center">첼첼</td>
 						<td class="text-center">2019-10-18</td>
@@ -180,7 +178,7 @@ thead {
 								value="checked"></label></td>
 						<td>7</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">열과 두통</td>
 						<td class="text-center">조장님</td>
 						<td class="text-center">2019-10-18</td>
@@ -191,7 +189,7 @@ thead {
 								value="checked"></label></td>
 						<td>8</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">피부 알레르기</td>
 						<td class="text-center">밍키밍키</td>
 						<td class="text-center">2019-10-18</td>
@@ -202,7 +200,7 @@ thead {
 								value="checked"></label></td>
 						<td>9</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">환절기 질병</td>
 						<td class="text-center">젼</td>
 						<td class="text-center">2019-10-18</td>
@@ -213,7 +211,7 @@ thead {
 								value="checked"></label></td>
 						<td>10</td>
 						<td
-							onClick="location.href='14_Notice_board_i.jsp'"
+							onClick="location.href='14_Notice_board_i.do'"
 							style="cursor: pointer;">유행성 독감</td>
 						<td class="text-center">쿨켭</td>
 						<td class="text-center">2019-10-18</td>
@@ -236,14 +234,14 @@ thead {
 		</ul>
 
 		<ul class="pull-right">
-			<li class="a"><a href="16_Notice_board_new.jsp"
+			<li class="a"><a href="16_Notice_board_new.do"
 				class="btn btn-default btn-sm">글쓰기</a></li>
-			<li class="a"><a href="Notice_board_i.jsp"
+			<li class="a"><a href="Notice_board_i.do"
 				class="btn btn-default btn-sm" id="btn1">삭제</a></li>
 		</ul>
 	</div>
 	</div>
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
 			$(function() {
@@ -278,6 +276,6 @@ thead {
 			});
 		</script>
 
-	<%@ include file="../inc/bottom.jsp"%>
+	
 </body>
 </html>

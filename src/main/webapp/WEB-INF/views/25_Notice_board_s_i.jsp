@@ -44,15 +44,15 @@
 }
 </style>
 <head>
-<%@ include file="../inc/head.jsp"%>
-<%@ include file="../inc/remote_css.jsp"%>
+	<jsp:include page="./assets/inc/head.jsp" />
+	<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="container" style="min-height: 700px;">
-		<%@ include file="../inc/remote.jsp"%>
+		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">관리자게시판</h1>
 		<p id="description">게시글을 수정, 삭제, 공지등록 할 수 있습니다.</p>
 
@@ -71,7 +71,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><a href="../img/baby_redspot.jpg"> <img
+						<td><a href="../img/baby_redspot.do"> <img
 								class="attachment" alt="첨부파일" src="../img/attachment.png" /> 피부
 								붉은 반점.jpg
 								<button type="button" class="close" aria-hidden="true" id="btn1">&times;</button></td>
@@ -116,20 +116,20 @@
 		</div>
 		<div class="clearfix b">
 			<ul class="pull-right bottom-button">
-				<li class="a"><a href="23_Notice_board_s.jsp"
+				<li class="a"><a href="23_Notice_board_s.do"
 					class="btn btn-default btn-sm" id="btn3">메뉴</a></li>
-				<li class="a"><a href="14_Notice_board_i.jsp"
+				<li class="a"><a href="14_Notice_board_i.do"
 					class="btn btn-default btn-sm" id="btn2">공지등록 </a></li>
-				<li class="a"><a href="14_Notice_board_i.jsp"
+				<li class="a"><a href="14_Notice_board_i.do"
 					class="btn btn-default btn-sm" id="btn1">삭제 </a></li>
-				<li class="a"><a href="24_Notice_board_s_2.jsp"
+				<li class="a"><a href="24_Notice_board_s_2.do"
 					class="btn btn-default btn-sm">수정완료</a></li>
 
 
 			</ul>
 		</div>
 	</div>
-
+	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
@@ -197,7 +197,5 @@
 					});
 				});
 			  </script>
-
-	<%@ include file="../inc/bottom.jsp"%>
 </body>
 </html>
