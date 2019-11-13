@@ -3,7 +3,7 @@
 <footer>
 		<div class= "bottom-box">
 		<div class="row-fottt">
-			<div class="fottt"><a href="21_Management.jsp"><img src="../img/foot_logo.png" class="blogo"></a></div>
+			<div class="fottt"><a href="21_Management.do"><img src="../img/foot_logo.png" class="blogo"></a></div>
 
 				<address>파이썬 빅데이터반 2조 <br/>
 				만든이 : 조지현 박기협 정민기 이승석 김체리<br/>

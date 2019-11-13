@@ -4,9 +4,10 @@
 <!doctype html>
 <html lang="ko">
 <head>
-
-<%@ include file="../inc/head.jsp"%>
-<%@ include file="../inc/remote_css.jsp"%>
+ <%-- <%@ include file="../inc/head.jsp" %> --%>
+ <jsp:include page="./assets/inc/head.jsp" />
+  <%-- <%@ include file="../inc/remote_css.jsp" %> --%>
+  <jsp:include page="./assets/inc/remote_css.jsp" />
 <style type="text/css">
 
 .box {
@@ -91,43 +92,45 @@
 </style>
 </head>
 <body>
-	<%@ include file="../inc/top.jsp"%>
-
+<%-- <%@ include file="../inc/top.jsp" %> --%>
+<%-- <%@ include file="../inc/remote.jsp" %> --%>
+<jsp:include page="./assets/inc/top.jsp" />
+<jsp:include page="./assets/inc/remote.jsp" />
 	<div class="container" style="min-height: 500px;">
-	<%@ include file="../inc/remote.jsp"%>
+
 	
 
 
 		<div class="box" style="height: 900px;">
 			<ul id="gallery">
-				<li><a href="03_Find_h.jsp"> <span class="thumb"> <img
+				<li><a href="03_Find_h.do"> <span class="thumb"> <img
 							src="../img/hospital1.png" alt="병원찾기" />
 					</span> <span class="text">병원찾기</span><span class="comment">서울시 병원 위치 찾기 서비스 입니다.<br />전문분야 선택 및 지역구 선택이<br />가능합니다.</span>
 				</a></li>
-				<li><a href="05_Find_e.jsp"> <span class="thumb"> <img
+				<li><a href="05_Find_e.do"> <span class="thumb"> <img
 							src="../img/emergecy1.png" alt="응급실 찾기" />
 					</span> <span class="text">응급실 찾기</span><span class="comment">서울 응급실 위치 찾기 서비스 입니다.<br />응급실 위치를 통해 응급환자의 <br />골든 타임을 지키기위해<br /> 노력하겠습니다.</span>
 				</a></li>
-				<li><a href="06_Find_e_i.jsp"> <span class="thumb"> <img
+				<li><a href="06_Find_e_i.do"> <span class="thumb"> <img
 							src="../img/monitoring1.png" alt="응급실 모니터링" />
 					</span> <span class="text">응급실 모니터링</span><span class="comment">서울 응급실 현황입니다.<br />실시간 가용 병실 수를 나타냅니다.<br />응급한 순간 헛된 걸음이 되지 않도록<br />정확한 정보를 제공하겠습니다.</span>
 				</a></li>
-				<li><a href="07_Statistics.jsp"> <span class="thumb"> <img
+				<li><a href="07_Statistics.do"> <span class="thumb"> <img
 							src="../img/graph1.png" alt="질병 통계 현황" />
 					</span> <span class="text">질병 통계 현황</span><span class="comment">질병통계현황 입니다.<br />년도, 나이, 성별, 지역구 등으로<br />분류한 질병통계를 한눈에<br />확인 할 수 있습니다.</span>
 				</a></li>
-				<li><a href="13_Notice_board.jsp"> <span class="thumb"> <img
+				<li><a href="13_Notice_board.do"> <span class="thumb"> <img
 							src="../img/board1.png" alt="게시판" />
 					</span> <span class="text">게시판</span><span class="comment">게시판 입니다.<br />간단한 질병 및 외상 관련 <br />질문 및 답변을 확인 할 수 있습니다.</span>
 				</a></li>
-				<li><a href="19_Team_introduction.jsp"> <span class="thumb"> <img
+				<li><a href="19_Team_introduction.do"> <span class="thumb"> <img
 							src="../img/developer1.png" alt="개발자들" />
 					</span> <span class="text">개발자들</span><span class="comment">개발자 소개 페이지 입니다.<br />제작에 참여한 인원들의<br />의도를 파악할 수 있습니다.</span>
 				</a></li>
 			</ul>
 		</div>
 	</div>
-
-	<%@ include file="../inc/bottom.jsp"%>
+	<%-- <%@ include file="../inc/bottom.jsp" %> --%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 </body>
 </html>
