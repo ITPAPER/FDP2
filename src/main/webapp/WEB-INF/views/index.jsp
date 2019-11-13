@@ -209,9 +209,9 @@
 			<div class="row contentsbox">
 				<div class="col-md-3">
 					<div class="row  login_box">
-						<div class="login_cover"><a class="login_btn" href="02_Login.jsp">Find Doctor  로그인</a></div>
-						<a href="26_Profile_i.jsp" class="find_id">아이디/비밀번호 찾기</a>
-						<a href="09_Sign_up_a.jsp" class="sign_up">회원 가입</a>
+						<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
+						<a href="26_Profile_i.do" class="find_id">아이디/비밀번호 찾기</a>
+						<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
 					</div>
 
 					
@@ -251,7 +251,7 @@
 			<div class="container" id="move">
 				<div class="row mynav">
 					<div class="col-md-3 nav-btn tl">
-						<a href="07_Statistics.jsp" class="nav-txt">보건의료 통계
+						<a href="07_Statistics.do" class="nav-txt">보건의료 통계
 							<br/>
 							<img src="../img/chart_o.png" width="150px" height="160px">
 						</a>	
@@ -261,19 +261,19 @@
 						<br/><br/>
 						<ul class="ll">
 							<li class="beinline">
-								<a class="hos-btn" href="03_Find_h.jsp">
+								<a class="hos-btn" href="03_Find_h.do">
 									<img  class="thumb" src="../img/hosicon.png" >
 									<span class="text">일반 병원 찾기</span>
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="05_Find_e.jsp">
+								<a class="hos-btn" href="05_Find_e.do">
 									<img  class="thumb" src="../img/siren1.png" >
 									<span class="text">응급실 찾기</span>
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="30_Monitoring.jsp">
+								<a class="hos-btn" href="30_Monitoring.do">
 									<img  class="thumb" src="../img/monitor.jpg" >
 									<span class="text">응급실 상황판</span>
 								</a>
@@ -281,7 +281,7 @@
 						</ul>
 					</div>
 					<div class="col-md-3 nav-btn tr">
-						<a href="13_Notice_board.jsp" class="nav-txt">게시판
+						<a href="13_Notice_board.do" class="nav-txt">게시판
 						<br/>
 						<img src="../img/navlist.png" width="150px" height="160px">
 						</a>
@@ -319,7 +319,7 @@
 						</ul>
 					</div>
 					<div class="col-md-3 nav-btn br">
-						<a href="18_Intention.jsp" class="nav-txt">센터소개
+						<a href="18_Intention.do" class="nav-txt">센터소개
 						<br/>
 						<img src="../img/center_intro.png" width="150px" height="160px">
 						</a>
