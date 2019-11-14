@@ -9,20 +9,20 @@
 <!-- <meta name="viewport"content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />  -->
 
 <!-- Bootstrap CSS -->
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet"
+<link href="./assets/css/bootstrap.min.css" rel="stylesheet"
 	media="screen">
 <title>Find Doctor</title>
 <!-- 모바일 웹 페이지 설정 -->
-<link rel="shortcut icon" href="../img/tab_icon.png">
+<link rel="shortcut icon" href="./assets/img/tab_icon.png">
 <link rel="apple-touch-icon-precomposed"
-	href="../assets/ico/apple-touch-icon-144-precomposed.png" />
+	href="./assets/ico/apple-touch-icon-144-precomposed.png" />
 <!-- bootstrap -->
 <link rel="stylesheet" type="text/css"
-	href="../assets/css/bootstrap.min.css" />
+	href="./assets/css/bootstrap.min.css" />
 <!-- 나눔고딕 웹 폰트 적용 -->
 <link rel="stylesheet" type="text/css"
-	href="../assets/css/nanumfont.css" />
-<link rel="stylesheet" type="text/css" href="../assets/css/grid.css">
+	href="./assets/css/nanumfont.css" />
+<link rel="stylesheet" type="text/css" href="./assets/css/grid.css">
 <style type="text/css">
 .container {
 	

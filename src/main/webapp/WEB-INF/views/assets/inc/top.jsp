@@ -8,7 +8,7 @@
 </div>
 </div>
 		<div class="topm head-border">
-			<div class="col-md-3 ww"><img src="../img/FindDoctor1.png" class="logo "></div>
+			<div class="col-md-3 ww"><img src="./assets/img/FindDoctor1.png" class="logo "></div>
 			<div class="col-md-9 ww">
 				<div class="btn-cover collapse navbar-collapse" id="gnb">
 				<ul class="nav navbar-nav" id="droph">
