@@ -4,16 +4,14 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<%@ include file="../inc/head.jsp"%>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-<script src="http://code.jquery.com/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<jsp:include page="./assets/inc/head.jsp" />
+<link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+<script src="./assets/js/jquery.min.js"></script>
+<script src="./assets/js/bootstrap.min.js"></script>
 
 <!-- ajax-helper -->
-<link rel="stylesheet" href="../plugins/ajax/ajax_helper.css" />
-<script src="../plugins/ajax/ajax_helper.js"></script>
+<link rel="stylesheet" href="./assets/plugins/ajax/ajax_helper.css" />
+<script src="./assets/plugins/ajax/ajax_helper.js"></script>
 
 <style type="text/css">
 
@@ -37,12 +35,12 @@ td {
 	vertical-align: middle !important;
 }
 
-thead > tr {
-	background: #ffa500; 
+thead>tr {
+	background: #ffa500;
 	border-top: 2px solid #ccc;
 }
 
-thead > tr > th:nth-child(1) {
+thead>tr>th:nth-child(1) {
 	width: 300px;
 }
 
@@ -67,7 +65,7 @@ thead > tr > th:nth-child(1) {
 </head>
 
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="bbox">
 		<div class="container" style="min-height: 750px;">
@@ -76,7 +74,8 @@ thead > tr > th:nth-child(1) {
 			<div>
 				<!-- 탭 버튼 구성 -->
 				<ul class="nav nav-tabs" id="mytab">
-					<li><a href="#dept1" id="gr1" data-toggle="tab" data-deptno="1">지역</a></li>
+					<li><a href="#dept1" id="gr1" data-toggle="tab"
+						data-deptno="1">지역</a></li>
 					<li><a href="#dept2" data-toggle="tab" data-deptno="2">나이</a></li>
 					<li><a href="#dept3" data-toggle="tab" data-deptno="3">성별</a></li>
 					<li><a href="#dept4" data-toggle="tab" data-deptno="4">게시글</a></li>
@@ -102,7 +101,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -114,7 +113,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -126,7 +125,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -138,7 +137,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -150,7 +149,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -176,7 +175,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -187,7 +186,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -198,7 +197,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -209,7 +208,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -220,7 +219,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -245,7 +244,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -256,7 +255,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -267,7 +266,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -278,7 +277,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -289,7 +288,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -316,7 +315,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -328,7 +327,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -340,7 +339,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -352,7 +351,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -364,7 +363,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -390,7 +389,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -401,7 +400,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -412,7 +411,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -423,7 +422,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -434,7 +433,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -461,7 +460,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -473,7 +472,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -485,7 +484,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -497,7 +496,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -509,7 +508,7 @@ thead > tr > th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="../img/icon2.png" />
+												<img class="pull-right" src="./assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -530,7 +529,7 @@ thead > tr > th:nth-child(1) {
 			</div>
 		</div>
 	</div>
-	<%@ include file="../inc/bottom.jsp"%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>

@@ -1,12 +1,12 @@
-<%@page import="study.jsp.model1.helper.WebHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="ko">
 <head>
-<%@ include file="../inc/head.jsp"%>
-<link rel="stylesheet" type="text/css" href="../assets/css/reset.css " />
-<link rel="stylesheet" href="../plugins/sweetalert/sweetalert2.min.css" />
+<jsp:include page="./assets/inc/head.jsp" />
+<link rel="stylesheet" type="text/css" href="./assets/css/reset.css " />
+<link rel="stylesheet"
+	href="./assets/plugins/sweetalert/sweetalert2.min.css" />
 <style>
 .bbox {
 	width: 1170px;
@@ -52,16 +52,17 @@ input
 
 </head>
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="bbox">
 		<div class="container" style="min-height: 750px;">
 			<div class="top">
-				<span> <img src="../img/user.png">
-				</span> <span> <b>회원 정보 수정</b> </span>
+				<span> <img src="./assets/img/user.png">
+				</span> <span> <b>회원 정보 수정</b>
+				</span>
 			</div>
 			<!-- 가입폼 시작 -->
 			<form class="content" name="join_form" id="join_form"
-				action="01_Main.jsp">
+				action="01_Main.do">
 				<div class="form-row">
 					<div class="form-group">
 						<label for='user_id'>아이디</label> <input type="text"
@@ -172,12 +173,12 @@ input
 
 		</div>
 	</div>
-	<%@ include file="../inc/bottom.jsp"%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 
-	<script src="../assets/js/jquery.min.js"></script>
-	<script src="regex.js"></script>
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="./assets//js/jquery.min.js"></script>
+	<script src="./assets/js/regex.js"></script>
+	<script src="./assets/js/jquery.min.js"></script>
+	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#btn9").click(
@@ -227,11 +228,11 @@ input
 								});
 							} else if (result.dismiss === 'cancel') {
 								swal('취소', '삭제가 취소되었습니다.', 'error');
-								/* parent.location.replace('27_Profile.jsp'); */
+								/* parent.location.replace('27_Profile.do'); */
 							}
 						})
 					});
-			});
+		});
 	</script>
 </body>
 </html>

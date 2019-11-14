@@ -4,7 +4,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<%@ include file="../inc/head.jsp"%>
+<jsp:include page="./assets/inc/head.jsp" />
 
 <style>
 .bbox {
@@ -63,16 +63,16 @@
 
 </head>
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="bbox">
 		<div class="container" style="min-height: 700px;">
 			<div class="top">
-				<span> <img src="../img/user.png">
+				<span> <img src="./assets/img/user.png">
 				</span> <span> 관리자 로그인 </span>
 			</div>
 			<div class="content" style="background: #ffa500;">
 				<form id="login-form" class="form-block" method="post"
-					action="21_Management.jsp">
+					action="21_Management.do">
 					<label for="user_id">아이디</label> <input type="text" name="user_id"
 						id="user_id" class="form-control" placeholder="ID를 입력하세요." /> <label
 						for="user_pw">비밀번호</label> <input type="password" name="user_pw"
@@ -85,8 +85,8 @@
 		</div>
 
 	</div>
-	<%@ include file="../inc/bottom.jsp"%>
-	<script src="regex.js"></script>
+	<jsp:include page="./assets/inc/bottom.jsp" />
+	<script src="./assets/js/regex.js"></script>
 	<script>
 		$(function() {
 			$("#btn8").click(function(e) {

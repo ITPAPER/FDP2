@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
-<%@page import="study.jsp.model1.model.Document"%>
-<%@page import="study.jsp.model1.service.impl.DocumentServiceImpl"%>
-<%@page import="study.jsp.model1.service.DocumentService"%>
-<%@page import="study.jsp.model1.mybatis.MybatisConnectionFactory"%>
 <%@page import="org.apache.ibatis.session.SqlSession"%>
 <%
 	/* ---------- 주석 처리
@@ -43,8 +39,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<link rel="stylesheet" href="../plugins/animate/animate.css" />
-<%@ include file="../inc/head.jsp"%>
+<link rel="stylesheet" href="./assets/plugins/animate/animate.css" />
+<jsp:include page="./assets/inc/head.jsp" />
 <style>
 
 /* 전체 박스 */
@@ -149,7 +145,7 @@ tbody tr td {
 </style>
 </head>
 <body>
-	<%@ include file="../inc/top.jsp"%>
+	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="bbox">
 		<div id="box2" class="header mybox">
@@ -164,14 +160,14 @@ tbody tr td {
 					<h4>Find Doctor를 더 안전하고 편리하게 관리하세요.</h4>
 				</div>
 				<button type="button" class="btn loog"
-					onclick="location.href ='22_Login_s.jsp'">Find Doctor 관리자
+					onclick="location.href ='22_Login_s.do'">Find Doctor 관리자
 					로그인</button>
 			</div>
 			<div class="box1 box-right" style="position: absolute; top: 375px;">
 				<div class="top">
 					<h4 class="pull-left">게시판 관리</h4>
 					<button type="button" class="btn btn-primary pull-right"
-						onclick="location.href ='23_Notice_board_s.jsp'">더보기</button>
+						onclick="location.href ='23_Notice_board_s.do'">더보기</button>
 				</div>
 				<table class="table table-hover">
 					<thead>
@@ -236,7 +232,7 @@ tbody tr td {
 				<div class="top">
 					<h4 class="pull-left">누적 접속회원 통계(modal)</h4>
 					<button type="button" class="btn btn-primary pull-right"
-						onclick="location.href ='28_User_stasis.jsp'">더보기</button>
+						onclick="location.href ='28_User_stasis.do'">더보기</button>
 				</div>
 
 				<table class="table table-hover">
@@ -295,7 +291,7 @@ tbody tr td {
 				<div class="top">
 					<h4 class="pull-left">회원 관리</h4>
 					<button type="button" class="btn btn-primary pull-right"
-						onclick="location.href ='28_User_stasis.jsp'">더보기</button>
+						onclick="location.href ='28_User_stasis.do'">더보기</button>
 				</div>
 				<table class="table table-hover">
 					<thead>
@@ -389,13 +385,13 @@ tbody tr td {
 		</div>
 		<!-- /.modal -->
 	</div>
-	<%@ include file="../inc/bottom.jsp"%>
-	
+	<jsp:include page="./assets/inc/bottom.jsp" />
+
 	<script src="https://www.amcharts.com/lib/4/core.js"></script>
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-	<script src="../plugins/animate/jquery.animatecss.min.js"></script>
+	<script src="./assets/plugins/animate/jquery.animatecss.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 
