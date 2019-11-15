@@ -27,8 +27,11 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-
+	
+	<!-- 컨트롤러가 배치될 패키지 정의하기 -->
 	<context:component-scan base-package="fdp.project.spring.controllers" />
+	<!-- 서비스 구현체가 배치될 패키지 정의하기 -->
+	<context:component-scan base-package="fdp.project.spring.service.impl" />
 
 	<!-- 인터셉터 등록 -->
 	<interceptors>
