@@ -117,7 +117,7 @@
 				<div class="input-group">
 					<input id="finddong" type="text" class="form-control" placeholder="동을 입력해 주세요.">
 					<span class="input-group-btn">
-						<button  id="gofind" class="btn btn-default" type="button">검색</button>
+						<button  id="gofind" class="btn btn-default" type="submit">검색</button>
 					</span>
 				</div>
 			</div>
@@ -168,7 +168,8 @@
 			});
 			
 			/* 드롭다운의 선택 변경 이벤트 */
-			$("#gofind").click(function(){
+			$("#gofind").click(function(e){
+				e.preventDefault();
 				var subj = $("#parent").find("option:selected").val();
 				if(subj ==""){
 					alert("진료과목을 골라주세요.");
@@ -182,7 +183,7 @@
 				var txt = $("#finddong").val();
 				
 				$.ajax( {
-					url:'04_Find_h_i.jsp',
+					url:'findh.do',
 					method:'get',
 					data:{data:gu, subject:subj, dong:txt},
 					dataType:'json',
@@ -191,32 +192,32 @@
 						
 						var map = new GMaps({
 							el: '#gmap',		//지도를 표시할 div의 id값
-							lat: req.items[0].YPos,		//지도가 표시될 위도
-							lng: req.items[0].XPos,		//지도가 표시될 경도
+							lat: req[0].YPos,		//지도가 표시될 위도
+							lng: req[0].XPos,		//지도가 표시될 경도
 							zoom: 15
 						});
 						
 						$(".accord").empty();
 						
-						for(var i=0; i <req.items.length; i++){
-							if(req.items[i].YPos ==null){
+						for(var i=0; i <req.length; i++){
+							if(req[i].YPos ==null){
 								continue;
 							}
-							req.items[i].yadmNm= i+1 + "." + req.items[i].yadmNm;
+							req[i].yadmNm= i+1 + "." + req[i].yadmNm;
 							var desc = "<h3>";				
-							desc += req.items[i].yadmNm;
+							desc += req[i].yadmNm;
 							desc += "</h3><br/>";
-							desc += req.items[i].addr;
+							desc += req[i].addr;
 							
-							req.items[i].num = i+1;
+							req[i].num = i+1;
 							
 							var template = Handlebars.compile($("#list-item-tmpl").html());
-							var html = template(req.items[i]);
+							var html = template(req[i]);
 							
 							$(".accord").append(html);
 							
 							
-							if(i == req.items.length-1){
+							if(i == req.length-1){
 								$(".accord-title a").click(function(e) {
 						            // 링크의 기본 동작(페이지 이동) 방지
 									e.preventDefault();
@@ -228,7 +229,6 @@
 									var title = $(this).html();
 									
 									a++;
-									console.log(a);
 									$("#gmap").find("div[title='"+ title +"']").click();
 									
 								});
@@ -255,9 +255,9 @@
 							}
 							map.addMarker({
 							//마우스 오버시 노란박스
-								title: req.items[i].yadmNm,
-								lat: req.items[i].YPos,
-								lng: req.items[i].XPos,
+								title: req[i].yadmNm,
+								lat: req[i].YPos,
+								lng: req[i].XPos,
 								icon:{
 									url:"./assets/plugins/gmaps/map-marker.png",
 									scaledSize: new google.maps.Size(50, 50)

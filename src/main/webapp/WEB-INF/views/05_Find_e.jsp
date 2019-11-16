@@ -82,8 +82,6 @@
     	</div>
 			</div>
 		</div>
-		
-		
 	</div>
 	
 	 
@@ -124,36 +122,36 @@
 			var gu = $(this).val();
 			$(".prog").html( $(this).html()+ " 응급실 위치");
 			$.ajax( {
-				url:'06_Find_e_i.jsp',
+				url:'fer.do',
 				method:'get',
 				data:{data:gu},
 				dataType:'json',
 				success:function(req){
 					var map = new GMaps({
 						el: '#gmap',		//지도를 표시할 div의 id값
-						lat: req.items[0].wgs84Lat,		//지도가 표시될 위도
-						lng: req.items[0].wgs84Lon,		//지도가 표시될 경도
+						lat: req[0].wgs84Lat,		//지도가 표시될 위도
+						lng: req[0].wgs84Lon,		//지도가 표시될 경도
 						zoom: 14
 					});
 					
 					$(".accord").empty();
 					
-					for(var i=0; i <req.items.length; i++){
-						req.items[i].dutyName= i+1 + "." + req.items[i].dutyName;
+					for(var i=0; i <req.length; i++){
+						req[i].dutyName= i+1 + "." + req[i].dutyName;
 						var desc = "<h3>";				
-						desc += req.items[i].dutyName;
+						desc += req[i].dutyName;
 						desc += "</h3><br/>";
-						desc += req.items[i].dutyAddr;
+						desc += req[i].dutyAddr;
 					
-						req.items[i].num=i+1;
+						req[i].num=i+1;
 						var template = Handlebars.compile($("#list-item-tmpl").html());
-						var html = template(req.items[i]);
+						var html = template(req[i]);
 						
 						//#list에 읽어온 내용을 추가한다.
 						$(".accord").append(html);
 						
 						
-						if(i == req.items.length-1){
+						if(i == req.length-1){
 							$(".accord-title a").click(function(e) {
 					            // 링크의 기본 동작(페이지 이동) 방지
 								e.preventDefault();
@@ -170,11 +168,9 @@
 							
 							$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
 								var aa= $(this).attr('title');
-								console.log($(this).attr('title'));
 								
 								var num = aa.indexOf(".");
 								var key = aa.substring(0, num);
-								console.log(key);
 								
 								
 								$('.accord').animate({scrollTop : 254}, 0);
@@ -188,9 +184,9 @@
 						
 						map.addMarker({
 						//마우스 오버시 노란박스
-							title: req.items[i].dutyName,
-							lat: req.items[i].wgs84Lat,
-							lng: req.items[i].wgs84Lon,
+							title: req[i].dutyName,
+							lat: req[i].wgs84Lat,
+							lng: req[i].wgs84Lon,
 							icon:{
 								url:"./assets/plugins/gmaps/map-marker.png",
 								scaledSize: new google.maps.Size(50, 50)

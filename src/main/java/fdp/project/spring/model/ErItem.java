@@ -1,6 +1,6 @@
-package fdp.project.spring.service.impl;
+package fdp.project.spring.model;
 
-public class Hehehehehehe {
+public class ErItem {
 	private String dutyAddr = null;
 	private String dutyName = null;
 	private String dutyTel = null;
@@ -41,7 +41,7 @@ public class Hehehehehehe {
 		return "ErItem [dutyAddr=" + dutyAddr + ", dutyName=" + dutyName + ", dutyTel=" + dutyTel + ", wgs84Lat="
 				+ wgs84Lat + ", wgs84Lon=" + wgs84Lon + "]";
 	}
-	public Hehehehehehe(String dutyAddr, String dutyName, String dutyTel, Double wgs84Lat, Double wgs84Lon) {
+	public ErItem(String dutyAddr, String dutyName, String dutyTel, Double wgs84Lat, Double wgs84Lon) {
 		super();
 		this.dutyAddr = dutyAddr;
 		this.dutyName = dutyName;
