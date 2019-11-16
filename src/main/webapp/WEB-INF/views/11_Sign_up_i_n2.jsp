@@ -26,61 +26,12 @@
 
 <!doctype html>
 <html lang="ko"> 
-  <head>
-    <%@ include file="../inc/head.jsp" %>
-    
-    <style type="text/css">
-    	.container {
-    		position: relative;
-    		text-align: center;
-    	}
-    	
-    	.title {
-    		position: absolute;
-    		left: 25px;
-    		top: 10px;
-    	}
-    	
-    	 	
-    	#box1 {
-			position: absolute;
-			top: 50px;
-			left: 380px;
-			width: 370px;
-			height: 500px;  
-			/* background-color: #E0E0E0; */
-			border-radius: 10px;	
-    	}
-    
-    	.b {
-    		position: absolute;
-    		top: 180px;
-    		left: 300px;
-    		line-height: 220%;
-    	}
-    	
-   		li {
-    		list-style: none;
-    		font-size: 16px;
-    	}
-    	
-    	#joinbutton {
-    		position: absolute;
-    		bottom: 100px;
-    		left: 515px;
-    	}
-    	.complete{
-    		display: inline-block;
-    		position: absolute;
-    		bottom: 200px;
-    		left: 380px;
-    	}
-    	
-    </style>
-  </head>
-  <body>
-	<%@ include file="../inc/top.jsp" %>
-	
+ <head>
+     <jsp:include page="./assets/inc/head.jsp" />
+     <jsp:include page="./assets/inc/remote_css.jsp" />
+ </head>
+ <body>
+ <jsp:include page="./assets/inc/top.jsp" />
 	<div class="container"style="height:800px;">
 	<form name="myform" id="myform" action="12_Sign_up_s.jsp">
 		<div id="box1">
@@ -132,15 +83,7 @@
 	 </form>
 	 
 	</div>
-	
+	<jsp:include page="./assets/inc/bottom.jsp" /> 
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
-	/* 	$(function() {
-			$('#myform').submit(function() {
-				alert("가입을 축하드립니다!!")	
-			});
-		}); */
-	</script>
-	<%@ include file="../inc/bottom.jsp" %>
-  </body>
+</body>
 </html>

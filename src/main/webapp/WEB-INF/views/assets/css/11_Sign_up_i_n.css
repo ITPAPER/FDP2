@@ -1,0 +1,56 @@
+.container {
+	position: relative;
+	text-align: center;
+}
+
+.title {
+	position: absolute;
+	top: 30px;
+	left: 85px;
+}
+
+.form-horizontal {
+	position: absolute;
+	top: 120px;
+	left: 85px;
+	width: 1000px;
+	display: inline-block;
+}
+
+.dupcheck { !important;
+	border: 1.5px solid orange;
+	background-color: white;
+	color: orange;
+	border-radius: 5px;
+	height: 30px;
+}
+
+.col-md-10 {
+	text-align: left;
+	line-height: 50%;
+}
+
+label {
+	font-weight: normal;
+}
+
+.identify {
+	color: red;
+}
+
+.birthdate {
+	width: 300px;
+}
+
+.form-group {
+	text-align: center;
+}
+
+.text-center {
+	position: absolute;
+	top: 800px;
+	left: 400px;
+}
+#address1, #address2, #address3, #address4, .col-md-10 > input {
+    		display: inline;
+    	}
