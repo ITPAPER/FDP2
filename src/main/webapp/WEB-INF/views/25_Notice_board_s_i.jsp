@@ -131,7 +131,7 @@
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
 			  $(function() {
 				  $("#btn1").click(function(e) {
