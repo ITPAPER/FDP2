@@ -73,7 +73,7 @@
 			<strong>회원가입 - 일반인</strong>
 		</h3>
 
-		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_n2.jsp " >
+		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_n2.do " >
 			<div class="form-group">
 				<label for='user_id' class="col-md-2">아이디 <span class='identify'>*</span></label>
 				<div class="col-md-10">
@@ -192,11 +192,8 @@
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
 	<!-- 정규표현식 검사 객체를 참조한다. -->
-	<script src="/assets/js/regex.js"></script>
+	
 	<script type="text/javascript">
-	function move() {
-		location.href = '11_Sign_up_i_n2.do';
-	} 
 	
 	$(function() {
 		/** 가입폼의 submit 이벤트 */
@@ -245,11 +242,11 @@
             
 			// 처리 완료
 			alert("회원정보 입력이 완료되었습니다.");
-			move(); 
+			//move(); 
 
 				});
 	});
 	</script>
-
+<script src="./assets/js/regex.js"></script>
 </body>
 </html>
