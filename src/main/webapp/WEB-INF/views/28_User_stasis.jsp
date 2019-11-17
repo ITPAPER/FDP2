@@ -1,17 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="ko">
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
-<script src="./assets/js/jquery.min.js"></script>
-<script src="./assets/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
+<script src=".${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 
 <!-- ajax-helper -->
-<link rel="stylesheet" href="./assets/plugins/ajax/ajax_helper.css" />
-<script src="./assets/plugins/ajax/ajax_helper.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 
 <style type="text/css">
 
@@ -101,7 +102,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -113,7 +114,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -125,7 +126,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -137,7 +138,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -149,7 +150,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -175,7 +176,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -186,7 +187,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -197,7 +198,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -208,7 +209,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -219,7 +220,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -244,7 +245,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -255,7 +256,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -266,7 +267,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -277,7 +278,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -288,7 +289,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -315,7 +316,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -327,7 +328,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -339,7 +340,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -351,7 +352,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -363,7 +364,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -389,7 +390,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -400,7 +401,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -411,7 +412,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -422,7 +423,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -433,7 +434,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>
@@ -460,7 +461,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">jihyeon0429</div>
@@ -472,7 +473,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">lss0238</div>
@@ -484,7 +485,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">mingi115</div>
@@ -496,7 +497,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kcherry6123</div>
@@ -508,7 +509,7 @@ thead>tr>th:nth-child(1) {
 									<tr>
 										<td class="text-center">
 											<div class="bo1 pull-left">
-												<img class="pull-right" src="./assets/img/icon2.png" />
+												<img class="pull-right" src="${pageContext.request.contextPath}/assets/img/icon2.png" />
 											</div>
 											<div class="bo2 pull-right">
 												<div class="pull-left">kihyub</div>

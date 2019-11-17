@@ -1,71 +1,74 @@
-<%@page import="study.jsp.model1.model.EmergencyAddr"%>
-<%@page import="study.jsp.model1.model.Hospital"%>
-<%@page import="study.jsp.model1.service.ApiHospitalService"%>
+<%@page import="fdp.project.spring.model.EmergencyAddr"%>
+<%@page import="fdp.project.spring.model.Em_Hospital"%>
+<%@page import="fdp.project.spring.service.ApiHospitalService"%>
 <%@page import="retrofit2.Call"%>
 <%@page import="retrofit2.Retrofit"%>
-<%@page import="study.jsp.model1.helper.RetrofitHelper"%>
-<%@page import="study.jsp.model1.helper.WebHelper"%>
+<%@page import="fdp.project.spring.helper.RetrofitHelper"%>
+<%@page import="fdp.project.spring.helper.WebHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	/** 1) 필요한 객체 생성 부분 */
 	// Helper 객체 생성
 	// -> import study.jsp.model1.helper.WebHelper;
-	WebHelper webHelper = WebHelper.getInstance(request, response);
+	 //WebHelper webHelper = WebHelper.getInstance(request, response);
 
 	// -> import study.jsp.model1.helper.RetrofitHelper;
-	RetrofitHelper retrofitHelper = RetrofitHelper.getInstance();
+	//RetrofitHelper retrofitHelper = RetrofitHelper.getInstance();
 
 	// Retrofit 객체 생성
 	// -> import retrofit2.Retrofit;
 	// -> import study.jsp.model1.service.ApiKobisService;
-	Retrofit retrofit = retrofitHelper.getRetrofit(ApiHospitalService.BASE_URL);
+//	Retrofit retrofit = retrofitHelper.getRetrofit(ApiHospitalService.BASE_URL);
 
 	// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
-	ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
+//	ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
 
 	/** 2) 검색일 파라미터 처리 */
 	// 검색어 키워드 받기
-	String query = webHelper.getString("query", "");
+//	String query = webHelper.getString("query", "");
 
 	// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 날짜 값을 yyyy-mm-dd 형식으로 생성한다.
-	if (query == null) {
-		query = "서울특별시";
-	}
+//	if (query == null) {
+//		query = "서울특별시";
+//	}
 
 
-	/** 3) API 연동 */
-	// 검색 결과를 저장할 Beans 객체 선언
-	Hospital hospital = null;
-	EmergencyAddr emergencyAddr = null;
-
-	// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
-	if (query.equals("")) {
-		Call<Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
-		try {
-			hospital = call.execute().body();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	if (query.equals("")) {
-		Call<EmergencyAddr> call = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
-		try {
-			emergencyAddr = call.execute().body();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+//	/** 3) API 연동 */
+//	// 검색 결과를 저장할 Beans 객체 선언
+//	Em_Hospital hospital = null;
+//	EmergencyAddr emergencyAddr = null;
+//
+//	// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
+//	if (query.equals("")) {
+//		Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
+//		try {
+//	hospital = call.execute().body();
+//		} catch (Exception e) {
+//	e.printStackTrace();
+//		}
+//	}
+//	
+//	if (query.equals("")) {
+//		Call<EmergencyAddr> call = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
+//		try {
+//	emergencyAddr = call.execute().body();
+//		} catch (Exception e) {
+//	e.printStackTrace();
+//		}
+//	}
 %>
 <!doctype html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hello JSP</title>
-<%@ include file="../inc/head.jsp"%>
+<%-- <%@ include file="../inc/head.jsp"%> --%>
+<jsp:include page="./assets/inc/head.jsp" />
 <style type="text/css">
 	.ththth {
 		font-size: 12px;
@@ -118,32 +121,38 @@
 </script>
 </head>
 <body onload="startTimer()">
-<%@ include file="../inc/top.jsp"%>
+<%-- <%@ include file="../inc/top.jsp"%> --%>
+<jsp:include page="./assets/inc/top.jsp" />
 <div class="container" style="min-height: 500px;" >
 	<header>
 		<h1 style="padding: 15px;"> 서울시 응급실 현황</h1>
 		<h2 id="timer" style="padding: 15px; color: red;"></h2>
 	</header>
 
-	<% if (hospital != null) { %>
-	<% for (Hospital.Response.Body.Items.Item item : hospital.getResponse().getBody().getItems().getItem()) { %>
+	<!-- (Em_Hospital.Response.Body.Items.Item item : hospital.getResponse().getBody().getItems().getItem()) -->
+		<c:if test="hospital != null">  
+	<%-- var="item" items="${hospital.getResponse().getBody().getItems().getItem()}" varStatus="status" --%>
+		<c:forEach var="item" items="${hospital.getResponse().getBody().getItems().getItem()}" varStatus="status">
 	<div class="table-responsive">
 		<table class="table table-bordered table-hover" style="width: 1130px;">
 			<thead>
 				<tr>
-					<th colspan="10" class="text-left" style="line-height: 1; font-size: 20px; padding: 15px 0px; border-bottom: 0;">&nbsp; <%=item.getDutyName()%></th>
+					<th colspan="10" class="text-left" style="line-height: 1; font-size: 20px; padding: 15px 0px; border-bottom: 0;">&nbsp; item.getDutyName()</th>
 				</tr>
 				<tr>
-					<td colspan="10" style="font-size: 13px; border-bottom: 0;  padding: 8px 15px;">연락처:&nbsp;<%=item.getTel()%></td>
+					<td colspan="10" style="font-size: 13px; border-bottom: 0;  padding: 8px 15px;">연락처:&nbsp;item.getTel()</td>
 				</tr>
-				<% if (emergencyAddr != null) {
-					for (EmergencyAddr.Response.Body.Items.Item item1 : emergencyAddr.getResponse().getBody().getItems().getItem()) { 
-						String aa= item.getHpid();
-						if (aa.equals(item1.getHpid())) { %>
-							<tr><td colspan="10" style="font-size: 13px; padding: 8px 15px;"><%= item1.getDutyAddr() %></td></tr>
-						<% }%>
-					<% } %>
-				<% } %>
+				 <c:if test="emergencyAddr != null">
+				 <!-- (EmergencyAddr.Response.Body.Items.Item item1 : emergencyAddr.getResponse().getBody().getItems().getItem()) -->
+				<c:forEach var="item1" items="${emergencyAddr.getResponse().getBody().getItems().getItem()}" varStatus="status"> 
+							String aa= item.getHpid();
+					<c:if test="aa.equals(item1.getHpid())">
+							<tr><td colspan="10" style="font-size: 13px; padding: 8px 15px;">item1.getDutyAddr()</td></tr>
+							</c:if>
+							</c:forEach>
+						</c:if>
+				 </c:forEach> 
+			</c:if> 
 			</thead>
 			<tbody>
 				<tr>
@@ -160,25 +169,24 @@
 				</tr>
 				
 				<tr>
-					<td class="tdtdtd"><%=item.getHvec()%></td>
-					<td class="tdtdtd"><%=item.getHv2()%></td>
-					<td class="tdtdtd"><%=item.getHv3()%></td>
-					<td class="tdtdtd"><%=item.getHv4()%></td>
-					<td class="tdtdtd"><%=item.getHv5()%></td>
-					<td class="tdtdtd"><%=item.getHv6()%></td>
-					<td class="tdtdtd"><%=item.getHv11()%></td>
-					<td class="tdtdtd"><%=item.getHv12()%></td>
-					<td class="tdtdtd"><%=item.getHvcc()%></td>
-					<td class="tdtdtd"><%=item.getHvncc()%></td>
+					<td class="tdtdtd">item.getHvec()</td>
+					<td class="tdtdtd">item.getHv2()</td>
+					<td class="tdtdtd">item.getHv3()</td>
+					<td class="tdtdtd">item.getHv4()</td>
+					<td class="tdtdtd">item.getHv5()</td>
+					<td class="tdtdtd">item.getHv6()</td>
+					<td class="tdtdtd">item.getHv11()</td>
+					<td class="tdtdtd">item.getHv12()</td>
+					<td class="tdtdtd">item.getHvcc()</td>
+					<td class="tdtdtd">item.getHvncc()</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<br />
-	<% } %>
-	<% } %>
 
 </div>
-	<%@ include file="../inc/bottom.jsp"%>
+	<%-- <%@ include file="../inc/bottom.jsp"%> --%>
+	<jsp:include page="./assets/inc/bottom.jsp" />
 </body>
 </html>

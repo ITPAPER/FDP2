@@ -71,8 +71,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td><a href="../img/baby_redspot.do"> <img
-								class="attachment" alt="첨부파일" src="../img/attachment.png" /> 피부
+						<td><a href="./assets/img/baby_redspot.jpg"> <img
+								class="attachment" alt="첨부파일" src="./assets/img/attachment.png" /> 피부
 								붉은 반점.jpg </td>
 					</tr>
 					<tr>
@@ -125,7 +125,7 @@
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="../plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
 			  $(function() {
 				  $("#btn1").click(function(e) {

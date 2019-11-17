@@ -138,20 +138,20 @@ h6 {
 			<h4>누구에게나 신속하고 정확한 최상의 의료서비스 제공</h4>
 
 			<ul id="gallery">
-				<li><span class="thumb"> <img src="../img/vision_1.gif"
+				<li><span class="thumb"> <img src="./assets/img/vision_1.gif"
 						alt="병원찾기" />
 				</span></li>
-				<li><span class="thumb"> <img src="../img/vision_2.gif"
+				<li><span class="thumb"> <img src="./assets/img/vision_2.gif"
 						alt="응급실 찾기" />
 				</span></li>
-				<li><span class="thumb"> <img src="../img/vision_3.gif"
+				<li><span class="thumb"> <img src="./assets/img/vision_3.gif"
 						alt="응급실 모니터링" />
 				</span></li>
 			</ul>
 			<h2>중앙 응급의료센터 비전</h2>
 			<h4>이젠 Find Doctor에서 국민을 위한 응급 의료서비스가 실현됩니다.</h4>
 
-			<span class="thumb"> <img src="../img/vision_4.gif" alt="병원찾기" />
+			<span class="thumb"> <img src="./assets/img/vision_4.gif" alt="병원찾기" />
 			</span>
 
 

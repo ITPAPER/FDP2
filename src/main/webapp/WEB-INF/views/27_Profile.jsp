@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="ko">
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<link rel="stylesheet" type="text/css" href="./assets/css/reset.css " />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/assets/css/reset.css " />
 <link rel="stylesheet"
-	href="./assets/plugins/sweetalert/sweetalert2.min.css" />
+	href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
 <style>
 .bbox {
 	width: 1170px;
@@ -46,17 +49,15 @@
 .identify {
 	color: #f00;
 }
-input
 </style>
-
-
 </head>
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="bbox">
 		<div class="container" style="min-height: 750px;">
 			<div class="top">
-				<span> <img src="./assets/img/user.png">
+				<span> <img
+					src="${pageContext.request.contextPath}/assets/img/user.png">
 				</span> <span> <b>회원 정보 수정</b>
 				</span>
 			</div>
@@ -106,40 +107,41 @@ input
 						<div>
 							<select name="address1" id="address1" class="form-control">
 								<option value="">-----시/도-----</option>
-								<option value="서울특별시">서울특별시</option>
-							</select> <select name="address2" id="address2" class="form-control">
-								<option value="">-----군/구-----</option>
-								<option value="강서구">강서구</option>
-								<option value="양천구">양천구</option>
-								<option value="구로구">구로구</option>
-								<option value="영등포구">영등포구</option>
-								<option value="금천구">금천구</option>
-								<option value="동작구">동작구</option>
-								<option value="관악구">관악구</option>
-								<option value="서초구">서초구</option>
-								<option value="강남구">강남구</option>
-								<option value="송파구">송파구</option>
-								<option value="강동구">강동구</option>
-								<option value="광진구">광진구</option>
-								<option value="성동구">성동구</option>
-								<option value="동대문구">동대문구</option>
-								<option value="중랑구">중랑구</option>
-								<option value="노원구">노원구</option>
-								<option value="도봉구">도봉구</option>
-								<option value="강북구">강북구</option>
-								<option value="성북구">성북구</option>
-								<option value="종로구">종로구</option>
-								<option value="중구">중구</option>
-								<option value="용산구">용산구</option>
-								<option value="은평구">은평구</option>
-								<option value="서대문구">서대문구</option>
-								<option value="마포구">마포구</option>
-							</select> <input type="text" name="address3" id="address3"
-								placeholder="동/읍/면 입력" class="form-control"> <input
-								type="text" name="address4" id="address4" placeholder="상세주소"
-								class="form-control">
+								<option value="110000" >서울특별시</option>
+							</select> 
+							<select name="address2" id="address2" class="form-control">
+								<option class="gu" value="">---- 구를 선택해 주세요 ----</option>
+								<option class="gu" value="110001">강남구</option>
+								<option class="gu" value="110002">강동구</option>
+								<option class="gu" value="110003">강서구</option>
+								<option class="gu" value="110004">관악구</option>
+								<option class="gu" value="110005">구로구</option>
+								<option class="gu" value="110006">도봉구</option>
+								<option class="gu" value="110007">동대문구</option>
+								<option class="gu" value="110008">동작구</option>
+								<option class="gu" value="110009">마포구</option>
+								<option class="gu" value="110010">서대문구</option>
+								<option class="gu" value="110011">성동구</option>
+								<option class="gu" value="110012">성북구</option>
+								<option class="gu" value="110013">영등포구</option>
+								<option class="gu" value="110014">용산구</option>
+								<option class="gu" value="110015">은평구</option>
+								<option class="gu" value="110016">종로구</option>
+								<option class="gu" value="110017">중구</option>
+								<option class="gu" value="110018">송파구</option>
+								<option class="gu" value="110019">중랑구</option>
+								<option class="gu" value="110020">양천구</option>
+								<option class="gu" value="110021">서초구</option>
+								<option class="gu" value="110022">노원구</option>
+								<option class="gu" value="110023">광진구</option>
+								<option class="gu" value="110024">강북구</option>
+								<option class="gu" value="110025">금천구</option>
+							</select> 
+							<input type="text" name="address3" id="address3"
+								placeholder="동/읍/면 입력" class="form-control" /> 
+							<input type="text" name="address4" id="address4" placeholder="상세주소"
+								class="form-control" />
 						</div>
-
 					</div>
 				</div>
 
@@ -175,10 +177,9 @@ input
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 
-	<script src="./assets//js/jquery.min.js"></script>
-	<script src="./assets/js/regex.js"></script>
-	<script src="./assets/js/jquery.min.js"></script>
-	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#btn9").click(

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -84,17 +86,22 @@ thead {
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
-		<form id="h" class="clearfix">
+		<!-- <form id="h" class="clearfix">
 			<fieldset class="pull-left">
 				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
-			</fieldset>
-
-			<fieldset class="pull-right">
-				<input type="text" id="search" name="search" placeholder="Search" />
-				<button type="submit" class="btn btn-default">검색</button>
-			</fieldset>
-		</form>
-
+			</fieldset> -->
+		
+			<!-- 검색폼 -->
+				<form method="get" action="${pageContext.request.contextPath}/13_Notice_board.do">
+					<fieldset class="pull-right">
+					<label for="keyword">검색어: </label>
+					<input type="search" name="keyword" id="keyword" placeholder="작성자명 or 제목 검색" value="${keyword}" />
+					<button type="submit">검색</button>
+				</fieldset>
+				</form>
+			<!-- </form> -->
+		
+<!-- 조회 결과 목록 -->
 		<div class="table1">
 			<table class="table table-hover">
 				<thead>
@@ -103,7 +110,7 @@ thead {
 						<th class="numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
-						<th class="text-center write_date">작성일</th>
+						<th class="text-center reg_date">작성일</th>
 						<th class="text-center hit">조회수</th>
 					</tr>
 				</thead>

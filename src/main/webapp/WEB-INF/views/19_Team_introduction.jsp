@@ -105,11 +105,11 @@ background-color: eee;
 		<div class="box1" style="height: 400px;">
 			<ul id="gallery">
 				<li><a><span class="thumb"> <img
-							src="../img/icon.png" alt="병원찾기" />
+							src="./assets/img/icon.png" alt="병원찾기" />
 					</span> <span class="text">김체리<p>하고자하면 할 수 있다.</p></span>
 				</a></li>
 				<li><a><span class="thumb"> <img
-							src="../img/icon.png" alt="응급실 찾기" />
+							src="./assets/img/icon.png" alt="응급실 찾기" />
 					</span> <span class="text">박기협<p>하고자하면 할 수 있다.</p></span>
 				</a></li>
 			</ul>
@@ -117,15 +117,15 @@ background-color: eee;
 		<div class="box2" style="height: 400px;">
 			<ul id="gallery">
 				<li><a><span class="thumb"> <img
-							src="../img/lss.jpg" alt="응급실 모니터링" />
+							src="./assets/img/lss.jpg" alt="응급실 모니터링" />
 					</span> <span class="text">이승석 <p>하고자하면 할 수 있다.</p></span>
 				</a></li>
 				<li><a><span class="thumb"> <img
-							src="../img/icon.png" alt="질병 통계 현황" />
+							src="./assets/img/icon.png" alt="질병 통계 현황" />
 					</span> <span class="text">정민기<p>하고자하면 할 수 있다.</p></span>
 				</a></li>
 				<li><a><span class="thumb"> <img
-							src="../img/icon.png" alt="게시판" />
+							src="./assets/img/icon.png" alt="게시판" />
 					</span> <span class="text">조지현<p>하고자하면 할 수 있다.</p></span>
 				</a></li>
 			</ul>
