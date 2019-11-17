@@ -38,7 +38,7 @@ div#box1 {
 	height: 600px;
 	margin: 0 40px 0 5px;
 	border-color: #fff;
-	background: url(../img/heart_c2.jpg) no-repeat;
+	background: url(./assets/img/heart_c2.jpg) no-repeat;
 	background-size: 100% 100%;
 	float: left;
 		}
@@ -61,7 +61,7 @@ p {
 				<div class="box" style="height: 950px;">
 				<h1> 사이트 소개 </h1>
 				<h5> Find Doctor의 현재와 미래를 함께해 주세요! </h5>
-			<div id="box1"> </div>
+			<div id="box1"></div>
 
 	<p> 응급의료는 국민의 생존권을 보장하기 위한 기본적이고 공공성이 높은 보건의료 서비스입니다.</p>
 	<p> 생활 양상과 질병 구조의 변화로 인해 응급환자는 지속적으로 증가하고 있는 추세이며 경제수준 및 생활여건의 변화에 따라 전문화된 양질의 응급의료에 대한 국민의 요구와 기대가 높아지고 있습니다.</p>
