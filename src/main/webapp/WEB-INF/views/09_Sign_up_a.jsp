@@ -238,9 +238,10 @@
 		 <button type="submit" id="proceedN" class="btn btn-lg btn-warning" style="font-size: 23px; color: white;">일반인 - 회원가입</button>
 	 </div>
 	 
+	 <button type="button" onclick="location.href='12_Sign_up_s.do'">메인페이지로</button>
+	 
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
-	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <%-- 	<script src="${pageContext.request.contextPath}/assets/js/09_Sign_up_a.js"></script> --%>
 	<script type="text/javascript">
 	 function moveD() {

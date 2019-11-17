@@ -109,7 +109,6 @@
 	 </form>
 	 
 	</div>
-	<script src="${pageContext.request.contextPath}/assets/js/11_Sign_up_i_n2.js"></script>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
 </body>
 </html>

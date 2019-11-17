@@ -246,6 +246,8 @@
       
    
    <jsp:include page="./assets/inc/bottom.jsp" />
+   <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+   
    <script src="./assets/plugins/ajax/ajax_helper2.js"></script> 
    
    <!-- Resources -->
@@ -258,7 +260,7 @@
        $("#ct11").click(function(e) {
           $.ajax({
              /** ajax 기본 옵션 */
-             url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+             url: '../assets/api/chart1.do',// 읽어들일 파일의 경로
  
              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
              success: function(req) {
@@ -272,7 +274,7 @@
        $("#ct12").click(function(e) {
           $.ajax({
              /** ajax 기본 옵션 */
-             url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+             url: '../assets/api/chart2.do',// 읽어들일 파일의 경로
              
              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
              success: function(req) {
@@ -286,7 +288,7 @@
        $("#ct13").click(function(e) {
           $.ajax({
              /** ajax 기본 옵션 */
-             url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+             url: './assets/api/chart3.do',// 읽어들일 파일의 경로
  
              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
              success: function(req) {
@@ -307,7 +309,7 @@
        $("#ct14").click(function(e) {
           $.ajax({
              /** ajax 기본 옵션 */
-             url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+             url: './assets/api/chart4.do',// 읽어들일 파일의 경로
  
              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
              success: function(req) {
@@ -321,7 +323,7 @@
        $("#ct21").click(function(e) {
            $.ajax({
               /** ajax 기본 옵션 */
-              url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+              url: './assets/api/chart1.do',// 읽어들일 파일의 경로
   
               // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
               success: function(req) {
@@ -335,7 +337,7 @@
         $("#ct22").click(function(e) {
            $.ajax({
               /** ajax 기본 옵션 */
-              url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+              url: './assets/api/chart2.do',// 읽어들일 파일의 경로
               
               // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
               success: function(req) {
@@ -349,7 +351,7 @@
         $("#ct23").click(function(e) {
            $.ajax({
               /** ajax 기본 옵션 */
-              url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+              url: './assets/api/chart3.do',// 읽어들일 파일의 경로
   
               // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
               success: function(req) {
@@ -370,7 +372,7 @@
         $("#ct24").click(function(e) {
            $.ajax({
               /** ajax 기본 옵션 */
-              url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+              url: './assets/api/chart4.do',// 읽어들일 파일의 경로
   
               // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
               success: function(req) {
@@ -384,7 +386,7 @@
         $("#ct31").click(function(e) {
             $.ajax({
                /** ajax 기본 옵션 */
-               url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+               url: './assets/api/chart1.do',// 읽어들일 파일의 경로
    
                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                success: function(req) {
@@ -398,7 +400,7 @@
          $("#ct32").click(function(e) {
             $.ajax({
                /** ajax 기본 옵션 */
-               url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+               url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                
                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                success: function(req) {
@@ -412,7 +414,7 @@
          $("#ct33").click(function(e) {
             $.ajax({
                /** ajax 기본 옵션 */
-               url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+               url: './assets/api/chart3.do',// 읽어들일 파일의 경로
    
                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                success: function(req) {
@@ -433,7 +435,7 @@
          $("#ct34").click(function(e) {
             $.ajax({
                /** ajax 기본 옵션 */
-               url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+               url: './assets/api/chart4.do',// 읽어들일 파일의 경로
    
                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                success: function(req) {
@@ -447,7 +449,7 @@
          $("#ct41").click(function(e) {
              $.ajax({
                 /** ajax 기본 옵션 */
-                url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                url: './assets/api/chart1.do',// 읽어들일 파일의 경로
     
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
@@ -461,7 +463,7 @@
           $("#ct42").click(function(e) {
              $.ajax({
                 /** ajax 기본 옵션 */
-                url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                 
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
@@ -475,7 +477,7 @@
           $("#ct43").click(function(e) {
              $.ajax({
                 /** ajax 기본 옵션 */
-                url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                url: './assets/api/chart3.do',// 읽어들일 파일의 경로
     
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
@@ -496,7 +498,7 @@
           $("#ct44").click(function(e) {
              $.ajax({
                 /** ajax 기본 옵션 */
-                url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                url: './assets/api/chart4.do',// 읽어들일 파일의 경로
     
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
@@ -510,7 +512,7 @@
           $("#ct51").click(function(e) {
               $.ajax({
                  /** ajax 기본 옵션 */
-                 url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                 url: './assets/api/chart1.do',// 읽어들일 파일의 경로
      
                  // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                  success: function(req) {
@@ -524,7 +526,7 @@
            $("#ct52").click(function(e) {
               $.ajax({
                  /** ajax 기본 옵션 */
-                 url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                 url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                  
                  // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                  success: function(req) {
@@ -538,7 +540,7 @@
            $("#ct53").click(function(e) {
               $.ajax({
                  /** ajax 기본 옵션 */
-                 url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                 url: './assets/api/chart3.do',// 읽어들일 파일의 경로
      
                  // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                  success: function(req) {
@@ -559,7 +561,7 @@
            $("#ct54").click(function(e) {
               $.ajax({
                  /** ajax 기본 옵션 */
-                 url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                 url: './assets/api/chart4.do',// 읽어들일 파일의 경로
      
                  // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                  success: function(req) {
@@ -573,7 +575,7 @@
            $("#ct61").click(function(e) {
                $.ajax({
                   /** ajax 기본 옵션 */
-                  url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                  url: './assets/api/chart1.do',// 읽어들일 파일의 경로
       
                   // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                   success: function(req) {
@@ -587,7 +589,7 @@
             $("#ct62").click(function(e) {
                $.ajax({
                   /** ajax 기본 옵션 */
-                  url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                  url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                   
                   // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                   success: function(req) {
@@ -601,7 +603,7 @@
             $("#ct63").click(function(e) {
                $.ajax({
                   /** ajax 기본 옵션 */
-                  url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                  url: './assets/api/chart3.do',// 읽어들일 파일의 경로
       
                   // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                   success: function(req) {
@@ -622,7 +624,7 @@
             $("#ct64").click(function(e) {
                $.ajax({
                   /** ajax 기본 옵션 */
-                  url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                  url: './assets/api/chart4.do',// 읽어들일 파일의 경로
       
                   // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                   success: function(req) {
@@ -636,7 +638,7 @@
             $("#ct71").click(function(e) {
                 $.ajax({
                    /** ajax 기본 옵션 */
-                   url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                   url: './assets/api/chart1.do',// 읽어들일 파일의 경로
        
                    // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                    success: function(req) {
@@ -650,7 +652,7 @@
              $("#ct72").click(function(e) {
                 $.ajax({
                    /** ajax 기본 옵션 */
-                   url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                   url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                    
                    // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                    success: function(req) {
@@ -664,7 +666,7 @@
              $("#ct73").click(function(e) {
                 $.ajax({
                    /** ajax 기본 옵션 */
-                   url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                   url: './assets/api/chart3.do',// 읽어들일 파일의 경로
        
                    // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                    success: function(req) {
@@ -685,7 +687,7 @@
              $("#ct74").click(function(e) {
                 $.ajax({
                    /** ajax 기본 옵션 */
-                   url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                   url: './assets/api/chart4.do',// 읽어들일 파일의 경로
        
                    // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                    success: function(req) {
@@ -699,7 +701,7 @@
              $("#ct81").click(function(e) {
                  $.ajax({
                     /** ajax 기본 옵션 */
-                    url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                    url: './assets/api/chart1.do',// 읽어들일 파일의 경로
         
                     // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                     success: function(req) {
@@ -713,7 +715,7 @@
               $("#ct82").click(function(e) {
                  $.ajax({
                     /** ajax 기본 옵션 */
-                    url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                    url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                     
                     // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                     success: function(req) {
@@ -727,7 +729,7 @@
               $("#ct83").click(function(e) {
                  $.ajax({
                     /** ajax 기본 옵션 */
-                    url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                    url: './assets/api/chart3.do',// 읽어들일 파일의 경로
         
                     // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                     success: function(req) {
@@ -748,7 +750,7 @@
               $("#ct84").click(function(e) {
                  $.ajax({
                     /** ajax 기본 옵션 */
-                    url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                    url: './assets/api/chart4.do',// 읽어들일 파일의 경로
         
                     // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                     success: function(req) {
@@ -762,7 +764,7 @@
               $("#ct91").click(function(e) {
                   $.ajax({
                      /** ajax 기본 옵션 */
-                     url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                     url: './assets/api/chart1.do',// 읽어들일 파일의 경로
          
                      // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                      success: function(req) {
@@ -776,7 +778,7 @@
                $("#ct92").click(function(e) {
                   $.ajax({
                      /** ajax 기본 옵션 */
-                     url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                     url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                      
                      // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                      success: function(req) {
@@ -790,7 +792,7 @@
                $("#ct93").click(function(e) {
                   $.ajax({
                      /** ajax 기본 옵션 */
-                     url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                     url: './assets/api/chart3.do',// 읽어들일 파일의 경로
          
                      // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                      success: function(req) {
@@ -811,7 +813,7 @@
                $("#ct94").click(function(e) {
                   $.ajax({
                      /** ajax 기본 옵션 */
-                     url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                     url: './assets/api/chart4.do',// 읽어들일 파일의 경로
          
                      // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                      success: function(req) {
@@ -825,7 +827,7 @@
                $("#ct101").click(function(e) {
                    $.ajax({
                       /** ajax 기본 옵션 */
-                      url: '/assets/api/chart1.jsp',// 읽어들일 파일의 경로
+                      url: './assets/api/chart1.do',// 읽어들일 파일의 경로
           
                       // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                       success: function(req) {
@@ -839,7 +841,7 @@
                 $("#ct102").click(function(e) {
                    $.ajax({
                       /** ajax 기본 옵션 */
-                      url: '/assets/api/chart2.jsp',// 읽어들일 파일의 경로
+                      url: './assets/api/chart2.do',// 읽어들일 파일의 경로
                       
                       // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                       success: function(req) {
@@ -853,7 +855,7 @@
                 $("#ct103").click(function(e) {
                    $.ajax({
                       /** ajax 기본 옵션 */
-                      url: '/assets/api/chart3.jsp',// 읽어들일 파일의 경로
+                      url: './assets/api/chart3.do',// 읽어들일 파일의 경로
           
                       // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                       success: function(req) {
@@ -874,7 +876,7 @@
                 $("#ct104").click(function(e) {
                    $.ajax({
                       /** ajax 기본 옵션 */
-                      url: '/assets/api/chart4.jsp',// 읽어들일 파일의 경로
+                      url: './assets/api/chart4.do',// 읽어들일 파일의 경로
           
                       // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                       success: function(req) {

@@ -66,7 +66,7 @@ public class AppInterceptor extends HandlerInterceptorAdapter {
             log.debug(String.format("- REFERER : time=%d, url=%s", startTime - endTime, referer));
         }
 
-        /** 4) 접속한 클라이언트의 장치 정보를 로그로 기록 */
+        /* * 4) 접속한 클라이언트의 장치 정보를 로그로 기록 */
         // 접근한 클라이언트의 HTTP 헤더 정보 가져오기
 
         // "uap" 라이브러리의 기능을 통해 UserAgent 정보 파싱

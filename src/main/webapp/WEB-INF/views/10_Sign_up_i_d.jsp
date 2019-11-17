@@ -138,32 +138,31 @@
                 </select>
                 <select name="address2" id="address2" class="form-control" style="width: 155px;">
                 	<option value="">-----군/구-----</option>
-                	<option value="강서구">강서구</option>
-                	<option value="양천구">양천구</option>
-                	<option value="구로구">구로구</option>
-                	<option value="영등포구">영등포구</option>
-                	<option value="금천구">금천구</option>
-                	<option value="동작구">동작구</option>
-                	<option value="관악구">관악구</option>
-                	<option value="서초구">서초구</option>
-                	<option value="강남구">강남구</option>
-                	<option value="송파구">송파구</option>
-                	<option value="강동구">강동구</option>
-                	<option value="광진구">광진구</option>
-                	<option value="성동구">성동구</option>
-                	<option value="동대문구">동대문구</option>
-                	<option value="중랑구">중랑구</option>
-                	<option value="노원구">노원구</option>
-                	<option value="도봉구">도봉구</option>
-                	<option value="강북구">강북구</option>
-                	<option value="성북구">성북구</option>
-                	<option value="종로구">종로구</option>
-                	<option value="중구">중구</option>
-                	<option value="용산구">용산구</option>
-                	<option value="은평구">은평구</option>
-                	<option value="서대문구">서대문구</option>
-                	<option value="마포구">마포구</option>
-                </select>
+                	<option class="gu" value="110001">강남구</option>
+					<option class="gu" value="110002">강동구</option>
+					<option class="gu" value="110003">강서구</option>
+					<option class="gu" value="110004">관악구</option>
+					<option class="gu" value="110005">구로구</option>
+					<option class="gu" value="110006">도봉구</option>
+					<option class="gu" value="110007">동대문구</option>
+					<option class="gu" value="110008">동작구</option>
+					<option class="gu" value="110009">마포구</option>
+					<option class="gu" value="110010">서대믄구</option>
+					<option class="gu" value="110011">성동구</option>
+					<option class="gu" value="110012">성북구</option>
+					<option class="gu" value="110013">영등포구</option>
+					<option class="gu" value="110014">용산구</option>
+					<option class="gu" value="110015">은평구</option>
+					<option class="gu" value="110016">종로구</option>
+					<option class="gu" value="110017">중구</option>
+					<option class="gu" value="110018">송파구</option>
+					<option class="gu" value="110019">중랑구</option>
+					<option class="gu" value="110020">양천구</option>
+					<option class="gu" value="110021">서초구</option>
+					<option class="gu" value="110022">노원구</option>
+					<option class="gu" value="110023">광진구</option>
+					<option class="gu" value="110024">강북구</option>
+					<option class="gu" value="110025">금천구</option>                </select>
                 <input type="text" name="address3" id="address3" placeholder="동/읍/면 입력" class="form-control" style="width: 255px;">
                 <input type="text" name="address4" id="address4" placeholder="상세주소" class="form-control" style="width: 255px;">
 				<br/>
@@ -183,21 +182,22 @@
             <div class="col-md-10">
                 <select name="user_field" id="user_field" class="form-control">
                 	<option value="">-----선택하세요-----</option>
-                	<option value="가정의학과">가정의학과</option>
-                	<option value="내과">내과</option>
-                	<option value="마취통증학과">마취통증학과</option>
-                	<option value="산부인과">산부인과</option>
-                	<option value="신경과">신경과</option>
-                	<option value="신경외과">신경외과</option>
-                	<option value="심장내과">심장내과</option>
-                	<option value="영상의학과">영상의학과</option>
-                	<option value="응급의학과">응급의학과</option>
-                	<option value="정형외과">정형외과</option>
-                	<option value="재활의학과">재활의학과</option>
-                	<option value="진단검사의학과">진단검사의학과</option>
-                	<option value="피부비뇨기과">피부비뇨기과</option>
-                	<option value="치과">치과</option>
-                	<option value="안과">안과</option>
+                	<option class="subj" value="01">내과</option>
+                	<option class="subj" value="03">정신건강의학과</option>
+					<option class="subj" value="04">외과</option>
+					<option class="subj" value="05">정형외과</option>
+					<option class="subj" value="06">신경외과</option>
+					<option class="subj" value="08">성형외과</option>
+					<option class="subj" value="09">마취통증의학과</option>
+					<option class="subj" value="10">산부인과</option>
+					<option class="subj" value="11">소아청소년과</option>
+					<option class="subj" value="12">안과</option>
+					<option class="subj" value="13">이비인후과</option>
+					<option class="subj" value="14">피부과</option>
+					<option class="subj" value="15">비뇨기과</option>
+					<option class="subj" value="21">재활의학과</option>
+					<option class="subj" value="49">치과</option>
+					<option class="subj" value="80">한의학과</option>
                 </select>
             </div>
         </div>
