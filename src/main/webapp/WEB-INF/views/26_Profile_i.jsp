@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -73,7 +74,7 @@
 	<div class="bbox">
 		<div class="container" style="min-height: 700px;">
 			<div class="top">
-				<span> <img src="./assets/img/user.png">
+				<span> <img src="${pageContext.request.contextPath}/assets/img/user.png">
 				</span> <span> <b>회원 정보 수정</b>
 				</span>
 			</div>
@@ -93,7 +94,7 @@
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
-	<script src="./assets/js/regex.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<script>
 		$(function() {
 			$("#btn7").click(function(e) {

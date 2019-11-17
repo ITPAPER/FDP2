@@ -1,45 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
-<%@page import="org.apache.ibatis.session.SqlSession"%>
-<%
-	/* ---------- 주석 처리
-	
-	// 1) 필요한 객체 선언 및 할당
-	//파라미터를 수신하고 페이지 이동을 수행하기 위한 WebHelper
-	WebHelper webHelper = WebHelper.getInstance(request, response);
-	
-	// DB접속을 위한 SqlSession
-	SqlSession sqlSession = MybatisConnectionFactory.getSqlSession();
-	
-	// SQL처리를 요청하기 위한 Service
-	BoardService boardService = new BoardServiceImpl(sqlSession);
-	 
-	// 2) 필요한 변수값 생성
-	
-	// 3) 데이터 조회하기
-	//조회결과가 저장될 객체 준비
-	List<Board> output = null;
-	
-	// Service 객체를 통해 목록 조회기능을 호출한다.
-	try {
-		output = boardService.getBoardList(null);
-	} catch (Exception e) {
-		// 에러가 발생했으므로 DB접속 해제 --> 에러 메세지 출력 --> 실행 중단.
-		sqlSession.close();
-		out.println(e.getLocalizedMessage());
-		return;
-	}
-	
-	// 4) DB접속 해제
-	sqlSession.close(); 
-	
-	---------- 주석 처리 끝 */
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="ko">
 <head>
-<link rel="stylesheet" href="./assets/plugins/animate/animate.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/animate/animate.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
 <jsp:include page="./assets/inc/head.jsp" />
 <style>
 
@@ -146,7 +113,7 @@ tbody tr td {
 </head>
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-
+	
 	<div class="bbox">
 		<div id="box2" class="header mybox">
 			<h1>관리자 페이지</h1>
@@ -159,9 +126,17 @@ tbody tr td {
 				<div class="top">
 					<h4>Find Doctor를 더 안전하고 편리하게 관리하세요.</h4>
 				</div>
+				
+				<c:if test="${empty session_id}">
 				<button type="button" class="btn loog"
 					onclick="location.href ='22_Login_s.do'">Find Doctor 관리자
 					로그인</button>
+				</c:if>
+				<c:if test="${not empty session_id}">
+					<h3>관리자님 환영합니다</h3>
+					<button type="button" id="btn6" class="btn btn-primary">로그아웃 연습</button>
+				</c:if>
+					
 			</div>
 			<div class="box1 box-right" style="position: absolute; top: 375px;">
 				<div class="top">
@@ -391,7 +366,8 @@ tbody tr td {
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-	<script src="./assets/plugins/animate/jquery.animatecss.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 
@@ -412,6 +388,28 @@ tbody tr td {
 
 			box.eq(3).animateCSS('fadeInRight', {
 				duration : 1500
+			});
+			
+			$("#btn6").click(function(e) {
+				e.preventDefault();
+				
+				swal({
+					title : '로그아웃', // 제목
+					text : "로그아웃을 완료하시겠습니까?", // 내용
+					type : 'warning', // 종류
+					confirmButtonText : 'Yes', // 확인버튼 표시 문구
+					showCancelButton : true, // 취소버튼 표시 여부
+					cancelButtonText : 'No', // 취소버튼 표시 문구
+				}).then(function(result) {
+					if(result.value) {
+						swal('완료', '로그아웃이 완료되었습니다.', 'success')
+						$('.swal2-confirm').click(function() {
+							parent.location.replace('session/delete.do')
+						});
+					} else if(result.dismiss === 'cancel') {
+						swal('취소', '로그아웃이 취소되었습니다.', 'error');
+					}
+				});
 			});
 		});
 		am4core.ready(function() {
