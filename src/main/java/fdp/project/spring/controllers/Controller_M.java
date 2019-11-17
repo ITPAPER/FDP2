@@ -2,18 +2,19 @@ package fdp.project.spring.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -21,11 +22,13 @@ import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
 import fdp.project.spring.model.ErItem;
 import fdp.project.spring.model.HosItem;
+import fdp.project.spring.model.HospInfo;
 import fdp.project.spring.model.MyErList;
 import fdp.project.spring.model.MyErList.Response.Body.Items.Item;
 import fdp.project.spring.model.MyErListUno;
 import fdp.project.spring.model.MyErListUno.Response.Body.Items.Itema;
 import fdp.project.spring.service.ErService;
+import fdp.project.spring.service.HospInfoService;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -48,16 +51,17 @@ public class Controller_M {
 		return "05_Find_e";
 	}
 	
-	@Autowired WebHelper webHelper;
 	@Autowired RetrofitHelper retrofitHelper;
 	@ResponseBody
 	@RequestMapping(value = {"fer.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String fer(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String fer(Model model, 
+			@RequestParam(value="data") String gu) {
+		
 		/** 1) 필요한 객체 생성 부분 */
 		// Helper 객체 생성
 		// -> import study.jsp.model1.helper.WebHelper;
 		
-		String gu = request.getParameter("data");
+		//String gu = request.getParameter("data");
 		//String gu = webHelper.getString("data");
 		
 		//System.out.println("]]]]]]]]]]]]"+gu);
@@ -149,38 +153,131 @@ public class Controller_M {
 		return gson.toJson(result);
 	}
 	
+	@Autowired HospInfoService hospInfoService;
+	@Autowired WebHelper webHelper;
 	@ResponseBody
 	@RequestMapping(value = {"findh.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String findh(Model model, HttpServletRequest request, HttpServletResponse response) {
-		/** 1) 필요한 객체 생성 부분 */
-		// Retrofit 객체 생성
-		// -> import retrofit2.Retrofit;
-		// -> import study.jsp.model1.service.ApiKobisService;
-		Retrofit retrofit = retrofitHelper.getRetrofit(ErService.BASE_URL);
+	public String findh(Model model,
+			@RequestParam(value="subject") String dgsbjtCd,
+			@RequestParam(value="data") String sgguCd,
+			@RequestParam(value="dong") String emdongNm) {
 		
-		// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
-	    ErService ErService = retrofit.create(ErService.class);
+		
+		HospInfo input = new HospInfo();
+		Gson gson = new Gson();
+		String aaa= null;
+		int bbb= Integer.parseInt(sgguCd);
+		switch(bbb) { 
+		  case 110001: 
+			  aaa="강남구"; break;
+		  case 110002: 
+			  aaa="강동구"; break; 
+		  case 110003: 
+			  aaa="강서구"; break; 
+		  case 110004:
+			  aaa="관악구"; break; 
+		  case 110005:
+			  aaa="구로구"; break; 
+		  case 110006:
+			  aaa="도봉구"; break; 
+		  case 110007:
+			  aaa="동대문구"; break; 
+		  case 110008:
+			  aaa="동작구"; break; 
+		  case 110009:
+			  aaa="마포구"; break; 
+		  case 110010:
+			  aaa="서대문구"; break; 
+		  case 110011:
+			  aaa="성동구"; break; 
+		  case 110012:
+			  aaa="성북구"; break; 
+		  case 110013:
+			  aaa="영등포구"; break; 
+		  case 110014:
+			  aaa="용산구"; break; 
+		  case 110015:
+			  aaa="은평구"; break; 
+		  case 110016:
+			  aaa="종로구"; break; 
+		  case 110017:
+			  aaa="중구"; break;
+		  case 110018:
+			  aaa="송파구"; break; 
+		  case 110019:
+			  aaa="중랑구"; break; 
+		  case 110020:
+			  aaa="양천구"; break;
+		  case 110021:
+			  aaa="서초구"; break;
+		  case 110022:
+			  aaa="노원구"; break; 
+		  case 110023:
+			  aaa="광진구"; break; 
+		  case 110024:
+			  aaa="강북구"; break; 
+		  case 110025:
+			  aaa="금천구"; break; 
+		}
+		 
+		input.setClCdNm(aaa);
+		input.setAddr(emdongNm);
+		input.setSubj(dgsbjtCd);
+		
+		List<HospInfo> output= null;
+		
+		try {
+			output = hospInfoService.getHospInfoList(input);
+			System.out.println(output);
+			
+			if(output.get(0).getClCdNm()!=null) {
+				return gson.toJson(output);
+			}
+		}catch(Exception e) {
+			System.out.println("디비에 암것도 없찌롱");
+		}
+		if(output.get(0).getClCdNm()==null) {
+			/** 1) 필요한 객체 생성 부분 */
+			// Retrofit 객체 생성
+			Retrofit retrofit = retrofitHelper.getRetrofit(ErService.BASE_URL);
+		
+			// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
+			ErService ErService = retrofit.create(ErService.class);
 
-		String dgsbjtCd = request.getParameter("subject");
-		String sgguCd = request.getParameter("data");
-		String emdongNm =request.getParameter("dong");
-
-		HosItem hos = null;
-		List<fdp.project.spring.model.HosItem.Response.Body.Items.Item> list = null;
-		if (dgsbjtCd != null || sgguCd!=null) {
-	        Call<HosItem> call = ErService.getHospi(dgsbjtCd, sgguCd, emdongNm);
-	    	System.out.println(call);
+			HosItem hos = null;
+			List<fdp.project.spring.model.HosItem.Response.Body.Items.Item> list = null;
+			Call<HosItem> call = ErService.getHospi(dgsbjtCd, sgguCd, emdongNm);
 	        try {
-	            hos = call.execute().body();
+	        	hos = call.execute().body();
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
-	    }
-		System.out.println(hos);
-		list = hos.getResponse().getBody().getItems().getItem();
+	        
+	    
+	        list = hos.getResponse().getBody().getItems().getItem();
+	        output = new ArrayList<HospInfo>();
+	        for(fdp.project.spring.model.HosItem.Response.Body.Items.Item abc : list ){
+	        	String yadmNm = abc.getYadmNm();
+	        	String addr = abc.getAddr();
+	        	Double XPos = abc.getXPos();
+	        	Double YPos = abc.getYPos();
+	        	String clCdNm =abc.getClCdNm();
+	        	String hospUrl =abc.getHospUrl();
+	        	String hosTel =abc.getTelno();
+	        	String subj =dgsbjtCd;
+	        	
+			
+				output.add( new HospInfo(yadmNm, XPos, YPos, addr, clCdNm, hospUrl, hosTel, subj));
+			}
+			try {
+				//	데이터 저장
+				//	--> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+				hospInfoService.addHospInfo(output);
+				}catch(Exception e) {
+					e.printStackTrace();
+			}
 		
-		Gson gson = new Gson();
-		
-		return  gson.toJson(list);
+		}
+		return  gson.toJson(output);
 	}
 }
