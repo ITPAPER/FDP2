@@ -5,9 +5,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import fdp.project.spring.helper.WebHelper;
 import lombok.extern.slf4j.Slf4j;
 import uap_clj.java.api.Browser;
 import uap_clj.java.api.Device;
@@ -23,11 +25,13 @@ public class AppInterceptor extends HandlerInterceptorAdapter {
      * return 값으로 boolean 값을 전달하는데 false 인 경우 controller를 실행 시키지 않고 요청을 종료한다.
      * 보통 이곳에서 각종 체크작업과 로그를 기록하는 작업을 진행한다.
      */
+    @Autowired WebHelper webHelper;
     @SuppressWarnings("unchecked")
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //log.debug("AppInterceptor.preHandle 실행됨");
-
+    	webHelper.init();
+    	
         // 컨트롤러 실행 직전에 현재 시각을 저장한다.
         startTime = System.currentTimeMillis();
 

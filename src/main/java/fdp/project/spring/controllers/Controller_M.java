@@ -47,20 +47,19 @@ public class Controller_M {
 		
 		return "05_Find_e";
 	}
-	
+	@Autowired WebHelper webHelper;
 	@Autowired RetrofitHelper retrofitHelper;
 	@ResponseBody
 	@RequestMapping(value = {"fer.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String fer(Model model, 
-			@RequestParam(value="data") String gu) {
+	public String fer(Model model) { 
+			//@RequestParam(value="data") String gu) {
 		
 		/** 1) 필요한 객체 생성 부분 */
 		// Helper 객체 생성
 		// -> import study.jsp.model1.helper.WebHelper;
 		
-		//String gu = webHelper.getString("data");
+		String gu = webHelper.getString("data");
 		
-		//System.out.println("]]]]]]]]]]]]"+gu);
 		List<String> ergu = new ArrayList<String>();
 		
 		if (gu.equals("1")) {
@@ -150,7 +149,6 @@ public class Controller_M {
 	}
 	
 	@Autowired HospInfoService hospInfoService;
-	@Autowired WebHelper webHelper;
 	@ResponseBody
 	@RequestMapping(value = {"findh.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String findh(Model model,
