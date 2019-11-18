@@ -1,5 +1,7 @@
 package fdp.project.spring.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.Em_Hospital;
+import fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item;
+import fdp.project.spring.model.EmergencyAddr;
+import fdp.project.spring.service.ApiHospitalService;
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 /**
  * Handles requests for the application home page.
@@ -22,6 +31,15 @@ public class Controller_J {
 	
 	@Autowired
 	WebHelper webHelper;
+	
+	@Autowired
+	RetrofitHelper retrofitHelper;
+	
+	@Autowired
+	Em_Hospital hospital;
+	
+	@Autowired
+	EmergencyAddr emergencyAddr;
 	
 	@Value("#{servletContext.contextPath}")
     String contextPath;
@@ -153,4 +171,96 @@ public class Controller_J {
 	public String chcart4() {
 		return "assets/api/chart4";
 	}
+	
+	@RequestMapping(value = "30_Monitoring_spring.do", method = RequestMethod.GET)
+	public String monitoring(Model model, HttpServletRequest request) {
+
+		/** 1) 필요한 객체 생성 부분 */
+		// Retrofit 객체 생성
+		// -> import retrofit2.Retrofit;
+		// -> import study.jsp.model1.service.ApiKobisService;
+		Retrofit retrofit = retrofitHelper.getRetrofit(ApiHospitalService.BASE_URL);
+
+		// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
+		ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
+
+		/** 2) 검색일 파라미터 처리 */
+		// 검색어 키워드 받기
+		String query = request.getParameter("query");
+
+		// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 날짜 값을 yyyy-mm-dd 형식으로 생성한다.
+		if (query == null) {
+			query = "서울특별시";
+		}
+
+		/** 3) API 연동 */
+		/*
+		 * List<fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item> item =
+		 * hospital.getResponse().getBody().getItems().getItem();
+		 * List<fdp.project.spring.model.EmergencyAddr.Response.Body.Items.Item> item1 =
+		 * emergencyAddr.getResponse().getBody().getItems().getItem();
+		 */
+		
+		// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
+		
+		Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
+		Em_Hospital hospital = null;
+		
+		try {
+			hospital = call.execute().body();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Call<EmergencyAddr> call1 = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
+		EmergencyAddr emergencyAddr = null;
+			
+		Em_Hospital.Response.Body.Items.Item item = null;
+		
+		String hpid = item.getHpid();
+		String hvec = item.getHvec();
+		int hv2 = item.getHv2();
+		String hv3 = item.getHv3();
+		int hv4 = item.getHv4();
+		String hv5 = item.getHv5();
+		int hv6 = item.getHv6();
+		String hv11 = item.getHv11();
+		String hv12 = item.getHv12();
+		String hvcc = item.getHvcc();
+		String hvncc = item.getHvncc();
+		
+		try {
+			emergencyAddr = call1.execute().body();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		/** 4) View 처리*/
+		model.addAttribute("query", query);
+		model.addAttribute("hospital", hospital);
+		model.addAttribute("emergencyAddr", emergencyAddr);
+		
+		model.addAttribute("hpid", hpid);
+		model.addAttribute("hvec", hvec);
+		model.addAttribute("hv2", hv2);
+		model.addAttribute("hv3", hv3);
+		model.addAttribute("hv4", hv4);
+		model.addAttribute("hv5", hv5);
+		model.addAttribute("hv6", hv6);
+		model.addAttribute("hv11", hv11);
+		model.addAttribute("hv12", hv12);
+		model.addAttribute("hvcc", hvcc);
+		model.addAttribute("hvncc", hvncc);
+		
+		/*
+		 * model.addAttribute("item", item); model.addAttribute("item1", item1);
+		 */
+		System.out.println(model);
+
+		return "30_Monitoring_spring";
+	}
+	
+	
 }
