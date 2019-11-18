@@ -2,10 +2,8 @@ package fdp.project.spring.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -61,7 +58,6 @@ public class Controller_M {
 		// Helper 객체 생성
 		// -> import study.jsp.model1.helper.WebHelper;
 		
-		//String gu = request.getParameter("data");
 		//String gu = webHelper.getString("data");
 		
 		//System.out.println("]]]]]]]]]]]]"+gu);
@@ -230,13 +226,14 @@ public class Controller_M {
 			output = hospInfoService.getHospInfoList(input);
 			System.out.println(output);
 			
-			if(output.get(0).getClCdNm()!=null) {
+			if(!output.isEmpty()) {
+				System.out.println("희희");
 				return gson.toJson(output);
 			}
 		}catch(Exception e) {
 			System.out.println("디비에 암것도 없찌롱");
 		}
-		if(output.get(0).getClCdNm()==null) {
+		if(output.isEmpty()) {
 			/** 1) 필요한 객체 생성 부분 */
 			// Retrofit 객체 생성
 			Retrofit retrofit = retrofitHelper.getRetrofit(ErService.BASE_URL);
