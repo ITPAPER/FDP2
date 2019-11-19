@@ -16,6 +16,8 @@
 		<result property="hospUrl" column="hospUrl" />
 		<result property="telno" column="telno" />
 		<result property="subj" column="subj" />
+		<result property="opentime" column="opentime" />
+		<result property="closetime" column="closetime" />
 	</resultMap>
 
 	<!-- 다중행 조회를 위한 기능 정의 -->
@@ -24,9 +26,6 @@
 		resultMap="commentMap">
 		SELECT * FROM hospinfo
 		<where>
-			<if test="clCdNm != null and clCdNm != ''">
-				addr LIKE concat('%', #{clCdNm}, '%')
-			</if>
 			<if test="addr != null and addr != ''">
 				AND addr LIKE concat('%', #{addr}, '%')
 			</if>
@@ -37,7 +36,24 @@
 		</where>
 
 	</select>
-
+	
+	<select id="gettime"
+		parameterType="fdp.project.spring.model.HospInfo"
+		resultMap="commentMap">
+		SELECT opentime, closetime FROM hospitalinfo_time
+		<where>
+			<if test="opentime != null and opentime != ''">
+				 gu LIKE concat('%', #{opentime}, '%')
+			</if>
+			<if test="yadmNm != null and yadmNm != ''">
+				AND hospital_name LIKE concat('%', #{yadmNm}, '%')
+			</if>
+			<if test="day_of_week != null and day_of_week != ''">
+				AND day_of_week LIKE concat('%', #{day_of_week}, '%')
+			</if>
+		</where>
+	</select>
+	
 	<!-- 데이터 저장을 위한 기능 정의 -->
 	<insert id="insertItem"
 		parameterType="fdp.project.spring.model.HospInfo"

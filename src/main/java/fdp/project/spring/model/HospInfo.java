@@ -14,6 +14,10 @@ public class HospInfo {
 	String telno;	// 전화번호
 	String subj;	// 진료 과목 코드
 	
+	String opentime;
+	String closetime;
+	int day_of_week;
+	
 	
 
 	public HospInfo() {
