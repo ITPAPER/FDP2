@@ -28,26 +28,26 @@ public class Em_Hospital {
 
 				@Data
 				public class Item {
-					@SerializedName("dutyName")	private String dutyName; 	// 병원명
-					@SerializedName("dutyTel3")	private String tel;			// 병원 전화번호
-					@SerializedName("hv1")		private int hv1; 			// 응급실 당직의 직통 연락처
-					@SerializedName("hv2")		private int hv2;			// 내과 중환자실
-					@SerializedName("hv3")		private String hv3;			// 외과 중환자실
-					@SerializedName("hv4")		private int hv4;			// 외과 입원실
-					@SerializedName("hv5")		private String hv5;			// 신경 외과입원실
-					@SerializedName("hv6")		private int hv6;			// 신경외과 중환자실
-					@SerializedName("hv7")		private String hv7;
-					@SerializedName("hv8")		private String hv8;
-					@SerializedName("hv9")		private String hv9;
-					@SerializedName("hv10")		private String hv10;
-					@SerializedName("hv11")		private String hv11;		// 인큐베이터 유무
-					@SerializedName("hv12")		private String hv12;		// 소아당직의 직통번호
-					@SerializedName("hvec")		private String hvec;		// 응급실
-					@SerializedName("hvcc")		private String hvcc;		// 신경 중환자
-					@SerializedName("hvccc")	private String hvccc;		// 흉부 중환자
-					@SerializedName("hvncc")	private String hvncc;		// 신생 중환자
-					@SerializedName("hvicc")	private String hvicc;		// 일반 중환자
-					@SerializedName("hpid")		private String hpid;		// 기관코드(기관ID)
+					@SerializedName("dutyName")	public String dutyName; 	// 병원명
+					@SerializedName("dutyTel3")	public String tel;			// 병원 전화번호
+					@SerializedName("hv1")		public int hv1; 			// 응급실 당직의 직통 연락처
+					@SerializedName("hv2")		public int hv2;			// 내과 중환자실
+					@SerializedName("hv3")		public String hv3;			// 외과 중환자실
+					@SerializedName("hv4")		public int hv4;			// 외과 입원실
+					@SerializedName("hv5")		public String hv5;			// 신경 외과입원실
+					@SerializedName("hv6")		public int hv6;			// 신경외과 중환자실
+					@SerializedName("hv7")		public String hv7;
+					@SerializedName("hv8")		public String hv8;
+					@SerializedName("hv9")		public String hv9;
+					@SerializedName("hv10")		public String hv10;
+					@SerializedName("hv11")		public String hv11;		// 인큐베이터 유무
+					@SerializedName("hv12")		public String hv12;		// 소아당직의 직통번호
+					@SerializedName("hvec")		public String hvec;		// 응급실
+					@SerializedName("hvcc")		public String hvcc;		// 신경 중환자
+					@SerializedName("hvccc")	public String hvccc;		// 흉부 중환자
+					@SerializedName("hvncc")	public String hvncc;		// 신생 중환자
+					@SerializedName("hvicc")	public String hvicc;		// 일반 중환자
+					@SerializedName("hpid")		public String hpid;		// 기관코드(기관ID)
 				}
 			}
 		}

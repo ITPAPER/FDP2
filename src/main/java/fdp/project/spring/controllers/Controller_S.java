@@ -1,6 +1,11 @@
 package fdp.project.spring.controllers;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -8,11 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.EmRoom;
 import fdp.project.spring.model.Em_Hospital;
-import fdp.project.spring.model.EmergencyAddr;
+import fdp.project.spring.model.HospInfo;
+import fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item;
+//import fdp.project.spring.model.EmergencyAddr;
 import fdp.project.spring.service.ApiHospitalService;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -22,99 +32,131 @@ import retrofit2.Retrofit;
  */
 @Controller
 public class Controller_S {
-   
-     // --> import study.spring.springhelper.helper.WebHelper;
-    @Autowired
-    WebHelper webHelper;
-    
-    // --> import study.spring.springhelper.helper.RegexHelper;
-    @Autowired
-    RegexHelper regexHelper;
-   
- // --> import study.spring.springhelper.helper.RetrofitHelper;
-    @Autowired
-    RetrofitHelper retrofitHelper;
-    
-    /** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
-    // --> import org.springframework.beans.factory.annotation.Value;
-    @Value("#{servletContext.contextPath}")
-    String contextPath;
-    
-   /**
-    * Simply selects the home view to render by returning its name.
-    */
-   @RequestMapping(value = "/17_Navigator.do", method = RequestMethod.GET)
-   public String Navigator() {
-      
-      return "17_Navigator";
-   }
-   
-   @RequestMapping(value = "/18_Intention.do", method = RequestMethod.GET)
-   public String Intention() {
-      
-      return "18_Intention";
-   }
-   
-   @RequestMapping(value = "/19_Team_introduction.do", method = RequestMethod.GET)
-   public String Team_introduction() {
-      
-      return "19_Team_introduction";
-   }
-   
-   @RequestMapping(value = "/20_Strong_point.do", method = RequestMethod.GET)
-   public String Strong_point() {
-      
-      return "20_Strong_point";
-   }
 
-   @RequestMapping(value = "/30_Monitoring.do", method = RequestMethod.GET)
-   public String Monitoring(Model model) {
-      
-      // Retrofit 객체 생성
-      // -> import retrofit2.Retrofit;
-      // -> import study.jsp.model1.service.ApiKobisService;
-      Retrofit retrofit = retrofitHelper.getRetrofit(ApiHospitalService.BASE_URL);
+	// --> import study.spring.springhelper.helper.WebHelper;
+	@Autowired
+	WebHelper webHelper;
 
-      // Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
-      ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
+	// --> import study.spring.springhelper.helper.RegexHelper;
+	@Autowired
+	RegexHelper regexHelper;
 
-      /** 2) 검색일 파라미터 처리 */
-      // 검색어 키워드 받기
-      String query = webHelper.getString("query", "");
+	// --> import study.spring.springhelper.helper.RetrofitHelper;
 
-      // 검색어가 없다면 서울특별시를 입력하여 자동 검색하도록 한다.
-      if (query == null) {
-         query = "서울특별시";
-      }
+	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
+	// --> import org.springframework.beans.factory.annotation.Value;
+	@Value("#{servletContext.contextPath}")
+	String contextPath;
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/17_Navigator.do", method = RequestMethod.GET)
+	public String Navigator() {
+
+		return "17_Navigator";
+	}
+
+	@RequestMapping(value = "/18_Intention.do", method = RequestMethod.GET)
+	public String Intention() {
+
+		return "18_Intention";
+	}
+
+	@RequestMapping(value = "/19_Team_introduction.do", method = RequestMethod.GET)
+	public String Team_introduction() {
+
+		return "19_Team_introduction";
+	}
+
+	@RequestMapping(value = "/20_Strong_point.do", method = RequestMethod.GET)
+	public String Strong_point() {
+
+		return "20_Strong_point";
+	}
+
+	@Autowired
+	RetrofitHelper retrofitHelper;
 
 
-      /** 3) API 연동 */
-      // 검색 결과를 저장할 Beans 객체 선언
-      Em_Hospital hospital = null;
-      EmergencyAddr emergencyAddr = null;
+	@RequestMapping(value = "/30_Monitoring.do", method = RequestMethod.GET)
+	public String Monitoring(Model model, HttpServletRequest request) {
 
-      // 검색어가 존재할 경우 API를 통해 검색 결과 받아옴.
-      if (query.equals("")) {
-         Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
-         try {
-      hospital = call.execute().body();
-         } catch (Exception e) {
-      e.printStackTrace();
-         }
-      }
-      
-      if (query.equals("")) {
-         Call<EmergencyAddr> call = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
-         try {
-      emergencyAddr = call.execute().body();
-         } catch (Exception e) {
-      e.printStackTrace();
-         }
-      }
-      
-      
-      
-      return "30_Monitoring";
-   }
-   
+		/** 1) 필요한 객체 생성 부분 */
+		// Retrofit 객체 생성
+		// -> import retrofit2.Retrofit;
+		// -> import study.jsp.model1.service.ApiKobisService;
+		Retrofit retrofit = retrofitHelper.getRetrofit(ApiHospitalService.BASE_URL);
+
+		// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
+		ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
+
+		/** 2) 검색일 파라미터 처리 */
+		// 검색어 키워드 받기
+		String query = request.getParameter("query");
+
+		// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 날짜 값을 yyyy-mm-dd 형식으로 생성한다.
+		if (query == null) {
+			query = "서울특별시";
+		}
+
+		/** 3) API 연동 */
+		/*
+		 * List<fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item> item =
+		 * hospital.getResponse().getBody().getItems().getItem();
+		 * List<fdp.project.spring.model.EmergencyAddr.Response.Body.Items.Item> item1 =
+		 * emergencyAddr.getResponse().getBody().getItems().getItem();
+		 */
+		
+		List<Item> list = null;
+		Em_Hospital hospital = null;
+		// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
+		if (query.equals("서울특별시")) {
+			Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
+			try {
+				hospital = call.execute().body();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+	        list = hospital.getResponse().getBody().getItems().getItem();
+	        
+	        List<EmRoom> output = new ArrayList<EmRoom>();
+	        for(Item abc : list ){
+	        	String dutyName = abc.getDutyName();
+	        	String tel = abc.getTel();
+	        	int hv1 = abc.getHv1();
+	        	int hv2 = abc.getHv2();
+	        	String hv3 = abc.getHv3();
+	        	int hv4 = abc.getHv4();
+	        	String hv5 = abc.getHv5();
+	        	int hv6 = abc.getHv6();
+	        	String hv7 = abc.getHv7();
+	        	String hv8 = abc.getHv8();
+	        	String hv9 = abc.getHv9();
+	        	String hv10 = abc.getHv10();
+	        	String hv11 = abc.getHv11();
+	        	String hv12 = abc.getHv12();
+	        	String hvec = abc.getHvec();
+	        	String hvcc = abc.getHvcc();
+	        	String hvccc = abc.getHvccc();
+	        	String hvncc = abc.getHvncc();
+	        	String hvicc = abc.getHvicc();
+	        	String hpid = abc.getHpid();
+	        	
+			
+				output.add( new EmRoom(dutyName, tel, hv1, hv2, hv3, hv4, hv5, hv6, hv7, hv8, hv9,
+						hv10, hv11, hv12, hvec, hvcc, hvccc,hvncc, hvicc, hpid));
+			}
+			/** 4) View 처리 */
+			model.addAttribute("output", output);
+	
+			/*
+			 * model.addAttribute("item", item); model.addAttribute("item1", item1);
+			 */
+		}
+	
+			return "30_Monitoring";
+	}
+	
 }
