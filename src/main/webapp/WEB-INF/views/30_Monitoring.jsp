@@ -75,8 +75,8 @@ h5 {
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 1000px;">
 		<header>
-			<h1 style="padding: 15px;">서울시 응급실 현황</h1>
-			<h2 id="timer" style="padding: 15px; color: red;"></h2>
+			<h1 style="padding: 15px 15px 0 15px;">서울시 응급실 현황</h1>
+			<h2 id="timer" style="padding: 9px 15px 15px 15px; color: red; margin: 10px 0 10px 0;"></h2>
 		</header>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover"
@@ -85,14 +85,18 @@ h5 {
 					<thead>
 						<tr>
 							<td colspan="10" class="text-left"
-								style="line-height: 1; font-size: 20px; padding: 15px 0px; border-bottom: 0;">&nbsp;
+								style="line-height: 1; font-size: 22px; padding: 15px 0px; border-bottom: 0;">&nbsp;
 								${aa.dutyName}</td>
-
 						</tr>
 						<tr>
-							<td colspan="10"
-								style="font-size: 13px; border-bottom: 0; padding: 8px 15px;">&nbsp;연락처:
-								${aa.tel}</td>
+							<td colspan="10" class="text-left"
+								style="line-height: 1; font-size: 13px; padding: 15px 0px; border-bottom: 0;">&nbsp;&nbsp;
+								<c:forEach var="bb" items="${output1}">
+									<c:if test="${aa.hpid eq bb.hpid}">
+										${bb.dutyAddr}
+										</c:if>
+								</c:forEach>
+								&nbsp;&nbsp;&nbsp;연락처: ${aa.tel}</td>
 						</tr>
 					</thead>
 					<tbody>

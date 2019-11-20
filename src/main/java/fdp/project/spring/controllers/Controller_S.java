@@ -13,15 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.gson.Gson;
-
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.EmAddr;
 import fdp.project.spring.model.EmRoom;
 import fdp.project.spring.model.Em_Hospital;
 import fdp.project.spring.model.HospInfo;
 import fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item;
+import fdp.project.spring.model.EmergencyAddr;
+import fdp.project.spring.model.EmergencyAddr.Response.Body.Items.Itema;
 //import fdp.project.spring.model.EmergencyAddr;
 import fdp.project.spring.service.ApiHospitalService;
 import retrofit2.Call;
@@ -109,12 +110,16 @@ public class Controller_S {
 		 */
 		
 		List<Item> list = null;
+		List<Itema> list1 = null;
 		Em_Hospital hospital = null;
+		EmergencyAddr address = null;
 		// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
 		if (query.equals("서울특별시")) {
 			Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
+			Call<EmergencyAddr> call1 = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
 			try {
 				hospital = call.execute().body();
+				address = call1.execute().body();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -144,12 +149,31 @@ public class Controller_S {
 	        	String hvicc = abc.getHvicc();
 	        	String hpid = abc.getHpid();
 	        	
-			
-				output.add( new EmRoom(dutyName, tel, hv1, hv2, hv3, hv4, hv5, hv6, hv7, hv8, hv9,
+	        	output.add( new EmRoom(dutyName, tel, hv1, hv2, hv3, hv4, hv5, hv6, hv7, hv8, hv9,
 						hv10, hv11, hv12, hvec, hvcc, hvccc,hvncc, hvicc, hpid));
+	        	
+	        	
+	        }
+	        	 list1 = address.getResponse().getBody().getItems().getItem();
+	 	        
+	 	        List<EmAddr> output1 = new ArrayList<EmAddr>();
+	 	        for(Itema def : list1 ){
+	 	        	String dutyAddr = def.getDutyAddr();
+	 	        	String dutyEmcls = def.getDutyEmcls();
+	 	        	String dutyName = def.getDutyName();
+	 	        	String dutyTel1 = def.getDutyTel1();
+	 	        	String dutyTel3 = def.getDutyTel3();
+	 	        	String hpid = def.getHpid();
+	 	        	String phpid = def.getPhpid();
+	 	        	int rnum = def.getRnum();
+	 	        	double wgs84Lat = def.getWgs84Lat();
+	 	        	double wgs84Lon	= def.getWgs84Lon();
+			 output1.add( new EmAddr(dutyAddr, dutyEmcls, dutyName, dutyTel1, dutyTel3, hpid, phpid, phpid, rnum, wgs84Lat, wgs84Lon));
+				
 			}
 			/** 4) View 처리 */
 			model.addAttribute("output", output);
+			model.addAttribute("output1", output1);
 	
 			/*
 			 * model.addAttribute("item", item); model.addAttribute("item1", item1);

@@ -24,10 +24,10 @@ public class EmergencyAddr {
 			@Data
 			public class Items {
 				@SerializedName("item")
-				private List<Item> item;
+				private List<Itema> item;
 
 				@Data
-				public class Item {
+				public class Itema {
 					@SerializedName("dutyAddr")			private String dutyAddr; 		// 주소
 					@SerializedName("dutyEmcls")		private String dutyEmcls;		// 응급의료기관분류
 					@SerializedName("dutyEmclsName")	private String dutyEmclsName; 		// 응급의료기관분류명
