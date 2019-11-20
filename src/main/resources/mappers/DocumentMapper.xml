@@ -63,8 +63,8 @@
     <insert id="insertItem"
         parameterType="fdp.project.spring.model.Document"
         useGeneratedKeys="true"
-        keyProperty="deptno">
-        INSERT INTO department (dname, loc) VALUES (#{dname}, #{loc});
+        keyProperty="document_id">
+        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date});
     </insert>
 
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -76,8 +76,8 @@
     <!-- 데이터 갱신을 위한 기능 정의 -->
     <update id="updateItem"
         parameterType="fdp.project.spring.model.Document">
-        UPDATE department SET dname=#{dname}, loc=#{loc}
-        WHERE deptno=#{deptno};
+        UPDATE document SET writer_name=#{writer_name}, subject=#{subject}, content=#{content}, hit=#{hit}, reg_date=#{reg_date}, edit_date=#{edit_date}, fdpmember_id=#{fdpmember_id}
+        WHERE document_id=#{document_id};
     </update>
     
     <!--

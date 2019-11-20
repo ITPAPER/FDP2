@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="ko">
 <style type="text/css">
@@ -65,15 +68,11 @@
 			<table class="table table-bordered">
 				<tbody>
 					<tr class="subject_content">
-						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ </h4>
-						<b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+						<td><h4>${output.document_id}</h4></td>
 					</tr>
-				
 					<tr>
 						<td>
-							<p></p> 안녕하세요. <br /> 3살 아기가 며칠전부터 피부에 빨간 반점이 올라오는 등 이상 증상이 있네요.
-								<br /> 미열도 있습니다. 사진 첨부합니다. 조언부탁드려요.
-							<p></p>
+							${output.content}
 						</td>
 					</tr>
 					<tr>
@@ -124,11 +123,11 @@
 		</div>
 		<div class="clearfix b" >
 			<ul class="pull-right bottom-button">
-				<li class="a"><a href="14_Notice_board_i.do"
+				<li class="a"><a href="${pageContext.request.contextPath}/14_Notice_board_i.do?document_id=${output.document_id}"
 					class="btn btn-default btn-sm" id="btn1">삭제 </a></li>
-				<li class="a"><a href="15_Notice_board_2.do"
+				<li class="a"><a href="${pageContext.request.contextPath}/15_Notice_board_2.do?document_id=${output.document_id}"
 					class="btn btn-default btn-sm">수정</a></li>
-				<li class="a"><a href="13_Notice_board.do"
+				<li class="a"><a href="${pageContext.request.contextPath}/13_Notice_board.do"
 					class="btn btn-default btn-sm">메뉴</a></li>
 			</ul>
 		</div>

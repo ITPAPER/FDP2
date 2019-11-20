@@ -18,11 +18,11 @@
     </resultMap>
 
      <!-- 단일행 조회를 위한 기능 정의 -->
-<!--  	<select id="selectItem"
-        parameterType="fdp.project.spring.helper.model.Document"
-        resultMap="departmentMap">
-        SELECT deptno, dname, loc FROM department WHERE deptno=#{deptno};
-    </select>  -->
+<select id="selectItem"
+        parameterType="fdp.project.spring.model.Document"
+        resultMap="documentMap">
+        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_Date FROM document WHERE document_id=#{document_id};
+    </select> 
 
     <!-- 다중행 조회를 위한 기능 정의 -->
     <select id="selectList"
@@ -59,13 +59,13 @@
     </select>
 
     <!-- 데이터 저장을 위한 기능 정의 -->
-   <!--  <insert id="insertItem"
+   <insert id="insertItem"
         parameterType="fdp.project.spring.model.Document"
         useGeneratedKeys="true"
-        keyProperty="deptno">
-        INSERT INTO department (dname, loc) VALUES (#{dname}, #{loc});
+        keyProperty="document_id">
+        INSERT INTO document(writer_name, subject, content, hit, reg_date, edit_date) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date});
     </insert>
- -->
+ 
     <!-- 데이터 삭제를 위한 기능 정의 -->
    <!--  <delete id="deleteItem"
         parameterType="fdp.project.spring.model.Document">
@@ -87,7 +87,7 @@
     <select id="selectCountAll" 
             parameterType="fdp.project.spring.model.Document"
             resultType="int">
-        SELECT COUNT(*) FROM department
+        SELECT COUNT(*) FROM document
         
         <where>
             <if test="writer_name != null and writer_name != ''">
