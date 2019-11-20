@@ -33,6 +33,21 @@
 		parameterType="fdp.project.spring.model.Member"
 		resultMap="MemberMap">
 		SELECT * FROM fdpmember
+		
+		<where>
+
+			<if test="name != null and name != ''">
+				name LIKE concat('%', #{name}, '%')
+			</if>
+
+		</where>
+
+		ORDER BY fdpmember_id DESC
+
+		<if test="listCount > 0">
+			LIMIT #{offset}, #{listCount};
+		</if>
+		
 	</select>
 	
 	<!-- 회원정보 추가 -->
@@ -59,5 +74,18 @@
 		parameterType="fdp.project.spring.model.Member">
 		DELETE FROM fdpmember WHERE fdpmember_id=#{fdpmember_id}
 	</delete>
+	
+	<select id="selectCountAll" 
+		parameterType="fdp.project.spring.model.Member"
+        resultType="int">
+        
+        SELECT COUNT(*) FROM fdpmember
+        
+       <where>
+            <if test="name != null and name != ''">
+                name LIKE concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
 	
 </mapper>

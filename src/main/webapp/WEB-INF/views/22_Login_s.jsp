@@ -82,11 +82,11 @@
 					<label for="user_id">
 						아이디
 					</label> 
-					<input type="text" name="user_id" id="user_id" class="form-control" placeholder="ID를 입력하세요." /> 
+					<input type="text" name="user_id" id="user_id" class="form-control" placeholder="관리자 ID : cherry,  kihyub,  seungseok,  mingi,  jihyeon" /> 
 					<label for="user_pw">
 						비밀번호
 					</label> 
-						<input type="password" name="user_pw" id="user_pw" class="form-control" placeholder="비밀번호를 입력하세요." />
+						<input type="password" name="user_pw" id="user_pw" class="form-control" placeholder="PW : 1234 " />
 					<button type="submit" id="btn8" class="btn btn-primary btn-lg btn-block">
 						로그인
 					</button>

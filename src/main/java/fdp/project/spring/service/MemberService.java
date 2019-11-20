@@ -16,5 +16,5 @@ public interface MemberService {
 	//회원 삭제
 	public int deleteMember(Member input) throws Exception;
 	//회원 수 조회
-	public int getProfessorCount(Member input) throws Exception;
+	public int getMemberCount(Member input) throws Exception;
 }

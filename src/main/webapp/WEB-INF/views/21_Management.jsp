@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html lang="ko">
 <head>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/animate/animate.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/plugins/animate/animate.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
 <jsp:include page="./assets/inc/head.jsp" />
 <style>
 
@@ -79,6 +82,8 @@
 	background-color: #757575;
 }
 
+
+
 thead {
 	border: 1px solid #ffa500;
 }
@@ -103,6 +108,38 @@ tbody tr td {
 	cursor: pointer;
 }
 
+.imgbox {
+	background-image: url("${pageContext.request.contextPath}/assets/img/lockicon.png");
+	background-size: 100px;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+.imgbox2 {
+	height: 250px;
+	border: solid 1px #ccc;
+	background: #f8f8f8;
+	background-image: url("${pageContext.request.contextPath}/assets/img/xicon.png");
+	background-size: 100px;
+	background-repeat: no-repeat;
+	background-position: 50% 30%;
+}
+
+.imgbox > .btn {
+	position: relative;
+	bottom: -50px;
+}
+
+.imgbox > h3 {
+	position: relative;
+	bottom: -120px;
+}
+
+.imgbox2 > h3 {
+	color: #757575;
+	position: relative;
+	bottom: -160px;
+}
 /* 차트 */
 #chartdiv {
 	width: 100%;
@@ -113,7 +150,7 @@ tbody tr td {
 </head>
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-	
+
 	<div class="bbox">
 		<div id="box2" class="header mybox">
 			<h1>관리자 페이지</h1>
@@ -126,17 +163,20 @@ tbody tr td {
 				<div class="top">
 					<h4>Find Doctor를 더 안전하고 편리하게 관리하세요.</h4>
 				</div>
-				
-				<c:if test="${empty session_id}">
-				<button type="button" class="btn loog"
-					onclick="location.href ='22_Login_s.do'">Find Doctor 관리자
-					로그인</button>
+
+				<c:if test="${empty session_id && empty session_pw}">
+					<button type="button" class="btn loog"
+						onclick="location.href ='22_Login_s.do'">Find Doctor 관리자
+						로그인</button>
 				</c:if>
-				<c:if test="${not empty session_id}">
-					<h3>관리자님 환영합니다</h3>
-					<button type="button" id="btn6" class="btn btn-primary">로그아웃 연습</button>
+				<c:if test="${not empty session_pw && not empty session_pw}">
+					<div class="imgbox">
+						<h3>관리자 로그인 성공</h3>
+						<button type="button" id="btn6" class="btn btn-primary">로그아웃
+							연습</button>
+					</div>
 				</c:if>
-					
+
 			</div>
 			<div class="box1 box-right" style="position: absolute; top: 375px;">
 				<div class="top">
@@ -144,6 +184,13 @@ tbody tr td {
 					<button type="button" class="btn btn-primary pull-right"
 						onclick="location.href ='23_Notice_board_s.do'">더보기</button>
 				</div>
+				<c:if test="${empty session_id && empty session_pw}">
+					<div class="imgbox2">
+						<h3>관리자 로그인을 해주세요.</h3>
+					</div>
+				</c:if>
+				
+				<c:if test="${not empty session_pw && not empty session_pw}">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -153,55 +200,34 @@ tbody tr td {
 						</tr>
 					</thead>
 					<tbody>
-						<%-- 일단은 주석 처리
+						<c:choose>
+							<c:when test="${output == null || output.size() == 0}">
+								<tr>
+									<td class="text-center" colspan="3">게시물이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="4" step="1">
+									<tr onclick="location.href ='24_Notice_board_s_2.do?document_id=${output.get(i).document_id}'">
+										<td class="text-center">${output.get(i).document_id}</td>
+										<c:choose>
+											<c:when test="${fn:length(output.get(i).subject) > 15}">
+												<td class="text-center">${fn:substring(output.get(i).subject,0,15)}&nbsp;·
+													· ·</td>
+											</c:when>
+											<c:otherwise>
+												<td class="text-center">${output.get(i).subject}</td>
+											</c:otherwise>
+										</c:choose>
+										<td class="text-center">${output.get(i).writer_name}</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
-						<% if (output == null || output.size() == 0) { %>
-						<tr>
-							<td class="text-center">게시물이 없습니다.</td>
-						</tr>
-						<%
-							} else {
-								for (int i = 0; i < 5; i++) {
-									Board board =output.get(i);
-						%>
-						<tr>
-							<td class="text-center"><%=board.getTitno()%></td>
-							<td class="text-center"><%=board.getTitle()%></td>
-							<td class="text-center"><%=board.getBname()%></td>
-						</tr>
-						<%
-								}	// end for
-							} 		// end if
-						%>
-			            
-			             주석 처리 끝--%>
-						<tr>
-							<td class="text-center">1</td>
-							<td class="text-center">목이 아파요</td>
-							<td class="text-center">김체리</td>
-						</tr>
-						<tr>
-							<td class="text-center">2</td>
-							<td class="text-center">열과 두통</td>
-							<td class="text-center">이승석</td>
-						</tr>
-						<tr>
-							<td class="text-center">3</td>
-							<td class="text-center">피부 알레르기</td>
-							<td class="text-center">정민기</td>
-						</tr>
-						<tr>
-							<td class="text-center">4</td>
-							<td class="text-center">환절기 질병</td>
-							<td class="text-center">조지현</td>
-						</tr>
-						<tr>
-							<td class="text-center">5</td>
-							<td class="text-center">유행성 독감</td>
-							<td class="text-center">박기협</td>
-						</tr>
 					</tbody>
 				</table>
+				</c:if>
 			</div>
 			<div class="box1 box-left">
 				<div class="top">
@@ -209,7 +235,12 @@ tbody tr td {
 					<button type="button" class="btn btn-primary pull-right"
 						onclick="location.href ='28_User_stasis.do'">더보기</button>
 				</div>
-
+				<c:if test="${empty session_id && empty session_pw}">
+					<div class="imgbox2">
+						<h3>관리자 로그인을 해주세요.</h3>
+					</div>
+				</c:if>
+				<c:if test="${not empty session_pw && not empty session_pw}">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -218,27 +249,6 @@ tbody tr td {
 						</tr>
 					</thead>
 					<tbody>
-						<%-- 일단은 주석 처리
-
-						<% if (output == null || output.size() == 0) { %>
-						<tr>
-							<td class="text-center">게시물이 없습니다.</td>
-						</tr>
-						<%
-							} else {
-								for (int i = 0; i < 5; i++) {
-									? ? =output.get(i);
-						%>
-						<tr data-toggle="modal" data-target="#myModal">
-							<td class="text-center"><%=?.get???() %></td>
-							<td class="text-center"><%=?.get???() %></td>
-						</tr>
-						<%
-								}	// end for
-							} 		// end if
-						%>
-			            
-			      	  주석 처리 끝--%>
 						<tr data-toggle="modal" data-target="#myModal">
 							<td class="text-center">1</td>
 							<td class="text-center">지역</td>
@@ -261,6 +271,7 @@ tbody tr td {
 						</tr>
 					</tbody>
 				</table>
+				</c:if>
 			</div>
 			<div class="box1 box-right">
 				<div class="top">
@@ -268,6 +279,12 @@ tbody tr td {
 					<button type="button" class="btn btn-primary pull-right"
 						onclick="location.href ='28_User_stasis.do'">더보기</button>
 				</div>
+				<c:if test="${empty session_id && empty session_pw}">
+					<div class="imgbox2">
+						<h3>관리자 로그인을 해주세요.</h3>
+					</div>
+				</c:if>
+				<c:if test="${not empty session_pw && not empty session_pw}">
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -277,55 +294,26 @@ tbody tr td {
 						</tr>
 					</thead>
 					<tbody>
-						<%-- 일단은 주석 처리
+						<c:choose>
+							<c:when test="${output2 == null || output2.size() == 0}">
+								<tr>
+									<td class="text-center" colspan="3">게시물이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="4" step="1">
+									<tr>
+										<td class="text-center">${output2.get(i).fdpmember_id}</td>
+										<td class="text-center">${output2.get(i).user_id}</td>
+										<td class="text-center">${output2.get(i).member_grade}</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 
-						<% if (output == null || output.size() == 0) { %>
-						<tr>
-							<td class="text-center">게시물이 없습니다.</td>
-						</tr>
-						<%
-							} else {
-								for (int i = 0; i < 5; i++) {
-									? ? =output.get(i);
-						%>
-						<tr>
-							<td class="text-center"><%=?.get???()%></td>
-							<td class="text-center"><%=?.get???()%></td>
-							<td class="text-center"><%=?.get???()%></td>
-						</tr>
-						<%
-								}	// end for
-							} 		// end if
-						%>
-			            
-			        	주석 처리 끝--%>
-						<tr>
-							<td class="text-center">159</td>
-							<td class="text-center">jihyeon0429</td>
-							<td class="text-center">의사</td>
-						</tr>
-						<tr>
-							<td class="text-center">258</td>
-							<td class="text-center">lss0238</td>
-							<td class="text-center">일반인</td>
-						</tr>
-						<tr>
-							<td class="text-center">357</td>
-							<td class="text-center">mingi115</td>
-							<td class="text-center">일반인</td>
-						</tr>
-						<tr>
-							<td class="text-center">478</td>
-							<td class="text-center">kcherry6123</td>
-							<td class="text-center">일반인</td>
-						</tr>
-						<tr>
-							<td class="text-center">563</td>
-							<td class="text-center">kihyub</td>
-							<td class="text-center">일반인</td>
-						</tr>
 					</tbody>
 				</table>
+				</c:if>
 			</div>
 		</div>
 
@@ -366,8 +354,10 @@ tbody tr td {
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-	<script src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 
@@ -389,10 +379,10 @@ tbody tr td {
 			box.eq(3).animateCSS('fadeInRight', {
 				duration : 1500
 			});
-			
+
 			$("#btn6").click(function(e) {
 				e.preventDefault();
-				
+
 				swal({
 					title : '로그아웃', // 제목
 					text : "로그아웃을 완료하시겠습니까?", // 내용
@@ -401,12 +391,12 @@ tbody tr td {
 					showCancelButton : true, // 취소버튼 표시 여부
 					cancelButtonText : 'No', // 취소버튼 표시 문구
 				}).then(function(result) {
-					if(result.value) {
+					if (result.value) {
 						swal('완료', '로그아웃이 완료되었습니다.', 'success')
 						$('.swal2-confirm').click(function() {
 							parent.location.replace('session/delete.do')
 						});
-					} else if(result.dismiss === 'cancel') {
+					} else if (result.dismiss === 'cancel') {
 						swal('취소', '로그아웃이 취소되었습니다.', 'error');
 					}
 				});

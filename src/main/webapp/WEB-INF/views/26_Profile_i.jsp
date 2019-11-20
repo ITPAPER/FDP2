@@ -82,7 +82,7 @@
 				<span> <strong>개인정보 보호를 위해 한번 더 비밀번호를 입력해주세요.</strong>
 				</span>
 				<form id="login-form" class="form-block" method="post"
-					action="27_Profile.do">
+					action="${pageContext.request.contextPath}/check2.do">
 					<label for="user_pw">비밀번호</label> <input type="password"
 						name="user_pw" id="user_pw" class="form-control"
 						placeholder="비밀번호를 입력하세요." />
