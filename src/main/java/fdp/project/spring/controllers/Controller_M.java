@@ -2,6 +2,7 @@ package fdp.project.spring.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -159,62 +160,8 @@ public class Controller_M {
 		
 		HospInfo input = new HospInfo();
 		Gson gson = new Gson();
-		String aaa= null;
-		int bbb= Integer.parseInt(sgguCd);
-		switch(bbb) { 
-		  case 110001: 
-			  aaa="강남구"; break;
-		  case 110002: 
-			  aaa="강동구"; break; 
-		  case 110003: 
-			  aaa="강서구"; break; 
-		  case 110004:
-			  aaa="관악구"; break; 
-		  case 110005:
-			  aaa="구로구"; break; 
-		  case 110006:
-			  aaa="도봉구"; break; 
-		  case 110007:
-			  aaa="동대문구"; break; 
-		  case 110008:
-			  aaa="동작구"; break; 
-		  case 110009:
-			  aaa="마포구"; break; 
-		  case 110010:
-			  aaa="서대문구"; break; 
-		  case 110011:
-			  aaa="성동구"; break; 
-		  case 110012:
-			  aaa="성북구"; break; 
-		  case 110013:
-			  aaa="영등포구"; break; 
-		  case 110014:
-			  aaa="용산구"; break; 
-		  case 110015:
-			  aaa="은평구"; break; 
-		  case 110016:
-			  aaa="종로구"; break; 
-		  case 110017:
-			  aaa="중구"; break;
-		  case 110018:
-			  aaa="송파구"; break; 
-		  case 110019:
-			  aaa="중랑구"; break; 
-		  case 110020:
-			  aaa="양천구"; break;
-		  case 110021:
-			  aaa="서초구"; break;
-		  case 110022:
-			  aaa="노원구"; break; 
-		  case 110023:
-			  aaa="광진구"; break; 
-		  case 110024:
-			  aaa="강북구"; break; 
-		  case 110025:
-			  aaa="금천구"; break; 
-		}
 		 
-		input.setClCdNm(aaa);
+		input.setOpentime(sgguCd);
 		input.setAddr(emdongNm);
 		input.setSubj(dgsbjtCd);
 		
@@ -222,14 +169,32 @@ public class Controller_M {
 		
 		try {
 			output = hospInfoService.getHospInfoList(input);
-			System.out.println(output);
+			
+			int i=0;
+			for(HospInfo cc : output) {
+				cc.setDay_of_week(Calendar.DAY_OF_WEEK);
+				HospInfo dd= cc;
+				try {
+					cc = hospInfoService.getHospInfo(cc);
+					
+					dd.setOpentime(cc.getOpentime());
+					dd.setClosetime(cc.getClosetime());
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				if(!output.isEmpty()) {
+					output.set(i, dd);
+				}
+				
+				i++;
+			}
 			
 			if(!output.isEmpty()) {
-				System.out.println("희희");
 				return gson.toJson(output);
 			}
 		}catch(Exception e) {
-			System.out.println("디비에 암것도 없찌롱");
+			e.printStackTrace();
 		}
 		if(output.isEmpty()) {
 			/** 1) 필요한 객체 생성 부분 */
@@ -268,10 +233,35 @@ public class Controller_M {
 				//	데이터 저장
 				//	--> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
 				hospInfoService.addHospInfo(output);
+				
+				int i=0;
+				for(HospInfo cc : output) {
+					cc.setDay_of_week(Calendar.DAY_OF_WEEK);
+					HospInfo dd= cc;
+					try {
+						cc = hospInfoService.getHospInfo(cc);
+						
+						dd.setOpentime(cc.getOpentime());
+						dd.setClosetime(cc.getClosetime());
+					}catch(Exception e){
+						System.out.println(cc.getYadmNm() + "병원은 시간정보가 없습니다.");
+					}
+					
+					if(!output.isEmpty()) {
+						output.set(i, dd);
+					}
+					
+					i++;
+				}
 				}catch(Exception e) {
 					e.printStackTrace();
 			}
 		
+			
+			
+			
+			
+			
 		}
 		return  gson.toJson(output);
 	}

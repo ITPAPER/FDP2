@@ -1,5 +1,6 @@
 package fdp.project.spring.controllers;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,9 @@ import fdp.project.spring.helper.WebHelper;
 import fdp.project.spring.model.Em_Hospital;
 import fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item;
 import fdp.project.spring.model.EmergencyAddr;
+import fdp.project.spring.model.Member;
 import fdp.project.spring.service.ApiHospitalService;
+import fdp.project.spring.service.MemberService;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -31,6 +34,9 @@ public class Controller_J {
 	
 	@Autowired
 	WebHelper webHelper;
+	
+	@Autowired
+	MemberService memberService;
 	
 	@Autowired
 	RetrofitHelper retrofitHelper;
@@ -58,50 +64,106 @@ public class Controller_J {
 		return "09_Sign_up_a";
 	}
 	
-	@RequestMapping(value = "10_Sign_up_i_d.do", method = RequestMethod.GET)
-	public String signupid() {
-		return "10_Sign_up_i_d";
+	@RequestMapping(value = "10_Sign_up_i_d2.do", method = RequestMethod.GET)
+	public ModelAndView signupidd(Model model) {
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+		
+		if (fdpmember_id == 0) {
+			return webHelper.redirect(null, "회원번호가 없습니다.");
+		}
+		
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+		
+		Member output = null;
+		
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("output", output);
+		
+		return new ModelAndView("10_Sign_up_i_d2");
 	}
 	
-	@RequestMapping(value = "10_Sign_up_i_d2.do", method = RequestMethod.POST)
-	public String signupid2(Model model, HttpServletRequest request, HttpServletResponse response) {
-
-		String userId = request.getParameter("user_id");
-		String userPw = request.getParameter("user_pw");
-		String userPwRe = request.getParameter("user_pw_re");
-		String userName = request.getParameter("user_name");
-		String gender = request.getParameter("gender");
-		String birthdate = request.getParameter("birthdate");
-		String email = request.getParameter("email");
-		String address1 = request.getParameter("address1");
-		String address2 = request.getParameter("address2");
-		String address3 = request.getParameter("address3");
-		String address4 = request.getParameter("address4");
-		String tel = request.getParameter("tel");
-		String userField = request.getParameter("user_field");
+	
+	@RequestMapping(value = "10_Sign_up_i_d.do", method = RequestMethod.GET)
+	public ModelAndView signupid(Model model) {
 		
-	 	
-	    if (userId == null || userPw == null || userPwRe == null || userName == null || email == null || tel == null
-	    		|| gender == null || birthdate == null) {
+		return new ModelAndView("10_Sign_up_i_d");
+	}
+	
+	
+	@RequestMapping(value = "10_Sign_up_i_add.do", method = RequestMethod.POST)
+	public ModelAndView signupid2(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+		String name = request.getParameter("name");
+		String user_id = request.getParameter("user_id");
+		String user_pw = request.getParameter("user_pw");
+		String email = request.getParameter("email");
+		int gender = webHelper.getInt("gender");
+		String tel = request.getParameter("tel");
+		String addr1 = request.getParameter("addr1");
+		String addr2 = request.getParameter("addr2");
+		String addr3 = request.getParameter("addr3");
+		String addr4 = request.getParameter("addr4");
+		String reg_date = request.getParameter("reg_date");
+		String edit_date = request.getParameter("edit_date");
+		String medical_field = request.getParameter("medical_field");
+		
+	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || tel == null
+	    		|| addr1 == null || addr2 == null || addr3 == null || addr4 == null || reg_date == null || edit_date == null
+	    		|| medical_field == null ) {
 	        //이전 페이지로 강제 이동 후 종료
 	        webHelper.redirect(null, "입력항목이 잘못되었습니다.");
 	    } 
 		
-	    model.addAttribute("userId", userId);
-	    model.addAttribute("userPw", userPw);
-	    model.addAttribute("userPwRe", userPwRe);
-	    model.addAttribute("userName", userName);
-	    model.addAttribute("gender", gender);
-	    model.addAttribute("birthdate", birthdate);
-	    model.addAttribute("email", email);
-	    model.addAttribute("address1", address1);
-	    model.addAttribute("address2", address2);
-	    model.addAttribute("address3", address3);
-	    model.addAttribute("address4", address4);
-	    model.addAttribute("tel", tel);
-	    model.addAttribute("userField", userField);
+	    Calendar cal = Calendar.getInstance();
+	    int yy = cal.get(Calendar.YEAR);
+	    int mm = cal.get(Calendar.MONTH) + 1;
+	    int dd = cal.get(Calendar.DAY_OF_MONTH);
+	    int hh = cal.get(Calendar.HOUR_OF_DAY);
+	    int mi = cal.get(Calendar.MINUTE);
+	    int ss = cal.get(Calendar.SECOND);
 	    
-		return "10_Sign_up_i_d2";
+	    String currenttime = String.format("%04d-%02d-%02d %02d:%02d:%02d", yy, mm, dd, hh, mi, ss);
+	    
+        Member input = new Member();
+        input.setName(name);
+        input.setUser_id(user_id);
+        input.setUser_pw(user_pw);
+        input.setEmail(email);
+        input.setGender(gender);
+        input.setTel(tel);
+        input.setAddr1(addr1);
+        input.setAddr2(addr2);
+        input.setAddr3(addr3);
+        input.setAddr4(addr4);
+        input.setReg_date(currenttime);
+        input.setEdit_date(edit_date);
+        input.setMedical_field(medical_field);
+        input.setMember_grade("1");
+	    
+        try {
+            // 데이터 저장
+            // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+            memberService.addMember(input);
+            
+        } catch (Exception e) {
+            return webHelper.redirect(null, e.getLocalizedMessage());
+        }
+
+        /** 3) 결과를 확인하기 위한 페이지 이동 */
+        // 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
+        String redirectUrl = contextPath + "/10_Sign_up_i_d2.do?fdpmember_id=" + input.getFdpmember_id();
+        return webHelper.redirect(redirectUrl, "저장되었습니다.");
+	}
+	
+	@RequestMapping(value = "09_Sign_up_a2.do", method = {RequestMethod.POST, RequestMethod.GET})
+	public String signupina() {
+		return "09_Sign_up_a2";
 	}
 	
 	@RequestMapping(value = "11_Sign_up_i_n.do", method = RequestMethod.GET)
@@ -110,41 +172,67 @@ public class Controller_J {
 	}
 	
 	@RequestMapping(value = "11_Sign_up_i_n2.do", method = RequestMethod.POST)
-	public ModelAndView signupin2(Model model, 
-			@RequestParam(value="user_id") String userId,
-			@RequestParam(value="user_pw") String userPw,
-			@RequestParam(value="user_pw_re") String userPwRe,
-			@RequestParam(value="user_name") String userName,
-			@RequestParam(value="gender") String gender,
-			@RequestParam(value="birthdate") String birthdate,
-			@RequestParam(value="email") String email,
-			@RequestParam(value="address1") String address1,
-			@RequestParam(value="address2") String address2,
-			@RequestParam(value="address3") String address3,
-			@RequestParam(value="address4") String address4,
-			@RequestParam(value="tel") String tel) {
+	public ModelAndView signupin2(Model model, HttpServletRequest request) {
 		
-	    if (userId == null || userPw == null || userPwRe == null || userName == null || email == null || tel == null
-	    		|| gender == null || birthdate == null) {
+		String name = request.getParameter("name");
+		String user_id = request.getParameter("user_id");
+		String user_pw = request.getParameter("user_pw");
+		String email = request.getParameter("email");
+		int gender = webHelper.getInt("gender");
+		String tel = request.getParameter("tel");
+		String addr1 = request.getParameter("addr1");
+		String addr2 = request.getParameter("addr2");
+		String addr3 = request.getParameter("addr3");
+		String addr4 = request.getParameter("addr4");
+		String reg_date = request.getParameter("reg_date");
+		String edit_date = request.getParameter("edit_date");
+		
+	 	
+	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || tel == null
+	    		|| addr1 == null || addr2 == null || addr3 == null || addr4 == null || reg_date == null || edit_date == null
+	    		) {
 	        //이전 페이지로 강제 이동 후 종료
 	        webHelper.redirect(null, "입력항목이 잘못되었습니다.");
 	    } 
 		
-	    model.addAttribute("userId", userId);
-	    model.addAttribute("userPw", userPw);
-	    model.addAttribute("userPwRe", userPwRe);
-	    model.addAttribute("userName", userName);
-	    model.addAttribute("gender", gender);
-	    model.addAttribute("birthdate", birthdate);
-	    model.addAttribute("email", email);
-	    model.addAttribute("address1", address1);
-	    model.addAttribute("address2", address2);
-	    model.addAttribute("address3", address3);
-	    model.addAttribute("address4", address4);
-	    model.addAttribute("tel", tel);
+	    Calendar cal = Calendar.getInstance();
+	    int yy = cal.get(Calendar.YEAR);
+	    int mm = cal.get(Calendar.MONTH) + 1;
+	    int dd = cal.get(Calendar.DAY_OF_MONTH);
+	    int hh = cal.get(Calendar.HOUR_OF_DAY);
+	    int mi = cal.get(Calendar.MINUTE);
+	    int ss = cal.get(Calendar.SECOND);
 	    
-	    String viewPath = "11_Sign_up_i_n2";
-		return new ModelAndView(viewPath);
+	    String currenttime = String.format("%04d-%02d-%02d %02d:%02d:%02d", yy, mm, dd, hh, mi, ss);
+	    
+        Member input = new Member();
+        input.setName(name);
+        input.setUser_id(user_id);
+        input.setUser_pw(user_pw);
+        input.setEmail(email);
+        input.setGender(gender);
+        input.setTel(tel);
+        input.setAddr1(addr1);
+        input.setAddr2(addr2);
+        input.setAddr3(addr3);
+        input.setAddr4(addr4);
+        input.setReg_date(currenttime);
+        input.setEdit_date(edit_date);
+        input.setMember_grade("2");
+	    
+        try {
+            // 데이터 저장
+            // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+            memberService.addMember(input);
+            
+        } catch (Exception e) {
+            return webHelper.redirect(null, e.getLocalizedMessage());
+        }
+
+        /** 3) 결과를 확인하기 위한 페이지 이동 */
+        // 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
+        String redirectUrl = contextPath + "/11_Sign_up_i_n2?fdpmember_id=" + input.getFdpmember_id();
+        return webHelper.redirect(redirectUrl, "저장되었습니다.");
 	}
 	
 	@RequestMapping(value = "12_Sign_up_s.do", method = RequestMethod.GET)
@@ -171,7 +259,7 @@ public class Controller_J {
 	public String chcart4() {
 		return "assets/api/chart4";
 	}
-	
+	@SuppressWarnings("null")
 	@RequestMapping(value = "30_Monitoring_spring.do", method = RequestMethod.GET)
 	public String monitoring(Model model, HttpServletRequest request) {
 
@@ -184,6 +272,7 @@ public class Controller_J {
 		// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
 		ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
 
+		
 		/** 2) 검색일 파라미터 처리 */
 		// 검색어 키워드 받기
 		String query = request.getParameter("query");
@@ -217,17 +306,11 @@ public class Controller_J {
 			
 		Em_Hospital.Response.Body.Items.Item item = null;
 		
-		String hpid = item.getHpid();
-		String hvec = item.getHvec();
-		int hv2 = item.getHv2();
-		String hv3 = item.getHv3();
-		int hv4 = item.getHv4();
-		String hv5 = item.getHv5();
-		int hv6 = item.getHv6();
-		String hv11 = item.getHv11();
-		String hv12 = item.getHv12();
-		String hvcc = item.getHvcc();
-		String hvncc = item.getHvncc();
+		/*
+		 * int hv2 = webHelper.getInt("hv2", item.getHv2()); int hv4 =
+		 * webHelper.getInt("hv4", item.getHv4()); int hv6 = webHelper.getInt("hv6",
+		 * item.getHv6());
+		 */
 		
 		try {
 			emergencyAddr = call1.execute().body();
@@ -235,29 +318,24 @@ public class Controller_J {
 			e.printStackTrace();
 		}
 		
-		
-		
 		/** 4) View 처리*/
 		model.addAttribute("query", query);
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("emergencyAddr", emergencyAddr);
+		model.addAttribute("call", call);
 		
-		model.addAttribute("hpid", hpid);
-		model.addAttribute("hvec", hvec);
-		model.addAttribute("hv2", hv2);
-		model.addAttribute("hv3", hv3);
-		model.addAttribute("hv4", hv4);
-		model.addAttribute("hv5", hv5);
-		model.addAttribute("hv6", hv6);
-		model.addAttribute("hv11", hv11);
-		model.addAttribute("hv12", hv12);
-		model.addAttribute("hvcc", hvcc);
-		model.addAttribute("hvncc", hvncc);
+		/*
+		 * model.addAttribute("hv2", hv2); model.addAttribute("hv4", hv4);
+		 * model.addAttribute("hv6", hv6);
+		 */
 		
 		/*
 		 * model.addAttribute("item", item); model.addAttribute("item1", item1);
 		 */
 		System.out.println(model);
+		if (hospital != null) {
+			System.out.println("값이있음");
+		} else { System.out.println("값이없음");}
 
 		return "30_Monitoring_spring";
 	}

@@ -148,6 +148,9 @@
 				주소 : {{addr}}<br/>
 				<a href="tel:{{telno}}"> 전화번호 : {{telno}}</a>
 				<a href="{{hospUrl}}">{{hospUrl}}</a>
+				<hr/>
+				<span id="time{{num}}"> </span><hr/>
+				시작:{{opentime}} / 종료:{{closetime}} 
 			</div>
     	</div>
 	</script>
@@ -240,6 +243,25 @@
 							
 							$(".accord").append(html);
 							
+							var d = new Date();
+							var ttt = d.getHours() * 100;
+							ttt += d.getMinutes();
+							console.log(i + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" +req[i].opentime);
+							d= i+1;
+							/* 
+							if( req[i].opentime != undefind){	
+								 */
+								if(ttt > req[i].closetime || req[i].opentime > ttt){
+									$('#time' + d).html("문닫음!");
+								}else if(ttt < req[i].closetime && req[i].opentime < ttt ){
+									$('#time' + d).html("영업중!");
+								} else{
+									$('#time' + d).html("병원 운영시간이 입력되지 않았습니다");
+								}
+							/* 	 
+							}else{
+								
+							} */
 							
 							if(i == req.length-1){
 								$(".accord-title a").click(function(e) {

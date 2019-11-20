@@ -238,7 +238,7 @@
 		 <button type="submit" id="proceedN" class="btn btn-lg btn-warning" style="font-size: 23px; color: white;">일반인 - 회원가입</button>
 	 </div>
 	 
-	 <button type="button" onclick="location.href='12_Sign_up_s.do'">메인페이지로</button>
+	 <button type="button" onclick="location.href='09_Sign_up_a2.do'">회원정보확인</button>
 	 
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 

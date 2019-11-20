@@ -64,47 +64,107 @@
 			<h3 class="title"><strong>입력하신 정보를 확인해 주세요.</strong></h3>	
 		</div>
 		 <div class="b">
-			<input type='hidden' name='user_id' value='${userId}'>
-			<input type='hidden' name='user_name' value='${userName}'>
-			<input type='hidden' name='user_field' value='${userField}'>
-			<input type='hidden' name='email' value='${email}'>
-			<input type='hidden' name='tel' value='${tel}'>
-			<input type='hidden' name='gender' value='${gender}'>
-			<input type='hidden' name='birthdate' value='${birthdate}'>
+			<%-- <input type='hidden' name='user_id' value='${output.user_id}'>
+			<input type='hidden' name='user_name' value='${output.name}'>
+			<input type='hidden' name='user_field' value='${output.medical_field}'>
+			<input type='hidden' name='email' value='${output.email}'>
+			<input type='hidden' name='tel' value='${output.tel}'>
+			<input type='hidden' name='gender' value='${output.gender}'>
+			<input type='hidden' name='fdpmember_id' value='${output.fdpmember_id}'> --%>
+			<%-- <input type='hidden' name='birthdate' value='${birthdate}'> --%>
 		
 		 <table class="table table-bordered table-hover">
 		 	<tbody>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;" width="130px;">아이디</td>
-						<td class="text-left" width="400px;">${userId }</td>
+						<td class="text-left" width="400px;">${output.user_id}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">이름</td>
-						<td class="text-left">${userName }</td>
+						<td class="text-left">${output.name}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">성별</td>
-						<td class="text-left">${gender }</td>
+						<td class="text-left">
+							<c:choose>
+								<c:when test="${output.gender == 1}">남자</c:when>
+								<c:when test="${output.gender == 2}">여자</c:when>
+								<c:otherwise>${output.gender}</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
-					<tr>
+					<%-- <tr>
 						<td class="text-center active" style="font-weight:bold;">생년월일</td>
-						<td class="text-left">${birthdate }</td>
-					</tr>
+						<td class="text-left">${birthdate}</td>
+					</tr> --%>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">이메일</td>
-						<td class="text-left">${email }</td>
+						<td class="text-left">${output.email}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">주소</td>
-						<td class="text-left">${address1 }&nbsp;${address2 }&nbsp;${address3 }&nbsp;${address4 }</td>
+						<td class="text-left">${output.addr1}&nbsp;
+							<c:choose>
+								<c:when test="${output.addr2 == '110001' }">강남구</c:when>
+								<c:when test="${output.addr2 == '110002' }">강동구</c:when>
+								<c:when test="${output.addr2 == '110003' }">강서구</c:when>
+								<c:when test="${output.addr2 == '110004' }">관악구</c:when>
+								<c:when test="${output.addr2 == '110005' }">구로구</c:when>
+								<c:when test="${output.addr2 == '110006' }">도봉구</c:when>
+								<c:when test="${output.addr2 == '110007' }">동대문구</c:when>
+								<c:when test="${output.addr2 == '110008' }">동작구</c:when>
+								<c:when test="${output.addr2 == '110009' }">마포구</c:when>
+								<c:when test="${output.addr2 == '110010' }">서대믄구</c:when>
+								<c:when test="${output.addr2 == '110011' }">성동구</c:when>
+								<c:when test="${output.addr2 == '110012' }">성북구</c:when>
+								<c:when test="${output.addr2 == '110013' }">영등포구</c:when>
+								<c:when test="${output.addr2 == '110014' }">용산구</c:when>
+								<c:when test="${output.addr2 == '110015' }">은평구</c:when>
+								<c:when test="${output.addr2 == '110016' }">종로구</c:when>
+								<c:when test="${output.addr2 == '110017' }">중구</c:when>
+								<c:when test="${output.addr2 == '110018' }">송파구</c:when>
+								<c:when test="${output.addr2 == '110019' }">중랑구</c:when>
+								<c:when test="${output.addr2 == '110020' }">양천구</c:when>
+								<c:when test="${output.addr2 == '110021' }">서초구</c:when>
+								<c:when test="${output.addr2 == '110022' }">노원구</c:when>
+								<c:when test="${output.addr2 == '110023' }">광진구</c:when>
+								<c:when test="${output.addr2 == '110024' }">강북구</c:when>
+								<c:when test="${output.addr2 == '110025' }">금천구</c:when>
+								<c:otherwise>
+									${output.addr2}
+								</c:otherwise>
+							</c:choose>
+							
+						
+						&nbsp;${output.addr3}&nbsp;${output.addr4}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">연락처</td>
-						<td class="text-left">${tel }</td>
+						<td class="text-left">${output.tel}</td>
 					</tr>
 					<tr>
 						<td class="text-cente active" style="font-weight:bold;">전공분야</td>
-						<td class="text-left">${userField }</td>
+						<td class="text-left">
+							<c:choose>
+								<c:when test="${output.medical_field == '01'}">내과</c:when>
+								<c:when test="${output.medical_field == '03'}">정신건강의학과</c:when>
+								<c:when test="${output.medical_field == '04'}">외과</c:when>
+								<c:when test="${output.medical_field == '05'}">정형외과</c:when>
+								<c:when test="${output.medical_field == '06'}">신경외과</c:when>
+								<c:when test="${output.medical_field == '08'}">성형외과</c:when>
+								<c:when test="${output.medical_field == '09'}">마취통증의학과</c:when>
+								<c:when test="${output.medical_field == '10'}">산부인과</c:when>
+								<c:when test="${output.medical_field == '11'}">소아청소년과</c:when>
+								<c:when test="${output.medical_field == '12'}">안과</c:when>
+								<c:when test="${output.medical_field == '13'}">이비인후과</c:when>
+								<c:when test="${output.medical_field == '14'}">피부과</c:when>
+								<c:when test="${output.medical_field == '15'}">비뇨기과</c:when>
+								<c:when test="${output.medical_field == '21'}">재활의학과</c:when>
+								<c:when test="${output.medical_field == '49'}">치과</c:when>
+								<c:when test="${output.medical_field == '80'}">한의학과</c:when>
+								<c:otherwise>${output.medical_field}</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 			</tbody>
 		 </table>
@@ -113,7 +173,6 @@
 	 <button type="submit" id="joinbutton" class="btn btn-warning btn-lg" >가입 완료</button>
 	 </form>
 	</div>
-	<script src="${pageContext.request.contextPath}/assets/js/10_Sign_up_i_d2.js"></script>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
 </body>
 </html>

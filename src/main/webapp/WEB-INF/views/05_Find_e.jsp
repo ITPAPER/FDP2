@@ -119,8 +119,26 @@
     	
     	
     	$(".gu").click(function(){
-			var gu = $(this).val();
-			$(".prog").html( $(this).html()+ " 응급실 위치");
+    		var gu = $(this).val();
+			var place =null;
+			if (gu == 1) {
+				place="(도봉구, 강북구, 성북구, 노원구)";
+			} else if (gu==2){
+				place="(동대문구, 중랑구, 성동구, 노원구)";
+			} else if (gu==3) {
+				place="(강동구, 송파구)";
+			} else if (gu==4) {
+				place="(서초구, 강남구)";
+			} else if (gu==5) {
+				place="(동작구, 관악구, 금천구)";
+			} else if(gu ==6) {
+				place="(강서구, 양천구, 영등포구, 구로구)";
+			} else if (gu ==7) {
+				place="(은평구, 마포구, 서대문구)";
+			} else {
+				place="(종로구, 중구, 용산구)";
+			}
+			$(".prog").html( $(this).html() +" 응급실 위치 " + place);
 			$.ajax( {
 				url:'fer.do',
 				method:'get',
