@@ -73,24 +73,26 @@
 		<h1 style="padding: 15px;"> 서울시 응급실 현황</h1>
 		<h2 id="timer" style="padding: 15px; color: red;"></h2>
 	</header>
-
-	<c:if test="hospital!=null"  >
-	<c:forEach var="item" items="${aa}" varStatus="status">
-		<h5> 응급실  		${hvec}</h5>
-		<h5> 내과 중환자실	</h5>
-		<h5> 외과 중환자실	</h5>
-		<h5> 외과입원실		</h5>
-		<h5> 신경과입원실	</h5>
-		<h5> 신경외과 중환자실</h5>
-		<h5> 인큐베이터 유무 	</h5>
-		<h5> 소아당직의 직통번호 </h5>
-		<h5> 신경 중환자실	  </h5>
-		<h5> 신생아중환자실	  </h5>
-
-	</c:forEach>
-	</c:if>
+	<div>
+	<c:choose>
+	<c:when test="item!=null"  >
+	<h1>널이아님</h1>
+	<c:forEach var="i" items="${item}" varStatus="status">
+                        <%-- 출력을 위해 준비한 학과이름과 위치 --%>
+                        <c:set var="hv2" value="${i.hv2}" />
+                        <c:set var="hv4" value="${i.hv4}" />
+                        <h2>나오라고${hv2 }</h2>
+                        <h2>나와${hv4 }</h2>
+             </c:forEach>
+	
+	</c:when>
+	<c:otherwise>
+		<h1>왜널이지</h1>
+		
+	</c:otherwise>
+	</c:choose>
 	<br />
-
+</div>
 </div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
 </body>

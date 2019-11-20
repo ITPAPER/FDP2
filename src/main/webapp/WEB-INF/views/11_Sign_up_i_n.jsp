@@ -61,7 +61,7 @@
 			top: 800px;
 			left: 400px;
 		}
-		#address1, #address2, #address3, #address4, .col-md-10 > input {
+		#addr1, #addr2, #addr3, #addr4, .col-md-10 > input {
 		    		display: inline;
 		    	}
      </style>
@@ -101,7 +101,7 @@
 			<div class="form-group">
 				<label for='user_name' class="col-md-2">이름 <span class='identify'>*</span></label>
 				<div class="col-md-10">
-					<input type="text" name="user_name" id="user_name"	class="form-control" />
+					<input type="text" name="name" id="name"	class="form-control" />
 				</div>
 			</div>
 			<br />
@@ -114,12 +114,33 @@
 				</div>
 			</div>
 			<br />
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label for='birthdate' class="col-md-2">생년월일 <span	class='identify'>*</span></label>
 				<div class="col-md-10">
 					<input type="date" id="birthdate" name="birthdate" class="form-control">
 				</div>
-			</div>
+			</div> -->
+	        <div class="form-group">
+	        	<label for='reg_date' class="col-md-2">등록일 <span class='identify'>*</span></label>
+	        	<div class="col-md-10">
+	        		<input type="date" id="reg_date" name="reg_date" class="form-control">
+	        	</div>
+	        </div>
+	        <br/>
+	        <!-- <div class="form-group">
+	        	<label for='edit_date' class="col-md-2">수정일 <span class='identify'>*</span></label>
+	        	<div class="col-md-10">
+	        		<input type="date" id="edit_date" name="edit_date" class="form-control">
+	        	</div>
+	        </div>			
+			<div class="form-group">
+        	<label for='member_grade' class="col-md-2">회원유형 <span class='identify'>*</span></label>
+        	<div class="col-md-10">
+        		<input type="text" id="member_grade" name="member_grade" class="form-control">
+        	</div>
+        </div>
+        <br/> -->
+        
 			<br />
 			<div class="form-group">
 				<label for='email' class="col-md-2">이메일 <span class='identify'>*</span></label>
@@ -133,11 +154,11 @@
 			<div class="form-group">
             <label for='address' class="col-md-2">주소 <span class='identify'>*</span></label>
             <div class="col-md-10">
-                <select name="address1" id="address1" class="form-control" style="width: 150px;">
+                <select name="addr1" id="addr1" class="form-control" style="width: 150px;">
                 	<option value="">-----시/도-----</option>
                 	<option value="서울특별시">서울특별시</option>
                 </select>
-                <select name="address2" id="address2" class="form-control" style="width: 155px;">
+                <select name="addr2" id="addr2" class="form-control" style="width: 155px;">
                 	<option value="">-----군/구-----</option>
                 	<option value="강서구">강서구</option>
                 	<option value="양천구">양천구</option>
@@ -165,8 +186,8 @@
                 	<option value="서대문구">서대문구</option>
                 	<option value="마포구">마포구</option>
                 </select>
-                <input type="text" name="address3" id="address3" placeholder="동/읍/면 입력" class="form-control" style="width: 255px;">
-                <input type="text" name="address4" id="address4" placeholder="상세주소" class="form-control" style="width: 255px;">
+                <input type="text" name="addr3" id="addr3" placeholder="동/읍/면 입력" class="form-control" style="width: 255px;">
+                <input type="text" name="addr4" id="addr4" placeholder="상세주소" class="form-control" style="width: 255px;">
 				<br/>
 				<br/>
 				<p style="font-style:italic; font-size: 13px;">입력하신 주소는 '병원찾기' 및 '응급실찾기' 이용 시 기본 주소로 사용됩니다.</p>            
@@ -214,26 +235,26 @@
             if (!regex.compare_to('#user_pw', '#user_pw_re', '비밀번호 확인이 잘못되었습니다.')) { return false; }
             
             /** 이름 검사 */
-            if (!regex.value('#user_name', '이름을 입력하세요.')) { return false; }
-            if (!regex.kor('#user_name', '이름은 한글만 입력 가능합니다.')) { return false; }
-            if (!regex.min_length('#user_name', 2, '이름은 최소 2자 이상 입력 가능합니다.')) { return false; }
-            if (!regex.max_length('#user_name', 20, '이름은 최대 20자 까지만 입력 가능합니다.')) { return false; }
+            if (!regex.value('#name', '이름을 입력하세요.')) { return false; }
+            if (!regex.kor('#name', '이름은 한글만 입력 가능합니다.')) { return false; }
+            if (!regex.min_length('#name', 2, '이름은 최소 2자 이상 입력 가능합니다.')) { return false; }
+            if (!regex.max_length('#name', 20, '이름은 최대 20자 까지만 입력 가능합니다.')) { return false; }
 
             /* 성별 검사 */
             if (!regex.check('input[name=gender]', '성별을 선택하세요.')) {return false;}
             
             /* 생년월일 */
-            if (!regex.value('#birthdate', '생년월일을 선택하세요.')) { return false; }
+            //if (!regex.value('#birthdate', '생년월일을 선택하세요.')) { return false; }
             
             /** 이메일 검사 */
             if (!regex.value('#email', '이메일을 입력하세요.')) { return false; }
             if (!regex.email('#email', '이메일 주소가 잘못되었습니다.')) { return false; }
             
             /* 주소 검사 */
-            if (!regex.value('#address1', '주소 - 시/도를 입력하세요.')) { return false; }
-            if (!regex.value('#address2', '주소 - 군/구를 입력하세요.')) { return false; }
-            if (!regex.value('#address3', '주소 - 동/읍/면을 입력하세요.')) { return false; }
-            if (!regex.value('#address4', '주소 - 상세주소를 입력하세요.')) { return false; }
+            if (!regex.value('#addr1', '주소 - 시/도를 입력하세요.')) { return false; }
+            if (!regex.value('#addr2', '주소 - 군/구를 입력하세요.')) { return false; }
+            if (!regex.value('#addr3', '주소 - 동/읍/면을 입력하세요.')) { return false; }
+            if (!regex.value('#addr4', '주소 - 상세주소를 입력하세요.')) { return false; }
             
             /** 연락처 검사 */
             if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
