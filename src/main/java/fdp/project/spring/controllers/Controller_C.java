@@ -122,16 +122,95 @@ public class Controller_C {
 
 	/** 수정폼 페이지 */
 	@RequestMapping(value = "/15_Notice_board_2.do", method = RequestMethod.GET)
-	public String Notice_board_2(Locale locale, Model model) {
+	public ModelAndView Notice_board_2(Model model) {
 
-		return "15_Notice_board_2";
+		  /** 1) 필요한 변수값 생성 */
+        // 조회할 대상에 대한 PK값
+        int document_id = webHelper.getInt("document_id");
+        
+        // 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+        if (document_id == 0) {
+            return webHelper.redirect(null, "게시물 번호가 없습니다.");
+        }
+        
+        
+        /** 2) 데이터 조회하기 */
+        // 데이터 조회에 필요한 조건값을 Beans에 저장하기
+        Document input = new Document();
+        input.setDocument_id(document_id);
+        
+        // 조회결과를 저장할 객체 선언
+        Document output = null;
+        
+        try {
+            output = documentService.getDocumentItem(input);
+        } catch (Exception e) {
+            return webHelper.redirect(null, e.getLocalizedMessage());
+        }
+        
+        /** 3) View 처리 */
+        model.addAttribute("output", output);
+        return new ModelAndView("15_Notice_board_2");
 	}
 
 	/** 수정폼에 대한 action 페이지 */
-	@RequestMapping(value = "/15_Notice_board_2_ok.do", method = RequestMethod.GET)
-	public String Notice_board_i_ok(Locale locale, Model model) {
+	@RequestMapping(value = "/15_Notice_board_2_ok.do")
+	public ModelAndView Notice_board_i_ok(Model model) {
+		/** 1) 사용자가 입력한 파라미터 수신 및 유효성 검사 */
+        int document_id = webHelper.getInt("document_id");
+        String writer_name = webHelper.getString("writer_name");
+        String subject = webHelper.getString("subject");
+        String content = webHelper.getString("content");
+        int hit = webHelper.getInt("hit");
+        String reg_date = webHelper.getString("reg_date");
 
-		return "15_Notice_board_2_ok";
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar time = Calendar.getInstance();
+		String edit_date = d.format(time.getTime());
+		
+	
+		if (document_id == 0) { return webHelper.redirect(null, "게시글 번호가 없습니다."); }
+		 
+
+        if (writer_name == null) {
+            return webHelper.redirect(null, "작성자를 입력하세요.");
+        }
+        
+        if (subject == null) {
+            return webHelper.redirect(null, "제목을 입력하세요.");
+        }
+        
+        if (content == null) {
+            return webHelper.redirect(null, "내용을 입력하세요.");
+        }
+        
+        if (reg_date == null) {
+            return webHelper.redirect(null, "등록일이 없습니다.");
+        }
+        
+
+        /** 2) 데이터 수정하기 */
+        // 수정할 값들을 Beans에 담는다.
+        Document input = new Document();
+
+        input.setDocument_id(document_id);
+        input.setWriter_name(writer_name);
+		input.setSubject(subject);
+		input.setContent(content);
+		input.setHit(hit);
+		input.setReg_date(reg_date);
+		input.setEdit_date(edit_date);
+        try {
+            // 데이터 수정
+            documentService.editDocument(input);
+        } catch (Exception e) {
+            return webHelper.redirect(null, e.getLocalizedMessage());
+        }
+
+        /** 3) 결과를 확인하기 위한 페이지 이동 */
+        // 수정한 대상을 상세페이지에 알려주기 위해서 PK값을 전달해야 한다. 
+        String redirectUrl = contextPath + "/14_Notice_board_i.do?document_id=" + input.getDocument_id();
+        return webHelper.redirect(redirectUrl, "수정되었습니다.");
 	}
 
 	/** 작성폼 페이지 */

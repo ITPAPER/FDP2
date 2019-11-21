@@ -58,48 +58,54 @@
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table1">
+		<form  method="post" action="${pageContext.request.contextPath}/15_Notice_board_2_ok.do">
+			<input type="hidden" name="document_id" value="${output.document_id}" />
+			
 			<table class="table table-bordered">
 				<tbody>
-					<tr class="subject_content">
-						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ </h4>
-						<b>작성일: 2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
-					</tr>
-					<tr>
-					<td>
-					<form>
-						<fieldset>
-							<textarea name="content" class="ckeditor">
-								안녕하세요.
-								3살 아기가 며칠전부터 피부에 빨간 반점이 올라오는 등 이상 증상이 있네요.  
-								미열도 있습니다. 사진 첨부합니다. 조언부탁드려요.
-								</textarea>
-							</fieldset>
-						</form>
-						</td>
-					</tr>
 					<tr>
 						<td>
-							<form enctype="multipart/form-data">
-								<fieldset>
-									<div>
-										<label for="photo">첨부파일</label> <input type="file"
-											name="photo" id="photo" />
-										<button type="button" class="close" aria-hidden="true">&times;</button>
-									</div>
-								</fieldset>
-							</form>
+						
+							<h5>작성자</h5>
+						</td>
+						<td>	
+							<textarea name="writer_name" class="writer_name">${output.writer_name}</textarea>
 						</td>
 					</tr>
-				</tbody>
-			</table>
-		</div>
+					<tr>
+						<td align="center" class="subject1">
+							<h5 class="subject1">제목</h5>
+						<input type="hidden" name="hit" value="${output.hit}" />
+						<input type="hidden" name="reg_date" value="${output.reg_date}" />
+						<%-- <input type="hidden" name="edit_date" value="${output.edit_date}" /> --%>
+						</td>
+						
+						<td>
+							<textarea name="subject" class="subject">${output.subject}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<textarea name="content" class="ckeditor"> ${output.content}
+							</textarea>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+					<div>
+						<label for="photo">첨부파일</label> <input type="file"
+							name="photo" id="photo" />
+					</div>
+		
 		<div class="b">
 			<ul class="pull-right">
 				<li class="a"><a href="13_Notice_board.do"
 					class="btn btn-default btn-sm">취소</a></li>
-				<li class="a"><a href="14_Notice_board_i.do"
+				<li class="a"><a href="15_Notice_board_2_ok.do"
 					class="btn btn-default btn-sm">완료</a></li>
 			</ul>
+		</div>
+		</form>
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
