@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -92,23 +94,27 @@ thead {
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-
-	<div class="container" style="min-height: 500px;">
+	<div class="container" style="min-height: 870px;">
 		<jsp:include page="./assets/inc/remote.jsp" />
-		<h1 id="title">관리자게시판</h1>
-		<p id="description">Q &amp; A 에 대한 리스트를 보여주는 페이지입니다.</p>
+		<h1 id="title">Q &amp; A</h1>
+		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
 		<form id="h" class="clearfix">
 			<fieldset class="pull-left">
 				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
 			</fieldset>
-
-			<fieldset class="pull-right">
-				<input type="text" id="search" name="search" placeholder="Search" />
-				<button type="submit" class="btn btn-default">검색</button>
-			</fieldset>
 		</form>
-
+			<!-- 검색폼 -->
+				<form method="get" action="${pageContext.request.contextPath}/23_Notice_board_s.do">
+					<fieldset class="pull-right">
+					<!-- <label for="keyword">검색 </label> -->
+					<input type="search" name="keyword" id="keyword search" placeholder="작성자명 or 제목 검색" value="${keyword}" />
+					<button type="submit">검색</button>
+				</fieldset>
+				</form>
+		
+		
+<!-- 조회 결과 목록 -->
 		<div class="table1">
 			<table class="table table-hover">
 				<thead>
@@ -117,127 +123,123 @@ thead {
 						<th class="numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
-						<th class="text-center write_date">작성일</th>
+						<th class="text-center reg_date">작성일</th>
 						<th class="text-center hit">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="f">
-						<td><label><input type='checkbox' class='all'
+				<c:choose>
+						<%-- 조회결과가 없는 경우 --%>
+						<c:when test="${output == null || fn:length(output) == 0}">
+						<tr>
+							<td colspan="6" align="center">조회 결과가 없습니다.</td>
+						</tr>
+						</c:when>
+						<%-- 조회 결과가 있는 경우 --%>
+						<c:otherwise>
+							<%-- 조회 결과에 따른 반복 처리 --%>
+							<c:forEach var="item" items="${output}" varStatus="status">
+								<%-- 출력을 위해 준비한 게시판 작성자명, 내용, 제목 --%>
+								<c:set var="subject" value="${item.subject}" />
+								<c:set var="writer_name" value="${item.writer_name}" />
+								<c:set var="content" value="${item.content}" />
+								<c:set var="hit" value="${item.hit}" />
+								<c:set var="reg_date" value="${item.reg_date}" />
+								<c:set var="edit_date" value="${item.edit_date}" />
+								  <%-- 검색어가 있다면? --%>
+                        <c:if test="${keyword != ''}">
+                            <%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
+                            <c:set var="mark" value="<mark>${keyword}</mark>" />
+                            <%-- 출력을 위해 준비한 학과이름과 위치에서 검색어와 일치하는 단어를 형광팬 효과로 변경 --%>
+                            
+                            <c:set var="writer_name" value="${fn:replace(writer_name, keyword, mark)}" />
+                        	<c:set var="subject" value="${fn:replace(subject, keyword, mark)}" />
+                        	<c:set var="content" value="${fn:replace(content, keyword, mark)}" />
+                        	<c:set var="hit" value="${fn:replace(hit, keyword, mark)}" />
+                        	<c:set var="reg_date" value="${fn:replace(reg_date, keyword, mark)}" />
+                        	<c:set var="edit_date" value="${fn:replace(edit_date, keyword, mark)}" />
+                        </c:if>
+                        
+                        <%-- 상세페이지로 이동하기 위한 URL --%>
+                        <c:url value="/24_Notice_board_s_2.do" var="viewUrl">
+                        	<c:param name="document_id" value="${item.document_id}" />
+                        </c:url>
+                        
+                        	<tr>
+                        		<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
-						<td><img src="../img/announce.png" class="e">1</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">목이 아파요. 감기인지 아닌지 진단 부탁드립니다 ㅠㅠ</td>
-						<td class="text-center">김체리</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">456</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>2</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">열과 두통</td>
-						<td class="text-center">이승석</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">4345</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>3</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">피부 알레르기</td>
-						<td class="text-center">정민기</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">536</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>4</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">환절기 질병</td>
-						<td class="text-center">조지현</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">865</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>5</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">유행성 독감</td>
-						<td class="text-center">박기협</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">5678</td>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>6</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">목이 아파요</td>
-						<td class="text-center">첼첼</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">34543</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>7</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">열과 두통</td>
-						<td class="text-center">조장님</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">4567</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>8</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">피부 알레르기</td>
-						<td class="text-center">밍키밍키</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">7885</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>9</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">환절기 질병</td>
-						<td class="text-center">젼</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">7899</td>
-					</tr>
-					<tr>
-						<td><label><input type='checkbox' class='all'
-								value="checked"></label></td>
-						<td>10</td>
-						<td
-							onClick="location.href='24_Notice_board_s_2.do'"
-							style="cursor: pointer;">유행성 독감</td>
-						<td class="text-center">쿨켭</td>
-						<td class="text-center">2019-10-18</td>
-						<td class="text-center">6785</td>
-					</tr>
+								<td align="center">${item.document_id}</td>
+								<td><a href="${viewUrl}">${subject}</a></td>
+								<td align="center">${item.writer_name}</td>
+								<td align="center">${hit}</td>
+								<td align="center">${reg_date}</td>
+								<td align="center">${edit_date}</td>
+                        	</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</tbody>
 			</table>
+			
+	<!-- 페이지 번호 구현 -->
+    <div class="pagination pagination-md">
+    <%-- 이전 그룹에 대한 링크 --%>
+    <c:choose>
+        <%-- 이전 그룹으로 이동 가능하다면? --%>
+        <c:when test="${pageData.prevPage > 0}">
+            <%-- 이동할 URL 생성 --%>
+            <c:url value="/23_Notice_board_s.do" var="prevPageUrl">
+                <c:param name="page" value="${pageData.prevPage}" />
+                <c:param name="keyword" value="${keyword}" />
+            </c:url>
+            <a href="${prevPageUrl}">&laquo;</a>
+        </c:when>
+        <c:otherwise>
+            &laquo;
+        </c:otherwise>
+    </c:choose>
+    
+    <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+    <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
+        <%-- 이동할 URL 생성 --%>
+        <c:url value="/23_Notice_board_s.do" var="pageUrl">
+            <c:param name="page" value="${i}" />
+            <c:param name="keyword" value="${keyword}" />
+        </c:url>
+        
+        <%-- 페이지 번호 출력 --%>
+        <c:choose>
+            <%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+            <c:when test="${pageData.nowPage == i}">
+                <strong>[${i}]</strong>
+            </c:when>
+            <%-- 나머지 페이지의 경우 링크 적용함 --%>
+            <c:otherwise>
+                <a href="${pageUrl}">[${i}]</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    
+    <%-- 다음 그룹에 대한 링크 --%>
+    <c:choose>
+        <%-- 다음 그룹으로 이동 가능하다면? --%>
+        <c:when test="${pageData.nextPage > 0}">
+            <%-- 이동할 URL 생성 --%>
+            <c:url value="/23_Notice_board_s.do" var="nextPageUrl">
+                <c:param name="page" value="${pageData.nextPage}" />
+                <c:param name="keyword" value="${keyword}" />
+            </c:url>
+            <a href="${nextPageUrl}">&raquo;</a>
+        </c:when>
+        <c:otherwise>
+            &raquo;
+        </c:otherwise>
+    </c:choose>
+    </div>
 		</div>
-	</div>
 
 	<div id="g" class="clearfix">
-		<ul class="pagination pagination-md">
+		<!-- <ul class="pagination pagination-md">
 			<li class="disabled"><a href="#">&laquo;</a></li>
 			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
 			<li><a href="#">2</a></li>
@@ -245,7 +247,7 @@ thead {
 			<li><a href="#">4</a></li>
 			<li><a href="#">5</a></li>
 			<li><a href="#">&raquo;</a></li>
-		</ul>
+		</ul> -->
 
 		<ul class="pull-right">
 			<li class="a"><a href="16_Notice_board_new.do"

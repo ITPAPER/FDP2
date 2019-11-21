@@ -9,7 +9,6 @@
 <jsp:include page="./assets/inc/head.jsp" />
 <jsp:include page="./assets/inc/remote_css.jsp" />
 <title>Notice_board</title>
-
 <style type="text/css">
 /** 테이블 설정 */
 .table {
@@ -90,7 +89,7 @@ thead {
 			<fieldset class="pull-left">
 				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
 			</fieldset>
-		
+		</form>
 			<!-- 검색폼 -->
 				<form method="get" action="${pageContext.request.contextPath}/13_Notice_board.do">
 					<fieldset class="pull-right">
@@ -99,7 +98,7 @@ thead {
 					<button type="submit">검색</button>
 				</fieldset>
 				</form>
-		</form>
+		
 		
 <!-- 조회 결과 목록 -->
 		<div class="table1">
@@ -168,7 +167,8 @@ thead {
 				</tbody>
 			</table>
 			
-			  <!-- 페이지 번호 구현 -->
+	<!-- 페이지 번호 구현 -->
+    <div class="pagination pagination-md">
     <%-- 이전 그룹에 대한 링크 --%>
     <c:choose>
         <%-- 이전 그룹으로 이동 가능하다면? --%>
@@ -178,17 +178,17 @@ thead {
                 <c:param name="page" value="${pageData.prevPage}" />
                 <c:param name="keyword" value="${keyword}" />
             </c:url>
-            <a href="${prevPageUrl}">[이전]</a>
+            <a href="${prevPageUrl}">&laquo;</a>
         </c:when>
         <c:otherwise>
-            [이전]
+            &laquo;
         </c:otherwise>
     </c:choose>
     
     <%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
     <c:forEach var="i" begin="${pageData.startPage}" end="${pageData.endPage}" varStatus="status">
         <%-- 이동할 URL 생성 --%>
-        <c:url value="/13_Noitice_board.do" var="pageUrl">
+        <c:url value="/13_Notice_board.do" var="pageUrl">
             <c:param name="page" value="${i}" />
             <c:param name="keyword" value="${keyword}" />
         </c:url>
@@ -215,17 +215,18 @@ thead {
                 <c:param name="page" value="${pageData.nextPage}" />
                 <c:param name="keyword" value="${keyword}" />
             </c:url>
-            <a href="${nextPageUrl}">[다음]</a>
+            <a href="${nextPageUrl}">&raquo;</a>
         </c:when>
         <c:otherwise>
-            [다음]
+            &raquo;
         </c:otherwise>
     </c:choose>
+    </div>
 		</div>
 	
 
 	<div id="g" class="clearfix">
-		<ul class="pagination pagination-md">
+		<!-- <ul class="pagination pagination-md">
 			<li class="disabled"><a href="#">&laquo;</a></li>
 			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
 			<li><a href="#">2</a></li>
@@ -233,7 +234,7 @@ thead {
 			<li><a href="#">4</a></li>
 			<li><a href="#">5</a></li>
 			<li><a href="#">&raquo;</a></li>
-		</ul>
+		</ul> -->
 
 		<ul class="pull-right">
 			<li class="a"><a href="${pageContext.request.contextPath}/16_Notice_board_new.do?document_id="
@@ -277,7 +278,5 @@ thead {
 				});
 			});
 		</script>
-
-	
 </body>
 </html>

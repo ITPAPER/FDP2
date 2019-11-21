@@ -68,7 +68,7 @@
 			<table class="table table-bordered">
 				<tbody>
 					<tr class="subject_content">
-						<td><h4>${output.document_id}</h4></td>
+						<td><h4>${output.subject}</h4></td>
 					</tr>
 					<tr>
 						<td>
@@ -88,8 +88,7 @@
 					</tr>
 					<tr>
 						<td>
-							<p></p> 수두인 것으로 예측됩니다. 빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
-							<p></p>
+							 수두인 것으로 예측됩니다. 빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
 						</td>
 					</tr>
 					<tr>

@@ -56,39 +56,39 @@
 		<h1 id="title">관리자게시판</h1>
 		<p id="description">게시글을 수정, 삭제, 공지등록 할 수 있습니다.</p>
 
-		<div class="table2">
+<div class="table2">
 			<table class="table table-bordered">
 				<tbody>
 					<tr class="subject_content">
-						<td><h4>목이 아파요. 감기인지 아닌지 진단 부탁드립니다ㅠㅠ</h4> <b>작성일:
-								2019-09-09 | 작성자: 김체리 | 조회수 : 23423</b></td>
+						<td><h4>${output.subject}</h4></td>
 					</tr>
 					<tr>
 						<td>
-							<p></p> 안녕하세요. <br /> 3살 아기가 며칠전부터 피부에 빨간 반점이 올라오는 등 이상 증상이 있네요.
-							<br /> 미열도 있습니다. 사진 첨부합니다. 조언부탁드려요.
-							<p></p>
+							${output.content}
 						</td>
 					</tr>
 					<tr>
-						<td><a href="./assets/img/baby_redspot.jpg"> <img
-								class="attachment" alt="첨부파일" src="./assets/img/attachment.png" /> 피부
-								붉은 반점.jpg </td>
+						<td><a href="./assets/img/baby_redspot.jpg">
+								<img class="attachment" alt="첨부파일" src="./assets/img/attachment.png" />
+								피부 붉은 반점.jpg
+							</a>
+						</td>
 					</tr>
 					<tr>
-						<td><b>답변일: 2019-09-09 | 전문의: 박기협 | 전문 분야 : 소아과</b></td>
+						<td><b>답변일: 2019-09-09 | 전문의: 박기협 | 전문 분야 : 소아과</b>
+						</td>
 					</tr>
 					<tr>
 						<td>
-							<p></p> 수두인 것으로 예측됩니다. 빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
-							<p></p>
+							 수두인 것으로 예측됩니다. 빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<h5>
 								<b>댓글</b>
-							</h5> <br /> <!-- 웹진 박스를 목록으로 구성하기 위한 구조 입니다. -->
+							</h5> <br /> 
+							<!-- 웹진 박스를 목록으로 구성하기 위한 구조 입니다. -->
 							<ul class="comment">
 								<!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
 								<li>
@@ -98,11 +98,13 @@
 										<h5 class="pull-left">cpfl***</h5>
 										<!-- 제목에 float: right 적용 - pull-right -->
 										<div class="pull-right">
-											<a href="#"><i class="glyphicon"></i></a>
+											<a href="#" title="수정"><i
+												class="glyphicon glyphicon-edit"></i></a> <a href="#" title="삭제"><i
+												class="glyphicon glyphicon-remove"></i></a>
 										</div>
 									</div>
-									<p>요즘 수두가 유행이더라구요ㅠㅠ빨리 낫길..!</p> <small>2019-10-20
-										15:11:32</small>
+									<p>요즘 수두가 유행이더라구요ㅠㅠ빨리 낫길..!</p> 
+										<small>2019-10-20 15:11:32</small>
 								</li>
 							</ul>
 						</td>
