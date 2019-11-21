@@ -109,8 +109,8 @@ thead {
 						<th class="numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
-						<th class="text-center reg_date">작성일</th>
-						<th class="text-center hit">조회수</th>
+						<th class="text-center reg_date">조회수</th>
+						<th class="text-center hit">작성일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -159,7 +159,7 @@ thead {
 								<td align="center">${item.writer_name}</td>
 								<td align="center">${hit}</td>
 								<td align="center">${reg_date}</td>
-								<td align="center">${edit_date}</td>
+								
                         	</tr>
 							</c:forEach>
 						</c:otherwise>

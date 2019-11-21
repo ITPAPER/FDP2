@@ -50,6 +50,11 @@
 .subject_content {
 	background-color: #eee;
 }
+
+/** 상세페이지 게시물 상단바 - 제목, 작성자, 작성일, 수정일 */
+.title_info {
+	margin-bottom: -15px;
+}
 </style>
 <head>
 	<jsp:include page="./assets/inc/head.jsp" />
@@ -68,7 +73,11 @@
 			<table class="table table-bordered">
 				<tbody>
 					<tr class="subject_content">
-						<td><h4>${output.subject}</h4></td>
+						<td><h4>${output.subject}</h4>
+							<h6 class="title_info">작성자: ${output.writer_name} &nbsp;&nbsp;
+							작성일: ${output.reg_date} &nbsp;&nbsp;
+							수정일: ${output.edit_date}</h6>
+						</td>
 					</tr>
 					<tr>
 						<td>
@@ -156,9 +165,6 @@
 		               			 });
 		           			});
 			  			});
-			  
 			  </script>
-			  
-	
-</body>
+	</body>
 </html>

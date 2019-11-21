@@ -77,7 +77,7 @@
 							<h5 class="subject1">제목</h5>
 						<input type="hidden" name="hit" value="${output.hit}" />
 						<input type="hidden" name="reg_date" value="${output.reg_date}" />
-						<%-- <input type="hidden" name="edit_date" value="${output.edit_date}" /> --%>
+						<input type="hidden" name="edit_date" value="${output.edit_date}" />
 						</td>
 						
 						<td>
@@ -101,8 +101,10 @@
 			<ul class="pull-right">
 				<li class="a"><a href="13_Notice_board.do"
 					class="btn btn-default btn-sm">취소</a></li>
-				<li class="a"><a href="15_Notice_board_2_ok.do"
-					class="btn btn-default btn-sm">완료</a></li>
+				<!-- <li class="a"><a href="15_Notice_board_2_ok.do"
+					class="btn btn-default btn-sm">완료</a></li> -->
+				<li class="a"><button type="submit"
+					class="btn btn-default btn-sm">완료</button></li>	
 			</ul>
 		</div>
 		</form>
