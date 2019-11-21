@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="ko">
   <head>
@@ -208,12 +209,22 @@
 		<div class="container" id="bigbox">
 			<div class="row contentsbox">
 				<div class="col-md-3">
-					<div class="row  login_box">
-						<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
-						<a href="26_Profile_i.do" class="find_id">아이디/비밀번호 찾기</a>
-						<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
-					</div>
-
+					<c:choose>
+						<c:when test="${cookie.fdp_cookie == null }">
+							<div class="row  login_box">
+								<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
+								<a href="#" class="find_id">아이디/비밀번호 찾기</a>
+								<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="row  login_box">
+								<div class="login_cover"><a class="login_btn" href="#">어서오세요 ${cookie.fdp_cookie.value } 님~</a></div>
+								<a href="26_Profile_i.do" class="find_id">회원 정보 수정</a>
+								<a href="09_Sign_up_a.do" class="sign_up">로그아웃</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					
 				</div>
 				<div class="col-md-9 e-container" id="erer">

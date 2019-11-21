@@ -87,5 +87,12 @@
             </if>
         </where>
     </select>
+    <select id="selectCountOne" 
+		parameterType="fdp.project.spring.model.Member"
+        resultType="int">
+        
+        SELECT COUNT(*) FROM fdpmember WHERE user_id=#{user_id} and user_pw=#{user_pw}
+        
+    </select>
 	
 </mapper>

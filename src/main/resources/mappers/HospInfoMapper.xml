@@ -26,6 +26,9 @@
 		resultMap="commentMap">
 		SELECT * FROM hospinfo
 		<where>
+			<if test="opentime != null and opentime != ''">
+				AND addr LIKE concat('%', #{opentime}, '%')
+			</if>
 			<if test="addr != null and addr != ''">
 				AND addr LIKE concat('%', #{addr}, '%')
 			</if>

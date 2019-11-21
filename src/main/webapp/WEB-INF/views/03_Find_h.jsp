@@ -22,7 +22,11 @@
         	margin-top:0;
         }
         /* 제목 영역의 배경색상과 태두리 */
-    	.accord-title {  background: #eeeeee; border: 1px solid #d5d5d5; }
+    	.accord-title {  
+    		background: #eeeeee; 
+    		border: 1px solid #d5d5d5; 
+    		
+    		}
 		
         /* 제목영역의 링크에 대한 크기, 글자모양 */
     	 .accord-title > a {
@@ -47,6 +51,13 @@
     	}
 		.input-group{
 			width:300px;
+		}
+		.magam{
+			content:'';
+			
+		}
+		.glight{
+			float:right;
 		}
         /* 마지막 내용 박스의 테두리 보정 */
     	.content:last-child { border-bottom: 1px solid #d5d5d5;	}
@@ -143,7 +154,7 @@
 	<!-- Ajax로 읽어온 내용을 출력하는데 사용될 HTML 템플릿 -->
 	<script id="list-item-tmpl" type="text/x-hendlebars-template">
 		<div class='accord-item'>
-    		<h4 class='accord-title'><a href="#content{{num}}" value="{{num}}">{{yadmNm}}</a></h4>
+    		<h4 class='accord-title '  ><a href="#content{{num}}" value="{{num}}" id="cc{{num}}" class="magam">{{yadmNm}}</a></h4>
     		<div id="content{{num}}" class="content">
 				주소 : {{addr}}<br/>
 				<a href="tel:{{telno}}"> 전화번호 : {{telno}}</a>
@@ -246,11 +257,7 @@
 							var d = new Date();
 							var ttt = d.getHours() * 100;
 							ttt += d.getMinutes();
-							console.log(i + "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" +req[i].opentime);
 							d= i+1;
-							/* 
-							if( req[i].opentime != undefind){	
-								 */
 								if(ttt > req[i].closetime || req[i].opentime > ttt){
 									$('#time' + d).html("문닫음!");
 								}else if(ttt < req[i].closetime && req[i].opentime < ttt ){
@@ -258,13 +265,41 @@
 								} else{
 									$('#time' + d).html("병원 운영시간이 입력되지 않았습니다");
 								}
-							/* 	 
-							}else{
-								
-							} */
-							
+
+							if($("#time"+ d).html()=="영업중!"){
+								$("#cc" + d).append("<img src='./assets/img/glight.png' height='10px' weight='10px' class='glight' />");
+								map.addMarker({
+									//마우스 오버시 노란박스
+										title: req[i].yadmNm,
+										lat: req[i].YPos,
+										lng: req[i].XPos,
+										icon:{
+											url:"./assets/plugins/gmaps/map-marker.png",
+											scaledSize: new google.maps.Size(50, 50)
+										},
+										
+										infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
+											content: desc
+										}
+									})
+							} else{
+								map.addMarker({
+									//마우스 오버시 노란박스
+										title: req[i].yadmNm,
+										lat: req[i].YPos,
+										lng: req[i].XPos,
+										icon:{
+											url:"./assets/plugins/gmaps/map-marker2.png",
+											scaledSize: new google.maps.Size(50, 50)
+										},
+										
+										infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
+											content: desc
+										}
+									})
+							}
 							if(i == req.length-1){
-								$(".accord-title a").click(function(e) {
+								$(".magam").click(function(e) {
 						            // 링크의 기본 동작(페이지 이동) 방지
 									e.preventDefault();
 									var a=0;
@@ -299,20 +334,7 @@
 									$('.accord').animate({scrollTop : offset.top-100}, 50);
 								}); 
 							}
-							map.addMarker({
-							//마우스 오버시 노란박스
-								title: req[i].yadmNm,
-								lat: req[i].YPos,
-								lng: req[i].XPos,
-								icon:{
-									url:"./assets/plugins/gmaps/map-marker.png",
-									scaledSize: new google.maps.Size(50, 50)
-								},
-								
-								infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
-									content: desc
-								}
-							})
+							
 						};
 					} 		
 				}); //end ajax	

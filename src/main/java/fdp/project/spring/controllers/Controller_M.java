@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
@@ -21,12 +25,14 @@ import fdp.project.spring.helper.WebHelper;
 import fdp.project.spring.model.ErItem;
 import fdp.project.spring.model.HosItem;
 import fdp.project.spring.model.HospInfo;
+import fdp.project.spring.model.Member;
 import fdp.project.spring.model.MyErList;
 import fdp.project.spring.model.MyErList.Response.Body.Items.Item;
 import fdp.project.spring.model.MyErListUno;
 import fdp.project.spring.model.MyErListUno.Response.Body.Items.Itema;
 import fdp.project.spring.service.ErService;
 import fdp.project.spring.service.HospInfoService;
+import fdp.project.spring.service.MemberService;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -52,7 +58,7 @@ public class Controller_M {
 	@Autowired RetrofitHelper retrofitHelper;
 	@ResponseBody
 	@RequestMapping(value = {"fer.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String fer(Model model) { 
+	public String fer() { 
 			//@RequestParam(value="data") String gu) {
 		
 		/** 1) 필요한 객체 생성 부분 */
@@ -157,11 +163,66 @@ public class Controller_M {
 			@RequestParam(value="data") String sgguCd,
 			@RequestParam(value="dong") String emdongNm) {
 		
+		int bbb = Integer.parseInt(sgguCd);
+		String aaa="";
+		
+		switch(bbb) { 
+		  case 110001: 
+			  aaa="강남구"; break;
+		  case 110002: 
+			  aaa="강동구"; break; 
+		  case 110003: 
+			  aaa="강서구"; break; 
+		  case 110004:
+			  aaa="관악구"; break; 
+		  case 110005:
+			  aaa="구로구"; break; 
+		  case 110006:
+			  aaa="도봉구"; break; 
+		  case 110007:
+			  aaa="동대문구"; break; 
+		  case 110008:
+			  aaa="동작구"; break; 
+		  case 110009:
+			  aaa="마포구"; break; 
+		  case 110010:
+			  aaa="서대문구"; break; 
+		  case 110011:
+			  aaa="성동구"; break; 
+		  case 110012:
+			  aaa="성북구"; break; 
+		  case 110013:
+			  aaa="영등포구"; break; 
+		  case 110014:
+			  aaa="용산구"; break; 
+		  case 110015:
+			  aaa="은평구"; break; 
+		  case 110016:
+			  aaa="종로구"; break; 
+		  case 110017:
+			  aaa="중구"; break;
+		  case 110018:
+			  aaa="송파구"; break; 
+		  case 110019:
+			  aaa="중랑구"; break; 
+		  case 110020:
+			  aaa="양천구"; break;
+		  case 110021:
+			  aaa="서초구"; break;
+		  case 110022:
+			  aaa="노원구"; break; 
+		  case 110023:
+			  aaa="광진구"; break; 
+		  case 110024:
+			  aaa="강북구"; break; 
+		  case 110025:
+			  aaa="금천구"; break; 
+		}
 		
 		HospInfo input = new HospInfo();
 		Gson gson = new Gson();
 		 
-		input.setOpentime(sgguCd);
+		input.setOpentime(aaa);
 		input.setAddr(emdongNm);
 		input.setSubj(dgsbjtCd);
 		
@@ -171,16 +232,28 @@ public class Controller_M {
 			output = hospInfoService.getHospInfoList(input);
 			
 			int i=0;
+			Calendar c = Calendar.getInstance();
 			for(HospInfo cc : output) {
-				cc.setDay_of_week(Calendar.DAY_OF_WEEK);
+				cc.setDay_of_week(c.get(Calendar.DAY_OF_WEEK));
+				cc.setOpentime(sgguCd);
 				HospInfo dd= cc;
 				try {
+					
 					cc = hospInfoService.getHospInfo(cc);
 					
 					dd.setOpentime(cc.getOpentime());
 					dd.setClosetime(cc.getClosetime());
 				}catch(Exception e){
-					e.printStackTrace();
+					if(c.get(Calendar.DAY_OF_WEEK) == 7) {
+						dd.setOpentime("0900");
+						dd.setClosetime("1230");
+					}else if(c.get(Calendar.DAY_OF_WEEK) == 1) {
+						dd.setOpentime("0000");
+						dd.setClosetime("0000");
+					}else {
+					dd.setOpentime("0900");
+					dd.setClosetime("1700");
+					}
 				}
 				
 				if(!output.isEmpty()) {
@@ -235,8 +308,9 @@ public class Controller_M {
 				hospInfoService.addHospInfo(output);
 				
 				int i=0;
+				Calendar c = Calendar.getInstance();
 				for(HospInfo cc : output) {
-					cc.setDay_of_week(Calendar.DAY_OF_WEEK);
+					cc.setDay_of_week(c.get(Calendar.DAY_OF_WEEK));
 					HospInfo dd= cc;
 					try {
 						cc = hospInfoService.getHospInfo(cc);
@@ -244,7 +318,16 @@ public class Controller_M {
 						dd.setOpentime(cc.getOpentime());
 						dd.setClosetime(cc.getClosetime());
 					}catch(Exception e){
-						System.out.println(cc.getYadmNm() + "병원은 시간정보가 없습니다.");
+						if(c.get(Calendar.DAY_OF_WEEK) == 7) {
+							dd.setOpentime("0900");
+							dd.setClosetime("1230");
+						}else if(c.get(Calendar.DAY_OF_WEEK) == 1) {
+							dd.setOpentime("0000");
+							dd.setClosetime("0000");
+						}else {
+						dd.setOpentime("0900");
+						dd.setClosetime("1700");
+						}
 					}
 					
 					if(!output.isEmpty()) {
@@ -256,13 +339,48 @@ public class Controller_M {
 				}catch(Exception e) {
 					e.printStackTrace();
 			}
-		
-			
-			
-			
-			
-			
 		}
 		return  gson.toJson(output);
+	}
+	
+	@Autowired MemberService memberService;
+	@RequestMapping(value = "/coosave.do", method = RequestMethod.POST)
+	public ModelAndView coosave(HttpServletResponse response) {
+		String user_id = webHelper.getString("user_id");
+		String user_pw = webHelper.getString("user_pw");
+		int autologin = webHelper.getInt("autologin");
+		
+		System.out.println("111111");
+		if (user_id == null) {
+			return webHelper.redirect(null, "아이디를 입력해주세요.");
+		}
+		if (user_pw == null) {
+			return webHelper.redirect(null, "비밀번호를 입력해주세요.");
+		}
+		
+		Member input = new Member();
+		input.setUser_id(user_id);
+		input.setUser_pw(user_pw);
+		
+		int output = 0;
+		
+		try {
+			output = memberService.getMemberOne(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
+		}
+		if(output != 0) {
+			Cookie cookie = new Cookie("fdp_cookie", user_id);
+			cookie.setPath("/");
+			cookie.setDomain("localhost");
+		
+			if(autologin == 7 ) {
+				cookie.setMaxAge(604800);
+			}
+			response.addCookie(cookie);
+		
+		}
+		
+		return new ModelAndView("redirect: index.do");
 	}
 }

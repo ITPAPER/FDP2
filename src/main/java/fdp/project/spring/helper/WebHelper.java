@@ -624,9 +624,9 @@ public class WebHelper {
 		 * @param rt				결과 메시지( 성공일 경우 OK, 그 밖의 경우 에러메시지)
 		 * @param data				JSON으로 변환할 데이터 컬렉션
 		 * 
-		 * @return String
+		 * @return Map<String, Object>
 		 */
-		public String getJsonData(int statusCode, String rt, Map<String, Object> data) {
+		public Map<String, Object> getJsonData(int statusCode, String rt, Map<String, Object> data) {
 			/** 1) JSON 형식 출력을 위한 HTTP 헤더 설정 */
 			// JSON 형식임을 명시함
 			this.response.setContentType("application/json");
@@ -662,8 +662,10 @@ public class WebHelper {
 			}
 			
 			//문자열로 변환 후 리턴함
-			Gson gson = new Gson();
-			return gson.toJson(map);
+			//Gson gson = new Gson();
+			//return gson.toJson(map);
+			
+			return map;
 		}
 		
 		/**
@@ -677,9 +679,9 @@ public class WebHelper {
 		 * 
 		 * @param data		JSON으로 변환할 데이터 컬렉션
 		 * 
-		 * @return String
+		 * @return Map<String, Object>
 		 */
-		public String getJsonData(Map<String, Object> data) {
+		public Map<String, Object> getJsonData(Map<String, Object> data) {
 			return this.getJsonData(200, "OK", data);
 		}
 		
@@ -691,9 +693,9 @@ public class WebHelper {
 		 * 를 호출 한다
 		 * ex) 데이터 입력, 수정, 삭제 등을 수행하고 특별히 조회 결과를 반환하지 않을 경우
 		 * 
-		 * @return String
+		 * @return Map<String, Object>
 		 */
-		public String getJsonData() {
+		public Map<String, Object> getJsonData() {
 			return this.getJsonData(200, "OK", null);
 		}
 		
@@ -706,9 +708,9 @@ public class WebHelper {
 		 * 
 		 * @param rt
 		 * 
-		 * @return String
+		 * @return Map<String, Object>
 		 */
-		public String getJsonError(String rt) {
+		public Map<String, Object> getJsonError(String rt) {
 			return this.getJsonData(500, rt, null);
 		}
 		
@@ -721,9 +723,9 @@ public class WebHelper {
 		 * 
 		 * @param rt
 		 * 
-		 * @return String
+		 * @return Map<String, Object>
 		 */
-		public String getJsonWarning(String rt) {
+		public Map<String, Object> getJsonWarning(String rt) {
 			return this.getJsonData(400, rt, null);
 		}
 		

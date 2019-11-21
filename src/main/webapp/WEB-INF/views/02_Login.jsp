@@ -48,34 +48,34 @@
 	
 	<section>
 		<div class="container lbox" style="height:718px;">
-			<form role="form" class="form-inline lo-box">
-			<fieldset >
+			<form method="post" class="form-inline lo-box" action="coosave.do">
+				<fieldset >
 				
-				<div class="container blank" style="height:30px;"></div>
+					<div class="container blank" style="height:30px;"></div>
 				
-				<!-- 다음예제에서 반복됩니다. -->
-				<div class="form-group">
-					<label for="user_id">아이디</label>
+					<!-- 다음예제에서 반복됩니다. -->
+					<div class="form-group">
+						<label for="user_id">아이디</label>
+						<br/>
+						<input type="text" id="user_id" name="user_id" class="form-control" placeholder="아이디를 입력하세요."/>
+					</div>
+					<div class="container blank" style="height:30px;"></div>
+					<div class="form-group">
+						<label for="user_pw">비밀번호</label>
+						<br/>
+						<input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
+					</div>
+				
+					<div class="container blank" style="height:30px;"></div>
+				
+					<button id="li-btn" type="submit" class="btn btn-primary btn-block">로그인</button>
 					<br/>
-					<input type="text" id="user_id" class="form-control" placeholder="아이디를 입력하세요."/>
-				</div>
-				<div class="container blank" style="height:30px;"></div>
-				<div class="form-group">
-					<label for="user_pw">비밀번호</label>
-					<br/>
-					<input type="password" id="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
-				</div>
-				
-				<div class="container blank" style="height:30px;"></div>
-				
-				<button id="li-btn" type="submit" class="btn btn-primary btn-block">로그인</button>
-				<br/>
-				<label id="check"><input type="checkbox" value="?????">자동로그인</label>
-				<a href="26_Profile_i.jsp" class="find_id">아이디/비밀번호 찾기</a>
-				<a href="09_Sign_up_a.jsp" class="sign_up">회원 가입</a>
-				<!-- 여기까지 입니다. -->
-			</fieldset>
-		</form>
+					<label id="check"><input type="checkbox" name="autologin" value="7">자동로그인</label>
+					<a href="26_Profile_i.jsp" class="find_id">아이디/비밀번호 찾기</a>
+					<a href="09_Sign_up_a.jsp" class="sign_up">회원 가입</a>
+					<!-- 여기까지 입니다. -->
+				</fieldset>
+			</form>
 		</div>
 	</section>
 	<jsp:include page="./assets/inc/bottom.jsp" />
@@ -103,7 +103,6 @@
 		);
 		$(".lo-box").submit(function(e){
 			//기본동작 수행방식
-			e.preventDefault();
 			/*아이디 검사*/
 			if (!regex.value('#user_id', '아이디를 입력하세요.')) {return false;}
 			if (!regex.value('#user_pw', '비밀번호를를 입력하세요.')) {return false;}
