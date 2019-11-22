@@ -64,42 +64,75 @@
 			<h3 class="title"><strong>입력하신 정보를 확인해 주세요.</strong></h3>	
 		</div>
 		 <div class="b">
-			<input type='hidden' name='user_id' value='${userId}'>
-			<input type='hidden' name='user_name' value='${userName}'>
-			<input type='hidden' name='email' value='${email}'>
-			<input type='hidden' name='tel' value='${tel}'>
-			<input type='hidden' name='gender' value='${gender}'>
-			<input type='hidden' name='birthdate' value='${birthdate}'>
 		
-		 <table class="table table-bordered table-hover">
+		 		 <table class="table table-bordered table-hover">
 		 	<tbody>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;" width="130px;">아이디</td>
-						<td class="text-left" width="400px;">${userId }</td>
+						<td class="text-left" width="400px;">${output.user_id}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">이름</td>
-						<td class="text-left">${userName }</td>
+						<td class="text-left">${output.name}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">성별</td>
-						<td class="text-left">${gender }</td>
+						<td class="text-left">
+							<c:choose>
+								<c:when test="${output.gender == 1}">남자</c:when>
+								<c:when test="${output.gender == 2}">여자</c:when>
+								<c:otherwise>${output.gender}</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">생년월일</td>
-						<td class="text-left">${birthdate }</td>
+						<td class="text-left">${output.birthdate}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">이메일</td>
-						<td class="text-left">${email }</td>
+						<td class="text-left">${output.email}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">주소</td>
-						<td class="text-left">${address1 }&nbsp;${address2 }&nbsp;${address3 }&nbsp;${address4 }</td>
+						<td class="text-left">${output.addr1}&nbsp;
+							<c:choose>
+								<c:when test="${output.addr2 == '110001' }">강남구</c:when>
+								<c:when test="${output.addr2 == '110002' }">강동구</c:when>
+								<c:when test="${output.addr2 == '110003' }">강서구</c:when>
+								<c:when test="${output.addr2 == '110004' }">관악구</c:when>
+								<c:when test="${output.addr2 == '110005' }">구로구</c:when>
+								<c:when test="${output.addr2 == '110006' }">도봉구</c:when>
+								<c:when test="${output.addr2 == '110007' }">동대문구</c:when>
+								<c:when test="${output.addr2 == '110008' }">동작구</c:when>
+								<c:when test="${output.addr2 == '110009' }">마포구</c:when>
+								<c:when test="${output.addr2 == '110010' }">서대믄구</c:when>
+								<c:when test="${output.addr2 == '110011' }">성동구</c:when>
+								<c:when test="${output.addr2 == '110012' }">성북구</c:when>
+								<c:when test="${output.addr2 == '110013' }">영등포구</c:when>
+								<c:when test="${output.addr2 == '110014' }">용산구</c:when>
+								<c:when test="${output.addr2 == '110015' }">은평구</c:when>
+								<c:when test="${output.addr2 == '110016' }">종로구</c:when>
+								<c:when test="${output.addr2 == '110017' }">중구</c:when>
+								<c:when test="${output.addr2 == '110018' }">송파구</c:when>
+								<c:when test="${output.addr2 == '110019' }">중랑구</c:when>
+								<c:when test="${output.addr2 == '110020' }">양천구</c:when>
+								<c:when test="${output.addr2 == '110021' }">서초구</c:when>
+								<c:when test="${output.addr2 == '110022' }">노원구</c:when>
+								<c:when test="${output.addr2 == '110023' }">광진구</c:when>
+								<c:when test="${output.addr2 == '110024' }">강북구</c:when>
+								<c:when test="${output.addr2 == '110025' }">금천구</c:when>
+								<c:otherwise>
+									${output.addr2}
+								</c:otherwise>
+							</c:choose>
+							
+						
+						&nbsp;${output.addr3}&nbsp;${output.addr4}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">연락처</td>
-						<td class="text-left">${tel }</td>
+						<td class="text-left">${output.tel}</td>
 					</tr>
 			</tbody>
 		 </table>

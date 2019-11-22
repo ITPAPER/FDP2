@@ -62,8 +62,8 @@
 			left: 400px;
 		}
 		#addr1, #addr2, #addr3, #addr4, .col-md-10 > input {
-		    		display: inline;
-		    	}
+		    display: inline;
+		}
      </style>
 </head>
 <body>
@@ -73,7 +73,7 @@
 			<strong>회원가입 - 일반인</strong>
 		</h3>
 
-		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_n2.do " >
+		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_add.do " >
 			<div class="form-group">
 				<label for='user_id' class="col-md-2">아이디 <span class='identify'>*</span></label>
 				<div class="col-md-10">
@@ -108,18 +108,18 @@
 			<div class="form-group">
 				<label for='gender1' class="col-md-2">성별 <span class='identify'>*</span></label>
 				<div class="col-md-10">
-					<label><input type='radio' name='gender' id='gender1' value='M'>남자</label> 
+					<label><input type='radio' name='gender' id='gender1' value='1'>남자</label> 
 					&nbsp; 
-					<label><input type='radio' name='gender' id='gender2' value='F'>여자</label>
+					<label><input type='radio' name='gender' id='gender2' value='2'>여자</label>
 				</div>
 			</div>
 			<br />
-			<!-- <div class="form-group">
+			<div class="form-group">
 				<label for='birthdate' class="col-md-2">생년월일 <span	class='identify'>*</span></label>
 				<div class="col-md-10">
 					<input type="date" id="birthdate" name="birthdate" class="form-control">
 				</div>
-			</div> -->
+			</div>
 	        <div class="form-group">
 	        	<label for='reg_date' class="col-md-2">등록일 <span class='identify'>*</span></label>
 	        	<div class="col-md-10">
@@ -244,7 +244,7 @@
             if (!regex.check('input[name=gender]', '성별을 선택하세요.')) {return false;}
             
             /* 생년월일 */
-            //if (!regex.value('#birthdate', '생년월일을 선택하세요.')) { return false; }
+            if (!regex.value('#birthdate', '생년월일을 선택하세요.')) { return false; }
             
             /** 이메일 검사 */
             if (!regex.value('#email', '이메일을 입력하세요.')) { return false; }

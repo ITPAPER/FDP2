@@ -55,16 +55,15 @@
 		parameterType="fdp.project.spring.model.Member"
 		useGeneratedKeys="true"
 		keyProperty="fdpmember_id">
-		INSERT INTO fdpmember (fdpmember_id, name, user_id, user_pw, email, gender, tel, addr1, addr2, addr3, addr4, reg_date, edit_date, medical_field, member_grade) 
-		VALUES (#{fdpmember_id}, #{name}, #{user_id}, #{user_pw}, #{email}, #{gender}, #{tel}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{reg_date}, #{edit_date}, #{medical_field}, #{member_grade})
+		INSERT INTO fdpmember (fdpmember_id, name, user_id, user_pw, email, gender, birthdate, tel, addr1, addr2, addr3, addr4, reg_date, edit_date, medical_field, member_grade) 
+		VALUES (#{fdpmember_id}, #{name}, #{user_id}, #{user_pw}, #{email}, #{gender}, #{birthdate}, #{tel}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{reg_date}, #{edit_date}, #{medical_field}, #{member_grade})
 	</insert>
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateItem"
 		parameterType="fdp.project.spring.model.Member">
 		UPDATE fdpmember 
-		SET fdpmember_id=#{fdpmember_id}, name=#{name}, user_id=#{user_id}, user_pw=#{user_pw}, gender=#{gender},
-		tel=#{tel}, addr1=#{addr1}, addr2=#{addr2}, addr3=#{addr3}, addr4#={addr4}, reg_date=#{reg_date}, edit_date=#{edit_date}, 
+		SET fdpmember_id=#{fdpmember_id}, name=#{name}, user_id=#{user_id}, user_pw=#{user_pw}, gender=#{gender}, birthdate=#{birthdate}, tel=#{tel}, addr1=#{addr1}, addr2=#{addr2}, addr3=#{addr3}, addr4#={addr4}, reg_date=#{reg_date}, edit_date=#{edit_date}, 
 		medical_field=#{medical_field}, member_grade=#{member_grade}
 		WHERE fdpmember_id=#{fdpmember_id}
 	</update>

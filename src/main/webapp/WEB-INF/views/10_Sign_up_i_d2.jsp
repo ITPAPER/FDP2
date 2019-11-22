@@ -64,14 +64,6 @@
 			<h3 class="title"><strong>입력하신 정보를 확인해 주세요.</strong></h3>	
 		</div>
 		 <div class="b">
-			<%-- <input type='hidden' name='user_id' value='${output.user_id}'>
-			<input type='hidden' name='user_name' value='${output.name}'>
-			<input type='hidden' name='user_field' value='${output.medical_field}'>
-			<input type='hidden' name='email' value='${output.email}'>
-			<input type='hidden' name='tel' value='${output.tel}'>
-			<input type='hidden' name='gender' value='${output.gender}'>
-			<input type='hidden' name='fdpmember_id' value='${output.fdpmember_id}'> --%>
-			<%-- <input type='hidden' name='birthdate' value='${birthdate}'> --%>
 		
 		 <table class="table table-bordered table-hover">
 		 	<tbody>
@@ -93,10 +85,10 @@
 							</c:choose>
 						</td>
 					</tr>
-					<%-- <tr>
+					<tr>
 						<td class="text-center active" style="font-weight:bold;">생년월일</td>
-						<td class="text-left">${birthdate}</td>
-					</tr> --%>
+						<td class="text-left">${output.birthdate}</td>
+					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">이메일</td>
 						<td class="text-left">${output.email}</td>

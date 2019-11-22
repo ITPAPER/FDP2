@@ -104,6 +104,7 @@ public class Controller_J {
 		String user_pw = request.getParameter("user_pw");
 		String email = request.getParameter("email");
 		int gender = webHelper.getInt("gender");
+		String birthdate = request.getParameter("birthdate");
 		String tel = request.getParameter("tel");
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
@@ -113,7 +114,7 @@ public class Controller_J {
 		String edit_date = request.getParameter("edit_date");
 		String medical_field = request.getParameter("medical_field");
 		
-	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || tel == null
+	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || birthdate == null || tel == null
 	    		|| addr1 == null || addr2 == null || addr3 == null || addr4 == null || reg_date == null || edit_date == null
 	    		|| medical_field == null ) {
 	        //이전 페이지로 강제 이동 후 종료
@@ -136,6 +137,7 @@ public class Controller_J {
         input.setUser_pw(user_pw);
         input.setEmail(email);
         input.setGender(gender);
+        input.setBirthdate(birthdate);
         input.setTel(tel);
         input.setAddr1(addr1);
         input.setAddr2(addr2);
@@ -158,11 +160,13 @@ public class Controller_J {
         /** 3) 결과를 확인하기 위한 페이지 이동 */
         // 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
         String redirectUrl = contextPath + "/10_Sign_up_i_d2.do?fdpmember_id=" + input.getFdpmember_id();
-        return webHelper.redirect(redirectUrl, "저장되었습니다.");
+        return webHelper.redirect(redirectUrl, "회원정보 입력이 완료되었습니다.");
 	}
 	
 	@RequestMapping(value = "09_Sign_up_a2.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String signupina() {
+		
+		
 		return "09_Sign_up_a2";
 	}
 	
@@ -171,7 +175,7 @@ public class Controller_J {
 		return "11_Sign_up_i_n";
 	}
 	
-	@RequestMapping(value = "11_Sign_up_i_n2.do", method = RequestMethod.POST)
+	@RequestMapping(value = "11_Sign_up_i_add.do", method = RequestMethod.POST)
 	public ModelAndView signupin2(Model model, HttpServletRequest request) {
 		
 		String name = request.getParameter("name");
@@ -179,6 +183,7 @@ public class Controller_J {
 		String user_pw = request.getParameter("user_pw");
 		String email = request.getParameter("email");
 		int gender = webHelper.getInt("gender");
+		String birthdate = request.getParameter("birthdate");
 		String tel = request.getParameter("tel");
 		String addr1 = request.getParameter("addr1");
 		String addr2 = request.getParameter("addr2");
@@ -188,7 +193,7 @@ public class Controller_J {
 		String edit_date = request.getParameter("edit_date");
 		
 	 	
-	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || tel == null
+	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || birthdate == null || tel == null
 	    		|| addr1 == null || addr2 == null || addr3 == null || addr4 == null || reg_date == null || edit_date == null
 	    		) {
 	        //이전 페이지로 강제 이동 후 종료
@@ -211,6 +216,7 @@ public class Controller_J {
         input.setUser_pw(user_pw);
         input.setEmail(email);
         input.setGender(gender);
+        input.setBirthdate(birthdate);
         input.setTel(tel);
         input.setAddr1(addr1);
         input.setAddr2(addr2);
@@ -231,8 +237,33 @@ public class Controller_J {
 
         /** 3) 결과를 확인하기 위한 페이지 이동 */
         // 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
-        String redirectUrl = contextPath + "/11_Sign_up_i_n2?fdpmember_id=" + input.getFdpmember_id();
-        return webHelper.redirect(redirectUrl, "저장되었습니다.");
+        String redirectUrl = contextPath + "/11_Sign_up_i_n2.do?fdpmember_id=" + input.getFdpmember_id();
+        return webHelper.redirect(redirectUrl, "회원정보 입력이 완료되었습니다.");
+	}
+	
+	@RequestMapping(value = "11_Sign_up_i_n2.do", method = RequestMethod.GET)
+	public ModelAndView signupnn(Model model) {
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+		
+		if (fdpmember_id == 0) {
+			return webHelper.redirect(null, "회원번호가 없습니다.");
+		}
+		
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+		
+		Member output = null;
+		
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("output", output);
+		
+		return new ModelAndView("11_Sign_up_i_n2");
+		
 	}
 	
 	@RequestMapping(value = "12_Sign_up_s.do", method = RequestMethod.GET)

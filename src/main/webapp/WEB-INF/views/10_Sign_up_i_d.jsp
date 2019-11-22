@@ -104,7 +104,7 @@
         </div>
         <br/>
         <div class="form-group">
-            <label for='gender1' class="col-md-2">성별 <span class='identify'>*</span></label>
+            <label for='gender' class="col-md-2">성별 <span class='identify'>*</span></label>
             <div class="col-md-10">
                 <label><input type='radio' name='gender' id='gender1' value='1'>남자</label>
                 &nbsp;
@@ -112,12 +112,12 @@
             </div>
         </div>
         <br/>
-        <!-- <div class="form-group">
+        <div class="form-group">
         	<label for='birthdate' class="col-md-2">생년월일 <span class='identify'>*</span></label>
         	<div class="col-md-10">
         		<input type="date" id="birthdate" name="birthdate" class="form-control">
         	</div>
-        </div> -->
+        </div> 
         
  
         <br/>
@@ -246,7 +246,7 @@
             if (!regex.check('input[name=gender]', '성별을 선택하세요.')) {return false;}
             
             /* 생년월일 */
-            /* if (!regex.value('#birthdate', '생년월일을 선택하세요.')) { return false; } */
+            if (!regex.value('#birthdate', '생년월일을 선택하세요.')) { return false; } 
             
             /** 이메일 검사 */
             if (!regex.value('#email', '이메일을 입력하세요.')) { return false; }
