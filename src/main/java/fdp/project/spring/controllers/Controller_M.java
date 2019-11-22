@@ -350,7 +350,6 @@ public class Controller_M {
 		String user_pw = webHelper.getString("user_pw");
 		int autologin = webHelper.getInt("autologin");
 		
-		System.out.println("111111");
 		if (user_id == null) {
 			return webHelper.redirect(null, "아이디를 입력해주세요.");
 		}
@@ -362,14 +361,14 @@ public class Controller_M {
 		input.setUser_id(user_id);
 		input.setUser_pw(user_pw);
 		
-		int output = 0;
+		Member output = null;
 		
 		try {
 			output = memberService.getMemberOne(input);
 		} catch (Exception e) {
 			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
 		}
-		if(output != 0) {
+		if(output != null) {
 			Cookie cookie = new Cookie("fdp_cookie", user_id);
 			cookie.setPath("/");
 			cookie.setDomain("localhost");
