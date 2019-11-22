@@ -25,7 +25,16 @@
 	<select id="selectItem"
 		parameterType="fdp.project.spring.model.Member"
 		resultMap="MemberMap">
-		SELECT * FROM fdpmember WHERE fdpmember_id=#{fdpmember_id}
+		SELECT * FROM fdpmember
+		<where>
+			<if test="user_id != null and user_id != ''">
+				user_id LIKE concat('%', #{user_id}, '%')
+			</if>
+			<if test="fdpmember_id != null and fdpmember_id != ''">
+				fdpmember_id LIKE concat('%', #{fdpmember_id}, '%')
+			</if>
+
+		</where>
 	</select>
 
 	<!-- 회원목록 조회  -->
@@ -88,9 +97,10 @@
     </select>
     
     <select id="selectOneMember" 
-		parameterType="fdp.project.spring.model.Member">
+		parameterType="fdp.project.spring.model.Member"
+		resultType="int">
         
-        SELECT * FROM fdpmember WHERE user_id=#{user_id} and user_pw=#{user_pw}
+        SELECT COUNT(*) FROM fdpmember WHERE user_id=#{user_id} and user_pw=#{user_pw}
         
     </select>
 	

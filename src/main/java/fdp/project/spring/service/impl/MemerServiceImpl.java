@@ -130,8 +130,8 @@ public class MemerServiceImpl implements MemberService {
 		return result;
 	}
 	@Override
-	public Member getMemberOne(Member input) throws Exception {
-		Member result = null;
+	public int getMemberOne(Member input) throws Exception {
+		int result = 0;
 
 		try {
 			result = sqlSession.selectOne("MemberMapper.selectOneMember", input);

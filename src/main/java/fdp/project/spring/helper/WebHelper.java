@@ -24,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.AbstractView;
 
-import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 import fdp.project.spring.helper.UploadItem;

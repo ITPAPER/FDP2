@@ -210,7 +210,7 @@
 			<div class="row contentsbox">
 				<div class="col-md-3">
 					<c:choose>
-						<c:when test="${cookie.fdp_cookie == null }">
+						<c:when test="${cookie.fdpCookie == null }">
 							<div class="row  login_box">
 								<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
 								<a href="#" class="find_id">아이디/비밀번호 찾기</a>
@@ -219,9 +219,9 @@
 						</c:when>
 						<c:otherwise>
 							<div class="row  login_box">
-								<div class="login_cover"><a class="login_btn" href="#">어서오세요 ${cookie.fdp_cookie.value } 님~</a></div>
+								<div class="login_cover"><a class="login_btn" href="#">어서오세요 ${cookie.fdpCookie.value } 님</a></div>
 								<a href="26_Profile_i.do" class="find_id">회원 정보 수정</a>
-								<a href="09_Sign_up_a.do" class="sign_up">로그아웃</a>
+								<a href="coodel.do" class="sign_up" id="logout">로그아웃</a>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -607,6 +607,19 @@
 	<script type="text/javascript">
 	$(function(){
 		$("#erer").slideToggle(100);
+		
+		$("#logout").click(
+			function(){
+			e.preventDefault();	
+			var result = confirm("정말 로그아웃 하시겠습니까?");
+			
+			if (result) {
+				location.href="coodel.do";
+			} else {
+				alert("로그아웃이 취소되었습니다.");
+			}
+			 
+			})
 		
 		var map = new GMaps({
 			el: '#gmap',		//지도를 표시할 div의 id값

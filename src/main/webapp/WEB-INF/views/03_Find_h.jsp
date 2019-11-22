@@ -54,7 +54,8 @@
 		}
 		.magam{
 			content:'';
-			
+			float:none;
+			clear: both;
 		}
 		.glight{
 			float:right;
@@ -154,7 +155,7 @@
 	<!-- Ajax로 읽어온 내용을 출력하는데 사용될 HTML 템플릿 -->
 	<script id="list-item-tmpl" type="text/x-hendlebars-template">
 		<div class='accord-item'>
-    		<h4 class='accord-title '  ><a href="#content{{num}}" value="{{num}}" id="cc{{num}}" class="magam">{{yadmNm}}</a></h4>
+    		<h4 class='accord-title'  ><a href="#content{{num}}" value="{{num}}" id="cc{{num}}" class="magam"><span>{{yadmNm}}</span></a></h4>
     		<div id="content{{num}}" class="content">
 				주소 : {{addr}}<br/>
 				<a href="tel:{{telno}}"> 전화번호 : {{telno}}</a>
@@ -299,7 +300,7 @@
 									})
 							}
 							if(i == req.length-1){
-								$(".magam").click(function(e) {
+								$(".accord-title a").click(function(e) {
 						            // 링크의 기본 동작(페이지 이동) 방지
 									e.preventDefault();
 									var a=0;
@@ -307,8 +308,8 @@
 									$(target).slideDown(100);
 									$(".content").not($(target)).slideUp(100);
 								
-									var title = $(this).html();
-									
+									var title = $(this).children('span').html();
+									console.log(title);
 									a++;
 									$("#gmap").find("div[title='"+ title +"']").click();
 									

@@ -7,15 +7,19 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -361,25 +365,39 @@ public class Controller_M {
 		input.setUser_id(user_id);
 		input.setUser_pw(user_pw);
 		
-		Member output = null;
+		int output = 0;
 		
 		try {
 			output = memberService.getMemberOne(input);
+			System.out.println(output);
 		} catch (Exception e) {
 			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
 		}
-		if(output != null) {
-			Cookie cookie = new Cookie("fdp_cookie", user_id);
-			cookie.setPath("/");
-			cookie.setDomain("localhost");
-		
+		if(output != 0) {
 			if(autologin == 7 ) {
-				cookie.setMaxAge(604800);
+				webHelper.setCookie("fdpCookie", user_id, 604800);
+			}else {
+				Cookie cookie = new Cookie("fdpCookie", user_id);
+				cookie.setPath("/");
+				cookie.setDomain("localhost");
+				cookie.setMaxAge(-111);
+				response.addCookie(cookie);
 			}
-			response.addCookie(cookie);
+			
 		
 		}
 		
 		return new ModelAndView("redirect: index.do");
 	}
+	
+	@RequestMapping(value= "/coodel.do", method= RequestMethod.GET )
+	public ModelAndView coodel(HttpServletResponse response, HttpServletRequest request ) {
+		String aa = webHelper.getCookie("fdpCookie");
+		
+		webHelper.removeCookie("fdpCookie");
+		
+		
+		return webHelper.redirect("index.do", "안녕히가세요 "+ aa +"님");
+	}
 }
+
