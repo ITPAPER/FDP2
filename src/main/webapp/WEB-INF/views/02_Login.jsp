@@ -71,8 +71,8 @@
 					<button id="li-btn" type="submit" class="btn btn-primary btn-block">로그인</button>
 					<br/>
 					<label id="check"><input type="checkbox" name="autologin" value="7">자동로그인</label>
-					<a href="26_Profile_i.jsp" class="find_id">아이디/비밀번호 찾기</a>
-					<a href="09_Sign_up_a.jsp" class="sign_up">회원 가입</a>
+					<a href="#" class="find_id">아이디/비밀번호 찾기</a>
+					<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
 					<!-- 여기까지 입니다. -->
 				</fieldset>
 			</form>
