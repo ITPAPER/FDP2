@@ -73,7 +73,7 @@
 					<tr>
 						<td><a href="../img/baby_redspot.do"> <img
 								class="attachment" alt="첨부파일" src="../img/attachment.png" /> 피부
-								붉은 반점.jpg
+								붉은 반점.jpg</a>
 								<button type="button" class="close" aria-hidden="true" id="btn1">&times;</button></td>
 					</tr>
 					<tr>

@@ -87,7 +87,7 @@ thead {
 
 /** 게시판 레스트에 대한 테이블 비율 설정 */
 .subject {
-	width:60%;
+	width:50%;
 }
 </style>
 </head>
@@ -123,8 +123,9 @@ thead {
 						<th class="numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
-						<th class="text-center reg_date">작성일</th>
 						<th class="text-center hit">조회수</th>
+						<th class="text-center reg_date">작성일</th>
+						<th class="text-center edit_date">수정일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -235,6 +236,7 @@ thead {
             &raquo;
         </c:otherwise>
     </c:choose>
+    </div>
     </div>
 		</div>
 

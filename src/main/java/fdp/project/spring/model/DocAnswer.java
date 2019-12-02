@@ -7,7 +7,7 @@ public class DocAnswer {
 	/** 답글 번호(PK) */
 	private int docAnswer_id;
 	/** 작성자 이름 */
-	private String write_name;
+	private String writer_name;
 	/** 답글 내용 */
 	private String content;
 	/** 답글 등록일 */

@@ -8,7 +8,7 @@
 		type="fdp.project.spring.model.DocAnswer">
 		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="docAnswer_id" column="docAnswer_id" />
-		<result property="write_name" column="write_name" />
+		<result property="writer_name" column="write_name" />
 		<result property="content" column="content" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
@@ -18,10 +18,11 @@
 	</resultMap>
 
 	<!-- 단일행 조회를 위한 기능 정의 -->
+	
 	<select id="selectItem"
 		parameterType="fdp.project.spring.model.DocAnswer"
 		resultMap="docAnswerMap">
-		SELECT docAnswer_id, write_name, content, reg_date,
+		SELECT docAnswer_id, writer_name, content, reg_date,
 		edit_date, medical_field, fdpmember_id, document_id
 		FROM docAnswer
 		WHERE
@@ -32,14 +33,13 @@
 	<select id="selectList"
 		parameterType="fdp.project.spring.model.DocAnswer"
 		resultMap="docAnswerMap">
-		SELECT docAnswer_id, write_name, content, reg_date,
-		edit_date,
-		medical_field, fdpmember_id, document_id FROM docAnswer
+		SELECT docAnswer_id, writer_name, content, reg_date,
+		edit_date, medical_field, fdpmember_id, document_id FROM docAnswer
 
 		<where>
 
 			<if test="write_name != null and write_name != ''">
-				write_name LIKE concat('%', #{write_name}, '%')
+				writer_name LIKE concat('%', #{write_name}, '%')
 			</if>
 
 		</where>
@@ -59,7 +59,7 @@
 		INSERT INTO docAnswer (write_name,
 		content, reg_date, edit_date, medical_field, fdpmember_id,
 		document_id)
-		VALUES (#{write_name}, #{content}, #{reg_date},
+		VALUES (#{writer_name}, #{content}, #{reg_date},
 		#{edit_date},
 		#{medical_field}, #{fdpmember_id}, #{document_id});
 	</insert>
@@ -74,10 +74,9 @@
 	<!-- 데이터 갱신을 위한 기능 정의 -->
 	<update id="updateItem"
 		parameterType="fdp.project.spring.model.DocAnswer">
-		UPDATE docAnswer SET dname=#{dname}, content=#{content},
+		UPDATE docAnswer SET writer_name=#{writer_name}, content=#{content},
 		reg_date=#{reg_date}, edit_date=#{edit_date},
-		medical_field=#{medical_field}, fdpmember_id=#{fdpmember_id},
-		document_id=#{document_id}
+		medical_field=#{medical_field}
 		WHERE
 		docAnswer_id=#{docAnswer_id};
 	</update>
@@ -90,7 +89,7 @@
 
 		<where>
 			<if test="write_name != null and write_name != ''">
-				write_name LIKE concat('%', #{write_name}, '%')
+				writer_name LIKE concat('%', #{write_name}, '%')
 			</if>
 
 		</where>

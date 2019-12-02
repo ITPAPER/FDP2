@@ -91,13 +91,16 @@
 							</a>
 						</td>
 					</tr>
+						
 					<tr>
-						<td><b>답변일: 2019-09-09 | 전문의: 박기협 | 전문 분야 : 소아과</b>
+						<td><b>답변일: ${output1.reg_date}&nbsp;&nbsp;
+						 전문의: ${output1.writer_name}&nbsp;&nbsp;
+						 전문 분야 : ${output1.medical_field}</b>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							 수두인 것으로 예측됩니다. 빠른 시일 내에 근처 소아 전문 병원에서 진단 받으시길 추천드립니다.
+							 ${output1.content}
 						</td>
 					</tr>
 					<tr>
@@ -131,8 +134,8 @@
 		</div>
 		<div class="clearfix b" >
 			<ul class="pull-right bottom-button">
-				<li class="a"><a href="${pageContext.request.contextPath}/14_Notice_board_i.do?document_id=${output.document_id}"
-					class="btn btn-default btn-sm" id="btn1">삭제 </a></li>
+				<li class="a"><input type="button" value="삭제"  onclick="del(${output.document_id})"
+					class="btn btn-default btn-sm" id="btn1" /></li>
 				<li class="a"><a href="${pageContext.request.contextPath}/15_Notice_board_2.do?document_id=${output.document_id}"
 					class="btn btn-default btn-sm">수정</a></li>
 				<li class="a"><a href="${pageContext.request.contextPath}/13_Notice_board.do"
@@ -143,7 +146,7 @@
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-	<script>
+	<!-- <script>
 			  $(function() {
 				  $("#btn1").click(function(e) {
 					  	e.preventDefault();
@@ -166,5 +169,15 @@
 		           			});
 			  			});
 			  </script>
+			   -->
+			<script>
+			function del(document_id) {
+				var chk = confirm("정말 게시글을 삭제하시겠습니까?");
+				
+				if(chk) {
+					location.href='15_Notice_board_delete.do?document_id=' + ${output.document_id};
+				}
+			}
+			</script>
 	</body>
 </html>

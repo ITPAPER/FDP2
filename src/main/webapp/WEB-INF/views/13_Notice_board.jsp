@@ -73,7 +73,7 @@ thead {
 
 /** 게시판 레스트에 대한 테이블 비율 설정 */
 .subject {
-	width:60%;
+	width:50%;
 }
 </style>
 </head>
@@ -132,6 +132,17 @@ thead {
 								<c:set var="hit" value="${item.hit}" />
 								<c:set var="reg_date" value="${item.reg_date}" />
 								<c:set var="edit_date" value="${item.edit_date}" />
+								
+                        	<tr>
+                        		<td><label><input type='checkbox' class='all'
+								value="checked"></label></td>
+								<td align="center">${item.document_id}</td>
+								<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
+								<td align="center">${item.writer_name}</td>
+								<td align="center">${item.hit}</td>
+								<td align="center">${item.reg_date}</td>
+                        	</tr>
+								
 								  <%-- 검색어가 있다면? --%>
                         <c:if test="${keyword != ''}">
                             <%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
@@ -149,18 +160,17 @@ thead {
                         <%-- 상세페이지로 이동하기 위한 URL --%>
                         <c:url value="/14_Notice_board_i.do" var="viewUrl">
                         	<c:param name="document_id" value="${item.document_id}" />
-                        </c:url>
-                        
+
                         	<tr>
                         		<td><label><input type='checkbox' class='all'
 								value="checked"></label></td>
 								<td align="center">${item.document_id}</td>
-								<td><a href="${viewUrl}">${subject}</a></td>
+								<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
 								<td align="center">${item.writer_name}</td>
 								<td align="center">${hit}</td>
 								<td align="center">${reg_date}</td>
-								
                         	</tr>
+                        	</c:url>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
@@ -277,6 +287,15 @@ thead {
 					$(".all").prop('checked', $(this).prop('checked'));
 				});
 			});
+			var hit = 0;
+			
+			$(function() {
+				$("#sub1").click(function() {
+					hit++;	
+					console.log(hit);
+				});
+			});
+		
 		</script>
 </body>
 </html>
