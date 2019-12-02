@@ -106,6 +106,8 @@
  <jsp:include page="./assets/inc/top.jsp" />
    <!-- 자바스크립트 차트 라이브러리 amCharts4 사용 예시 -->
    <div class="container" style="min-height:1700px;">
+   	  <button onclick="location.href='7_1_Statistics.do'">지역별질병자료보기</button>
+   
       <h3 id="title"><strong>국민 관심 보건의료 통계자료</strong></h3>
       <h5 id="subtitle" style="font-style: italic; color: #333;">- 조회를 원하시는 자료의 버튼을 클릭해주세요!</h5>
       

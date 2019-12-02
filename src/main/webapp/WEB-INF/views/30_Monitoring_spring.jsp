@@ -74,23 +74,45 @@
 		<h2 id="timer" style="padding: 15px; color: red;"></h2>
 	</header>
 	<div>
-	<c:choose>
-	<c:when test="item!=null"  >
-	<h1>널이아님</h1>
-	<c:forEach var="i" items="${item}" varStatus="status">
-                        <%-- 출력을 위해 준비한 학과이름과 위치 --%>
-                        <c:set var="hv2" value="${i.hv2}" />
-                        <c:set var="hv4" value="${i.hv4}" />
-                        <h2>나오라고${hv2 }</h2>
-                        <h2>나와${hv4 }</h2>
-             </c:forEach>
+
 	
-	</c:when>
-	<c:otherwise>
-		<h1>왜널이지</h1>
-		
-	</c:otherwise>
-	</c:choose>
+			<c:forEach var='i' items='${item}' varStatus="status">
+				
+				<table border='1' class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th colspan='7'>${i.dutyName}</th>
+						</tr>
+						<tr>
+						<th>병원전화번호</th>
+						<th>응급실당직의직통연락처</th>
+						<th>인큐베이터유무</th>
+						<th>신경중환자</th>
+						<th>흉부중환자</th>
+						<th>신생중환자</th>
+						<th>일반중환자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<td>${i.tel}</td>
+						<td>${i.hv1}</td>
+						<td>${i.hv11}</td>
+						<td>${i.hvcc}</td>
+						<td>${i.hvccc}</td>
+						<td>${i.hvncc}</td>
+						<td>${i.hvicc}</td>
+						</tr>
+						<br/>
+					</tbody>
+				</table>
+			</c:forEach>
+	</table>
+
+
+
+
+	
 	<br />
 </div>
 </div>

@@ -17,11 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.Disease_region;
 import fdp.project.spring.model.Em_Hospital;
 import fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item;
 import fdp.project.spring.model.EmergencyAddr;
+import fdp.project.spring.model.EmergencyAddr.Response.Body.Items.Itema;
 import fdp.project.spring.model.Member;
 import fdp.project.spring.service.ApiHospitalService;
+import fdp.project.spring.service.DiseaseRegionService;
 import fdp.project.spring.service.MemberService;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -46,6 +49,9 @@ public class Controller_J {
 	
 	@Autowired
 	EmergencyAddr emergencyAddr;
+	
+	@Autowired
+	DiseaseRegionService diseaseRegionService;
 	
 	@Value("#{servletContext.contextPath}")
     String contextPath;
@@ -303,7 +309,6 @@ public class Controller_J {
 		// Service 객체를 생성한다. 구현체는 Retrofit이 자동으로 생성해 준다.
 		ApiHospitalService apiHospitalService = retrofit.create(ApiHospitalService.class);
 
-		
 		/** 2) 검색일 파라미터 처리 */
 		// 검색어 키워드 받기
 		String query = request.getParameter("query");
@@ -314,34 +319,37 @@ public class Controller_J {
 		}
 
 		/** 3) API 연동 */
-		/*
-		 * List<fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item> item =
-		 * hospital.getResponse().getBody().getItems().getItem();
-		 * List<fdp.project.spring.model.EmergencyAddr.Response.Body.Items.Item> item1 =
-		 * emergencyAddr.getResponse().getBody().getItems().getItem();
-		 */
-		
-		// 검색어가 존재할 경우 KakaoOpenAPI를 통해 검색 결과 받아옴.
-		
+		//응급실정보 API
 		Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
-		Em_Hospital hospital = null;
+		Em_Hospital emhospital = null;
 		
 		try {
-			hospital = call.execute().body();
+			emhospital = call.execute().body();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		List<Item> item = null;
+		
+		if (emhospital != null) {
+			item = emhospital.getResponse().getBody().getItems().getItem();
+		}
+		
+		//응급실주소 API
 		Call<EmergencyAddr> call1 = apiHospitalService.getEmergencyAddr("서울특별시", 1, 49);
 		EmergencyAddr emergencyAddr = null;
-			
-		Em_Hospital.Response.Body.Items.Item item = null;
 		
-		/*
-		 * int hv2 = webHelper.getInt("hv2", item.getHv2()); int hv4 =
-		 * webHelper.getInt("hv4", item.getHv4()); int hv6 = webHelper.getInt("hv6",
-		 * item.getHv6());
-		 */
+		try {
+			emergencyAddr = call1.execute().body();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		List<Itema> itema = null;
+		
+		if (emergencyAddr != null) {
+			itema = emergencyAddr.getResponse().getBody().getItems().getItem();
+		}
 		
 		try {
 			emergencyAddr = call1.execute().body();
@@ -352,24 +360,27 @@ public class Controller_J {
 		/** 4) View 처리*/
 		model.addAttribute("query", query);
 		model.addAttribute("hospital", hospital);
-		model.addAttribute("emergencyAddr", emergencyAddr);
-		model.addAttribute("call", call);
+		model.addAttribute("itema", itema);
+		model.addAttribute("item", item);
 		
-		/*
-		 * model.addAttribute("hv2", hv2); model.addAttribute("hv4", hv4);
-		 * model.addAttribute("hv6", hv6);
-		 */
-		
-		/*
-		 * model.addAttribute("item", item); model.addAttribute("item1", item1);
-		 */
-		System.out.println(model);
-		if (hospital != null) {
-			System.out.println("값이있음");
-		} else { System.out.println("값이없음");}
-
 		return "30_Monitoring_spring";
 	}
 	
-	
+	@RequestMapping(value="7_1_Statistics.do", method=RequestMethod.GET) 
+	public ModelAndView disease(Model model) {
+		Disease_region input = new Disease_region();
+		
+		List<Disease_region> output = null;
+		
+		
+		try {
+			output = diseaseRegionService.getDiseaseList(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("output", output);
+		
+		return new ModelAndView("7_1_Statistics");
+	}
 }

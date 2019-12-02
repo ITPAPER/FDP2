@@ -120,28 +120,7 @@
 					<input type="date" id="birthdate" name="birthdate" class="form-control">
 				</div>
 			</div>
-	        <div class="form-group">
-	        	<label for='reg_date' class="col-md-2">등록일 <span class='identify'>*</span></label>
-	        	<div class="col-md-10">
-	        		<input type="date" id="reg_date" name="reg_date" class="form-control">
-	        	</div>
-	        </div>
-	        <br/>
-	        <!-- <div class="form-group">
-	        	<label for='edit_date' class="col-md-2">수정일 <span class='identify'>*</span></label>
-	        	<div class="col-md-10">
-	        		<input type="date" id="edit_date" name="edit_date" class="form-control">
-	        	</div>
-	        </div>			
-			<div class="form-group">
-        	<label for='member_grade' class="col-md-2">회원유형 <span class='identify'>*</span></label>
-        	<div class="col-md-10">
-        		<input type="text" id="member_grade" name="member_grade" class="form-control">
-        	</div>
-        </div>
-        <br/> -->
-        
-			<br />
+    		<br />
 			<div class="form-group">
 				<label for='email' class="col-md-2">이메일 <span class='identify'>*</span></label>
 				<div class="col-md-10">
@@ -150,6 +129,7 @@
 					<button class="dupcheck">이메일 인증</button>
 				</div>
 			</div>
+			<br />
 			<br />
 			<div class="form-group">
             <label for='address' class="col-md-2">주소 <span class='identify'>*</span></label>
@@ -219,10 +199,10 @@
 	$(function() {
 		/** 가입폼의 submit 이벤트 */
 		$("#join_form").submit(	function(e) {
-					// 기본동작 수행 방식
-					//e.preventDefault();
+			// 기본동작 수행 방식
+			//e.preventDefault();
 
-					/** 아이디 검사 */
+			/** 아이디 검사 */
             if (!regex.value('#user_id', '아이디를 입력하세요.')) { return false; }
             if (!regex.eng_num('#user_id', '아이디는 영어와 숫자 조합만 입력 가능합니다.')) { return false; }
             if (!regex.min_length('#user_id', 4, '아이디는 최소 4자 이상 입력 가능합니다.')) { return false; }
@@ -263,9 +243,7 @@
             
 			// 처리 완료
 			alert("회원정보 입력이 완료되었습니다.");
-			//move(); 
-
-				});
+			});
 	});
 	</script>
 <script src="./assets/js/regex.js"></script>

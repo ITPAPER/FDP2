@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DiseaseRegionMapper">
+	<resultMap type="fdp.project.spring.model.Disease_region" id="DiseaseRegionMap">
+		<result property="iddisease_region" column="iddisease_region"/>
+		<result property="dis_momth" column="dis_momth"/>
+		<result property="dis_name" column="dis_name"/>
+		<result property="disease_region" column="disease_region"/>
+		<result property="dis_num_patient" column="dis_num_patient"/>
+		<result property="dis_cost" column="dis_cost"/>
+	</resultMap>
+
+
+	<select id="selectList"
+		parameterType="fdp.project.spring.model.Disease_region"
+		resultMap="DiseaseRegionMap">
+		SELECT * FROM disease_region
+	</select>
+
+</mapper>
