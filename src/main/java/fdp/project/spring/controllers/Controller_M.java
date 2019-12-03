@@ -13,13 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -63,11 +60,8 @@ public class Controller_M {
 	@ResponseBody
 	@RequestMapping(value = {"fer.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String fer() { 
-			//@RequestParam(value="data") String gu) {
 		
 		/** 1) 필요한 객체 생성 부분 */
-		// Helper 객체 생성
-		// -> import study.jsp.model1.helper.WebHelper;
 		
 		String gu = webHelper.getString("data");
 		

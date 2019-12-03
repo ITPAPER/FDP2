@@ -233,14 +233,14 @@
 					</div>
 					<div class="row e-btncover rr">
 						<br/>
-						<button class="btn btn-warning gu" value="1">강북 지역</button>
-						<button class="btn btn-warning gu" value="2">동서울 지역</button>
-						<button class="btn btn-warning gu" value="3">동남 지역</button>
-						<button class="btn btn-warning gu" value="4">강남 지역</button>
-						<button class="btn btn-warning gu" value="5">남서울 지역</button>
-						<button class="btn btn-warning gu" value="6">서남 지역</button>
-						<button class="btn btn-warning gu" value="7">서서울 지역</button>
-						<button class="btn btn-warning gu" value="8">도심 지역</button>
+						<button class="btn btn-warning gu" id="b1" value="1">강북 지역</button>
+						<button class="btn btn-warning gu" id="b2" value="2">동서울 지역</button>
+						<button class="btn btn-warning gu" id="b3" value="3">동남 지역</button>
+						<button class="btn btn-warning gu" id="b4" value="4">강남 지역</button>
+						<button class="btn btn-warning gu" id="b5" value="5">남서울 지역</button>
+						<button class="btn btn-warning gu" id="b6" value="6">서남 지역</button>
+						<button class="btn btn-warning gu" id="b7" value="7">서서울 지역</button>
+						<button class="btn btn-warning gu" id="b8" value="8">도심 지역</button>
 					</div>
 					<div class="row rr">
 						<div class="prog">
@@ -607,7 +607,7 @@
 	<script type="text/javascript">
 	$(function(){
 		$("#erer").slideToggle(100);
-		
+		console.log("${list}")
 		$("#logout").click(
 			function(){
 			e.preventDefault();	
@@ -619,7 +619,7 @@
 				alert("로그아웃이 취소되었습니다.");
 			}
 			 
-			})
+			}) //end click
 		
 		var map = new GMaps({
 			el: '#gmap',		//지도를 표시할 div의 id값
@@ -674,7 +674,7 @@
 			}
 			console.log(gu);
 			$(".prog").html( $(this).html() +" 응급실 위치 " + place);
-			$.ajax( {
+			$.ajax({
 				url:'fer.do',
 				method:'get',
 				data:{data:gu},
@@ -685,11 +685,15 @@
 						lat: req[0].wgs84Lat,		//지도가 표시될 위도
 						lng: req[0].wgs84Lon,		//지도가 표시될 경도
 						zoom: 14
-					});
+					}); // end gmap
 					
 					$(".accord").empty();
 					
+					var looc=0;
+					var c=0;
+					var myhos ="";
 					for(var i=0; i <req.length; i++){
+						var hosname= req[i].dutyName;
 						req[i].dutyName= i+1 + "." + req[i].dutyName;
 						var desc = "<h3>";				
 						desc += req[i].dutyName;
@@ -704,36 +708,9 @@
 						$(".accord").append(html);
 						
 						
-						if(i == req.length-1){
-							$(".accord-title a").click(function(e) {
-					            // 링크의 기본 동작(페이지 이동) 방지
-								e.preventDefault();
-
-								var target = $(this).attr('href');
-								$(target).slideToggle(100);
-								$(".content").not($(target)).slideUp(100);
+						//if(i == req.length-1){
 							
-								var title = $(this).html();
-								
-								
-								$("#gmap").find("div[title='"+title+"']").click();
-
-							});	
-							
-							$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
-								var aa= $(this).attr('title');
-								
-								var num = aa.indexOf(".");
-								var key = aa.substring(0, num);
-								
-								
-								$('.accord').animate({scrollTop : 254}, 0);
-								$("#content" +key).slideDown(100);
-								$(".content").not($("#content" +key)).slideUp(100);
-								
-							}); 
-							
-						}
+						//} end if
 						
 						
 						map.addMarker({
@@ -750,11 +727,104 @@
 								content: desc
 							}
 						})
-					};
+						
+						
+						if(${list[0].x} != 0){
+							var xlen = ${list[0].x} - req[i].wgs84Lon;
+							console.log(xlen * -1);
+							if(xlen * -1){ xlen = xlen * -1;}
+							var ylen = ${list[0].y} - req[i].wgs84Lat;
+							if(ylen * -1){ ylen = ylen * -1;}
+							if(i==0){
+								looc= xlen + ylen; 
+								c = i+1;
+								myhos = hosname;
+							}
+							if( looc > xlen +ylen){
+								looc= xlen + ylen;
+								c = i+1;
+								myhos = hosname;
+							}
+						}//end if
+					} //end for
+					
+					
+					if(${list[0].x} != 0){
+						var text = "<div class='accord-item'><h4 class='accord-title'><a class='hinfo' href='#content0' value='0'>우리집!</a></h4><div id='content0' class='content'>집</a></div></div>";
+						$(".accord").prepend(text);
+						map.addMarker({
+							//마우스 오버시 노란박스
+							title: "우리집!",
+							lat: ${list[0].y},
+							lng: ${list[0].x},
+							icon:{
+								url:"./assets/plugins/gmaps/map-marker3.png",
+								scaledSize: new google.maps.Size(50, 50)
+							},
+							
+							infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
+								content: "<h2>우리집!</h2><h4> 제일 가까운 응급실은 <br/><mark>" + myhos +" </mark> <br/>입니다.</h4>"
+							}
+						})
+						
+					}// end if
+					
+					$(".accord-title a").click(function(e) {
+			            // 링크의 기본 동작(페이지 이동) 방지
+						e.preventDefault();
+
+						var target = $(this).attr('href');
+						$(target).slideToggle(100);
+						$(".content").not($(target)).slideUp(100);
+					
+						var title = $(this).html();
+						
+						
+						$("#gmap").find("div[title='"+title+"']").click();
+
+					});	
+					
+					$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
+						var aa= $(this).attr('title');
+						
+						var num = aa.indexOf(".");
+						var key = aa.substring(0, num);
+						
+						
+						$('.accord').animate({scrollTop : 254}, 0);
+						$("#content" +key).slideDown(100);
+						$(".content").not($("#content" +key)).slideUp(100);
+					}); 
+					
+					if(${list[0].x} != 0){
+					$(".accord-title a[value='"+c+"']").click();
+					var title = $(".accord-title a[value='"+c+"']").html();
+					console.log(title);
+					$("#gmap").find("div[title='"+title+"']").click();
+					}
+					
 				} 		
-				});
-			}); //end ajax
-		//$("button[value='6']").click()
+			});//end ajax
+		}); 
+		if("${gu}" != null){
+			if("${gu}" == "도봉구" || "${gu}" == "강북구" || "${gu}" == "성북구" || "${gu}" =="노원구"){
+				$("button[value='1']").click()
+			}else if("${gu}" == "동대문구" || "${gu}" == "중랑구" || "${gu}" == "성동구" || "${gu}" =="광진구"){
+				$("button[value='2']").click()
+			}else if("${gu}" == "강동구" || "${gu}" == "송파구"){
+				$("button[value='3']").click()
+			}else if("${gu}" == "서초구" || "${gu}" == "강남구"){
+				$("button[value='4']").click()
+			}else if("${gu}" == "동작구" || "${gu}" == "관악구" || "${gu}" == "금천구"){
+				$("button[value='5']").click()
+			}else if("${gu}" == "강서구" || "${gu}" == "양천구" || "${gu}" == "영등포구" || "${gu}" =="구로구"){
+				$("button[value='6']").click()
+			}else if("${gu}" == "은평구" || "${gu}" == "마포구" || "${gu}" == "서대문구"){
+				$("button[value='7']").click()
+			}else if("${gu}" == "종로구" || "${gu}" == "중구" || "${gu}" == "용산구"){
+				$("button[value='8']").click()
+			}	
+		}
 
 	});
 	</script>
