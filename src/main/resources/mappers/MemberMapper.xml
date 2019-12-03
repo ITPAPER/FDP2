@@ -98,9 +98,9 @@
     
     <select id="selectOneMember" 
 		parameterType="fdp.project.spring.model.Member"
-		resultType="int">
+		resultMap="MemberMap">
         
-        SELECT COUNT(*) FROM fdpmember WHERE user_id=#{user_id} and user_pw=#{user_pw}
+        SELECT fdpmember_id, name, member_grade  FROM fdpmember WHERE user_id=#{user_id} and user_pw=#{user_pw}
         
     </select>
 	

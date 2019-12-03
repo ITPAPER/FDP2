@@ -359,7 +359,7 @@ public class Controller_M {
 		input.setUser_id(user_id);
 		input.setUser_pw(user_pw);
 		
-		int output = 0;
+		Member output = null;
 		
 		try {
 			output = memberService.getMemberOne(input);
@@ -367,18 +367,30 @@ public class Controller_M {
 		} catch (Exception e) {
 			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
 		}
-		if(output != 0) {
+		if(output != null) {
 			if(autologin == 7 ) {
 				webHelper.setCookie("fdpCookie", user_id, 604800);
+				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
+				webHelper.setCookie("Name", output.getName(), 604800);
 			}else {
 				Cookie cookie = new Cookie("fdpCookie", user_id);
 				cookie.setPath("/");
 				cookie.setDomain("localhost");
 				cookie.setMaxAge(-111);
 				response.addCookie(cookie);
+				
+				cookie = new Cookie("UserGrade", output.getMember_grade());
+				cookie.setPath("/");
+				cookie.setDomain("localhost");
+				cookie.setMaxAge(-111);
+				response.addCookie(cookie);
+				
+				cookie = new Cookie("Name", output.getName());
+				cookie.setPath("/");
+				cookie.setDomain("localhost");
+				cookie.setMaxAge(-111);
+				response.addCookie(cookie);
 			}
-			
-		
 		}
 		
 		return new ModelAndView("redirect: index.do");

@@ -219,7 +219,7 @@
 						</c:when>
 						<c:otherwise>
 							<div class="row  login_box">
-								<div class="login_cover"><a class="login_btn" href="#">어서오세요 ${cookie.fdpCookie.value } 님</a></div>
+								<div class="login_cover"><a class="login_btn" href="#">어서오세요 ${cookie.Name.value } 님</a></div>
 								<a href="26_Profile_i.do" class="find_id">회원 정보 수정</a>
 								<a href="coodel.do" class="sign_up" id="logout">로그아웃</a>
 							</div>
@@ -274,19 +274,19 @@
 							<li class="beinline">
 								<a class="hos-btn" href="03_Find_h.do">
 									<img  class="thumb" src="./assets/img/hosicon.png" >
-									<span class="text">일반 병원 찾기</span>
+									<span class="text"><b>일반 병원 찾기</b></span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" href="05_Find_e.do">
 									<img  class="thumb" src="./assets/img/siren1.png" >
-									<span class="text">응급실 찾기</span>
+									<span class="text"><b>응급실 찾기</b></span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" href="30_Monitoring.do">
 									<img  class="thumb" src="./assets/img/monitor.jpg" >
-									<span class="text">응급실 상황판</span>
+									<span class="text"><b>응급실 상황판</b></span>
 								</a>
 							</li>
 						</ul>
@@ -312,19 +312,19 @@
 							<li class="beinline">
 								<a class="hos-btn" data-toggle="modal" href="#myModal"	>
 									<img  class="thumb" src="./assets/img/YouTube.png" >
-									<span class="text">체형 교정 운동</span>
+									<span class="text"><b>체형 교정 운동</b></span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" data-toggle="modal" href="#myModal2">
 									<img  class="thumb" src="./assets/img/AED.png" >
-									<span class="text">AED사용 방법</span>
+									<span class="text"><b>AED사용 방법</b></span>
 								</a>
 							</li>
 							<li class="beinline">
 								<a class="hos-btn" href="http://www.doctorsnews.co.kr/">
 									<img  class="thumb" src="./assets/img/news.png" >
-									<span class="text">의료 신문</span>
+									<span class="text"><b>의료 신문</b></span>
 								</a>
 							</li>
 						</ul>
@@ -763,7 +763,7 @@
 							},
 							
 							infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
-								content: "<h2>우리집!</h2><h4> 제일 가까운 응급실은 <br/><mark>" + myhos +" </mark> <br/>입니다.</h4>"
+								content: "<h2>우리집!</h2><h4 style='line-height: 122%;'> 제일 가까운 응급실은 <br/><mark>" + myhos +" </mark> <br/>입니다.</h4>"
 							}
 						})
 						
@@ -825,7 +825,6 @@
 				$("button[value='8']").click()
 			}	
 		}
-
 	});
 	</script>
   </body>

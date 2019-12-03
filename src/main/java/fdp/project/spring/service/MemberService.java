@@ -18,5 +18,5 @@ public interface MemberService {
 	//회원 수 조회
 	public int getMemberCount(Member input) throws Exception;
 	//한명조회
-	public int getMemberOne(Member input) throws Exception;
+	public Member getMemberOne(Member input) throws Exception;
 }

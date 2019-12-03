@@ -9,7 +9,7 @@
 		<c:when test="${cookie.fdpCookie != null }">
 			<a href="coodel.do" class="header-btn">로그아웃</a>
 			<a href="26_Profile_i.do" class="header-btn">회원 정보 수정</a>
-			<p class="header-btn">어서오세요 ${cookie.fdpCookie.value}</p>
+			<p class="header-btn">어서오세요 ${cookie.Name.value}</p>
 		</c:when>
 		<c:when test="${session_id != null }">
 			<a href="/session/delete.do" class="header-btn">로그아웃</a>
