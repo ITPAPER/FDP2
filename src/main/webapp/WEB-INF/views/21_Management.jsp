@@ -82,8 +82,6 @@
 	background-color: #757575;
 }
 
-
-
 thead {
 	border: 1px solid #ffa500;
 }
@@ -109,7 +107,8 @@ tbody tr td {
 }
 
 .imgbox {
-	background-image: url("${pageContext.request.contextPath}/assets/img/lockicon.png");
+	background-image:
+		url("${pageContext.request.contextPath}/assets/img/lockicon.png");
 	background-size: 100px;
 	background-repeat: no-repeat;
 	background-position: center top;
@@ -119,23 +118,24 @@ tbody tr td {
 	height: 250px;
 	border: solid 1px #ccc;
 	background: #f8f8f8;
-	background-image: url("${pageContext.request.contextPath}/assets/img/xicon.png");
+	background-image:
+		url("${pageContext.request.contextPath}/assets/img/xicon.png");
 	background-size: 100px;
 	background-repeat: no-repeat;
 	background-position: 50% 30%;
 }
 
-.imgbox > .btn {
+.imgbox>.btn {
 	position: relative;
 	bottom: -50px;
 }
 
-.imgbox > h3 {
+.imgbox>h3 {
 	position: relative;
 	bottom: -120px;
 }
 
-.imgbox2 > h3 {
+.imgbox2>h3 {
 	color: #757575;
 	position: relative;
 	bottom: -160px;
@@ -189,51 +189,52 @@ tbody tr td {
 						<h3>관리자 로그인을 해주세요.</h3>
 					</div>
 				</c:if>
-				
-				<c:if test="${not empty session_pw && not empty session_pw}">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-center">글 번호</th>
-							<th class="text-center">제목</th>
-							<th class="text-center">작성자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:choose>
-							<c:when test="${output == null || output.size() == 0}">
-								<tr>
-									<td class="text-center" colspan="3">게시물이 없습니다.</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="i" begin="0" end="4" step="1">
-									<tr onclick="location.href ='24_Notice_board_s_2.do?document_id=${output.get(i).document_id}'">
-										<td class="text-center">${output.get(i).document_id}</td>
-										<c:choose>
-											<c:when test="${fn:length(output.get(i).subject) > 15}">
-												<td class="text-center">${fn:substring(output.get(i).subject,0,15)}&nbsp;·
-													· ·</td>
-											</c:when>
-											<c:otherwise>
-												<td class="text-center">${output.get(i).subject}</td>
-											</c:otherwise>
-										</c:choose>
-										<td class="text-center">${output.get(i).writer_name}</td>
-									</tr>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
 
-					</tbody>
-				</table>
+				<c:if test="${not empty session_pw && not empty session_pw}">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">글 번호</th>
+								<th class="text-center">제목</th>
+								<th class="text-center">작성자</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${output == null || output.size() == 0}">
+									<tr>
+										<td class="text-center" colspan="3">게시물이 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="i" begin="0" end="4" step="1">
+										<tr
+											onclick="location.href ='14_Notice_board_i.do?document_id=${output.get(i).document_id}'">
+											<td class="text-center">${output.get(i).document_id}</td>
+											<c:choose>
+												<c:when test="${fn:length(output.get(i).subject) > 15}">
+													<td class="text-center">${fn:substring(output.get(i).subject,0,15)}&nbsp;·
+														· ·</td>
+												</c:when>
+												<c:otherwise>
+													<td class="text-center">${output.get(i).subject}</td>
+												</c:otherwise>
+											</c:choose>
+											<td class="text-center">${output.get(i).writer_name}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+
+						</tbody>
+					</table>
 				</c:if>
 			</div>
 			<div class="box1 box-left">
 				<div class="top">
 					<h4 class="pull-left">누적 접속회원 통계(modal)</h4>
 					<button type="button" class="btn btn-primary pull-right"
-						onclick="location.href ='28_User_stasis.do'">더보기</button>
+						onclick="location.href ='29_User_stasis2.do'">더보기</button>
 				</div>
 				<c:if test="${empty session_id && empty session_pw}">
 					<div class="imgbox2">
@@ -241,36 +242,36 @@ tbody tr td {
 					</div>
 				</c:if>
 				<c:if test="${not empty session_pw && not empty session_pw}">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-center">제목</th>
-							<th class="text-center">통계</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr data-toggle="modal" data-target="#myModal">
-							<td class="text-center">1</td>
-							<td class="text-center">지역</td>
-						</tr>
-						<tr data-toggle="modal" data-target="#myModal">
-							<td class="text-center">2</td>
-							<td class="text-center">나이</td>
-						</tr>
-						<tr data-toggle="modal" data-target="#myModal">
-							<td class="text-center">3</td>
-							<td class="text-center">남여</td>
-						</tr>
-						<tr data-toggle="modal" data-target="#myModal">
-							<td class="text-center">4</td>
-							<td class="text-center">시간</td>
-						</tr>
-						<tr data-toggle="modal" data-target="#myModal">
-							<td class="text-center">5</td>
-							<td class="text-center">등급</td>
-						</tr>
-					</tbody>
-				</table>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">제목</th>
+								<th class="text-center">통계</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-toggle="modal" data-target="#myModal">
+								<td class="text-center">1</td>
+								<td class="text-center">지역</td>
+							</tr>
+							<tr data-toggle="modal" data-target="#myModal">
+								<td class="text-center">2</td>
+								<td class="text-center">나이</td>
+							</tr>
+							<tr data-toggle="modal" data-target="#myModal">
+								<td class="text-center">3</td>
+								<td class="text-center">남여</td>
+							</tr>
+							<tr data-toggle="modal" data-target="#myModal">
+								<td class="text-center">4</td>
+								<td class="text-center">시간</td>
+							</tr>
+							<tr data-toggle="modal" data-target="#myModal">
+								<td class="text-center">5</td>
+								<td class="text-center">등급</td>
+							</tr>
+						</tbody>
+					</table>
 				</c:if>
 			</div>
 			<div class="box1 box-right">
@@ -285,34 +286,36 @@ tbody tr td {
 					</div>
 				</c:if>
 				<c:if test="${not empty session_pw && not empty session_pw}">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th class="text-center">회원 번호</th>
-							<th class="text-center">아이디</th>
-							<th class="text-center">등급</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:choose>
-							<c:when test="${output2 == null || output2.size() == 0}">
-								<tr>
-									<td class="text-center" colspan="3">게시물이 없습니다.</td>
-								</tr>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="i" begin="0" end="4" step="1">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">회원 번호</th>
+								<th class="text-center">회원 이름</th>
+								<th class="text-center">아이디</th>
+								<th class="text-center">등급</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:choose>
+								<c:when test="${output2 == null || output2.size() == 0}">
 									<tr>
-										<td class="text-center">${output2.get(i).fdpmember_id}</td>
-										<td class="text-center">${output2.get(i).user_id}</td>
-										<td class="text-center">${output2.get(i).member_grade}</td>
+										<td class="text-center" colspan="3">게시물이 없습니다.</td>
 									</tr>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="i" begin="0" end="4" step="1">
+										<tr>
+											<td class="text-center">${output2.get(i).fdpmember_id}</td>
+											<td class="text-center">${output2.get(i).name}</td>
+											<td class="text-center">${output2.get(i).user_id}</td>
+											<td class="text-center">${output2.get(i).member_grade}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 
-					</tbody>
-				</table>
+						</tbody>
+					</table>
 				</c:if>
 			</div>
 		</div>

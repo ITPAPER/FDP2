@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,12 +29,16 @@ public class Controller_K {
 
 	@Autowired
 	WebHelper webHelper;
+
 	@Autowired
 	RegexHelper regexHelper;
+
 	@Autowired
 	DocumentService documentService;
+
 	@Autowired
 	MemberService memberService;
+
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
 
@@ -106,8 +111,7 @@ public class Controller_K {
 
 	// 세션 삭제 하는 페이지
 	@RequestMapping(value = "/session/delete.do", method = RequestMethod.GET)
-	public String sessionDelete(HttpServletRequest request,
-			@RequestParam(value = "user_id", defaultValue = "") String userId) {
+	public String sessionDelete(HttpServletRequest request) {
 		/** 1) request 객체를 사용해서 세션 객체 만들기 */
 		HttpSession session = request.getSession();
 
@@ -121,6 +125,7 @@ public class Controller_K {
 	// 관리자 ID/PW 세션에 저장된 값이랑 비교
 	@RequestMapping(value = "/check.do")
 	public String checkFunction(Model model, HttpServletRequest request, HttpServletResponse response) {
+		/** 관리자는 5명뿐이라 일단은 직접 입력 */
 		String[] checkId = { "cherry", "kihyub", "seungseok", "mingi", "jihyeon" };
 		String[] checkPw = { "1234", "1234", "1234", "1234", "1234" };
 
@@ -139,41 +144,88 @@ public class Controller_K {
 		return "redirect:/22_Login_s.do";
 	}
 
-	@RequestMapping(value = "/26_Profile_i.do", method = RequestMethod.GET)
-	public String Profile_i() {
+	@RequestMapping(value = "/26_Profile_i.do")
+	public ModelAndView Profile_i(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-		return "26_Profile_i";
+		return new ModelAndView("26_Profile_i");
 	}
 
 	@RequestMapping(value = "/check2.do")
-	public String checkFunctionTwo(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView checkFunctionTwo(Model model,
+			@CookieValue(value = "fdp_cookie", defaultValue = "") String fdpCookie) {
+
+		/** 1) 필요한 변수값 생성 */
 		String user_pw = webHelper.getString("user_pw");
+		String user_id = webHelper.getCookie("fdpCookie", "");
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Member input = new Member();
+		input.setUser_id(user_id);
+		input.setUser_pw(user_pw);
 
-		/** 컨트롤러에서 세션을 식별하기 위한 처리 */
-		HttpSession session = request.getSession();
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
 
-		String mySessionPw = (String) session.getAttribute("session_pw");
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
 
-		if (!mySessionPw.equals(user_pw)) {
-			return "redirect:/26_Profile_i.do";
+			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		return "redirect:/27_Profile.do";
+
+		if (!user_pw.equals(output.getUser_pw())) {
+			/* return new ModelAndView("27_Profile.do"); */
+			String redirectUrl = contextPath + "/26_Profile_i.do";
+			return webHelper.redirect(redirectUrl, "비밀번호를 확인해주세요.");
+		} else {
+			/** 3) View 처리 */
+			model.addAttribute("output", output);
+			String redirectUrl = contextPath + "/27_Profile.do?fdpmember_id=" + output.getFdpmember_id();
+			return webHelper.redirect(redirectUrl, "확인 되었습니다.");
+			/* return new ModelAndView("redirect:/27_Profile.do"); */
+		}
 	}
 
-	@RequestMapping(value = "/27_Profile.do", method = RequestMethod.GET)
-	public ModelAndView Profile(Model model) {
+	@RequestMapping(value = "/27_Profile.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView Profile(Model model, HttpServletRequest request) {
+
+		/** 1) 필요한 변수값 생성 */
+		// 조회할 대상에 대한 PK값
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+
+		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if (fdpmember_id == 0) {
+			return webHelper.redirect(null, "회원번호가 없습니다.");
+		}
+
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) View 처리 */
+		model.addAttribute("output", output);
 		return new ModelAndView("27_Profile");
 	}
 
-	@RequestMapping(value = "/28_User_stasis.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/28_User_stasis.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView User_stasis(Model model) {
 
 		/** 1) 필요한 변수값 생성 */
 		String keyword = webHelper.getString("keyword", ""); // 검색어
 		int nowPage = webHelper.getInt("page", 1); // 페이지 번호 (기본값 1)
-		int totalCount = 0; 	// 전체 게시글 수
-		int listCount = 5; 		// 한 페이지당 표시할 목록 수
-		int pageCount = 5; 		// 한 그룹당 표시할 페이지 번호 수
+		int totalCount = 0; // 전체 게시글 수
+		int listCount = 5; // 한 페이지당 표시할 목록 수
+		int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
 
 		/** 2) 데이터 조회하기 */
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
@@ -192,7 +244,7 @@ public class Controller_K {
 			// SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
 			Member.setOffset(pageData.getOffset());
 			Member.setListCount(pageData.getListCount());
-			 
+
 			// 데이터 조회하기
 			output = memberService.getMemberList(input);
 		} catch (Exception e) {
@@ -205,5 +257,124 @@ public class Controller_K {
 		model.addAttribute("pageData", pageData);
 
 		return new ModelAndView("28_User_stasis");
+	}
+
+	@RequestMapping(value = "/29_User_stasis2.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView Profile2(Model model) {
+		/** 1) 필요한 변수값 생성 */
+		// 조회할 대상에 대한 PK값
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+
+		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if (fdpmember_id == 0) {
+			return webHelper.redirect(null, "회원번호가 없습니다.");
+		}
+
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+
+		try {
+			// 데이터 조회
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) View 처리 */
+		model.addAttribute("output", output);
+		return new ModelAndView("29_User_stasis2");
+	}
+
+	@RequestMapping(value = "/edit_ok.do")
+	public ModelAndView edit_ok(Model model) {
+		/** 1) 사용자가 입력한 파라미터 수신 및 유효성 검사 */
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+		String name = webHelper.getString("name");
+		String user_id = webHelper.getString("user_id");
+		String user_pw = webHelper.getString("user_pw");
+		String email = webHelper.getString("email");
+		int gender = webHelper.getInt("gender");
+		String birthdate = webHelper.getString("birthdate");
+		String tel = webHelper.getString("tel");
+		String addr1 = webHelper.getString("addr1");
+		String addr2 = webHelper.getString("addr2");
+		String addr3 = webHelper.getString("addr3");
+		String addr4 = webHelper.getString("addr4");
+		String reg_date = webHelper.getString("reg_date");
+		String edit_date = webHelper.getString("edit_date");
+		String medical_field = webHelper.getString("medical_field");
+		String member_grade = webHelper.getString("member_grade");
+
+		if (fdpmember_id == 0) {
+			return webHelper.redirect(null, "회원번호가 없습니다.");
+		}
+
+		if (name == null) {
+			return webHelper.redirect(null, "이름을 입력하세요.");
+		}
+
+		/** 2) 데이터 수정하기 */
+		// 수정할 값들을 Beans에 담는다.
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+		input.setName(name);
+		input.setUser_id(user_id);
+		input.setUser_pw(user_pw);
+		input.setEmail(email);
+		input.setGender(gender);
+		input.setBirthdate(birthdate);
+		input.setTel(tel);
+		input.setAddr1(addr1);
+		input.setAddr2(addr2);
+		input.setAddr3(addr3);
+		input.setAddr4(addr4);
+		input.setReg_date(reg_date);
+		input.setEdit_date(edit_date);
+		input.setMedical_field(medical_field);
+		input.setMember_grade(member_grade);
+
+		try {
+			// 데이터 수정
+			memberService.editMember(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) 결과를 확인하기 위한 페이지 이동 */
+		// 수정한 대상을 상세페이지에 알려주기 위해서 PK값을 전달해야 한다.
+		String redirectUrl = contextPath + "/29_User_stasis2.do?fdpmember_id=" + input.getFdpmember_id();
+		return webHelper.redirect(redirectUrl, "수정되었습니다.");
+	}
+
+	@RequestMapping(value = "/ddelete_ok.do")
+	public ModelAndView delete_ok(Model model) {
+		/** 1) 필요한 변수값 생성 */
+		// 삭제할 대상에 대한 PK값
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+
+		// 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if (fdpmember_id == 0) {
+			return webHelper.redirect(null, "회원 번호가 없습니다.");
+		}
+
+		/** 2) 데이터 삭제하기 */
+		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+
+		try {
+			memberService.deleteMember(input); // 데이터 삭제
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) 페이지 이동 */
+		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
+		return webHelper.redirect("28_User_stasis.do", "회원 탈퇴가 완료되었습니다.");
 	}
 }

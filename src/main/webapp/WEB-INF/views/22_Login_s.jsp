@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html lang="ko">
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.min.css" />
 
 <style>
 .bbox {
@@ -69,36 +71,32 @@
 	<div class="bbox">
 		<div class="container" style="min-height: 700px;">
 			<div class="top">
-				<span> 
-					<img src="${pageContext.request.contextPath}/assets/img/user.png">
-				</span> 
-				<span> 
-					관리자 로그인 
-				</span>
+				<span> <img
+					src="${pageContext.request.contextPath}/assets/img/user.png">
+				</span> <span> 관리자 로그인 </span>
 			</div>
 			<div class="content" style="background: #ffa500;">
-			
-				<form id="login-form" class="form-block" method="post" action="${pageContext.request.contextPath}/session/save.do">
-					<label for="user_id">
-						아이디
-					</label> 
-					<input type="text" name="user_id" id="user_id" class="form-control" placeholder="관리자 ID : cherry,  kihyub,  seungseok,  mingi,  jihyeon" /> 
-					<label for="user_pw">
-						비밀번호
-					</label> 
-						<input type="password" name="user_pw" id="user_pw" class="form-control" placeholder="PW : 1234 " />
-					<button type="submit" id="btn8" class="btn btn-primary btn-lg btn-block">
-						로그인
-					</button>
+
+				<form id="login-form" class="form-block" method="post"
+					action="${pageContext.request.contextPath}/session/save.do">
+					<label for="user_id"> 아이디 </label> <input type="text"
+						name="user_id" id="user_id" class="form-control"
+						placeholder="관리자 ID : cherry,  kihyub,  seungseok,  mingi,  jihyeon" />
+					<label for="user_pw"> 비밀번호 </label> <input type="password"
+						name="user_pw" id="user_pw" class="form-control"
+						placeholder="PW : 1234 " />
+					<button type="submit" id="btn8"
+						class="btn btn-primary btn-lg btn-block">로그인</button>
 				</form>
-				
+
 			</div>
 		</div>
 
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
 		$(function() {
 			$("#btn8").click(function(e) {
@@ -107,22 +105,22 @@
 				if (!regex.value('#user_id', '아이디를 입력하세요.')) {
 					return false;
 				}
-				
+
 				if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
 					return false;
 				}
-				
+
 				swal({
-					title : '접속', 							// 제목
-					text : "관리자님이 접속하셨습니다.",		// 내용
-					type : 'success', 							// 종류
-					confirmButtonText : 'Yes', 					// 확인버튼 표시 문구
-	            })
-	            
+					title : '접속', // 제목
+					text : "관리자님이 접속하셨습니다.", // 내용
+					type : 'success', // 종류
+					confirmButtonText : 'Yes', // 확인버튼 표시 문구
+				})
+
 				$('.swal2-confirm').click(function() {
 					$('form').submit();
 				});
-	        
+
 			});
 		});
 	</script>
