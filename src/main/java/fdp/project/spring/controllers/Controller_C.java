@@ -23,6 +23,7 @@ import fdp.project.spring.model.Document;
 import fdp.project.spring.service.DocAnswerService;
 /*import fdp.project.spring.service.DocAnswerService;*/
 import fdp.project.spring.service.DocumentService;
+import fdp.project.spring.service.MemberService;
 
 @Controller
 public class Controller_C {
@@ -40,7 +41,12 @@ public class Controller_C {
 	// --> import study.spring.service.DocumentService;
 	@Autowired
 	DocumentService documentService;
+
+	@Autowired
 	DocAnswerService docAnswerService;
+
+	@Autowired
+	MemberService memberService;
 
 	/** "/프로젝트이름"에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
@@ -108,8 +114,8 @@ public class Controller_C {
 		/** 1) 필요한 변수 값 생성 */
 		// 조회할 대상에 대한 PK 값
 		int document_id = webHelper.getInt("document_id");
-		/* int docAnswer_id = webHelper.getInt("docAnswer_id"); */
-		// 이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
+//		int docAnswer_id = webHelper.getInt("docAnswer_id"); //
+//		이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시물 번호가 없습니다.");
 		}
@@ -128,20 +134,17 @@ public class Controller_C {
 		}
 
 		// DocAnswer 테이블 데이터
-		
-		/*
-		 * DocAnswer input1 = new DocAnswer(); input1.setDocAnswer_id(docAnswer_id);
-		 * DocAnswer output1 = null;
-		 * 
-		 * try { // 데이터 조회 output1 = docAnswerService.getDocAnswerItem(input1); }
-		 * catch(Exception e) { return webHelper.redirect(null,
-		 * e.getLocalizedMessage()); }
-		 */
-		 
+//		 DocAnswer input1 = new DocAnswer(); input1.setDocAnswer_id(docAnswer_id); //
+//		 DocAnswer output1 = null; //
+
+//		 try { // 데이터 조회 
+//			 output1 = docAnswerService.getDocAnswerItem(input1); //
+//			 } catch(Exception e) { //
+//				 return webHelper.redirect(null, e.getLocalizedMessage()); } //
 
 		/** 3) view 처리 */
 		model.addAttribute("output", output);
-		/* model.addAttribute("output1", output1); */
+//		model.addAttribute("output1", output1); //
 		return new ModelAndView("14_Notice_board_i");
 	}
 
@@ -236,7 +239,7 @@ public class Controller_C {
 		return webHelper.redirect(redirectUrl, "수정되었습니다.");
 	}
 
-	/** 작성폼 페이지 */
+	/** 일반 회원(medicalfield=2) 작성폼 페이지 */
 	@RequestMapping(value = "/16_Notice_board_new.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_new(Model model) {
 
@@ -244,7 +247,7 @@ public class Controller_C {
 
 	}
 
-	/** 작성폼에 대한 action 페이지 */
+	/** 일반 회원(medicalfield=2) 작성폼에 대한 action 페이지 */
 	@RequestMapping(value = "/16_Notice_board_new_ok.do", method = RequestMethod.POST)
 	public ModelAndView Notice_board_new_ok(Model model,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
@@ -290,7 +293,7 @@ public class Controller_C {
 
 		/** 3) 결과를 확인하기 위한 페이지 이동 */
 		// 저장 결과를 확인하기 위해서 데이터 저장 시 생성된 PK 값을 상세페이지로 전달해야한다.
-		String redirectUrl = contextPath + "/25_Notice_board_s_i.do?document_id=" + input.getDocument_id();
+		String redirectUrl = contextPath + "/13_Notice_board.do?document_id=" + input.getDocument_id();
 		return webHelper.redirect(redirectUrl, "저장되었습니다.");
 	}
 

@@ -39,6 +39,10 @@
 	min-height: 600px"WebContent/pages/15_Notice_board_2.jsp" !important;
 }
 
+.aaa {
+	width: 100px;
+	height: 10px;
+}
 /** 게시물 상단 타이틀바 설정 */
 .subject_content {
 	background-color: #eee;
@@ -64,30 +68,29 @@
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
-						<td>
-						
-							<h5>작성자</h5>
+						<td class="aaa">
+							<h5 align="center">작성자</h5>
 						</td>
 						<td>	
-							<textarea name="writer_name" class="writer_name">${output.writer_name}</textarea>
+							<h5>${output.writer_name}</h5>
+							<input type="hidden" name="writer_name" value="${output.writer_name}" /> 
 						</td>
 					</tr>
 					<tr>
-						<td align="center" class="subject1">
-							<h5 class="subject1">제목</h5>
+						<td class="subject1 aaa">
+							<h5 class="subject1" align="center">제목</h5>
 						<input type="hidden" name="hit" value="${output.hit}" />
 						<input type="hidden" name="reg_date" value="${output.reg_date}" />
 						<input type="hidden" name="edit_date" value="${output.edit_date}" />
 						</td>
 						
 						<td>
-							<textarea name="subject" class="subject">${output.subject}</textarea>
+							<input type="text" name="subject" class="subject" value="${output.subject}"/>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<textarea name="content" class="ckeditor"> ${output.content}
-							</textarea>
+							<textarea name="content" class="ckeditor"> ${output.content}</textarea>
 						</td>
 					</tr>
 					</tbody>

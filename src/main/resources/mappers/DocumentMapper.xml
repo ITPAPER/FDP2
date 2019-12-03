@@ -15,13 +15,14 @@
         <result property="hit" column="hit" />
         <result property="reg_date" column="reg_date" />
         <result property="edit_date" column="edit_date" />
+        <result property="fdpmember_id" column="fdpmember_id" />
     </resultMap>
 
     <!-- 단일행 조회를 위한 기능 정의 -->
     <select id="selectItem"
         parameterType="fdp.project.spring.model.Document"
         resultMap="documentMap">
-        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_date FROM document WHERE document_id=#{document_id};
+        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id FROM document WHERE document_id=#{document_id};
     </select>
 
     <!-- 다중행 조회를 위한 기능 정의 -->
@@ -64,7 +65,7 @@
         parameterType="fdp.project.spring.model.Document"
         useGeneratedKeys="true"
         keyProperty="document_id">
-        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date});
+        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date}, #{fdpmember_id});
     </insert>
 
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -107,6 +108,9 @@
             </if>
             <if test="edit_date != null and edit_date != ''">
                 OR edit_date LIKE concat('%', #{edit_date}, '%')
+            </if>
+            <if test="fdpmember_id != null and fdpmember_id != ''">
+                OR fdpmember_id LIKE concat('%', #{fdpmember_id}, '%')
             </if>
         </where>
     </select>

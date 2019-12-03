@@ -56,7 +56,8 @@
 							<h5>작성자</h5>
 						</td>
 						<td>	
-							<textarea name="writer_name" class="writer_name"></textarea>
+							<h5>${cookie.Name.value}</h5>
+							<input type="hidden" value="${cookie.Name.value}" name="writer_name" />
 						</td>
 					</tr>
 					<tr>

@@ -55,6 +55,13 @@
 .title_info {
 	margin-bottom: -15px;
 }
+
+/** 의사 답변 컨텐츠의 제목 부분 설정 */
+.table .doc_ans_title {
+	padding: 0 2 0 0 ;
+	border-bottom: 1px dotted;
+	font-size: 20px;
+}
 </style>
 <head>
 	<jsp:include page="./assets/inc/head.jsp" />
@@ -74,9 +81,15 @@
 				<tbody>
 					<tr class="subject_content">
 						<td><h4>${output.subject}</h4>
-							<h6 class="title_info">작성자: ${output.writer_name} &nbsp;&nbsp;
+							<h6 class="title_info">작성자:${output.writer_name}  &nbsp;&nbsp;
 							작성일: ${output.reg_date} &nbsp;&nbsp;
-							수정일: ${output.edit_date}</h6>
+							<c:choose>
+								<c:when test="${output.edit_date != null}">
+							수정일: ${output.edit_date}
+								</c:when>
+							</c:choose>
+							</h6>
+							
 						</td>
 					</tr>
 					<tr>
@@ -91,18 +104,45 @@
 							</a>
 						</td>
 					</tr>
-						
-					<tr>
-						<td><b>답변일: ${output1.reg_date}&nbsp;&nbsp;
-						 전문의: ${output1.writer_name}&nbsp;&nbsp;
-						 전문 분야 : ${output1.medical_field}</b>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							 ${output1.content}
-						</td>
-					</tr>
+					
+						<c:choose>
+						<%-- 의사 답변이 없는 경우 --%>
+						<c:when test="${output1 == null || fn:length(output1) == 0}">
+						<!-- <tr id="doc_del">
+							<td class="doc_ans_title">
+								<b>전문의 소견</b>
+							</td>
+						</tr> -->
+						<tr id="doc_del">
+							<td colspan="6">
+							<h5><b>전문의 소견</b></h5><br />
+							현재까진 의사의 답변이 없습니다.</td>
+						</tr>
+						</c:when>
+						<%-- 조회 결과가 있는 경우 --%>
+						<c:otherwise>
+							<%-- 출력을 위해 준비한 게시판 작성자명, 내용, 제목 --%>
+								<c:set var="reg_date" value="${item1.reg_date}" />
+								<c:set var="writer_name" value="${item1.writer_name}" />
+								<c:set var="medical_field" value="${item1.medical_field}" />
+								<c:set var="content" value="${item1.content}" />
+								
+								<tr>
+									<td>
+									<b>답변일: ${output1.reg_date}&nbsp;&nbsp;전문의: ${output1.writer_name}
+								&nbsp;&nbsp;전문 분야 : ${output1.medical_field}</b>
+									</td>
+								</tr>
+								<tr>
+									<td>${output1.content}</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+					
+					<tbody id="abc"></tbody>
+					
+					<tbody>
 					<tr>
 						<td>
 							<h5>
@@ -140,6 +180,12 @@
 					class="btn btn-default btn-sm">수정</a></li>
 				<li class="a"><a href="${pageContext.request.contextPath}/13_Notice_board.do"
 					class="btn btn-default btn-sm">메뉴</a></li>
+				<c:choose>
+					<c:when test="${cookie.UserGrade.value == 1}">
+				<li class="a"><input type="button" value="의사 글쓰기"
+					class="btn btn-default btn-sm doc_a" id="btn2" /></li>
+					</c:when>
+				</c:choose>
 			</ul>
 		</div>
 	</div>
@@ -178,6 +224,15 @@
 					location.href='15_Notice_board_delete.do?document_id=' + ${output.document_id};
 				}
 			}
+			</script>
+			<script>
+				$("#btn2").click(function(){
+					$("#doc_del").empty();	// 의사가 글 작성할 때 아래의 의사 답변 내용이 없습니다 테이블 삭제됨
+					var doc_feedback = "<tr><td><b>답변일: ${output1.reg_date}&nbsp;&nbsp;전문의: "
+						doc_feedback +="${output1.writer_name}&nbsp;&nbsp;전문 분야 : ${output1.medical_field}</b></td></tr><tr><td colspan='2'><textarea name='content' class='ckeditor'></textarea></td></tr>"
+					$("#abc").html(doc_feedback);
+					
+				})
 			</script>
 	</body>
 </html>
