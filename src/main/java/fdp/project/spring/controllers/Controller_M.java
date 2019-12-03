@@ -372,6 +372,8 @@ public class Controller_M {
 				webHelper.setCookie("fdpCookie", user_id, 604800);
 				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
 				webHelper.setCookie("Name", output.getName(), 604800);
+				String PK = Integer.toString(output.getFdpmember_id());
+				webHelper.setCookie("PK", PK, 604800);
 			}else {
 				Cookie cookie = new Cookie("fdpCookie", user_id);
 				cookie.setPath("/");
@@ -386,6 +388,13 @@ public class Controller_M {
 				response.addCookie(cookie);
 				
 				cookie = new Cookie("Name", output.getName());
+				cookie.setPath("/");
+				cookie.setDomain("localhost");
+				cookie.setMaxAge(-111);
+				response.addCookie(cookie);
+				
+				String PK = Integer.toString(output.getFdpmember_id());
+				cookie = new Cookie("PK", PK);
 				cookie.setPath("/");
 				cookie.setDomain("localhost");
 				cookie.setMaxAge(-111);

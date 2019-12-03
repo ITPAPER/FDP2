@@ -607,7 +607,7 @@
 	<script type="text/javascript">
 	$(function(){
 		$("#erer").slideToggle(100);
-		console.log("${list}")
+		console.log("@@@@@@@@@@@@@@@@@" +"${cookie.PK.value}")
 		$("#logout").click(
 			function(){
 			e.preventDefault();	
