@@ -108,6 +108,12 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
 
 		<!-- ========== Spring을 구성하기 위한 기본 라이브러리들 추가 ========== -->
 		<!-- 1) Spring Context Support -->

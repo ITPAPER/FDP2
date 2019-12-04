@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DiseaseMapper">
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="diseaseMap" type="fdp.project.spring.model.Disease_age_gender">
+		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="iddisease_age_gender" column="dis_id" />
+		<result property="dis_month" column="dis_month" />
+		<result property="dis_name" column="dis_name" />
+		<result property="dis_age" column="dis_age" />
+		<result property="dis_gender" column="dis_gender" />
+		<result property="dis_cost" column="dis_cost" />
+		<result property="dis_num_patient" column="dis_num_patient" />
+	</resultMap>
+
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id="selectItem"
+		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
+		select * from disease_age_gender
+
+	</select>
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="cold"
+		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
+		select dis_month, dis_num_patient from disease_age_gender where dis_name = "감기" and dis_age = "0_9세" and  dis_gender = "남"
+
+	</select>
+
+	<!-- 조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다. count, max, min, sum, avg 함수를 사용한 
+		경우 Mapper에서는 resultMap이 아닌 resulType으로 반환한다. -->
+	<select id="selectCountAll"
+		parameterType="fdp.project.spring.model.Disease_age_gender" resultType="int">
+		SELECT COUNT(*) FROM file
+	</select>
+</mapper>
