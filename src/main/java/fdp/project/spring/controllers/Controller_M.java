@@ -371,7 +371,13 @@ public class Controller_M {
 			if(autologin == 7 ) {
 				webHelper.setCookie("fdpCookie", user_id, 604800);
 				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
-				webHelper.setCookie("Name", output.getName(), 604800);
+//				webHelper.setCookie("Name", output.getName(), 604800);
+				Cookie cookie = new Cookie("Name", output.getName());
+				cookie.setPath("/");
+				cookie.setDomain("localhost");
+				cookie.setMaxAge(604800);
+				response.addCookie(cookie);
+				
 				String PK = Integer.toString(output.getFdpmember_id());
 				webHelper.setCookie("PK", PK, 604800);
 			}else {
