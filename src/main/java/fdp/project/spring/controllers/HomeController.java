@@ -69,10 +69,12 @@ public class HomeController {
 				e.printStackTrace();
 				return "index";
 			}
+			if(!output.getDocuments().isEmpty()) {
+				list = output.getDocuments();
+				System.out.println("output 비었음");
+			}
 			
-			list = output.getDocuments();
-			
-			System.out.println(list);
+			System.out.println("1111" + output.getDocuments());
 			
 		}
 		model.addAttribute("list", list);
