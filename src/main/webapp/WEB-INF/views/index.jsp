@@ -607,7 +607,6 @@
 	<script type="text/javascript">
 	$(function(){
 		$("#erer").slideToggle(100);
-		console.log("@@@@@@@@@@@@@@@@@" +"${cookie.PK.value}")
 		$("#logout").click(
 			function(){
 			e.preventDefault();	
@@ -729,7 +728,7 @@
 						})
 						
 						
-						if(${list[0].x} != 0){
+						if(${list[0].x != 0 }){
 							var xlen = ${list[0].x} - req[i].wgs84Lon;
 							console.log(xlen * -1);
 							if(xlen * -1){ xlen = xlen * -1;}
