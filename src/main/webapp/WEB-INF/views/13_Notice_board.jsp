@@ -76,6 +76,7 @@ thead {
 	width:50%;
 }
 </style>
+
 </head>
 
 <body>

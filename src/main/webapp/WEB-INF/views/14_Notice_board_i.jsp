@@ -49,6 +49,7 @@
 /** 게시물 상단 타이틀바 설정 */
 .subject_content {
 	background-color: #eee;
+	height: 80px;
 }
 
 /** 상세페이지 게시물 상단바 - 제목, 작성자, 작성일, 수정일 */
@@ -62,7 +63,22 @@
 	border-bottom: 1px dotted;
 	font-size: 20px;
 }
+
+.docA {
+	float: right;
+	margin-right: 3px;
+}
+
+.qna {
+	font-color: orange;
+	font-size: 50px;
+}
+
+.bcd {
+	font-size: 13px;
+}
 </style>
+
 <head>
 	<jsp:include page="./assets/inc/head.jsp" />
 	<jsp:include page="./assets/inc/remote_css.jsp" />
@@ -77,9 +93,11 @@
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
 		<div class="table2">
+		<form method="post" action="14_Notice_board_docAns_ok.do">
 			<table class="table table-bordered">
 				<tbody>
 					<tr class="subject_content">
+						
 						<td><h4>${output.subject}</h4>
 							<h6 class="title_info">작성자:${output.writer_name}  &nbsp;&nbsp;
 							작성일: ${output.reg_date} &nbsp;&nbsp;
@@ -108,11 +126,6 @@
 						<c:choose>
 						<%-- 의사 답변이 없는 경우 --%>
 						<c:when test="${output1 == null || fn:length(output1) == 0}">
-						<!-- <tr id="doc_del">
-							<td class="doc_ans_title">
-								<b>전문의 소견</b>
-							</td>
-						</tr> -->
 						<tr id="doc_del">
 							<td colspan="6">
 							<h5><b>전문의 소견</b></h5><br />
@@ -121,27 +134,65 @@
 						</c:when>
 						<%-- 조회 결과가 있는 경우 --%>
 						<c:otherwise>
-							<%-- 출력을 위해 준비한 게시판 작성자명, 내용, 제목 --%>
-								<c:set var="reg_date" value="${item1.reg_date}" />
-								<c:set var="writer_name" value="${item1.writer_name}" />
-								<c:set var="medical_field" value="${item1.medical_field}" />
-								<c:set var="content" value="${item1.content}" />
+							<%-- 출력을 위해 준비한 의사답변..., 내용, 제목 --%>
+								<c:forEach var="item" items="${output1}" varStatus="status">
+								<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>		
+								<c:set var="reg_date" value="${item.reg_date}" />
+								<c:set var="writer_name" value="${item.writer_name}" />
+								<c:set var="medical_field" value="${item.medical_field}" />
+								<c:set var="content" value="${item.content}" />
 								
 								<tr>
 									<td>
-									<b>답변일: ${output1.reg_date}&nbsp;&nbsp;전문의: ${output1.writer_name}
-								&nbsp;&nbsp;전문 분야 : ${output1.medical_field}</b>
+									<h4>${item.writer_name} 의사님 답변
+									<a href="#" title="삭제" class="pull-right bcd">
+												<i class="glyphicon glyphicon-remove"></i>
+											</a>
+									<a href="#" title="수정" class="pull-right bcd">
+												<i class="glyphicon glyphicon-edit"></i>
+											</a>
+									</h4>
+									 	
+									
+									<h6>전문 분야 : 
+								<c:choose>
+								<c:when test="${item.medical_field == '4' }">외과</c:when>
+								<c:when test="${item.medical_field == '5' }">정형외과</c:when>
+								<c:when test="${item.medical_field == '6' }">신경외과</c:when>
+								<c:when test="${item.medical_field == '8' }">성형외과</c:when>
+								<c:when test="${item.medical_field == '1' }">내과</c:when>
+								<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
+								<c:when test="${item.medical_field == '10' }">산부인과</c:when>
+								<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
+								<c:when test="${item.medical_field == '12' }">안과</c:when>
+								<c:when test="${item.medical_field == '13' }">이비인후과</c:when>
+								<c:when test="${item.medical_field == '14' }">피부과</c:when>
+								<c:when test="${item.medical_field == '15' }">비뇨기과</c:when>
+								<c:when test="${item.medical_field == '21' }">재활의학과</c:when>
+								<c:when test="${item.medical_field == '49' }">치과</c:when>
+								<c:when test="${item.medical_field == '80' }">한의학과</c:when>
+								</c:choose>&nbsp;&nbsp; 답변일: ${reg_date}&nbsp;&nbsp;
+								<c:choose>
+								<c:when test="${item.edit_date != null}">
+								수정일: ${item.edit_date}
+								</c:when>
+							</c:choose>
+											
+									</h6>
+										
+											
+										
 									</td>
 								</tr>
 								<tr>
-									<td>${output1.content}</td>
+									<td>${content}</td>
 								</tr>
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</tbody>
-					
+			
 					<tbody id="abc"></tbody>
-					
 					<tbody>
 					<tr>
 						<td>
@@ -158,9 +209,12 @@
 										<h5 class="pull-left">cpfl***</h5>
 										<!-- 제목에 float: right 적용 - pull-right -->
 										<div class="pull-right">
-											<a href="#" title="수정"><i
-												class="glyphicon glyphicon-edit"></i></a> <a href="#" title="삭제"><i
-												class="glyphicon glyphicon-remove"></i></a>
+											<a href="#" title="수정">
+												<i class="glyphicon glyphicon-edit"></i>
+											</a> 
+											<a href="#" title="삭제">
+												<i class="glyphicon glyphicon-remove"></i>
+											</a>
 										</div>
 									</div>
 									<p>요즘 수두가 유행이더라구요ㅠㅠ빨리 낫길..!</p> 
@@ -171,6 +225,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</form>	
 		</div>
 		<div class="clearfix b" >
 			<ul class="pull-right bottom-button">
@@ -189,6 +244,7 @@
 			</ul>
 		</div>
 	</div>
+	
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
@@ -225,14 +281,22 @@
 				}
 			}
 			</script>
+			<script type="text/javascript" src="./assets/plugins/ckeditor/ckeditor.js"></script>
 			<script>
-				$("#btn2").click(function(){
+			$("#btn2").click(function(){
 					$("#doc_del").empty();	// 의사가 글 작성할 때 아래의 의사 답변 내용이 없습니다 테이블 삭제됨
-					var doc_feedback = "<tr><td><b>답변일: ${output1.reg_date}&nbsp;&nbsp;전문의: "
-						doc_feedback +="${output1.writer_name}&nbsp;&nbsp;전문 분야 : ${output1.medical_field}</b></td></tr><tr><td colspan='2'><textarea name='content' class='ckeditor'></textarea></td></tr>"
-					$("#abc").html(doc_feedback);
-					
-				})
+					var doc_feedback = "<tr><td><h5>${cookie.Name.value}의사님 답변</h5>"
+						doc_feedback +="</td></tr><tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'></textarea></td></tr>"
+						doc_feedback +=	"<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA' /><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn3'/></td></tr>"
+						$("#abc").html(doc_feedback);
+					CKEDITOR.replace('d_content', {height: 200});
+						
+					$("#btn3").click(function() {
+						$("#abc").empty();
+						var doc_origin = "<tr><td colspan='6'><h5><b>전문의 소견</b></h5><br />현재까진 의사의 답변이 없습니다.</td></tr>"
+							$("#abc").html(doc_origin);
+					})
+			})
 			</script>
 	</body>
 </html>

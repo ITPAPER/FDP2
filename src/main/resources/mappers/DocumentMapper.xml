@@ -65,7 +65,7 @@
         parameterType="fdp.project.spring.model.Document"
         useGeneratedKeys="true"
         keyProperty="document_id">
-        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date}, #{fdpmember_id});
+        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date});
     </insert>
 
     <!-- 데이터 삭제를 위한 기능 정의 -->

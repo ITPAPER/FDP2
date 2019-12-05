@@ -15,7 +15,7 @@ public class DocAnswer {
 	/** 답글 수정일 */
 	private String edit_date;
 	/** 의사 등록정보 */
-	private int medical_field;
+	private String medical_field;
 	/** 회원 번호 */
 	private int fdpmember_id;
 	/** 게시글 번호 */

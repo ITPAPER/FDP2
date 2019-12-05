@@ -33,7 +33,7 @@
 }
 </style>
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
-<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <head>
 	<jsp:include page="./assets/inc/head.jsp" />
 	<jsp:include page="./assets/inc/remote_css.jsp" />

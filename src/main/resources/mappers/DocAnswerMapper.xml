@@ -8,7 +8,7 @@
 		type="fdp.project.spring.model.DocAnswer">
 		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="docAnswer_id" column="docAnswer_id" />
-		<result property="writer_name" column="write_name" />
+		<result property="writer_name" column="writer_name" />
 		<result property="content" column="content" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
@@ -35,28 +35,16 @@
 		resultMap="docAnswerMap">
 		SELECT docAnswer_id, writer_name, content, reg_date,
 		edit_date, medical_field, fdpmember_id, document_id FROM docAnswer
-
-		<where>
-
-			<if test="write_name != null and write_name != ''">
-				writer_name LIKE concat('%', #{write_name}, '%')
-			</if>
-
-		</where>
-
-		ORDER BY docAnswer_id DESC
-
-		<if test="listCount > 0">
-			LIMIT #{offset}, #{listCount};
-		</if>
-
+		WHERE
+		document_id = #{document_id}
+		ORDER BY reg_date DESC
 	</select>
 
 	<!-- 데이터 저장을 위한 기능 정의 -->
 	<insert id="insertItem"
 		parameterType="fdp.project.spring.model.DocAnswer"
 		useGeneratedKeys="true" keyProperty="docAnswer_id">
-		INSERT INTO docAnswer (write_name,
+		INSERT INTO docAnswer (writer_name,
 		content, reg_date, edit_date, medical_field, fdpmember_id,
 		document_id)
 		VALUES (#{writer_name}, #{content}, #{reg_date},
@@ -88,8 +76,8 @@
 		SELECT COUNT(*) FROM docAnswer
 
 		<where>
-			<if test="write_name != null and write_name != ''">
-				writer_name LIKE concat('%', #{write_name}, '%')
+			<if test="writer_name != null and writer_name != ''">
+				writer_name LIKE concat('%', #{writer_name}, '%')
 			</if>
 
 		</where>

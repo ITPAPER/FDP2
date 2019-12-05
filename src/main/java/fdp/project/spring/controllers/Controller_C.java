@@ -18,10 +18,9 @@ import fdp.project.spring.helper.PageData;
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.WebHelper;
 import fdp.project.spring.model.DocAnswer;
-/*import fdp.project.spring.model.DocAnswer;*/
 import fdp.project.spring.model.Document;
+import fdp.project.spring.model.Member;
 import fdp.project.spring.service.DocAnswerService;
-/*import fdp.project.spring.service.DocAnswerService;*/
 import fdp.project.spring.service.DocumentService;
 import fdp.project.spring.service.MemberService;
 
@@ -72,12 +71,12 @@ public class Controller_C {
 		input.setReg_date(keyword);
 		input.setEdit_date(keyword);
 
-		DocAnswer input1 = new DocAnswer();
-		input1.setWriter_name(keyword);
-		input1.setContent(keyword);
-		input1.setReg_date(keyword);
-		input1.setEdit_date(keyword);
-		input1.setMedical_field(0);
+//		DocAnswer input1 = new DocAnswer();
+//		input1.setWriter_name(keyword);
+//		input1.setContent(keyword);
+//		input1.setReg_date(keyword);
+//		input1.setEdit_date(keyword);
+//		input1.setMedical_field(0);
 
 		List<Document> output = null; // 조회 결과가 저장될 객체
 		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
@@ -114,7 +113,7 @@ public class Controller_C {
 		/** 1) 필요한 변수 값 생성 */
 		// 조회할 대상에 대한 PK 값
 		int document_id = webHelper.getInt("document_id");
-//		int docAnswer_id = webHelper.getInt("docAnswer_id"); //
+
 //		이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시물 번호가 없습니다.");
@@ -134,20 +133,66 @@ public class Controller_C {
 		}
 
 		// DocAnswer 테이블 데이터
-//		 DocAnswer input1 = new DocAnswer(); input1.setDocAnswer_id(docAnswer_id); //
-//		 DocAnswer output1 = null; //
+		 DocAnswer input1 = new DocAnswer(); 
+		 input1.setDocument_id(document_id); //
+		 List<DocAnswer> output1 = null; //
 
-//		 try { // 데이터 조회 
-//			 output1 = docAnswerService.getDocAnswerItem(input1); //
-//			 } catch(Exception e) { //
-//				 return webHelper.redirect(null, e.getLocalizedMessage()); } //
+		 try { // 데이터 조회 
+			 output1 = docAnswerService.getDocAnswerList(input1); //
+			 } catch(Exception e) { //
+				 return webHelper.redirect(null, e.getLocalizedMessage()); } //
 
 		/** 3) view 처리 */
 		model.addAttribute("output", output);
-//		model.addAttribute("output1", output1); //
+		model.addAttribute("output1", output1); //
 		return new ModelAndView("14_Notice_board_i");
 	}
+	
+	@RequestMapping(value = "/14_Notice_board_docAns_ok.do", method = RequestMethod.POST)
+	public ModelAndView Notice_board_docAns_ok(Model model) {
+		/** 1) 필요한 변수값 생성 */
+		int document_id = webHelper.getInt("document_id");
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+		String content = webHelper.getString("content");
+		
+		SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar time = Calendar.getInstance();
+		String reg_date = d.format(time.getTime());
+		
+		/** 2) 데이터 조회하기 */
+		// fdpmember 테이블 데이터
+		Member input = new Member();
+		input.setFdpmember_id(fdpmember_id);
+		Member output = null;
 
+		try {
+			// 데이터 조회
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		DocAnswer docAnswer = new DocAnswer();
+		docAnswer.setWriter_name(output.getName());
+		docAnswer.setMedical_field(output.getMedical_field());
+		docAnswer.setDocument_id(document_id);
+		docAnswer.setContent(content);
+		docAnswer.setFdpmember_id(fdpmember_id);
+		docAnswer.setReg_date(reg_date);
+
+		try {
+			// 데이터 저장
+			docAnswerService.addDocAnswer(docAnswer);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		/** 3) 결과를 확인하기 위한 페이지 이동 */
+		// 저장 결과를 확인하기 위해서 데이터 저장 시 생성된 PK 값을 상세페이지로 전달해야한다.
+		String redirectUrl = contextPath + "/14_Notice_board_i.do?document_id=" + document_id;
+		return webHelper.redirect(redirectUrl, "답글이 등록되었습니다.");
+	}
+	
 	/** 수정폼 페이지 */
 	@RequestMapping(value = "/15_Notice_board_2.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_2(Model model) {
@@ -239,7 +284,7 @@ public class Controller_C {
 		return webHelper.redirect(redirectUrl, "수정되었습니다.");
 	}
 
-	/** 일반 회원(medicalfield=2) 작성폼 페이지 */
+	/** 일반 회원(medical_grade=2) 작성폼 페이지 */
 	@RequestMapping(value = "/16_Notice_board_new.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_new(Model model) {
 
@@ -247,7 +292,7 @@ public class Controller_C {
 
 	}
 
-	/** 일반 회원(medicalfield=2) 작성폼에 대한 action 페이지 */
+	/** 일반 회원(medical_grade=2) 작성폼에 대한 action 페이지 */
 	@RequestMapping(value = "/16_Notice_board_new_ok.do", method = RequestMethod.POST)
 	public ModelAndView Notice_board_new_ok(Model model,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
