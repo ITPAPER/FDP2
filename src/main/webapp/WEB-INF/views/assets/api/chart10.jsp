@@ -7,7 +7,21 @@
 	<title>Insert title here</title>
 	<!-- Styles -->
 	<style>
-
+      #chartdiv {
+		  width: 400px !important;
+		  height: 800px;
+		  left: 40px;
+		  top:50px;
+		  position:absolute;
+		}
+		
+		#chartdiv1 {
+		  width: 500px;
+		  height: 300px;
+		  left: 600px;
+		  top:50px;
+		  position:absolute;
+		}
 	</style>
 </head>
 <body>

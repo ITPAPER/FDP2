@@ -35,7 +35,7 @@
 					<td>${item.id}</td>
 					<td>${item.disMomth}</td>
 					<td>${item.disName}</td>
-					<td>${item.diseaseRegion}</td>
+					<td>${item.disRegion}</td>
 					<td>${item.patientSum}</td>
 					<td>${item.costSum}</td>
 				</tr>
@@ -45,7 +45,7 @@
 	
 	<h3>${regionStr}</h3>
 	<h3>${patientCntStr}</h3>
-	<h3>${region[1]}</h3>
+	
 	    <!-- 그래프를 표시할 위치 -->
     <div id="barChart" style="width: 1024px; height: 600px"></div>
 
@@ -53,8 +53,8 @@
     <script src="//d3js.org/d3.v5.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/billboard/billboard.min.js"></script>
     <script>
-    
-    console.log(${region[1]})
+    console.log(${json})
+    console.log(${region1[1]})
     console.log(${aa})
     console.log(${regionStr})
     	

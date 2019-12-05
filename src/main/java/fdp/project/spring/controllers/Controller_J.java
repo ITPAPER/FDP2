@@ -1,9 +1,12 @@
 package fdp.project.spring.controllers;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -30,8 +34,10 @@ import fdp.project.spring.model.Member;
 import fdp.project.spring.service.ApiHospitalService;
 import fdp.project.spring.service.DiseaseRegionService;
 import fdp.project.spring.service.MemberService;
+import net.sf.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+
 
 /**
  * Handles requests for the application home page.
@@ -502,7 +508,54 @@ public class Controller_J {
 	}
 	
 	@RequestMapping(value="07_1_Statistics.do", method=RequestMethod.GET) 
-	public ModelAndView disease(Model model) {
+	public ModelAndView disease(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+		//Ajax를위한 json생성테스트시작
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		
+		int disNo = 0;
+		String gender = null;
+		String age = null;
+		String season = null;
+		String region = null;
+	
+		JSONObject json = new JSONObject();
+		/*
+		 * try { disNo = Integer.parseInt(request.getParameter("disNo")); } catch
+		 * (Exception e) {}
+		 */
+		
+		for (int i=1; i<=10; i++) {
+			disNo = i;
+		}
+		
+		switch (disNo) {
+		case 1: gender="감기성별"; age="감기연령별"; season="감기계절별"; region="감기지역별"; break;
+		case 2: gender="고혈압성별"; age="고혈압연령별"; season="고혈압계절별"; region="고혈압지역별"; break;
+		case 3: gender="관절병증성별"; age="관절병증연령별"; season="관절병증계절별"; region="관절병증지역별"; break; 
+		case 4: gender="비염성별"; age="비염연령별"; season="비염계절별"; region="비염지역별"; break; 
+		case 5: gender="결막염성별"; age="결막염연령별"; season="결막염계절별"; region="결막염지역별"; break; 
+		case 6: gender="알레르기성별"; age="알레르기연령별"; season="알레르기계절별"; region="알레르기지역별"; break; 
+		case 7: gender="위식도성별"; age="위식도연령별"; season="위식도계절별"; region="위식도지역별"; break; 
+		case 8: gender="척추질환성별"; age="척추질환연령별"; season="척추질환계절별"; region="척추질환지역별"; break;
+		case 9: gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증계절별"; region="치아우식증지역별"; break; 
+		case 10: gender="치주질환성별"; age="치주질환연령별"; season="치주질환계절별"; region="치주질환지역별"; break;
+	}
+	
+		json.put("disNo", disNo);
+		json.put("gender", gender);
+		json.put("age", age);
+		json.put("season", season);
+		json.put("region", region);
+	
+		response.getWriter().print(json);
+		
+		model.addAttribute("json", json);
+		model.addAttribute("disNo", disNo);
+		//Ajax를위한 json생성테스트끝
+		
+		
 		//데이터베이스로부터 지역병 질병 데이터 불러오기
 		DiseaseRegion input = new DiseaseRegion();
 		
@@ -518,22 +571,19 @@ public class Controller_J {
 		int size = output.size();
 		String aa = String.valueOf(size);
 		String[] patientCnt = new String[size];
-		String[] region = new String[size];
+		String[] region1 = new String[size];
 		//DecimalFormat formatter = new DecimalFormat("###,###");
 		//String[] dec = new String[size];
 		
 		for (int i=0; i<size; i++) {
 			DiseaseRegion item = output.get(i);
-			region[i] = "'" + item.getDisRegion() + "'";
+			region1[i] = "'" + item.getDisRegion() + "'";
 			//dec[i] = "'"+formatter.format(item.getPatientSum())+"'";
 			patientCnt[i] = String.valueOf(item.getPatientSum());
 		}
 		
-		String regionStr = String.join(",", region);
+		String regionStr = String.join(",", region1);
 		String patientCntStr = String.join(",", patientCnt);
-		
-		
-		
 		
 		//View처리
 		model.addAttribute("output", output);
@@ -542,7 +592,61 @@ public class Controller_J {
 		model.addAttribute("aa", aa);
 		model.addAttribute("region", region);
 		
-		
 		return new ModelAndView("07_1_Statistics");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "abc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String tablist(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+		/*
+		 * request.setCharacterEncoding("utf-8");
+		 * response.setCharacterEncoding("utf-8");
+		 * response.setContentType("application/json");
+		 */
+		
+		int disNo = webHelper.getInt("disNo");
+		String gender = null;
+		String age = null;
+		String season = null;
+		String region = null;
+	
+		/*
+		 * try { disNo = Integer.parseInt(request.getParameter("disNo")); } catch
+		 * (Exception e) {}
+		 * 
+		 */
+		/*
+		 * for (int i=1; i<=10; i++) { disNo = i; }
+		 */
+		
+		switch (disNo) {
+			case 1: gender="감기성별"; age="감기연령별"; season="감기계절별"; region="감기지역별"; break;
+			case 2: gender="고혈압성별"; age="고혈압연령별"; season="고혈압계절별"; region="고혈압지역별"; break;
+			case 3: gender="관절병증성별"; age="관절병증연령별"; season="관절병증계절별"; region="관절병증지역별"; break; 
+			case 4: gender="비염성별"; age="비염연령별"; season="비염계절별"; region="비염지역별"; break; 
+			case 5: gender="결막염성별"; age="결막염연령별"; season="결막염계절별"; region="T결막염지역별"; break; 
+			case 6: gender="알레르기성별"; age="알레르기연령별"; season="알레르기계절별"; region="알레르기지역별"; break; 
+			case 7: gender="위식도성별"; age="위식도연령별"; season="위식도계절별"; region="위식도지역별"; break; 
+			case 8: gender="척추질환성별"; age="척추질환연령별"; season="척추질환계절별"; region="척추질환지역별"; break;
+			case 9: gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증계절별"; region="치아우식증지역별"; break; 
+			case 10: gender="치주질환성별"; age="치주질환연령별"; season="치주질환계절별"; region="치주질환지역별"; break;
+		}
+		
+		Gson gson = new Gson();
+		
+		
+		JSONObject json = new JSONObject();
+		json.put("disNo", disNo);
+		json.put("gender", gender);
+		json.put("age", age);
+		json.put("season", season);
+		json.put("region", region);
+		
+		String aa = gson.toJson(json);
+		/*
+		 * model.addAttribute("json", json); model.addAttribute("disNo", disNo);
+		 */
+		
+		return aa;
 	}
 }
