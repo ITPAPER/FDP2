@@ -74,8 +74,6 @@
 		<h2 id="timer" style="padding: 15px; color: red;"></h2>
 	</header>
 	<div>
-
-	
 			<c:forEach var='i' items='${item}' varStatus="status">
 				
 				<table border='1' class="table table-bordered table-hover">

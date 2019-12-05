@@ -1,5 +1,6 @@
 package fdp.project.spring.controllers;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
-import fdp.project.spring.model.Disease_region;
+import fdp.project.spring.model.DiseaseRegion;
 import fdp.project.spring.model.Em_Hospital;
 import fdp.project.spring.model.Em_Hospital.Response.Body.Items.Item;
 import fdp.project.spring.model.EmergencyAddr;
@@ -61,8 +65,9 @@ public class Controller_J {
 	 */
 	
 	@RequestMapping(value = "07_Statistics.do", method = RequestMethod.GET)
-	public String statistics() {
-		return "07_Statistics";
+	public ModelAndView statistics(Model model) {
+		
+		return new ModelAndView("07_Statistics");
 	}
 	
 	@RequestMapping(value = "09_Sign_up_a.do", method = RequestMethod.GET)
@@ -278,8 +283,51 @@ public class Controller_J {
 	}
 	
 	@RequestMapping(value = "/assets/api/chart1.do", method = RequestMethod.GET)
-	public String chcart1() {
-		return "assets/api/chart1";
+	public ModelAndView chcart1(Model model) {
+		
+		//데이터베이스로부터 지역병 질병 데이터 불러오기
+	    DiseaseRegion input = new DiseaseRegion();
+	    
+	    List<DiseaseRegion> output = null;
+	    
+	    try {
+	      output = diseaseRegionService.getDisByRegion(input);
+	    } catch (Exception e) {
+	      return webHelper.redirect(null, e.getLocalizedMessage());
+	    }
+	    
+	    //그래프 출력을 위한 문자열 만들기
+	    int size = output.size();
+	    String[] patientCnt = new String[size];
+	    String[] region = new String[size];
+	    String[] array = new String[size];
+	    
+	    
+	    for (int i=0; i<size; i++) {
+	      DiseaseRegion item = output.get(i);
+	      region[i] = "'" + item.getDisRegion() + "'";
+	      //dec[i] = "'"+formatter.format(item.getPatientSum())+"'";
+	      patientCnt[i] = String.valueOf(item.getPatientSum());
+	      array[i] = "{'지역': " + region[i] + ", '환자수':"+ patientCnt[i] + "}";
+	    }
+	    
+	    Gson gson = new Gson();
+	    String jsonList = gson.toJson(output);
+	    
+	    
+	    
+	    String regionStr = String.join(",", region);
+	    String patientCntStr = String.join(",", patientCnt);
+	    String arrayStr = String.join(",", array);
+	    
+	    //View처리
+	    model.addAttribute("output", output);
+	    model.addAttribute("patientCntStr", patientCntStr);
+	    model.addAttribute("regionStr", regionStr);
+	    model.addAttribute("arrayStr", arrayStr);
+	    model.addAttribute("jsonList", jsonList);
+		
+		return new ModelAndView("assets/api/chart1");
 	}
 		
 	@RequestMapping(value = "/assets/api/chart2.do", method = RequestMethod.GET)
@@ -288,15 +336,104 @@ public class Controller_J {
 	}
 	
 	@RequestMapping(value = "/assets/api/chart3.do", method = RequestMethod.GET)
-	public String chcart3() {
-		return "assets/api/chart3";
+	public ModelAndView chcart3(Model model) {
+		
+		//데이터베이스로부터 지역병 질병 데이터 불러오기
+	    DiseaseRegion input = new DiseaseRegion();
+	    
+	    List<DiseaseRegion> output = null;
+	    
+	    try {
+	      output = diseaseRegionService.getDisByRegion(input);
+	    } catch (Exception e) {
+	      return webHelper.redirect(null, e.getLocalizedMessage());
+	    }
+	    
+	    //그래프 출력을 위한 문자열 만들기
+	    int size = output.size();
+	    String[] patientCnt = new String[size];
+	    String[] region = new String[size];
+	    String[] array = new String[size];
+	    
+	    
+	    for (int i=0; i<size; i++) {
+	      DiseaseRegion item = output.get(i);
+	      region[i] = "'" + item.getDisRegion() + "'";
+	      //dec[i] = "'"+formatter.format(item.getPatientSum())+"'";
+	      patientCnt[i] = String.valueOf(item.getPatientSum());
+	      array[i] = "{'지역': " + region[i] + ", '환자수':"+ patientCnt[i] + "}";
+	    }
+	    
+	    Gson gson = new Gson();
+	    String jsonList = gson.toJson(output);
+	    
+	    String regionStr = String.join(",", region);
+	    String patientCntStr = String.join(",", patientCnt);
+	    String arrayStr = String.join(",", array);
+	    
+	    //View처리
+	    model.addAttribute("output", output);
+	    model.addAttribute("patientCntStr", patientCntStr);
+	    model.addAttribute("regionStr", regionStr);
+	    model.addAttribute("arrayStr", arrayStr);
+	    model.addAttribute("jsonList", jsonList);
+	    
+		return new ModelAndView("assets/api/chart3") ;
 	}
 	
 	@RequestMapping(value = "/assets/api/chart4.do", method = RequestMethod.GET)
 	public String chcart4() {
 		return "assets/api/chart4";
 	}
-	@SuppressWarnings("null")
+
+	@RequestMapping(value = "/assets/api/chart9.do", method = RequestMethod.GET)
+	public ModelAndView chcart9(Model model) {
+		
+		//데이터베이스로부터 지역병 질병 데이터 불러오기
+	    DiseaseRegion input = new DiseaseRegion();
+	    
+	    List<DiseaseRegion> output = null;
+	    
+	    try {
+	      output = diseaseRegionService.getDisByRegion(input);
+	    } catch (Exception e) {
+	      return webHelper.redirect(null, e.getLocalizedMessage());
+	    }
+	    
+	    //데이터 json형식으로 변환
+	    Gson gson = new Gson();
+	    String jsonList = gson.toJson(output);
+	    
+	    //View처리
+	    model.addAttribute("jsonList", jsonList);
+	    
+		return new ModelAndView("assets/api/chart9") ;
+	}
+	
+	@RequestMapping(value = "/assets/api/chart10.do", method = RequestMethod.GET)
+	public ModelAndView chcart10(Model model) {
+		
+		//데이터베이스로부터 지역병 질병 데이터 불러오기
+	    DiseaseRegion input = new DiseaseRegion();
+	    
+	    List<DiseaseRegion> output = null;
+	    
+	    try {
+	      output = diseaseRegionService.getDisByRegion(input);
+	    } catch (Exception e) {
+	      return webHelper.redirect(null, e.getLocalizedMessage());
+	    }
+	    
+	    //데이터 json형식으로 변환
+	    Gson gson = new Gson();
+	    String jsonList = gson.toJson(output);
+	    
+	    //View처리
+	    model.addAttribute("jsonList", jsonList);
+	    
+		return new ModelAndView("assets/api/chart10") ;
+	}
+	
 	@RequestMapping(value = "30_Monitoring_spring.do", method = RequestMethod.GET)
 	public String monitoring(Model model, HttpServletRequest request) {
 
@@ -313,13 +450,12 @@ public class Controller_J {
 		// 검색어 키워드 받기
 		String query = request.getParameter("query");
 
-		// 검색어가 없다면 Caledar 클래스를 사용하여 하루 전 날짜 값을 yyyy-mm-dd 형식으로 생성한다.
 		if (query == null) {
 			query = "서울특별시";
 		}
 
 		/** 3) API 연동 */
-		//응급실정보 API
+		//응급실가용병상 API
 		Call<Em_Hospital> call = apiHospitalService.getHospital("서울특별시", 1, 49);
 		Em_Hospital emhospital = null;
 		
@@ -358,29 +494,55 @@ public class Controller_J {
 		}
 		
 		/** 4) View 처리*/
-		model.addAttribute("query", query);
-		model.addAttribute("hospital", hospital);
+		//model.addAttribute("query", query);
 		model.addAttribute("itema", itema);
 		model.addAttribute("item", item);
 		
 		return "30_Monitoring_spring";
 	}
 	
-	@RequestMapping(value="7_1_Statistics.do", method=RequestMethod.GET) 
+	@RequestMapping(value="07_1_Statistics.do", method=RequestMethod.GET) 
 	public ModelAndView disease(Model model) {
-		Disease_region input = new Disease_region();
+		//데이터베이스로부터 지역병 질병 데이터 불러오기
+		DiseaseRegion input = new DiseaseRegion();
 		
-		List<Disease_region> output = null;
-		
+		List<DiseaseRegion> output = null;
 		
 		try {
-			output = diseaseRegionService.getDiseaseList(input);
+			output = diseaseRegionService.getDisByRegion(input);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 		
-		model.addAttribute("output", output);
+		//그래프 출력을 위한 문자열 만들기
+		int size = output.size();
+		String aa = String.valueOf(size);
+		String[] patientCnt = new String[size];
+		String[] region = new String[size];
+		//DecimalFormat formatter = new DecimalFormat("###,###");
+		//String[] dec = new String[size];
 		
-		return new ModelAndView("7_1_Statistics");
+		for (int i=0; i<size; i++) {
+			DiseaseRegion item = output.get(i);
+			region[i] = "'" + item.getDisRegion() + "'";
+			//dec[i] = "'"+formatter.format(item.getPatientSum())+"'";
+			patientCnt[i] = String.valueOf(item.getPatientSum());
+		}
+		
+		String regionStr = String.join(",", region);
+		String patientCntStr = String.join(",", patientCnt);
+		
+		
+		
+		
+		//View처리
+		model.addAttribute("output", output);
+		model.addAttribute("patientCntStr", patientCntStr);
+		model.addAttribute("regionStr", regionStr);
+		model.addAttribute("aa", aa);
+		model.addAttribute("region", region);
+		
+		
+		return new ModelAndView("07_1_Statistics");
 	}
 }

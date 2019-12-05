@@ -2,20 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="DiseaseRegionMapper">
-	<resultMap type="fdp.project.spring.model.Disease_region" id="DiseaseRegionMap">
-		<result property="iddisease_region" column="iddisease_region"/>
-		<result property="dis_momth" column="dis_momth"/>
-		<result property="dis_name" column="dis_name"/>
-		<result property="disease_region" column="disease_region"/>
-		<result property="dis_num_patient" column="dis_num_patient"/>
-		<result property="dis_cost" column="dis_cost"/>
+	<resultMap type="fdp.project.spring.model.DiseaseRegion" id="DiseaseRegionMap">
+		<result property="id" column="iddisease_region"/>
+		<result property="disMomth" column="dis_momth"/>
+		<result property="disName" column="dis_name"/>
+		<result property="disRegion" column="dis_region"/>
+		<result property="disNumPatient" column="dis_num_patient"/>
+		<result property="disCost" column="dis_cost"/>
+		<result property="patientSum" column="sum(dis_num_patient)"/>
+		<result property="costSum" column="sum(dis_cost)"/>
 	</resultMap>
 
 
 	<select id="selectList"
-		parameterType="fdp.project.spring.model.Disease_region"
+		parameterType="fdp.project.spring.model.DiseaseRegion"
 		resultMap="DiseaseRegionMap">
-		SELECT * FROM disease_region
+		select iddisease_region, dis_month, dis_name, dis_region, sum(dis_num_patient), sum(dis_cost) from disease_region group by dis_region;
 	</select>
 
 </mapper>
