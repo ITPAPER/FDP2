@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="ko">
   <head>
@@ -96,38 +97,38 @@
 				</select>
 				<select  id="child" class="form-control">
 					<option class="gu" value="">---- 구를 선택해 주세요 ----</option>
-					<option class="gu" value="110001">강남구</option>
-					<option class="gu" value="110002">강동구</option>
-					<option class="gu" value="110003">강서구</option>
-					<option class="gu" value="110004">관악구</option>
-					<option class="gu" value="110005">구로구</option>
-					<option class="gu" value="110006">도봉구</option>
-					<option class="gu" value="110007">동대문구</option>
-					<option class="gu" value="110008">동작구</option>
-					<option class="gu" value="110009">마포구</option>
-					<option class="gu" value="110010">서대믄구</option>
-					<option class="gu" value="110011">성동구</option>
-					<option class="gu" value="110012">성북구</option>
-					<option class="gu" value="110013">영등포구</option>
-					<option class="gu" value="110014">용산구</option>
-					<option class="gu" value="110015">은평구</option>
-					<option class="gu" value="110016">종로구</option>
-					<option class="gu" value="110017">중구</option>
-					<option class="gu" value="110018">송파구</option>
-					<option class="gu" value="110019">중랑구</option>
-					<option class="gu" value="110020">양천구</option>
-					<option class="gu" value="110021">서초구</option>
-					<option class="gu" value="110022">노원구</option>
-					<option class="gu" value="110023">광진구</option>
-					<option class="gu" value="110024">강북구</option>
-					<option class="gu" value="110025">금천구</option>					
+					<option class="gu" value="110001" <c:if test="${gu eq '강남구'}">selected</c:if>>강남구</option>
+					<option class="gu" value="110002" <c:if test="${gu eq '강동구'}">selected</c:if>>강동구</option>
+					<option class="gu" value="110003" <c:if test="${gu eq '강서구'}">selected</c:if>>강서구</option>
+					<option class="gu" value="110004" <c:if test="${gu eq '관악구'}">selected</c:if>>관악구</option>
+					<option class="gu" value="110005" <c:if test="${gu eq '구로구'}">selected</c:if>>구로구</option>
+					<option class="gu" value="110006" <c:if test="${gu eq '도봉구'}">selected</c:if>>도봉구</option>
+					<option class="gu" value="110007" <c:if test="${gu eq '동대문구'}">selected</c:if>>동대문구</option>
+					<option class="gu" value="110008" <c:if test="${gu eq '동작구'}">selected</c:if>>동작구</option>
+					<option class="gu" value="110009" <c:if test="${gu eq '마포구'}">selected</c:if>>마포구</option>
+					<option class="gu" value="110010" <c:if test="${gu eq '서대문구'}">selected</c:if>>서대믄구</option>
+					<option class="gu" value="110011" <c:if test="${gu eq '성동구'}">selected</c:if>>성동구</option>
+					<option class="gu" value="110012" <c:if test="${gu eq '성북구'}">selected</c:if>>성북구</option>
+					<option class="gu" value="110013" <c:if test="${gu eq '영등포구'}">selected</c:if>>영등포구</option>
+					<option class="gu" value="110014" <c:if test="${gu eq '용산구'}">selected</c:if>>용산구</option>
+					<option class="gu" value="110015" <c:if test="${gu eq '은평구'}">selected</c:if>>은평구</option>
+					<option class="gu" value="110016" <c:if test="${gu eq '종로구'}">selected</c:if>>종로구</option>
+					<option class="gu" value="110017" <c:if test="${gu eq '중구'}">selected</c:if> >중구</option>
+					<option class="gu" value="110018" <c:if test="${gu eq '송파구'}">selected</c:if> >송파구</option>
+					<option class="gu" value="110019" <c:if test="${gu eq '중랑구'}">selected</c:if> >중랑구</option>
+					<option class="gu" value="110020" <c:if test="${gu eq '양천구'}">selected</c:if> >양천구</option>
+					<option class="gu" value="110021" <c:if test="${gu eq '서초구'}">selected</c:if> >서초구</option>
+					<option class="gu" value="110022" <c:if test="${gu eq '노원구'}">selected</c:if> >노원구</option>
+					<option class="gu" value="110023" <c:if test="${gu eq '광진구'}">selected</c:if> >광진구</option>
+					<option class="gu" value="110024" <c:if test="${gu eq '강북구'}">selected</c:if> >강북구</option>
+					<option class="gu" value="110025" <c:if test="${gu eq '금천구'}">selected</c:if> >금천구</option>					
 				</select>
 			</div>
 			
 			
 			<div class="form-group">
 				<div class="input-group">
-					<input id="finddong" type="text" class="form-control" placeholder="동을 입력해 주세요.">
+					<input id="finddong" type="text" class="form-control" placeholder="동을 입력해 주세요." value=${dong }>
 					<span class="input-group-btn">
 						<button  id="gofind" class="btn btn-default" type="submit">검색</button>
 					</span>
@@ -136,7 +137,7 @@
 		</form>
 		<div class="container">
 			<div class="prog">	
-				<span class="progtext">지역을 선택해 주세요</span>
+				<span class="progtext">진료과목과 지역을 선택해 주세요</span>
 			</div>
 			<div class="row pppp">
 				<div class="col-md-9" id="gmap"></div>
@@ -190,17 +191,20 @@
 					alert("진료과목을 골라주세요.");
 					return;
 				}
+				var subj1 = $("#parent").find("option:selected").html();
 				var gu = $("#child").find("option:selected").val();
 				if(gu ==""){
 					alert("구를 골라주세요.");
 					return;
 				}
+				var gu1 = $("#child").find("option:selected").html();
 				
 				var txt = $("#finddong").val();
 				if(txt ==""){
 					alert("동을 입력해주세요.");
 					return;
 				}
+				$(".progtext").html(gu1 +" "+ txt + "의 " + subj1 + " 검색결과 입니다.");
 				$.ajax( {
 					url:'findh.do',
 					method:'get',

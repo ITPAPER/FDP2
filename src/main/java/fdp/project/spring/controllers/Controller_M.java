@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +22,7 @@ import com.google.gson.Gson;
 
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.Addr;
 import fdp.project.spring.model.ErItem;
 import fdp.project.spring.model.HosItem;
 import fdp.project.spring.model.HospInfo;
@@ -30,8 +30,10 @@ import fdp.project.spring.model.Member;
 import fdp.project.spring.model.MyErList;
 import fdp.project.spring.model.MyErList.Response.Body.Items.Item;
 import fdp.project.spring.model.MyErListUno;
+import fdp.project.spring.model.Addr.Documents;
 import fdp.project.spring.model.MyErListUno.Response.Body.Items.Itema;
 import fdp.project.spring.service.ErService;
+import fdp.project.spring.service.GetAddressService;
 import fdp.project.spring.service.HospInfoService;
 import fdp.project.spring.service.MemberService;
 import retrofit2.Call;
@@ -45,13 +47,75 @@ public class Controller_M {
 		return "02_Login";
 	}
 	@RequestMapping(value = "03_Find_h.do", method = RequestMethod.GET)
-	public String Find_h() {
+	public String Find_h(Model model) {
+		String fdpCookie = webHelper.getCookie("fdpCookie", "");
+		
+		
+		if(fdpCookie != "") {
+			Member member = new Member();
+			member.setUser_id(fdpCookie);
+			
+			try {
+				member  = memberService.getMemberItem(member);
+				model.addAttribute("gu", member.getAddr2());
+				model.addAttribute("dong", member.getAddr3());
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "03_Find_h";
+			}
+			
+		}
 		
 		return "03_Find_h";
 	}
 	
 	@RequestMapping(value = "05_Find_e.do", method = RequestMethod.GET)
-	public String Find_e(Locale locale, Model model) {
+	public String Find_e(Model model) {
+		
+		String fdpCookie = webHelper.getCookie("fdpCookie", "");
+		System.out.println(fdpCookie);
+		List<Documents> list = new ArrayList<Documents>();
+		String gu = "";
+		list.add(new Documents( 0.0, 0.0));
+		
+		
+		
+		if(fdpCookie != "") {
+			Member member = new Member();
+			member.setUser_id(fdpCookie);
+			String addr = "";
+			
+			try {
+				member  = memberService.getMemberItem(member);
+				addr += member.getAddr1() + " " + member.getAddr2() + " " + member.getAddr3() + " " + member.getAddr4() ;
+				gu = member.getAddr2();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "index";
+			}
+			Addr output = null;
+			Retrofit retrofit = retrofitHelper.getRetrofit(GetAddressService.BASE_URL);
+			GetAddressService getAddr = retrofit.create(GetAddressService.class);
+			
+			Call<Addr> call = getAddr.getAddress(addr);
+			
+			try {
+				output = call.execute().body();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "index";
+			}
+			if(!output.getDocuments().isEmpty()) {
+				list = output.getDocuments();
+				System.out.println("output 비었음");
+			}
+			
+			System.out.println("1111" + output.getDocuments());
+			
+		}
+		model.addAttribute("list", list);
+		model.addAttribute("gu", gu);
+		
 		
 		return "05_Find_e";
 	}
