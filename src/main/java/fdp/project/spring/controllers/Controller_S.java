@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.RetrofitHelper;
@@ -197,21 +196,66 @@ public class Controller_S {
 	
 	
 	@RequestMapping(value = "/assets/api/chart5.do", method = RequestMethod.GET)
-	public String chcart5() {
-		return "assets/api/chart5";
+	public ModelAndView chart5(Model model) {
+		List<Disease_age_gender> output = null;
+		//AppInterceptor.preHandle.String.format();
+		
+		
+		  String dname = webHelper.getString("dis_name"); 
+		  Disease_age_gender input = new Disease_age_gender(); 
+		  input.setDis_name(dname);
+
+		try {
+    		
+    		// 데이터 조회하기
+    		output = diseaseService.getDisease_age_genderGender(input);
+    	} catch (Exception e) {
+    		return webHelper.redirect(null, e.getLocalizedMessage());
+    	}
+	 
+		 	JSONArray jsonArray = new JSONArray();
+
+	        /** 5) View 처리 */
+	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
+	     model.addAttribute("output", output);
+	     model.addAttribute("jsonList", JSONArray.fromObject(output));
+	     
+		return new ModelAndView ("assets/api/chart5");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart6.do", method = RequestMethod.GET)
-	public String chcart6() {
-		return "assets/api/chart6";
+	@RequestMapping(value = "/assets/api/chart6.do")
+	public ModelAndView chart6(Model model) {
+		List<Disease_age_gender> output = null;
+		//AppInterceptor.preHandle.String.format();
+		
+		
+		  String dname = webHelper.getString("dis_name"); 
+		  Disease_age_gender input = new Disease_age_gender(); 
+		  input.setDis_name(dname);
+
+		try {
+    		
+    		// 데이터 조회하기
+    		output = diseaseService.getDisease_age_genderAge(input);
+    	} catch (Exception e) {
+    		return webHelper.redirect(null, e.getLocalizedMessage());
+    	}
+	 
+		 	JSONArray jsonArray = new JSONArray();
+
+	        /** 5) View 처리 */
+	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
+	     model.addAttribute("output", output);
+	     model.addAttribute("jsonList", JSONArray.fromObject(output));
+	     
+		return new ModelAndView ("assets/api/chart6");
 	}
 	
 	@RequestMapping(value = "/assets/api/chart7.do")
-	public ModelAndView chcart7(Model model) {
+	public ModelAndView chart7(Model model) {
 		List<Disease_age_gender> output = null;
 		
 		try {
-    		
     		// 데이터 조회하기
     		output = diseaseService.getDisease_age_genderList(null);
     	} catch (Exception e) {
@@ -219,13 +263,21 @@ public class Controller_S {
     	}
 			
 		int size = output.size();
-        String[] dis_month = new String[size];                
+        String[] dis_month = new String[size];
+        String[] dis_name = new String[size];
+        String[] dis_age = new String[size];
+        String[] dis_gender = new String[size];
+        String[] dis_cost = new String[size];
         String[] dis_num_patient = new String[size];
 		
 		
 		 for (int i=0; i < size; i++) { 
 		 Disease_age_gender item = output.get(i);
-			 dis_month[i] = String.valueOf(item.getDis_month()); 
+			 dis_month[i] = String.valueOf(item.getDis_month());
+			 dis_name[i] = String.valueOf(item.getDis_name());
+			 dis_age[i] = String.valueOf(item.getDis_age());
+			 dis_gender[i] = String.valueOf(item.getDis_gender());
+			 dis_cost[i] = String.valueOf(item.getDis_cost());
 			 dis_num_patient[i] = String.valueOf(item.getDis_num_patient());
 	        }
 		 
@@ -246,8 +298,31 @@ public class Controller_S {
 	}
 	
 	@RequestMapping(value = "/assets/api/chart8.do", method = RequestMethod.GET)
-	public String chcart8() {
-		return "assets/api/chart8";
+	public ModelAndView chart8(Model model) {
+		List<Disease_age_gender> output = null;
+		//AppInterceptor.preHandle.String.format();
+		
+		
+		  String dname = webHelper.getString("dis_name"); 
+		  Disease_age_gender input = new Disease_age_gender(); 
+		  input.setDis_name(dname);
+
+		try {
+    		
+    		// 데이터 조회하기
+    		output = diseaseService.getDisease_age_genderHit(input);
+    	} catch (Exception e) {
+    		return webHelper.redirect(null, e.getLocalizedMessage());
+    	}
+	 
+		 	JSONArray jsonArray = new JSONArray();
+
+	        /** 5) View 처리 */
+	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
+	     model.addAttribute("output", output);
+	     model.addAttribute("jsonList", JSONArray.fromObject(output));
+	     
+		return new ModelAndView ("assets/api/chart8");
 	}
 	
 	

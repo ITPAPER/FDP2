@@ -13,5 +13,8 @@ public class Disease_age_gender {
 		private String dis_gender;
 		private int dis_cost;
 		private int dis_num_patient;
+		private int sum_cost;
+		private int sum_num_patient;
+		private int sum_num_patient5;
 		
 }

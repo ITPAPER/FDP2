@@ -13,6 +13,9 @@
 		<result property="dis_gender" column="dis_gender" />
 		<result property="dis_cost" column="dis_cost" />
 		<result property="dis_num_patient" column="dis_num_patient" />
+		<result property="sum_cost" column="sum(dis_cost)" />
+		<result property="sum_num_patient" column="sum(dis_num_patient)" />
+		<result property="sum_num_patient5" column="(sum(dis_num_patient/5))" />
 	</resultMap>
 
 	<!-- 단일행 조회를 위한 기능 정의 -->
@@ -21,6 +24,7 @@
 		select * from disease_age_gender
 
 	</select>
+	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="cold"
 		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
@@ -28,10 +32,22 @@
 
 	</select>
 
-	<!-- 조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다. count, max, min, sum, avg 함수를 사용한 
-		경우 Mapper에서는 resultMap이 아닌 resulType으로 반환한다. -->
-	<select id="selectCountAll"
-		parameterType="fdp.project.spring.model.Disease_age_gender" resultType="int">
-		SELECT COUNT(*) FROM file
+	<select id="age"
+		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
+		select dis_month, dis_name, dis_age, dis_gender, dis_cost, dis_num_patient, sum(dis_cost), (sum(dis_num_patient/5)) from disease_age_gender where dis_name = #{dis_name} group by dis_age
+		
 	</select>
+	
+	<select id="gender"
+		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
+		select dis_month, dis_name, dis_age, dis_gender, dis_cost, dis_num_patient, (sum(dis_num_patient/5)) from disease_age_gender where dis_name = #{dis_name} group by dis_gender;
+		
+	</select>
+	
+		<select id="hit"
+		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
+		select dis_month, dis_name, dis_age, dis_gender, dis_cost, dis_num_patient from disease_age_gender where dis_name = #{dis_name};
+		
+	</select>
+
 </mapper>

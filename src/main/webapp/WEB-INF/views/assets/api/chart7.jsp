@@ -31,7 +31,7 @@ am4core.ready(function() {
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
-// console.log('${jsonList}')
+console.log('${jsonList}')
 // var list = ${jsonList};
 // console.log(list);
 

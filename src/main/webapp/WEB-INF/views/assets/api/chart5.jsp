@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +16,6 @@
 
 </style>
 </head>
-<body>
 <!-- Resources -->
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
@@ -26,47 +28,20 @@ am4core.ready(function() {
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
-
+console.log('${jsonList}')
 // Create chart instance
 var chart = am4core.create("chartdiv", am4charts.PieChart);
 
 // Add data
-chart.data = [ {
-  "country": "Lithuania",
-  "litres": 1
-}, {
-  "country": "Czech Republic",
-  "litres": 1
-}, {
-  "country": "Ireland",
-  "litres": 1
-}, {
-  "country": "Germany",
-  "litres": 1
-}, {
-  "country": "Australia",
-  "litres": 1
-}, {
-  "country": "Austria",
-  "litres": 1
-}, {
-  "country": "UK",
-  "litres": 1
-}, {
-  "country": "Belgium",
-  "litres": 1
-}, {
-  "country": "The Netherlands",
-  "litres": 1
-} ];
+chart.data = ${jsonList};
 
 // Set inner radius
 chart.innerRadius = am4core.percent(50);
 
 // Add and configure Series
 var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "litres";
-pieSeries.dataFields.category = "country";
+pieSeries.dataFields.value = "sum_num_patient5";
+pieSeries.dataFields.category = "dis_gender";
 pieSeries.slices.template.stroke = am4core.color("#fff");
 pieSeries.slices.template.strokeWidth = 2;
 pieSeries.slices.template.strokeOpacity = 1;
@@ -78,6 +53,3 @@ pieSeries.hiddenState.properties.startAngle = -90;
 
 }); // end am4core.ready()
 </script>
-
-</body>
-</html>

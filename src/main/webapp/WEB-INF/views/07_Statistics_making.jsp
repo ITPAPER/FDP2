@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -112,16 +114,32 @@
      <div id="left"> 
       <!-- 질병 4 -->
       <div class="content" id="content4">
-      <button class="charttitle btn btn-warning">질병 4</button>
+					<div>
+					<form name="form" id="form">
+							<select name="dis_name" id="dis_name" class="form-control">
+								<option value="">---- 질병을 골라보시지! ----</option>
+								<option value="감기">감기!</option>
+								<option value="고혈압">고혈압</option>
+								<option value="관절병증">관절병</option>
+								<option value="비염">비염</option>
+								<option value="알레르기성결막염">알레르기성 결막염</option>
+								<option value="위식도 역류질환">위식도 역류질환</option>
+								<option value="접촉피부염">접촉식 피부염</option>
+								<option value="척추질환">척추질환</option>
+								<option value="치아우식증">치아우식증</option>
+								<option value="치주질환및치은염">치주질환 및 치은염</option>
+							</select>
+				            </form>
+							</div>			
      	 <!-- 탭 버튼 구성 -->
          <ul class="nav nav-tabs" >
             <li><a href="#dept" data-toggle="tab" id="ct41">성별</a></li>
             <li><a href="#dept" data-toggle="tab" id="ct42">연령별</a></li>
-            <li><a href="#dept" data-toggle="tab" id="ct43">계절별</a></li>
+            <li><a href="#dept" data-toggle="tab" id="ct43">월별</a></li>
             <li><a href="#dept" data-toggle="tab" id="ct44">지역별</a></li>
          </ul>
+
       </div>     
-       
      </div>  
      
   
@@ -154,10 +172,11 @@
    <script type="text/javascript">
    $(function() {
        $("#ct41").click(function(e) {
+    	   var queryString = $('form').serialize();
              $.ajax({
                 /** ajax 기본 옵션 */
                 url: './assets/api/chart5.do',// 읽어들일 파일의 경로
-    
+                data : queryString,// 읽어들일 파일의 경로
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
                    console.log(">> 성공!!!! >> " + req);
@@ -168,15 +187,18 @@
           }); // end #ct11 click
           
           $("#ct42").click(function(e) {
+        	  var queryString = $('form').serialize();
              $.ajax({
                 /** ajax 기본 옵션 */
-                url: './assets/api/chart6.do',// 읽어들일 파일의 경로
+                url: './assets/api/chart6.do',
+                data : queryString,// 읽어들일 파일의 경로
                 
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
                    console.log(">> 성공!!!! >> " + req);
                    // 준비된 요소에게 읽어온 내용을 출력한다.
                    $("#dept").append(req);
+
                 }
              });
           }); // end #ct12 click
@@ -203,10 +225,12 @@
           }); // end #ct13 click
           
           $("#ct44").click(function(e) {
+        	  var queryString = $('form').serialize();
              $.ajax({
                 /** ajax 기본 옵션 */
                 url: './assets/api/chart8.do',// 읽어들일 파일의 경로
-    
+                data : queryString,// 읽어들일 파일의 경로
+                
                 // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
                 success: function(req) {
                    console.log(">> 성공!!!! >> " + req);
