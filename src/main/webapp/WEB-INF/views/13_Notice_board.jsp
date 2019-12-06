@@ -138,8 +138,8 @@ thead {
                         <c:if test="${keyword != ''}">
                             <%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
                             <c:set var="mark" value="<mark>${keyword}</mark>" />
+                          
                             <%-- 출력을 위해 준비한 학과이름과 위치에서 검색어와 일치하는 단어를 형광팬 효과로 변경 --%>
-                            
                             <c:set var="writer_name" value="${fn:replace(writer_name, keyword, mark)}" />
                         	<c:set var="subject" value="${fn:replace(subject, keyword, mark)}" />
                         	<c:set var="content" value="${fn:replace(content, keyword, mark)}" />
@@ -278,6 +278,7 @@ thead {
 					$(".all").prop('checked', $(this).prop('checked'));
 				});
 			});
+			
 			var hit = 0;
 			
 			$(function() {

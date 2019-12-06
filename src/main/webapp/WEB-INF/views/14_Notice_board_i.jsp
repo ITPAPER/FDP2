@@ -103,9 +103,10 @@
 							작성일: ${output.reg_date} &nbsp;&nbsp;
 							<c:choose>
 								<c:when test="${output.edit_date != null}">
-							수정일: ${output.edit_date}
+							수정일: ${output.edit_date} &nbsp;&nbsp;
 								</c:when>
 							</c:choose>
+							조회수: ${output.hit}
 							</h6>
 							
 						</td>
@@ -139,7 +140,7 @@
 								<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>		
 								<tr>
 									<td>
-									<h4>${item.writer_name} 의사님 답변 <span style='display:none' id="DAI${status.index}">${item.docAnswer_id}</span>
+									<h4>${item.writer_name} 의사님 처방 <span style='display:none' id="DAI${status.index}">${item.docAnswer_id}</span>
 									
 									<c:choose>
 										<c:when test="${cookie.PK.value == item.fdpmember_id}">
@@ -173,7 +174,7 @@
 								<c:when test="${item.medical_field == '21' }">재활의학과</c:when>
 								<c:when test="${item.medical_field == '49' }">치과</c:when>
 								<c:when test="${item.medical_field == '80' }">한의학과</c:when>
-								</c:choose>&nbsp;&nbsp; 답변일: ${reg_date}&nbsp;&nbsp;
+								</c:choose>&nbsp;&nbsp; 답변일: ${output.reg_date}&nbsp;&nbsp;
 								<c:choose>
 								<c:when test="${item.edit_date != null}">
 								수정일: ${item.edit_date}

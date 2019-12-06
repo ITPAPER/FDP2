@@ -71,13 +71,6 @@ public class Controller_C {
 		input.setReg_date(keyword);
 		input.setEdit_date(keyword);
 
-//		DocAnswer input1 = new DocAnswer();
-//		input1.setWriter_name(keyword);
-//		input1.setContent(keyword);
-//		input1.setReg_date(keyword);
-//		input1.setEdit_date(keyword);
-//		input1.setMedical_field(0);
-
 		List<Document> output = null; // 조회 결과가 저장될 객체
 		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
 
@@ -113,8 +106,7 @@ public class Controller_C {
 		/** 1) 필요한 변수 값 생성 */
 		// 조회할 대상에 대한 PK 값
 		int document_id = webHelper.getInt("document_id");
-//		int docAnswer_id = webHelper.getInt("docAnswer_id");
-
+		
 //		이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시물 번호가 없습니다.");
@@ -132,7 +124,15 @@ public class Controller_C {
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-
+		output.setHit(output.getHit() + 1);
+		
+		try {
+			// 데이터 수정(조회수 증가 관련 업데이트)
+			documentService.editDocument(output);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
 		// DocAnswer 테이블 데이터
 		DocAnswer input1 = new DocAnswer();
 		input1.setDocument_id(document_id); //
@@ -144,21 +144,9 @@ public class Controller_C {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		} //
 
-//		input1.setDocAnswer_id(docAnswer_id);
-
-//		// 조회결과를 저장할 객체 선언
-//				DocAnswer output2 = null;
-//
-//				try {
-//					output2 = docAnswerService.getDocAnswerItem(input1);
-//				} catch (Exception e) {
-//					return webHelper.redirect(null, e.getLocalizedMessage());
-//				}
-
 		/** 3) view 처리 */
 		model.addAttribute("output", output);
 		model.addAttribute("output1", output1);
-//		model.addAttribute("output2", output2);
 		return new ModelAndView("14_Notice_board_i");
 	}
 
@@ -530,7 +518,6 @@ public class Controller_C {
 		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 		Document input = new Document();
 		input.setDocument_id(document_id);
-		
 		
 		try {
 			// 데이터 삭제
