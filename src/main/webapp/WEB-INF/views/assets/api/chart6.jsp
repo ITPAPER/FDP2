@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+</head>
 <!-- Styles -->
 <style>
 #chartdiv {
@@ -15,7 +16,7 @@
   height: 800px;
 }
 </style>
-
+<body>
 <!-- Resources -->
 <script src="https://www.amcharts.com/lib/4/core.js"></script>
 <script src="https://www.amcharts.com/lib/4/charts.js"></script>
@@ -80,12 +81,12 @@ function addRange(label, start, end, color) {
   range.label.horizontalCenter = "left"
   range.label.inside = true;
   
-  range.grid.stroke = am4core.color("#396478");
+  range.grid.stroke = am4core.color("#33333");
   range.grid.strokeOpacity = 1;
   range.tick.length = 200;
   range.tick.disabled = false;
   range.tick.strokeOpacity = 0.6;
-  range.tick.stroke = am4core.color("#396478");
+  range.tick.stroke = am4core.color("#333333");
   range.tick.location = 0;
   
   range.locations.category = 1;
@@ -98,4 +99,7 @@ chart.cursor = new am4charts.XYCursor();
 }); // end am4core.ready()
 </script>
 
-</head>
+<div id="chartdiv"></div>
+
+</body>
+</html>

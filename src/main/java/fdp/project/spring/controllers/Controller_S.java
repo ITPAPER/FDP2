@@ -195,13 +195,13 @@ public class Controller_S {
 	}
 	
 	
-	@RequestMapping(value = "/assets/api/chart5.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/assets/api/chart5.do")
 	public ModelAndView chart5(Model model) {
 		List<Disease_age_gender> output = null;
 		//AppInterceptor.preHandle.String.format();
 		
 		
-		  String dname = webHelper.getString("dis_name"); 
+		  String dname = webHelper.getString("disName"); 
 		  Disease_age_gender input = new Disease_age_gender(); 
 		  input.setDis_name(dname);
 
@@ -229,7 +229,7 @@ public class Controller_S {
 		//AppInterceptor.preHandle.String.format();
 		
 		
-		  String dname = webHelper.getString("dis_name"); 
+		  String dname = webHelper.getString("disName"); 
 		  Disease_age_gender input = new Disease_age_gender(); 
 		  input.setDis_name(dname);
 
@@ -297,7 +297,7 @@ public class Controller_S {
 
 	}
 	
-	@RequestMapping(value = "/assets/api/chart8.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/assets/api/chart8.do")
 	public ModelAndView chart8(Model model) {
 		List<Disease_age_gender> output = null;
 		//AppInterceptor.preHandle.String.format();

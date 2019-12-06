@@ -528,16 +528,16 @@ public class Controller_J {
 		}
 		
 		switch (disNo) {
-		case 1: gender="감기성별"; age="감기연령별"; season="감기계절별"; region="감기지역별"; break;
-		case 2: gender="고혈압성별"; age="고혈압연령별"; season="고혈압계절별"; region="고혈압지역별"; break;
-		case 3: gender="관절병증성별"; age="관절병증연령별"; season="관절병증계절별"; region="관절병증지역별"; break; 
-		case 4: gender="비염성별"; age="비염연령별"; season="비염계절별"; region="비염지역별"; break; 
-		case 5: gender="결막염성별"; age="결막염연령별"; season="결막염계절별"; region="결막염지역별"; break; 
-		case 6: gender="알레르기성별"; age="알레르기연령별"; season="알레르기계절별"; region="알레르기지역별"; break; 
-		case 7: gender="위식도성별"; age="위식도연령별"; season="위식도계절별"; region="위식도지역별"; break; 
-		case 8: gender="척추질환성별"; age="척추질환연령별"; season="척추질환계절별"; region="척추질환지역별"; break;
-		case 9: gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증계절별"; region="치아우식증지역별"; break; 
-		case 10: gender="치주질환성별"; age="치주질환연령별"; season="치주질환계절별"; region="치주질환지역별"; break;
+		case 1: gender="감기성별"; age="감기연령별"; season="감기월별"; region="감기지역별"; break;
+		case 2: gender="고혈압성별"; age="고혈압연령별"; season="고혈압월별"; region="고혈압지역별"; break;
+		case 3: gender="관절병증성별"; age="관절병증연령별"; season="관절병증월별"; region="관절병증지역별"; break; 
+		case 4: gender="비염성별"; age="비염연령별"; season="비염월별"; region="비염지역별"; break; 
+		case 5: gender="결막염성별"; age="결막염연령별"; season="결막염월별"; region="결막염지역별"; break; 
+		case 6: gender="알레르기성별"; age="알레르기연령별"; season="알레르기월별"; region="알레르기지역별"; break; 
+		case 7: gender="위식도성별"; age="위식도연령별"; season="위식도월별"; region="위식도지역별"; break; 
+		case 8: gender="척추질환성별"; age="척추질환연령별"; season="척추질환월별"; region="척추질환지역별"; break;
+		case 9: gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증월별"; region="치아우식증지역별"; break; 
+		case 10: gender="치주질환성별"; age="치주질환연령별"; season="치주질환월별"; region="치주질환지역별"; break;
 	}
 	
 		json.put("disNo", disNo);
@@ -596,23 +596,23 @@ public class Controller_J {
 	@RequestMapping(value = "abc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String tablist(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
 		
-		int disNo = webHelper.getInt("disNo");
+		String disNo = webHelper.getString("disNo");
 		String gender = null;
 		String age = null;
 		String season = null;
 		String region = null;
 		
 		switch (disNo) {
-			case 1: gender="감기성별"; age="감기연령별"; season="감기계절별"; region="감기지역별"; break;
-			case 2: gender="고혈압성별"; age="고혈압연령별"; season="고혈압계절별"; region="고혈압지역별"; break;
-			case 3: gender="관절병증성별"; age="관절병증연령별"; season="관절병증계절별"; region="관절병증지역별"; break; 
-			case 4: gender="비염성별"; age="비염연령별"; season="비염계절별"; region="비염지역별"; break; 
-			case 5: gender="결막염성별"; age="결막염연령별"; season="결막염계절별"; region="결막염지역별"; break; 
-			case 6: gender="알레르기성별"; age="알레르기연령별"; season="알레르기계절별"; region="알레르기지역별"; break; 
-			case 7: gender="위식도성별"; age="위식도연령별"; season="위식도계절별"; region="위식도지역별"; break; 
-			case 8: gender="척추질환성별"; age="척추질환연령별"; season="척추질환계절별"; region="척추질환지역별"; break;
-			case 9: gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증계절별"; region="치아우식증지역별"; break; 
-			case 10: gender="치주질환성별"; age="치주질환연령별"; season="치주질환계절별"; region="치주질환지역별"; break;
+			case "감기": gender="감기성별"; age="감기연령별"; season="감기월별"; region="감기지역별"; break;
+			case "고혈압": gender="고혈압성별"; age="고혈압연령별"; season="고혈압월별"; region="고혈압지역별"; break;
+			case "관절병증": gender="관절병증성별"; age="관절병증연령별"; season="관절병증월별"; region="관절병증지역별"; break; 
+			case "비염": gender="비염성별"; age="비염연령별"; season="비염월별"; region="비염지역별"; break; 
+			case "알레르기성결막염": gender="결막염성별"; age="결막염연령별"; season="결막염월별"; region="결막염지역별"; break; 
+			case "위식도 역류질환": gender="알레르기성별"; age="알레르기연령별"; season="알레르기월별"; region="알레르기지역별"; break; 
+			case "접촉피부염": gender="위식도성별"; age="위식도연령별"; season="위식도월별"; region="위식도지역별"; break; 
+			case "척추질환": gender="척추질환성별"; age="척추질환연령별"; season="척추질환월별"; region="척추질환지역별"; break;
+			case "치아우식증": gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증월별"; region="치아우식증지역별"; break; 
+			case "치주질환및치은염": gender="치주질환성별"; age="치주질환연령별"; season="치주질환월별"; region="치주질환지역별"; break;
 		}
 		
 		Gson gson = new Gson();

@@ -104,19 +104,21 @@
       <!-- 질병 1 -->
       <div class="content" id="content1">
       	<div>
+      	<form name="form" id="form">
 			<select name="disName" id="disName" class="form-control dislist" style="width: 170px; text-align:center; font-weight:normal;">
-	        	<option class="a" value="">-------- 질병명 -------</option>
-	        	<option class="a" value="1">감기</option>
-	        	<option class="a" value="2">고혈압</option>
-	        	<option class="a" value="3">관절병증</option>
-	        	<option class="a" value="4">비염</option>
-	        	<option class="a" value="5">알레르기성 결막염</option>
-	        	<option class="a" value="6">알레르기 질환</option>
-	        	<option class="a" value="7">위식도 역류질환</option>
-	        	<option class="a" value="8">척추질환</option>
-	        	<option class="a" value="9">치아우식증</option>
-	        	<option class="a" value="10">치주질환 및 치은염</option>
+	        	<option value="">-------- 질병명 -------</option>
+	        	<option value="감기">감기!</option>
+				<option value="고혈압">고혈압</option>
+				<option value="관절병증">관절병</option>
+				<option value="비염">비염</option>
+				<option value="알레르기성결막염">알레르기성 결막염</option>
+				<option value="위식도 역류질환">위식도 역류질환</option>
+				<option value="접촉피부염">접촉식 피부염</option>
+				<option value="척추질환">척추질환</option>
+				<option value="치아우식증">치아우식증</option>
+				<option value="치주질환및치은염">치주질환 및 치은염</option>
       		</select>
+      		</form>
 		</div>
 		
 		<div id="result"></div>
@@ -167,30 +169,29 @@
 				$("#result").append(html);
 				
 				$("#ct11").click(function(e) {
-			          $.ajax({
-			             /** ajax 기본 옵션 */
-			             url: './assets/api/chart1.do',// 읽어들일 파일의 경로
-			             dataType: 'html',	//읽어올 내용 형식(html, xml, json)
-			             method: 'get',          // 통신방법 (get(기본값), post)
-			             data: {},             // 접속대상에게 전달할 파라미터
-			             // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
-			             success: function(req) {
-			                console.log(">> 성공!!!! >> " + req);
-			                // 준비된 요소에게 읽어온 내용을 출력한다.
-			                $("#dept").html(req);
-			             }
-			          });//end $.ajax
-			       }); // end #ct11 click
+					var queryString = $('form').serialize();
+		             $.ajax({
+		                /** ajax 기본 옵션 */
+		                url: './assets/api/chart5.do',// 읽어들일 파일의 경로
+		                data : queryString,// 읽어들일 파일의 경로
+		                dataType: 'html',	//읽어올 내용 형식(html, xml, json)
+		                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+		                success: function(req) {
+		                   console.log(">> 성공!!!! >> " + req);
+		                   // 준비된 요소에게 읽어온 내용을 출력한다.
+		                   $("#dept").html(req);
+		                }
+		             });//end $.ajax
+		          }); // end #ct11 click
 			       
 			       $("#ct12").click(function(e) {
-
-			    	   $.ajax({
-			              /** ajax 기본 옵션 */
-			              url: './assets/api/chart10.do',// 읽어들일 파일의 경로
-			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
-				          method: 'get',          // 통신방법 (get(기본값), post)
-				          data: {},             // 접속대상에게 전달할 파라미터
-			              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+			    	   var queryString = $('form').serialize();
+			             $.ajax({
+			                /** ajax 기본 옵션 */
+			                url: './assets/api/chart6.do',// 읽어들일 파일의 경로
+			                data : queryString,// 읽어들일 파일의 경로
+			                dataType: 'html',	//읽어올 내용 형식(html, xml, json)
+			                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 			              success: function(req) {
 			                 console.log(">> 성공!!!! >> " + req);
 			                 // 준비된 요소에게 읽어온 내용을 출력한다.
@@ -200,13 +201,13 @@
 			        }); // end #ct12 click
 			        
 			        $("#ct13").click(function(e) {
-			           $.ajax({
-			              /** ajax 기본 옵션 */
-			              url: './assets/api/chart3.do',// 읽어들일 파일의 경로
-			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
-				          method: 'get',          // 통신방법 (get(기본값), post)
-				          data: {},             // 접속대상에게 전달할 파라미터
-			              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+			        	var queryString = $('form').serialize();
+			             $.ajax({
+			                /** ajax 기본 옵션 */
+			                url: './assets/api/chart7.do',// 읽어들일 파일의 경로
+			                data : queryString,// 읽어들일 파일의 경로
+			                dataType: 'html',	//읽어올 내용 형식(html, xml, json)
+			                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 			              success: function(req) {
 			                 console.log(">> 성공!!!! >> " + req);
 			                 // 준비된 요소에게 읽어온 내용을 출력한다.
