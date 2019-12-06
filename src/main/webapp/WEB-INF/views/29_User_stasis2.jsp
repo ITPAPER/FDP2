@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -78,29 +79,6 @@ thead>tr>th:nth-child(1) {
 
 			<h1 class="page-header">누적 접속 회원 통계</h1>
 
-			<div>
-				<h3>회원상세 정보(임시)</h3>
-				<p>회원번호: ${output.fdpmember_id}</p>
-				<p>회원이름: ${output.name}</p>
-				<p>아이디: ${output.user_id}</p>
-				<p>비밀번호: ${output.user_pw}</p>
-				<p>이메일: ${output.email}</p>
-				<p>성별: ${output.gender}</p>
-				<p>생일: ${output.birthdate}</p>
-				<p>번호: ${output.tel}</p>
-				<p>주소1: ${output.addr1}</p>
-				<p>주소2: ${output.addr2}</p>
-				<p>주소3: ${output.addr3}</p>
-				<p>주소4: ${output.addr4}</p>
-				<p>가입일: ${output.reg_date}</p>
-				<p>정보수정일: ${output.edit_date}</p>
-				<p>의사번호: ${output.medical_field}</p>
-				<p>회원등급: ${output.member_grade}</p>
-			</div>
-			<a
-				href="${pageContext.request.contextPath}/27_Profile.do?fdpmember_id=${output.fdpmember_id}">회원수정</a>
-			<a
-				href="${pageContext.request.contextPath}/ddelete_ok.do?fdpmember_id=${output.fdpmember_id}">회원탈퇴</a>
 			<div>
 				<!-- 탭 버튼 구성 -->
 				<ul class="nav nav-tabs" id="mytab">

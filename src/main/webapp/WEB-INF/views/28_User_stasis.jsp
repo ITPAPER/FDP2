@@ -6,18 +6,12 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<jsp:include page="./assets/inc/head.jsp" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
-<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-
-<!-- ajax-helper -->
-<link rel="stylesheet"
+	<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
-<script
-	src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+<jsp:include page="./assets/inc/head.jsp" />
+
 
 <style type="text/css">
 
@@ -25,6 +19,7 @@
 .bbox {
 	width: 1170px;
 	margin: auto;
+	padding-bottom: 50px;
 }
 
 thead>tr {
@@ -89,7 +84,7 @@ thead>tr {
 								<tr>
 									<th class="text-center"><input type='checkbox'></th>
 									<td align="center">${item.fdpmember_id}</td>
-									<td align="center"><a href="${viewUrl}">${item.name}</a></td>
+									<td align="center"><a class="bbttnn" href="${item.fdpmember_id}">${item.name}</a></td>
 									<td align="center">${item.user_id}</td>
 									<td align="center">${item.user_pw}</td>
 									<td align="center">${item.email}</td>
@@ -166,13 +161,77 @@ thead>tr {
 						name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
 					<button type="submit">검색</button>
 				</form>
-				<button type="submit" id="btn4" class="btn btn-primary">수정
-				</button>
-				<button type="submit" id="btn5" class="btn btn-primary">삭제
-				</button>
 			</div>
+			<div id="memberView"></div>
 		</div>
+		
 	</div>
+	<!-- 동적으로 생성될 HTML의 기본틀 -->
+	<script type="text/x-handlebars-template" id="list-item-tmpl">
+		<div class='membertmpl'>
+    		<h3>회원상세 정보(임시)</h3>
+			<p>회원번호: {{fdpmember_id}}</p>
+			<p>회원이름: {{name}}</p>
+			<p>아이디: {{user_id}}</p>
+			<p>비밀번호: {{user_pw}}</p>
+			<p>이메일: {{email}}</p>
+			<p>성별: {{convertGender gender}}</p>
+			<p>생일: {{birthdate}}</p>
+			<p>번호: {{tel}}</p>
+			<p>주소1: {{addr1}}</p>
+			<p>주소2: {{addr2}}</p>
+			<p>주소3: {{addr3}}</p>
+			<p>주소4: {{addr4}}</p>
+			<p>가입일: {{reg_date}}</p>
+			<p>정보수정일: {{edit_date}}</p>
+			<p>의사번호: {{medical_field}}</p>
+			<p>회원등급: {{member_grade}}</p>
+			
+			<button type="submit" class="btn btn-gray">
+				<a href="${pageContext.request.contextPath}/27_Profile.do?fdpmember_id={{fdpmember_id}}">회원수정</a>
+			</button>
+			<button type="submit" class="btn btn-gray">
+				<a href="${pageContext.request.contextPath}/ddelete_ok.do?fdpmember_id={{fdpmember_id}}">회원탈퇴</a>
+			</button>
+    	</div>
+	</script>
 	<jsp:include page="./assets/inc/bottom.jsp" />
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<!-- ajax-helper -->
+	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
+	<script>
+	
+		/** handlebars 플러그인 안에 convertGender라는 함수 추가하기 */
+		Handlebars.registerHelper('convertGender', function(g) {
+			if (g == 1) {
+				return "남자";
+			} else {
+				return "여자";
+			}
+		});
+		
+		$(function() {
+			$(".bbttnn").click(function(e) {
+				e.preventDefault();
+				
+				var src = $(this).attr('href');
+				console.log(src)
+				
+				$.ajax({
+					url: "GMember.do",
+					method: 'post',
+					dataType: 'json',
+					data: {fdpmember_id : src},
+					success: function(req) {
+						console.log(req);
+						var template = Handlebars.compile($("#list-item-tmpl").html());
+						var html = template(req);
+						$("#memberView").html(html);
+					}
+				});		// ajax	끝
+			});		// click 끝
+		});
+	</script>
 </body>
 </html>

@@ -67,10 +67,10 @@
 
 			<form class="content" name="join_form" id="join_form"
 				action="edit_ok.do">
-				<input type="hidden" name="fdpmember_id"
-					value="${output.fdpmember_id}" /> <input type="hidden"
-					name="member_grade" value="${output.member_grade}" /> <input
-					type="hidden" name="reg_date" value="${output.reg_date}" />
+				<input type="hidden" name="fdpmember_id" value="${output.fdpmember_id}" /> 
+				<input type="hidden" name="member_grade" value="${output.member_grade}" /> 
+				<input type="hidden" name="reg_date" value="${output.reg_date}" />
+				
 				<div class="form-row">
 					<div class="form-group">
 						<label for='user_id'>아이디</label> <input type="text"
@@ -116,7 +116,8 @@
 						<div>
 							<select name="addr1" id="addr1" class="form-control">
 								<option value="">-----시/도-----</option>
-								<option value="110000" selected>서울특별시</option>
+								<option value="서울특별시"
+									<c:if test="${output.addr1 == '서울특별시'}">selected</c:if>>서울특별시</option>
 							</select> <select name="addr2" id="addr2" class="form-control">
 								<option value="">---- 구를 선택해 주세요 ----</option>
 
@@ -191,21 +192,22 @@
 				<div class="form-group">
 					<label for='gender'>성별</label>
 					<div>
-						<label> <input type='radio' name='gender' id='gender1'
-							value=1 <c:if test="${output.gender == 1}">checked</c:if> />남자
-						</label> <label> <input type='radio' name='gender' id='gender2'
-							value=2 <c:if test="${output.gender == 2}">checked</c:if> />여자
+						<label> 
+							<input type='radio' name='gender' id='gender1' value=1 
+							<c:if test="${output.gender == 1}">checked</c:if> />남자
+						</label> 
+						<label> 
+							<input type='radio' name='gender' id='gender2' value=2 
+							<c:if test="${output.gender == 2}">checked</c:if> />여자
 						</label>
 					</div>
 				</div>
-
 				<c:if test="${2 eq output.member_grade}">
+					<input type="hidden" id="check" value="${output.member_grade}" />
 					<div class="form-group">
 						<label for='medical_field'>전공분야</label>
 						<div>
-
-							<select name="medical_field" id="medical_field"
-								class="form-control">
+							<select name="medical_field" id="medical_field" class="form-control">
 								<option value="">-----선택하세요-----</option>
 								<option value="01"
 									<c:if test="${output.medical_field == '05'}">selected</c:if>>내과</option>
@@ -240,23 +242,19 @@
 								<option value="80"
 									<c:if test="${output.medical_field == '80'}">selected</c:if>>한의학과</option>
 							</select>
-
 						</div>
 					</div>
 				</c:if>
+				<div class="text-center">
+					<button type="submit" name="btn9" id="btn9">수정하기</button>
+				</div>
 			</form>
-
-			<div class="text-center">
-				<button type="submit" name="btn9" id="btn9">수정하기</button>
-			</div>
-
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#btn9").click(
@@ -290,6 +288,10 @@
 							return false;
 						}
 
+						if (!regex.value('#addr1', '시 / 도를 선택해주세요.')) {
+							return false;
+						}
+						
 						if (!regex.value('#addr2', '구를 선택해 주세요.')) {
 							return false;
 						}
@@ -298,8 +300,18 @@
 							return false;
 						}
 
-						if (!regex.value('#addr4', '구를 선택해 주세요.')) {
+						if (!regex.value('#addr4', '상세주소를 입력해주세요.')) {
 							return false;
+						}
+						
+						if (!regex.value('#birthdate', '생년월일을 입력해주세요.')) {
+							return false;
+						}
+						
+						if ($('#check').val() == '2') {
+							if(!regex.value('#medical_field', '전공분야를 선택해주세요.')) {
+								return false;
+							}
 						}
 
 						swal({

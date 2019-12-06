@@ -31,7 +31,7 @@
 				user_id = #{user_id}
 			</if>
 			<if test="fdpmember_id != null and fdpmember_id != ''">
-				OR fdpmember_id =#{fdpmember_id}
+				AND fdpmember_id =#{fdpmember_id}
 			</if>
 		</where>
 	</select>

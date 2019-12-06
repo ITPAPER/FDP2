@@ -78,12 +78,12 @@
 			<div class="content" style="background: #ffa500;">
 
 				<form id="login-form" class="form-block" method="post"
-					action="${pageContext.request.contextPath}/session/save.do">
-					<label for="user_id"> 아이디 </label> <input type="text"
-						name="user_id" id="user_id" class="form-control"
+					action="${pageContext.request.contextPath}/check.do">
+					<label for="user_id"> 아이디 </label> 
+					<input type="text" name="user_id" id="user_id" class="form-control"
 						placeholder="관리자 ID : cherry,  kihyub,  seungseok,  mingi,  jihyeon" />
-					<label for="user_pw"> 비밀번호 </label> <input type="password"
-						name="user_pw" id="user_pw" class="form-control"
+					<label for="user_pw"> 비밀번호 </label> 
+					<input type="password" name="user_pw" id="user_pw" class="form-control"
 						placeholder="PW : 1234 " />
 					<button type="submit" id="btn8"
 						class="btn btn-primary btn-lg btn-block">로그인</button>
@@ -112,9 +112,11 @@
 
 				swal({
 					title : '접속', // 제목
-					text : "관리자님이 접속하셨습니다.", // 내용
+					text : "로그인 하시겠습니까?", // 내용
 					type : 'success', // 종류
 					confirmButtonText : 'Yes', // 확인버튼 표시 문구
+					showCancelButton : true, // 취소버튼 표시 여부
+					cancelButtonText : 'No', // 취소버튼 표시 문구
 				})
 
 				$('.swal2-confirm').click(function() {
