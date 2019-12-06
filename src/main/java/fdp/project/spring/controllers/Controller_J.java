@@ -182,8 +182,6 @@ public class Controller_J {
 	
 	@RequestMapping(value = "09_Sign_up_a2.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String signupina() {
-		
-		
 		return "09_Sign_up_a2";
 	}
 	
@@ -247,7 +245,6 @@ public class Controller_J {
             // 데이터 저장
             // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
             memberService.addMember(input);
-            
         } catch (Exception e) {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
@@ -598,33 +595,19 @@ public class Controller_J {
 	@ResponseBody
 	@RequestMapping(value = "abc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String tablist(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-		/*
-		 * request.setCharacterEncoding("utf-8");
-		 * response.setCharacterEncoding("utf-8");
-		 * response.setContentType("application/json");
-		 */
 		
 		int disNo = webHelper.getInt("disNo");
 		String gender = null;
 		String age = null;
 		String season = null;
 		String region = null;
-	
-		/*
-		 * try { disNo = Integer.parseInt(request.getParameter("disNo")); } catch
-		 * (Exception e) {}
-		 * 
-		 */
-		/*
-		 * for (int i=1; i<=10; i++) { disNo = i; }
-		 */
 		
 		switch (disNo) {
 			case 1: gender="감기성별"; age="감기연령별"; season="감기계절별"; region="감기지역별"; break;
 			case 2: gender="고혈압성별"; age="고혈압연령별"; season="고혈압계절별"; region="고혈압지역별"; break;
 			case 3: gender="관절병증성별"; age="관절병증연령별"; season="관절병증계절별"; region="관절병증지역별"; break; 
 			case 4: gender="비염성별"; age="비염연령별"; season="비염계절별"; region="비염지역별"; break; 
-			case 5: gender="결막염성별"; age="결막염연령별"; season="결막염계절별"; region="T결막염지역별"; break; 
+			case 5: gender="결막염성별"; age="결막염연령별"; season="결막염계절별"; region="결막염지역별"; break; 
 			case 6: gender="알레르기성별"; age="알레르기연령별"; season="알레르기계절별"; region="알레르기지역별"; break; 
 			case 7: gender="위식도성별"; age="위식도연령별"; season="위식도계절별"; region="위식도지역별"; break; 
 			case 8: gender="척추질환성별"; age="척추질환연령별"; season="척추질환계절별"; region="척추질환지역별"; break;
@@ -634,7 +617,6 @@ public class Controller_J {
 		
 		Gson gson = new Gson();
 		
-		
 		JSONObject json = new JSONObject();
 		json.put("disNo", disNo);
 		json.put("gender", gender);
@@ -643,9 +625,6 @@ public class Controller_J {
 		json.put("region", region);
 		
 		String aa = gson.toJson(json);
-		/*
-		 * model.addAttribute("json", json); model.addAttribute("disNo", disNo);
-		 */
 		
 		return aa;
 	}

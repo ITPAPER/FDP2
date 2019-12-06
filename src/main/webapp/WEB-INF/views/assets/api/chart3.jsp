@@ -127,5 +127,7 @@ range.label.verticalCenter = "bottom";
 }); // end am4core.ready()
 </script>
 
+<div id="chartdiv"></div>
+
 </body>
 </html>

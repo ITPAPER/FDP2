@@ -17,7 +17,9 @@
 	<select id="selectList"
 		parameterType="fdp.project.spring.model.DiseaseRegion"
 		resultMap="DiseaseRegionMap">
-		select iddisease_region, dis_month, dis_name, dis_region, sum(dis_num_patient), sum(dis_cost) from disease_region group by dis_region;
+		SELECT iddisease_region, dis_month, dis_name, dis_region, sum(dis_num_patient), sum(dis_cost) FROM disease_region 
+		WHERE dis_name=#{disName} 
+		GROUP BY dis_region;
 	</select>
 
 </mapper>

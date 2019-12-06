@@ -26,7 +26,7 @@
       	top: 80px;
       }
       
-      .charttitle {
+      .dislist {
       	 /* diaplay: inline-block; */
          position: absolute !important;
          top: -40px;
@@ -65,13 +65,25 @@
       	position: absolute;
       	top: 300px;
       	border: 1px solid black;
-      	height: 900px;
+      	height: 1000px;
       	width: 1170px;
       }
       
-      #dept{
+      #dept {
       	position: relative;
       	top: 100px;
+      }
+      
+      #chartname1 {
+      	position: relative;
+      	left: 100px;
+      	top: 50px;
+      }
+      
+      #chartname2 {
+      	position: relative;
+      	left: 620px;
+      	top:20px;
       }
 
      </style>
@@ -91,9 +103,8 @@
      <div id="left"> 
       <!-- 질병 1 -->
       <div class="content" id="content1">
-      
       	<div>
-			<select name="addr1" id="disName" class="form-control charttitle" style="width: 170px; text-align:center; font-weight:normal;">
+			<select name="disName" id="disName" class="form-control dislist" style="width: 170px; text-align:center; font-weight:normal;">
 	        	<option class="a" value="">-------- 질병명 -------</option>
 	        	<option class="a" value="1">감기</option>
 	        	<option class="a" value="2">고혈압</option>
@@ -111,17 +122,11 @@
 		<div id="result"></div>
      </div> 
       	
-      
-      	<!-- 탭 버튼 구성 -->
-      	
-
-     
-      
          <!-- 탭 페이지 구성(단일페이지) -->
          <div class="tab-content">
+         	<div id="chartname1"></div>
+         	<div id="chartname2"></div>
             <div role="tabpanel1" class="tab-pane fade active in" id="dept">
-               <div id="chartdiv"></div>
-               <div id="chartdiv1"></div>
             </div>
          </div>
       </div>   
@@ -143,7 +148,7 @@
    <script src="https://www.amcharts.com/lib/4/core.js"></script>
    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-    <script src="./assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
+   <script src="./assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
    <script type="text/javascript">
    
    
@@ -164,7 +169,7 @@
 				$("#ct11").click(function(e) {
 			          $.ajax({
 			             /** ajax 기본 옵션 */
-			             url: './assets/api/chart9.do',// 읽어들일 파일의 경로
+			             url: './assets/api/chart1.do',// 읽어들일 파일의 경로
 			             dataType: 'html',	//읽어올 내용 형식(html, xml, json)
 			             method: 'get',          // 통신방법 (get(기본값), post)
 			             data: {},             // 접속대상에게 전달할 파라미터
@@ -172,13 +177,14 @@
 			             success: function(req) {
 			                console.log(">> 성공!!!! >> " + req);
 			                // 준비된 요소에게 읽어온 내용을 출력한다.
-			                $("#dept").append(req);
+			                $("#dept").html(req);
 			             }
 			          });//end $.ajax
 			       }); // end #ct11 click
 			       
 			       $("#ct12").click(function(e) {
-			           $.ajax({
+
+			    	   $.ajax({
 			              /** ajax 기본 옵션 */
 			              url: './assets/api/chart10.do',// 읽어들일 파일의 경로
 			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
@@ -188,7 +194,7 @@
 			              success: function(req) {
 			                 console.log(">> 성공!!!! >> " + req);
 			                 // 준비된 요소에게 읽어온 내용을 출력한다.
-			                 $("#dept").append(req);
+			                 $("#dept").html(req);
 			              }
 			           });
 			        }); // end #ct12 click
@@ -204,7 +210,7 @@
 			              success: function(req) {
 			                 console.log(">> 성공!!!! >> " + req);
 			                 // 준비된 요소에게 읽어온 내용을 출력한다.
-			                 $("#dept").append(req);
+			                 $("#dept").html(req);
 			              },
 			              // 통신 실패시 호출될 함수 (파라미터는 에러내용)
 			              error: function(error) {
@@ -217,9 +223,16 @@
 			        }); // end #ct13 click
 			        
 			        $("#ct14").click(function(e) {
+					   var chart1 = "<h4><${disName}환자 수></h4>"
+					   $("#chartname1").html(chart1);
+					       
+					   var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
+					   $("#chartname2").html(chart2);
+					       
 			           $.ajax({
+
 			              /** ajax 기본 옵션 */
-			              url: './assets/api/chart1.do',// 읽어들일 파일의 경로
+			              url: './assets/api/chart10.do',// 읽어들일 파일의 경로
 			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
 				          method: 'get',          // 통신방법 (get(기본값), post)
 				          data: {},             // 접속대상에게 전달할 파라미터
@@ -227,25 +240,14 @@
 			              success: function(req) {
 			                 console.log(">> 성공!!!! >> " + req);
 			                 // 준비된 요소에게 읽어온 내용을 출력한다.
-			                 $("#dept").append(req);
+			                 $("#dept").html(req);
 			              }
 			           });
 			        }); // end #ct14 click
-			       
-			       
-			       
-			       
-			       
-			       
 			}) 
 		})
 	})
       
-   $(function() {
-       
-       
-       
-    });
    
    </script>
    
