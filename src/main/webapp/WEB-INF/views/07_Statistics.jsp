@@ -169,6 +169,9 @@
 				$("#result").append(html);
 				
 				$("#ct11").click(function(e) {
+			    	$("#chartname1").empty();
+			        $("#chartname2").empty();
+					
 					var queryString = $('form').serialize();
 		             $.ajax({
 		                /** ajax 기본 옵션 */
@@ -185,6 +188,9 @@
 		          }); // end #ct11 click
 			       
 			       $("#ct12").click(function(e) {
+			    	   $("#chartname1").empty();
+			           $("#chartname2").empty();
+			    	   
 			    	   var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
@@ -201,6 +207,9 @@
 			        }); // end #ct12 click
 			        
 			        $("#ct13").click(function(e) {
+			        	$("#chartname1").empty();
+			        	$("#chartname2").empty();
+			        	
 			        	var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
@@ -229,14 +238,15 @@
 					       
 					   var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
 					   $("#chartname2").html(chart2);
-					       
+					   
+					   var queryString = $('form').serialize();    
 			           $.ajax({
 
 			              /** ajax 기본 옵션 */
 			              url: './assets/api/chart10.do',// 읽어들일 파일의 경로
 			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
-				          method: 'get',          // 통신방법 (get(기본값), post)
-				          data: {},             // 접속대상에게 전달할 파라미터
+				          //method: 'get',          // 통신방법 (get(기본값), post)
+				          data: queryString,             // 접속대상에게 전달할 파라미터
 			              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 			              success: function(req) {
 			                 console.log(">> 성공!!!! >> " + req);

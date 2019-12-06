@@ -413,11 +413,14 @@ public class Controller_J {
 		return new ModelAndView("assets/api/chart9") ;
 	}
 	
-	@RequestMapping(value = "/assets/api/chart10.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/assets/api/chart10.do")
 	public ModelAndView chcart10(Model model) {
 		
 		//데이터베이스로부터 지역병 질병 데이터 불러오기
 	    DiseaseRegion input = new DiseaseRegion();
+	    
+	    String disname = webHelper.getString("disName");
+	    input.setDisName(disname);
 	    
 	    List<DiseaseRegion> output = null;
 	    
@@ -433,6 +436,7 @@ public class Controller_J {
 	    
 	    //View처리
 	    model.addAttribute("jsonList", jsonList);
+	    model.addAttribute("output",output);
 	    
 		return new ModelAndView("assets/api/chart10") ;
 	}
