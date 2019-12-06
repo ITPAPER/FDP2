@@ -28,11 +28,11 @@
 			<div class="col-md-9 ww">
 				<div class="btn-cover collapse navbar-collapse" id="gnb">
 				<ul class="nav navbar-nav" id="droph">
-					<li><a href="index.do"class="page-move">홈</a></li>
-					<li><a href="07_Statistics.do" class="page-move">데이터통계</a></li>
-					<li class="dropdown">
-						<a href="#" class="page-move" data-toggle="dropdown">병원 검색<b class="caret"></b></a>
-						<ul class="dropdown-menu">
+					<li><a href="index.do"class="page-move1">홈</a></li>
+					<li><a href="07_Statistics.do" class="page-move1">데이터통계</a></li>
+					<li class="dropdown" id="d1">
+						<a href="#" class="page-move2 dropdown-toggle fdp" data-toggle="dropdown">병원 검색<b class="caret"></b></a>
+						<ul class="dropdown-menu kfc">
 								<li><a href="03_Find_h.do">일반 병원 찾기</a></li>
 								<li id="divider"></li>
 								<li><a href="05_Find_e.do">응급실 찾기</a></li>
@@ -40,8 +40,19 @@
 								<li><a href="30_Monitoring.do">응급실 현황</a></li>
 						</ul>
 					</li>
-					<li><a href="13_Notice_board.do" class="page-move">게시판</a></li>
-					<li><a href="18_Intention.do" class="page-move">센터소개</a></li>
+					<li><a href="13_Notice_board.do" class="page-move1">게시판</a></li>
+					<li class="dropdown" id="d2">
+						<a href="#" class="page-move2 dropdown-toggle intro" data-toggle="dropdown">센터 소개<b class="caret"></b></a>
+						<ul class="dropdown-menu bbq">
+								<li><a href="20_Strong_point.do">주요사업</a></li>
+								<li id="divider"></li>
+								<li><a href="17_Navigator.do">사이트맵</a></li>
+								<li id="divider"></li>
+								<li><a href="18_Intention.do">사이트소개</a></li>
+								<li id="divider"></li>
+								<li><a href="19_Team_introduction.do">팀원소개</a></li>
+						</ul>
+					</li>
 				</ul>
 				</div>
 			</div>

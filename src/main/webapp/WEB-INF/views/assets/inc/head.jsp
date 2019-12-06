@@ -102,8 +102,7 @@
 }
 
 .navbar-nav>li>.dropdown-menu {
-	width: 130px;
-	height: 130px;
+	height: 120px;
 	padding: 0;
 	text-align: center;
 }
@@ -131,7 +130,7 @@ margin:0;
 }
 
 /* 메뉴버튼 */
-.page-move {
+.page-move1 , .page-move2 {
 	text-align: center;
 	height: 70px;
 	vertical-align: middle;
@@ -168,6 +167,27 @@ margin:0;
 
 #droph li {
 	width: 20%;
+}
+
+.kfc{
+	z-index:10000000000;
+	min-width: 150px !important;
+	width: 150px !important;
+	position:relative;
+	top:9px;
+}
+
+.kfc >li > a , .bbq > li > a{
+	padding-top:0 !important;
+}
+
+.bbq{
+	z-index:10000000000;
+	height:160px !important;
+	min-width: 150px !important;
+	width: 150px !important;
+	position:relative;
+	top:9px;
 }
 
 /* 최하단 바 박스 */

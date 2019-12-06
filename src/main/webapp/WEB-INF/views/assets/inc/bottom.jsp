@@ -20,7 +20,7 @@
     <script src="./assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     	$(function(){
-    		$(".page-move").hover(
+    		$(".page-move1").hover(
     			function(e){
     				$(this).css("background-color","#ffa500").css("color","white");
     			},
@@ -28,5 +28,51 @@
     				$(this).css("background-color","white").css("color","#ffa500");
     			}	
     		);
+    		/* $(".page-move2").hover(
+        			function(e){
+        				$(this).css("background-color","#ffa500").css("color","white");
+        			},
+        			function(e){
+        				$(this).css("background-color","white").css("color","#ffa500");
+        			}	
+        		); */
+    		
+    		
+    		
+    		
+    		 $(".intro").hover(
+    			function(){$(".intro").css("background-color","#ffa500").css("color","white");},
+    			
+    			function(){
+    				if($("#d2").attr('class') == 'dropdown open'){
+        				$('.intro').css("background-color","#ffa500").css("color","white");
+        			} else{
+        				$(".intro").css("background-color","white").css("color","#ffa500");
+        			}	
+    		});
+        	$(document).on("click","html",function(e){
+        		$(".intro").click();
+        		if($("#d2").attr('class') == 'dropdown'){
+        			$(".intro").css("background-color","white").css("color","#ffa500");
+        		}
+        	});
+        	
+        	$(".fdp").hover(
+        			function(){$(".fdp").css("background-color","#ffa500").css("color","white");},
+        			
+        			function(){
+        				if($("#d2").attr('class') == 'dropdown open'){
+            				$('.intro').css("background-color","#ffa500").css("color","white");
+            			} else{
+            				$(".intro").css("background-color","white").css("color","#ffa500");
+            			}	
+        	});
+            $(document).on("click","html",function(e){
+            	$(".fdp").click();
+            	if($("#d2").attr('class') == 'dropdown'){
+            		$(".fdp").css("background-color","white").css("color","#ffa500");
+            	}
+            });
+        		
     	});
     </script>
