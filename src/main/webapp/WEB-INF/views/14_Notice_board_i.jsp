@@ -137,20 +137,22 @@
 							<%-- 출력을 위해 준비한 의사답변..., 내용, 제목 --%>
 								<c:forEach var="item" items="${output1}" varStatus="status">
 								<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>		
-								<c:set var="reg_date" value="${item.reg_date}" />
-								<c:set var="writer_name" value="${item.writer_name}" />
-								<c:set var="medical_field" value="${item.medical_field}" />
-								<c:set var="content" value="${item.content}" />
-								
 								<tr>
 									<td>
-									<h4>${item.writer_name} 의사님 답변
-									<a href="#" title="삭제" class="pull-right bcd">
+									<h4>${item.writer_name} 의사님 답변 <span style='display:none' id="DAI${status.index}">${item.docAnswer_id}</span>
+									
+									<c:choose>
+										<c:when test="${cookie.PK.value == item.fdpmember_id}">
+								<%-- <input type="button" value="삭제" onclick="del(${output1.docAnswer_id})" /> --%>
+									<a href="14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}" title="삭제" class="pull-right bcd" >
 												<i class="glyphicon glyphicon-remove"></i>
 											</a>
-									<a href="#" title="수정" class="pull-right bcd">
-												<i class="glyphicon glyphicon-edit"></i>
-											</a>
+								<a href="${status.index}" title="수정" class="pull-right bcd btn4">
+									<i class="glyphicon glyphicon-edit"></i>
+									</a>			
+																
+										</c:when>
+									</c:choose>	
 									</h4>
 									 	
 									
@@ -179,13 +181,10 @@
 							</c:choose>
 											
 									</h6>
-										
-											
-										
 									</td>
 								</tr>
 								<tr>
-									<td>${content}</td>
+									<td id="${status.index}">${item.content}</td>
 								</tr>
 								</c:forEach>
 							</c:otherwise>
@@ -193,6 +192,7 @@
 					</tbody>
 			
 					<tbody id="abc"></tbody>
+					
 					<tbody>
 					<tr>
 						<td>
@@ -248,30 +248,6 @@
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-	<!-- <script>
-			  $(function() {
-				  $("#btn1").click(function(e) {
-					  	e.preventDefault();
-					  	
-		                // 확인, 취소버튼에 따른 후속 처리 구현
-		                swal({
-		                    title: '확인',                // 제목
-		                    text: "정말 선택하신 항목을 삭제하시겠습니까?",  // 내용
-		                    type: 'warning',              // 종류
-		                    confirmButtonText: 'Yes',     // 확인버튼 표시 문구
-		                    showCancelButton: true,       // 취소버튼 표시 여부
-		                    cancelButtonText: 'No',       // 취소버튼 표시 문구
-		                }).then(function(result) {        // 버튼이 눌러졌을 경우의 콜백 연결
-		                    if (result.value) {           // 확인 버튼이 눌러진 경우
-		                        swal('삭제', '성공적으로 삭제되었습니다.', 'success');
-		                    } else if (result.dismiss === 'cancel') {   // 취소버튼이 눌러진 경우
-		                        swal('취소', '삭제가 취소되었습니다.', 'error');
-		                   			 }	
-		               			 });
-		           			});
-			  			});
-			  </script>
-			   -->
 			<script>
 			function del(document_id) {
 				var chk = confirm("정말 게시글을 삭제하시겠습니까?");
@@ -281,21 +257,53 @@
 				}
 			}
 			</script>
+		
 			<script type="text/javascript" src="./assets/plugins/ckeditor/ckeditor.js"></script>
 			<script>
+			var doc_feedback;
 			$("#btn2").click(function(){
 					$("#doc_del").empty();	// 의사가 글 작성할 때 아래의 의사 답변 내용이 없습니다 테이블 삭제됨
-					var doc_feedback = "<tr><td><h5>${cookie.Name.value}의사님 답변</h5>"
-						doc_feedback +="</td></tr><tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'></textarea></td></tr>"
-						doc_feedback +=	"<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA' /><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn3'/></td></tr>"
+						doc_feedback = "<tr><td><h5>${cookie.Name.value}의사님 답변</h5></td></tr>"
+						doc_feedback +="<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'></textarea></td></tr>"
+						doc_feedback +=	"<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA'/><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn3'/></td></tr>"
 						$("#abc").html(doc_feedback);
 					CKEDITOR.replace('d_content', {height: 200});
 						
 					$("#btn3").click(function() {
+						
+						
 						$("#abc").empty();
 						var doc_origin = "<tr><td colspan='6'><h5><b>전문의 소견</b></h5><br />현재까진 의사의 답변이 없습니다.</td></tr>"
 							$("#abc").html(doc_origin);
+						
+						})
+			})
+			
+			var p = 0;
+			
+			$(".btn4").click(function(e){
+					e.preventDefault();
+					var d;
+					var e;
+					if(p==0) {
+					var c = $(this).attr("href");
+					console.log(c);
+						d = $("#"+c).html();
+						e = $("#DAI"+ c).html();
+					console.log(d);
+					var doc_feedback1 = "<input type='hidden' name='docAnswer_id' value='"+e+"' />"
+						doc_feedback1 += "<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.writer_name}' name='writer_name' /><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'>"+d+"</textarea></td></tr>"
+						doc_feedback1 += "<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA' /><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn5'></td></tr>"
+						$("#"+c).empty();
+						$("#"+c).html(doc_feedback1);
+					CKEDITOR.replace('d_content', {height: 100});
+					p = 1;
+					}
+					$("#btn5").click(function() {
+						$("#"+c).html("<td>"+d+"</td>");
+					p = 0;
 					})
+						
 			})
 			</script>
 	</body>

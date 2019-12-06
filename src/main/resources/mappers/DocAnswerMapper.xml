@@ -63,8 +63,8 @@
 	<update id="updateItem"
 		parameterType="fdp.project.spring.model.DocAnswer">
 		UPDATE docAnswer SET writer_name=#{writer_name}, content=#{content},
-		reg_date=#{reg_date}, edit_date=#{edit_date},
-		medical_field=#{medical_field}
+		reg_date=#{reg_date}, edit_date=#{edit_date}
+		<!-- ,medical_field=#{medical_field} -->
 		WHERE
 		docAnswer_id=#{docAnswer_id};
 	</update>
