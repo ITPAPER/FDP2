@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import fdp.project.spring.helper.PageData;
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.Comment;
 import fdp.project.spring.model.DocAnswer;
 import fdp.project.spring.model.Document;
 import fdp.project.spring.model.Member;
+import fdp.project.spring.service.CommentService;
 import fdp.project.spring.service.DocAnswerService;
 import fdp.project.spring.service.DocumentService;
 import fdp.project.spring.service.MemberService;
@@ -46,6 +48,9 @@ public class Controller_C {
 
 	@Autowired
 	MemberService memberService;
+
+	@Autowired
+	CommentService commentService;
 
 	/** "/프로젝트이름"에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
@@ -102,7 +107,6 @@ public class Controller_C {
 	/** 상세 페이지 */
 	@RequestMapping(value = "/14_Notice_board_i.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_i(Model model) {
-
 		/** 1) 필요한 변수 값 생성 */
 		// 조회할 대상에 대한 PK 값
 		int document_id = webHelper.getInt("document_id");
@@ -125,28 +129,40 @@ public class Controller_C {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 		output.setHit(output.getHit() + 1);
-		
+
 		try {
 			// 데이터 수정(조회수 증가 관련 업데이트)
 			documentService.editDocument(output);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		
+
 		// DocAnswer 테이블 데이터
 		DocAnswer input1 = new DocAnswer();
-		input1.setDocument_id(document_id); //
-		List<DocAnswer> output1 = null; //
+		input1.setDocument_id(document_id);
+		List<DocAnswer> output1 = null;
 
 		try { // 데이터 조회
-			output1 = docAnswerService.getDocAnswerList(input1); //
-		} catch (Exception e) { //
+			output1 = docAnswerService.getDocAnswerList(input1);
+		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
-		} //
+		}
+
+		// Comment 테이블 데이터
+		Comment input3 = new Comment();
+		input3.setDocument_id(document_id);
+		List<Comment> output3 = null;
+
+		try { // 데이터 조회
+			output3 = commentService.getCommentList(input3);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
 
 		/** 3) view 처리 */
 		model.addAttribute("output", output);
 		model.addAttribute("output1", output1);
+		model.addAttribute("output3", output3);
 		return new ModelAndView("14_Notice_board_i");
 	}
 
@@ -190,10 +206,12 @@ public class Controller_C {
 			} catch (Exception e) {
 				return webHelper.redirect(null, e.getLocalizedMessage());
 			}
+
 			/** 3) 결과를 확인하기 위한 페이지 이동 */
 			// 저장 결과를 확인하기 위해서 데이터 저장 시 생성된 PK 값을 상세페이지로 전달해야한다.
 			String redirectUrl = contextPath + "/14_Notice_board_i.do?document_id=" + document_id;
 			return webHelper.redirect(redirectUrl, "답글이 등록되었습니다.");
+
 		} else {
 			/** 1) 사용자가 입력한 파라미터 수신 및 유효성 검사 */
 			String writer_name = webHelper.getString("writer_name");
@@ -241,6 +259,89 @@ public class Controller_C {
 			return webHelper.redirect(redirectUrl, "답글이 수정되었습니다.");
 		}
 
+	}
+
+	@RequestMapping(value = "/14_Notice_board_comment_ok.do", method = RequestMethod.POST)
+	public ModelAndView Notice_board_comment_ok(Model model) {
+		
+		/** 1) 필요한 변수값 생성 */
+		int comment_id = webHelper.getInt("comment_id", 0);
+		int document_id = webHelper.getInt("document_id");
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+		String content = webHelper.getString("content");
+		String content1 = webHelper.getString("content1");
+		//String writer_name = webHelper.getCookie("Name");(writer_name을 cookie를 이용해서 가져오는 방법도 있음)
+		String writer_name = webHelper.getString("writer_name");
+		SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar time = Calendar.getInstance();
+		String reg_date = d.format(time.getTime());
+
+		if (comment_id == 0) {
+		// 이 값이 존재하지 않는다면 데이터 조회가 불가능하므로 반드시 필수값으로 처리해야 한다.
+				if (content == null ) {
+					return webHelper.redirect(null, "댓글을 입력하세요.");
+				}
+			Comment comment = new Comment();
+			comment.setWriter_name(writer_name);
+			comment.setDocument_id(document_id);
+			comment.setContent(content);
+			comment.setFdpmember_id(fdpmember_id);
+			comment.setReg_date(reg_date);
+
+			try {
+				// 데이터 저장
+				commentService.addComment(comment);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+
+		
+		/** 3) 결과를 확인하기 위한 페이지 이동 */
+		// 저장 결과를 확인하기 위해서 데이터 저장 시 생성된 PK 값을 상세페이지로 전달해야한다.
+		String redirectUrl = contextPath + "/14_Notice_board_i.do?document_id=" + document_id;
+		return webHelper.redirect(redirectUrl, "댓글이 등록되었습니다.");
+		} else {
+		/** 1) 사용자가 입력한 파라미터 수신 및 유효성 검사 */
+		String edit_date = d.format(time.getTime());
+
+		if (comment_id == 0) {
+			return webHelper.redirect(null, "댓글 번호가 없습니다.");
+		}
+
+		if (writer_name == null) {
+			return webHelper.redirect(null, "작성자를 입력하세요.");
+		}
+
+		if (content1 == null) {
+			return webHelper.redirect(null, "내용을 입력하세요.");
+		}
+
+		if (reg_date == null) {
+			return webHelper.redirect(null, "등록일이 없습니다.");
+		}
+
+		/** 2) 데이터 수정하기 */
+		// 수정할 값들을 Beans에 담는다.
+		Comment input2 = new Comment();
+
+		input2.setComment_id(comment_id);
+		input2.setWriter_name(writer_name);
+		input2.setFdpmember_id(fdpmember_id);
+		input2.setContent(content1);
+		input2.setEdit_date(edit_date);
+		input2.setDocument_id(document_id);
+
+		try {
+			// 데이터 수정
+			commentService.editComment(input2);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		/** 3) 결과를 확인하기 위한 페이지 이동 */
+		// 저장 결과를 확인하기 위해서 데이터 저장 시 생성된 PK 값을 상세페이지로 전달해야한다.
+		String redirectUrl = contextPath + "/14_Notice_board_i.do?document_id=" + document_id;
+		return webHelper.redirect(redirectUrl, "댓글이 수정되었습니다.");
+	}
 	}
 
 	/** 수정폼 페이지 */
@@ -503,6 +604,38 @@ public class Controller_C {
 		return webHelper.redirect(contextPath + "/14_Notice_board_i.do?document_id=" + document_id, "의사 답글이 삭제되었습니다.");
 	}
 
+	@RequestMapping(value = "/14_Notice_board_comment_delete.do", method = RequestMethod.GET)
+	public ModelAndView Notice_board_comment_delete(Model model) {
+		/** 1) 필요한 변수값 생성 */
+		// 삭제할 대상에 대한 PK값
+		int comment_id = webHelper.getInt("comment_id");
+		int document_id = webHelper.getInt("document_id");
+		
+		// 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
+		if (comment_id == 0) {
+			return webHelper.redirect(null, "댓글 번호가 없습니다.");
+		}
+		if (document_id == 0) {
+			return webHelper.redirect(null, "게시글 번호가 없습니다.");
+		}
+
+		/** 2) 데이터 삭제하기 */
+		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+		Comment input = new Comment();
+		input.setComment_id(comment_id);
+
+		try {
+			// 데이터 삭제
+			commentService.deleteComment(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) 페이지 이동 */
+		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
+
+		return webHelper.redirect(contextPath + "/14_Notice_board_i.do?document_id=" + document_id, "댓글이 삭제되었습니다.");
+	}
 	@RequestMapping(value = "/15_Notice_board_delete.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_delete(Model model) {
 		/** 1) 필요한 변수값 생성 */
@@ -513,16 +646,38 @@ public class Controller_C {
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시글 번호가 없습니다.");
 		}
+		
+		/** DocAnswer테이블에서 특정 게시글(document_id)같은 값 삭제하기*/
+		DocAnswer input1 = new DocAnswer();
+		input1.setDocument_id(document_id);
 
+		try {
+			// 데이터 삭제
+			docAnswerService.deleteDocAnswer(input1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/** Comment테이블에서 특정 게시글(document_id)같은 값 삭제하기*/
+		Comment input2 = new Comment();
+		input2.setDocument_id(document_id);
+
+		try {
+			// 데이터 삭제
+			commentService.deleteComment(input2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		/** 2) 데이터 삭제하기 */
 		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 		Document input = new Document();
 		input.setDocument_id(document_id);
-		
+
 		try {
 			// 데이터 삭제
 			documentService.deleteDocument(input);
-		
+
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}

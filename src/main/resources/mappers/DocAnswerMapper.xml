@@ -56,7 +56,7 @@
 	<delete id="deleteItem"
 		parameterType="fdp.project.spring.model.DocAnswer">
 		DELETE FROM docAnswer WHERE
-		docAnswer_id=#{docAnswer_id};
+		docAnswer_id=#{docAnswer_id} || document_id=#{document_id};
 	</delete>
 
 	<!-- 데이터 갱신을 위한 기능 정의 -->
