@@ -41,8 +41,12 @@ import retrofit2.Retrofit;
 
 @Controller
 public class Controller_M {
+	
 	@RequestMapping(value = "02_Login.do", method = RequestMethod.GET)
-	public String Login() {
+	public String Login(Model model) {
+		int dir = webHelper.getInt("document_id");
+		
+		model.addAttribute("document_id",dir);
 		
 		return "02_Login";
 	}
@@ -411,7 +415,7 @@ public class Controller_M {
 		String user_id = webHelper.getString("user_id");
 		String user_pw = webHelper.getString("user_pw");
 		int autologin = webHelper.getInt("autologin");
-		
+		int document_id = webHelper.getInt("document_id", 0); 
 		if (user_id == null) {
 			return webHelper.redirect(null, "아이디를 입력해주세요.");
 		}
@@ -472,8 +476,11 @@ public class Controller_M {
 				response.addCookie(cookie);
 			}
 		}
-		
-		return new ModelAndView("redirect: index.do");
+		if(document_id==0) {
+			return new ModelAndView("redirect: index.do");
+		}else {
+			return new ModelAndView("redirect: 14_Notice_board_i.do?document_id="+ document_id);
+		}
 	}
 	
 	@RequestMapping(value= "/coodel.do", method= RequestMethod.GET )

@@ -65,7 +65,7 @@
 						<br/>
 						<input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
 					</div>
-				
+					<input type="hidden" name="document_id" value="${document_id}" />
 					<div class="container blank" style="height:30px;"></div>
 				
 					<button id="li-btn" type="submit" class="btn btn-primary btn-block">로그인</button>
