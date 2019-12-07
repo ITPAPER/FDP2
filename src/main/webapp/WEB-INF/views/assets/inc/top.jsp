@@ -29,7 +29,7 @@
 				<div class="btn-cover collapse navbar-collapse" id="gnb">
 				<ul class="nav navbar-nav" id="droph">
 					<li><a href="index.do"class="page-move1">홈</a></li>
-					<li><a href="07_Statistics.do" class="page-move1">데이터통계</a></li>
+					<li><a href="07_Statistics.do" class="page-move1">보건의료 통계</a></li>
 					<li class="dropdown" id="d1">
 						<a href="#" class="page-move2 dropdown-toggle fdp" data-toggle="dropdown">병원 검색<b class="caret"></b></a>
 						<ul class="dropdown-menu kfc">

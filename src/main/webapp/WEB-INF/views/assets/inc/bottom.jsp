@@ -44,35 +44,43 @@
     			function(){$(".intro").css("background-color","#ffa500").css("color","white");},
     			
     			function(){
-    				if($("#d2").attr('class') == 'dropdown open'){
-        				$('.intro').css("background-color","#ffa500").css("color","white");
+    				if($("#d2").attr('class') == 'dropdown'){
+    					$(".intro").css("background-color","white").css("color","#ffa500");
         			} else{
-        				$(".intro").css("background-color","white").css("color","#ffa500");
+        				
         			}	
     		});
-        	$(document).on("click","html",function(e){
-        		$(".intro").click();
+        	
+        	$(".fdp").hover(
+            	function(){$(".fdp").css("background-color","#ffa500").css("color","white");},
+              			
+            	function(){
+            		if($("#d1").attr('class') == 'dropdown open'){
+               			$('.fdp').css("background-color","#ffa500").css("color","white");
+               		} else{
+              			$(".fdp").css("background-color","white").css("color","#ffa500");
+               		}	
+            });
+        	
+        	
+        	$(document).on("click","body",function(e){
+        		if($("#d2").attr('class') == 'dropdown open'){
+        			$(".intro").click();
+        		}
         		if($("#d2").attr('class') == 'dropdown'){
         			$(".intro").css("background-color","white").css("color","#ffa500");
         		}
-        	});
-        	
-        	$(".fdp").hover(
-        			function(){$(".fdp").css("background-color","#ffa500").css("color","white");},
-        			
-        			function(){
-        				if($("#d2").attr('class') == 'dropdown open'){
-            				$('.intro').css("background-color","#ffa500").css("color","white");
-            			} else{
-            				$(".intro").css("background-color","white").css("color","#ffa500");
-            			}	
-        	});
-            $(document).on("click","html",function(e){
-            	$(".fdp").click();
-            	if($("#d2").attr('class') == 'dropdown'){
+        		
+        		if($("#d1").attr('class') == 'dropdown open'){
+        			$(".fdp").click();
+        		}
+            	if($("#d1").attr('class') == 'dropdown'){
             		$(".fdp").css("background-color","white").css("color","#ffa500");
             	}
-            });
+        	});
+        	
+        	
+        	
         		
     	});
     </script>
