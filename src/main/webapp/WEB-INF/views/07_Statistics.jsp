@@ -64,9 +64,10 @@
       .tab-content {
       	position: absolute;
       	top: 300px;
-      	border: 1px solid black;
+      	left:-100px;
+      	/* border: 1px solid black; */
       	height: 1000px;
-      	width: 1170px;
+      	width: 1400px;
       }
       
       #dept {
@@ -82,7 +83,7 @@
       
       #chartname2 {
       	position: relative;
-      	left: 620px;
+      	left: 720px;
       	top:20px;
       }
 
@@ -171,6 +172,11 @@
 				$("#ct11").click(function(e) {
 			    	$("#chartname1").empty();
 			        $("#chartname2").empty();
+			        var chart1 = "<h4><${disName}환자 수></h4>"
+						   $("#chartname1").html(chart1);
+						       
+					var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
+						   $("#chartname2").html(chart2);
 					
 					var queryString = $('form').serialize();
 		             $.ajax({
@@ -190,7 +196,12 @@
 			       $("#ct12").click(function(e) {
 			    	   $("#chartname1").empty();
 			           $("#chartname2").empty();
-			    	   
+				        var chart1 = "<h4><${disName}환자 수></h4>"
+							   $("#chartname1").html(chart1);
+							       
+						var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
+							   $("#chartname2").html(chart2);
+						
 			    	   var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
@@ -209,7 +220,7 @@
 			        $("#ct13").click(function(e) {
 			        	$("#chartname1").empty();
 			        	$("#chartname2").empty();
-			        	
+						
 			        	var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
@@ -233,6 +244,8 @@
 			        }); // end #ct13 click
 			        
 			        $("#ct14").click(function(e) {
+			        	$("#chartname1").empty();
+			        	$("#chartname2").empty();
 					   var chart1 = "<h4><${disName}환자 수></h4>"
 					   $("#chartname1").html(chart1);
 					       

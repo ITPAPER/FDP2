@@ -10,8 +10,8 @@
 <title>Insert title here</title>
 <style>
 #chartdiv {
-  width: 1000px;
-  height: 500px;
+  width: 1300px;
+  height: 800px;
 }
 
 </style>
