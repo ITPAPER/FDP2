@@ -436,6 +436,7 @@ public class Controller_M {
 				webHelper.setCookie("fdpCookie", user_id, 604800);
 				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
 //				webHelper.setCookie("Name", output.getName(), 604800);
+				
 				Cookie cookie = new Cookie("Name", output.getName());
 				cookie.setPath("/");
 				cookie.setDomain("localhost");
@@ -477,9 +478,12 @@ public class Controller_M {
 	
 	@RequestMapping(value= "/coodel.do", method= RequestMethod.GET )
 	public ModelAndView coodel(HttpServletResponse response, HttpServletRequest request ) {
-		String aa = webHelper.getCookie("fdpCookie");
+		String aa = webHelper.getCookie("Name");
 		
 		webHelper.removeCookie("fdpCookie");
+		webHelper.removeCookie("UserGrade");
+		webHelper.removeCookie("Name");
+		webHelper.removeCookie("PK");
 		
 		
 		return webHelper.redirect("index.do", "안녕히가세요 "+ aa +"님");
