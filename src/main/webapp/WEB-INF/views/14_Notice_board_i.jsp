@@ -122,6 +122,7 @@
 								<h6 class="title_info">
 									작성자:${output.writer_name} &nbsp;&nbsp; 작성일: ${output.reg_date}
 									&nbsp;&nbsp;
+									<span style='display: none'>${item.fdpmember_id}</span>
 									<c:choose>
 										<c:when test="${output.edit_date != null}">
 							수정일: ${output.edit_date} &nbsp;&nbsp;
@@ -388,21 +389,22 @@
 				var g;
 				var h;
 				if(p==0) {
-				var f = $(this).attr("href");
-					g = $("#"+f).html();
-					h = $("#CI"+f).html();
-					console.log(h);
-				var c_edit = "<input type='hidden' name='comment_id' value='"+h+"' />"
-					c_edit += "<input type='text' class='form-control' name='content1' value='"+g+"' /><span class='input-group-btn'><button class='btn btn-default btn7' type='submit'>취소</button><button class='btn btn-default' type='submit'>수정</button></span>"
-					$("#"+f).empty();
-					$("#"+f).html(c_edit);
-					p = 1;
-				}
-						$(".btn7").click(function() {
-							$("#"+f).html(g);
-							p = 0;
-						})
-			})
+					var f = $(this).attr("href");
+						g = $("#"+f).html();
+						h = $("#CI"+f).html();
+						console.log(h);
+					var c_edit = "<input type='hidden' name='comment_id' value='"+h+"' />"
+						c_edit += "<input type='text' class='form-control' name='content1' value='"+g+"' /><span class='input-group-btn'><button class='btn btn-default btn7' type='submit'>취소</button><button class='btn btn-default' type='submit'>수정</button></span>"
+						/* $("#"+f).empty(); --> append, prepend 쓸때는 이 구문이 필요함*/
+						$("#"+f).html(c_edit);
+						p = 1;
+					}
+				
+							$(".btn7").click(function() {
+								$("#"+f).html(g);
+								p = 0;
+							})
+				})
 			</script>
 </body>
 </html>
