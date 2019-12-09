@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 <style type="text/css">
@@ -14,7 +14,7 @@
 }
 
 /** 테이블 최소 크기 설정 */
-.table {
+.table111 {
 	min-height: 500px;
 }
 
@@ -39,6 +39,7 @@
 .comment {
 	list-style: none;
 	padding-left: 0;
+	padding-top: 30px;
 }
 
 /** 하단 버튼이 있는 박스 크기 설정 */
@@ -59,7 +60,7 @@
 
 /** 의사 답변 컨텐츠의 제목 부분 설정 */
 .table .doc_ans_title {
-	padding: 0 2 0 0 ;
+	padding: 0 2 0 0;
 	border-bottom: 1px dotted;
 	font-size: 20px;
 }
@@ -77,179 +78,251 @@
 .bcd {
 	font-size: 13px;
 }
+/** 게시글 내용 칸 크기*/
+.ctt {
+	min-height: 250px;
+}
+
+.comment_login {
+	border: solid 1px #ccc;
+	width: 1100px;
+	height: 40px;
+	color: #bbb;
+	padding-top: 10px;
+	padding-left: 5px;
+	border-radius: 6px;
+}
+
+.comment_login1 {
+	color: #888;
+	border-bottom: 1px solid #888;
+}
 </style>
 
 <head>
-	<jsp:include page="./assets/inc/head.jsp" />
-	<jsp:include page="./assets/inc/remote_css.jsp" />
+<jsp:include page="./assets/inc/head.jsp" />
+<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="container" style="min-height: 500px;">
-	<jsp:include page="./assets/inc/remote.jsp" />
+		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
 		<div class="table2">
-		<form method="post" action="14_Notice_board_docAns_ok.do">
-			<table class="table table-bordered">
-				<tbody>
-					<tr class="subject_content">
-						
-						<td><h4>${output.subject}</h4>
-							<h6 class="title_info">작성자:${output.writer_name}  &nbsp;&nbsp;
-							작성일: ${output.reg_date} &nbsp;&nbsp;
-							<c:choose>
-								<c:when test="${output.edit_date != null}">
+			<form method="post" action="14_Notice_board_docAns_ok.do">
+				<table class="table table-bordered table111">
+					<tbody>
+						<tr class="subject_content">
+
+							<td><h4>${output.subject}</h4>
+								<h6 class="title_info">
+									작성자:${output.writer_name} &nbsp;&nbsp; 작성일: ${output.reg_date}
+									&nbsp;&nbsp;
+									<c:choose>
+										<c:when test="${output.edit_date != null}">
 							수정일: ${output.edit_date} &nbsp;&nbsp;
 								</c:when>
-							</c:choose>
-							조회수: ${output.hit}
-							</h6>
-							
-						</td>
-					</tr>
-					<tr>
-						<td>
-							${output.content}
-						</td>
-					</tr>
-					<tr>
-						<td><a href="./assets/img/baby_redspot.jpg">
-								<img class="attachment" alt="첨부파일" src="./assets/img/attachment.png" />
-								피부 붉은 반점.jpg
-							</a>
-						</td>
-					</tr>
-					
-						<c:choose>
-						<%-- 의사 답변이 없는 경우 --%>
-						<c:when test="${output1 == null || fn:length(output1) == 0}">
-						<tr id="doc_del">
-							<td colspan="6">
-							<h5><b>전문의 소견</b></h5><br />
-							현재까진 의사의 답변이 없습니다.</td>
+									</c:choose>
+									조회수: ${output.hit}
+								</h6></td>
 						</tr>
-						</c:when>
-						<%-- 조회 결과가 있는 경우 --%>
-						<c:otherwise>
-							<%-- 출력을 위해 준비한 의사답변..., 내용, 제목 --%>
-								<c:forEach var="item" items="${output1}" varStatus="status">
-								<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>		
-								<tr>
-									<td>
-									<h4>${item.writer_name} 의사님 처방 <span style='display:none' id="DAI${status.index}">${item.docAnswer_id}</span>
-									
-									<c:choose>
-										<c:when test="${cookie.PK.value == item.fdpmember_id}">
-								<%-- <input type="button" value="삭제" onclick="del(${output1.docAnswer_id})" /> --%>
-									<a href="14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}" title="삭제" class="pull-right bcd" >
-												<i class="glyphicon glyphicon-remove"></i>
-											</a>
-								<a href="${status.index}" title="수정" class="pull-right bcd btn4">
-									<i class="glyphicon glyphicon-edit"></i>
-									</a>			
-																
-										</c:when>
-									</c:choose>	
-									</h4>
-									 	
-									
-									<h6>전문 분야 : 
-								<c:choose>
-								<c:when test="${item.medical_field == '4' }">외과</c:when>
-								<c:when test="${item.medical_field == '5' }">정형외과</c:when>
-								<c:when test="${item.medical_field == '6' }">신경외과</c:when>
-								<c:when test="${item.medical_field == '8' }">성형외과</c:when>
-								<c:when test="${item.medical_field == '1' }">내과</c:when>
-								<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
-								<c:when test="${item.medical_field == '10' }">산부인과</c:when>
-								<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
-								<c:when test="${item.medical_field == '12' }">안과</c:when>
-								<c:when test="${item.medical_field == '13' }">이비인후과</c:when>
-								<c:when test="${item.medical_field == '14' }">피부과</c:when>
-								<c:when test="${item.medical_field == '15' }">비뇨기과</c:when>
-								<c:when test="${item.medical_field == '21' }">재활의학과</c:when>
-								<c:when test="${item.medical_field == '49' }">치과</c:when>
-								<c:when test="${item.medical_field == '80' }">한의학과</c:when>
-								</c:choose>&nbsp;&nbsp; 답변일: ${output.reg_date}&nbsp;&nbsp;
-								<c:choose>
-								<c:when test="${item.edit_date != null}">
-								수정일: ${item.edit_date}
-								</c:when>
-							</c:choose>
-											
-									</h6>
+						<tr>
+							<td>
+								<div class="ctt">${output.content}</div>
+							</td>
+						</tr>
+						<tr>
+							<td><a href="./assets/img/baby_redspot.jpg"> <img
+									class="attachment" alt="첨부파일" src="./assets/img/attachment.png" />
+									피부 붉은 반점.jpg
+							</a></td>
+						</tr>
+
+						<c:choose>
+							<%-- 의사 답변이 없는 경우 --%>
+							<c:when test="${output1 == null || fn:length(output1) == 0}">
+								<tr id="doc_del">
+									<td colspan="6">
+										<h5>
+											<b>전문의 소견</b>
+										</h5> <br /> 현재까진 의사의 답변이 없습니다.
 									</td>
 								</tr>
-								<tr>
-									<td id="${status.index}">${item.content}</td>
-								</tr>
+							</c:when>
+							<%-- 조회 결과가 있는 경우 --%>
+							<c:otherwise>
+								<%-- 출력을 위해 준비한 의사답변..., 내용, 제목 --%>
+								<c:forEach var="item" items="${output1}" varStatus="status">
+									<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>
+									<tr>
+										<td>
+											<h4>${item.writer_name}
+												의사님 처방 <span style='display: none' id="DAI${status.index}">${item.docAnswer_id}</span>
+
+												<c:choose>
+													<c:when test="${cookie.PK.value == item.fdpmember_id}">
+														<a
+															href="14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}"
+															title="삭제" class="pull-right bcd"> <i
+															class="glyphicon glyphicon-remove"></i>
+														</a>
+														<a href="${status.index}" title="수정"
+															class="pull-right bcd btn4"> <i
+															class="glyphicon glyphicon-edit"></i>
+														</a>
+
+													</c:when>
+												</c:choose>
+											</h4>
+
+
+											<h6>
+												전문 분야 :
+												<c:choose>
+													<c:when test="${item.medical_field == '4' }">외과</c:when>
+													<c:when test="${item.medical_field == '5' }">정형외과</c:when>
+													<c:when test="${item.medical_field == '6' }">신경외과</c:when>
+													<c:when test="${item.medical_field == '8' }">성형외과</c:when>
+													<c:when test="${item.medical_field == '1' }">내과</c:when>
+													<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
+													<c:when test="${item.medical_field == '10' }">산부인과</c:when>
+													<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
+													<c:when test="${item.medical_field == '12' }">안과</c:when>
+													<c:when test="${item.medical_field == '13' }">이비인후과</c:when>
+													<c:when test="${item.medical_field == '14' }">피부과</c:when>
+													<c:when test="${item.medical_field == '15' }">비뇨기과</c:when>
+													<c:when test="${item.medical_field == '21' }">재활의학과</c:when>
+													<c:when test="${item.medical_field == '49' }">치과</c:when>
+													<c:when test="${item.medical_field == '80' }">한의학과</c:when>
+												</c:choose>
+												&nbsp;&nbsp; 답변일: ${item.reg_date}&nbsp;&nbsp;
+												<c:choose>
+													<c:when test="${item.edit_date != null}">
+								수정일: ${item.edit_date}
+								</c:when>
+												</c:choose>
+
+											</h6>
+										</td>
+									</tr>
+									<tr>
+										<td id="${status.index}"><div>${item.content}</div></td>
+									</tr>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</tbody>
-			
+
 					<tbody id="abc"></tbody>
-					
+				</table>
+			</form>
+
+
+			<form method="post" action="14_Notice_board_comment_ok.do">
+				<table class="table table-bordered">
 					<tbody>
-					<tr>
-						<td>
-							<h5>
-								<b>댓글</b>
-							</h5> <br /> 
-							<!-- 웹진 박스를 목록으로 구성하기 위한 구조 입니다. -->
-							<ul class="comment">
-								<!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
-								<li>
-									<!-- 제목영역의 float 처리를 위한 마감제 박스 -->
-									<div class="clearfix">
-										<!-- 제목에 float: left 적용 - pull-left -->
-										<h5 class="pull-left">cpfl***</h5>
-										<!-- 제목에 float: right 적용 - pull-right -->
-										<div class="pull-right">
-											<a href="#" title="수정">
-												<i class="glyphicon glyphicon-edit"></i>
-											</a> 
-											<a href="#" title="삭제">
-												<i class="glyphicon glyphicon-remove"></i>
-											</a>
-										</div>
-									</div>
-									<p>요즘 수두가 유행이더라구요ㅠㅠ빨리 낫길..!</p> 
-										<small>2019-10-20 15:11:32</small>
-								</li>
-							</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			</form>	
+						<tr>
+							<td>
+								<h5>
+									<b>댓글</b>
+								</h5> <br />
+								<div class="input-group">
+									<c:choose>
+										<c:when test="${cookie.PK.value != null}">
+											<input type="text" class="form-control" name="content"
+												placeholder="댓글을 입력하세요.">
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="submit">등록</button>
+											</span>
+										</c:when>
+										<c:otherwise>
+											<p class="comment_login">
+												댓글을 작성하려면 FDP로 <b><a
+													href="02_Login.do?document_id=${output.document_id}"
+													class="comment_login1">로그인</a></b>&nbsp;해주세요.
+											</p>
+										</c:otherwise>
+									</c:choose>
+									<input type="hidden" value="${cookie.Name.value}"
+										name="writer_name" /> <input type="hidden"
+										value="${output.document_id}" name="document_id" /> <input
+										type="hidden" value="${cookie.PK.value}" name="fdpmember_id" />
+
+								</div> <c:forEach var="item1" items="${output3}" varStatus="status">
+									<span style='display: none' id="CIa${status.index}">${item1.comment_id}</span>
+									<ul class="comment">
+										<!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
+										<li>
+											<!-- 제목영역의 float 처리를 위한 마감제 박스 -->
+											<div class="clearfix">
+												<!-- 제목에 float: left 적용 - pull-left -->
+												<h5 class="pull-left">${item1.writer_name}&nbsp;&nbsp;
+													<c:choose>
+														<c:when test="${item1.edit_date == null}">
+															<small>${item1.reg_date}</small>
+														</c:when>
+														<c:otherwise>
+															<small>${item1.edit_date}</small>
+														</c:otherwise>
+													</c:choose>
+												</h5>
+												<!-- 제목에 float: right 적용 - pull-right -->
+												<div class="pull-right">
+													<c:choose>
+														<c:when test="${cookie.PK.value == item1.fdpmember_id}">
+															<a
+																href="14_Notice_board_comment_delete.do?comment_id=${item1.comment_id}&document_id=${item1.document_id}"
+																title="삭제" class="pull-right bcd"> <i
+																class="glyphicon glyphicon-remove"></i>
+															</a>
+															<a href="a${status.index}" title="수정"
+																class="pull-right bcd btn6"> <i
+																class="glyphicon glyphicon-edit"></i>
+															</a>
+
+														</c:when>
+													</c:choose>
+												</div>
+											</div>
+											<p id="a${status.index}">${item1.content}</p>
+										</li>
+									</ul>
+								</c:forEach>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 		</div>
-		<div class="clearfix b" >
+		<div class="clearfix b">
 			<ul class="pull-right bottom-button">
-				<li class="a"><input type="button" value="삭제"  onclick="del(${output.document_id})"
-					class="btn btn-default btn-sm" id="btn1" /></li>
-				<li class="a"><a href="${pageContext.request.contextPath}/15_Notice_board_2.do?document_id=${output.document_id}"
+				<li class="a"><input type="button" value="삭제"
+					onclick="del(${output.document_id})" class="btn btn-default btn-sm"
+					id="btn1" /></li>
+				<li class="a"><a
+					href="${pageContext.request.contextPath}/15_Notice_board_2.do?document_id=${output.document_id}"
 					class="btn btn-default btn-sm">수정</a></li>
-				<li class="a"><a href="${pageContext.request.contextPath}/13_Notice_board.do"
+				<li class="a"><a
+					href="${pageContext.request.contextPath}/13_Notice_board.do"
 					class="btn btn-default btn-sm">메뉴</a></li>
 				<c:choose>
 					<c:when test="${cookie.UserGrade.value == 1}">
-				<li class="a"><input type="button" value="의사 글쓰기"
-					class="btn btn-default btn-sm doc_a" id="btn2" /></li>
+						<li class="a"><input type="button" value="의사 글쓰기"
+							class="btn btn-default btn-sm doc_a" id="btn2" /></li>
 					</c:when>
 				</c:choose>
 			</ul>
 		</div>
 	</div>
-	
+
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-			<script>
+	<script>
 			function del(document_id) {
 				var chk = confirm("정말 게시글을 삭제하시겠습니까?");
 				
@@ -258,9 +331,10 @@
 				}
 			}
 			</script>
-		
-			<script type="text/javascript" src="./assets/plugins/ckeditor/ckeditor.js"></script>
-			<script>
+
+	<script type="text/javascript"
+		src="./assets/plugins/ckeditor/ckeditor.js"></script>
+	<script>
 			var doc_feedback;
 			$("#btn2").click(function(){
 					$("#doc_del").empty();	// 의사가 글 작성할 때 아래의 의사 답변 내용이 없습니다 테이블 삭제됨
@@ -271,12 +345,14 @@
 					CKEDITOR.replace('d_content', {height: 200});
 						
 					$("#btn3").click(function() {
-						
-						
+						console.log("${output1}");
+						if(${output1 eq "[]"}){
 						$("#abc").empty();
 						var doc_origin = "<tr><td colspan='6'><h5><b>전문의 소견</b></h5><br />현재까진 의사의 답변이 없습니다.</td></tr>"
 							$("#abc").html(doc_origin);
-						
+						}else{
+							$("#abc").empty();
+						}
 						})
 			})
 			
@@ -288,10 +364,10 @@
 					var e;
 					if(p==0) {
 					var c = $(this).attr("href");
-					console.log(c);
+					/* console.log(c); */
 						d = $("#"+c).html();
 						e = $("#DAI"+ c).html();
-					console.log(d);
+					/* console.log(d); */
 					var doc_feedback1 = "<input type='hidden' name='docAnswer_id' value='"+e+"' />"
 						doc_feedback1 += "<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.writer_name}' name='writer_name' /><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'>"+d+"</textarea></td></tr>"
 						doc_feedback1 += "<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA' /><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn5'></td></tr>"
@@ -306,6 +382,27 @@
 					})
 						
 			})
+			
+			$(".btn6").click(function(e){
+				e.preventDefault();
+				var g;
+				var h;
+				if(p==0) {
+				var f = $(this).attr("href");
+					g = $("#"+f).html();
+					h = $("#CI"+f).html();
+					console.log(h);
+				var c_edit = "<input type='hidden' name='comment_id' value='"+h+"' />"
+					c_edit += "<input type='text' class='form-control' name='content1' value='"+g+"' /><span class='input-group-btn'><button class='btn btn-default btn7' type='submit'>취소</button><button class='btn btn-default' type='submit'>수정</button></span>"
+					$("#"+f).empty();
+					$("#"+f).html(c_edit);
+					p = 1;
+				}
+						$(".btn7").click(function() {
+							$("#"+f).html(g);
+							p = 0;
+						})
+			})
 			</script>
-	</body>
+</body>
 </html>
