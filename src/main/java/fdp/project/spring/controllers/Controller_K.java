@@ -109,7 +109,9 @@ public class Controller_K {
 		} else {
 			session.removeAttribute("session_pw");
 		}
-
+		
+		// 세션 유지시간 10분
+		session.setMaxInactiveInterval(600);
 		/** 3) Spring 방식의 페이지 이동 */
 		return "redirect:/21_Management.do";
 	}

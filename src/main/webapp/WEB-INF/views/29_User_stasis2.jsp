@@ -574,6 +574,16 @@ thead>tr>th:nth-child(1) {
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
 	<script>
+	
+	// 세션 없을 때는 21로 
+	$(document).ready(function(){
+		    var check = "session_id";
+			console.log(check)
+		    if(check == '') {
+		        alert("세션이 만료 되었습니다 .로그인 후 이용하세요.");
+		        location.href="${pageContext.request.contextPath}/21_Management.do";
+		}   
+	});
 
 		am4core.ready(function() {
 			

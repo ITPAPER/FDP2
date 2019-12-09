@@ -405,6 +405,7 @@ tbody tr td {
 				});
 			});
 		});
+
 		am4core.ready(function() {
 
 			// Themes begin

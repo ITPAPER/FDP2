@@ -202,10 +202,16 @@ thead>tr {
 	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script>
 	
-	$(function() {
-		
-	});
-	
+		// 세션 없을 때는 21로 
+		$(document).ready(function(){
+			    var check = "session_id";
+				console.log(check)
+			    if(check == '') {
+			        alert("세션이 만료 되었습니다 .로그인 후 이용하세요.");
+			        location.href="${pageContext.request.contextPath}/21_Management.do";
+			}   
+		});
+
 		/** handlebars 플러그인 안에 convertGender라는 함수 추가하기 */
 		Handlebars.registerHelper('convertGender', function(g) {
 			if (g == 1) {
