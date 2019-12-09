@@ -35,7 +35,7 @@ thead>tr {
 	<div class="bbox">
 		<div class="container" style="min-height: 750px;">
 
-			<h1 class="page-header">누적 접속 회원 통계</h1>
+			<h1 class="page-header">회원 상세페이지</h1>
 
 			<table class="table table-hover">
 				<thead>
@@ -190,8 +190,8 @@ thead>tr {
 			<button type="submit" class="btn btn-gray">
 				<a href="${pageContext.request.contextPath}/27_Profile.do?fdpmember_id={{fdpmember_id}}">회원수정</a>
 			</button>
-			<button type="submit" class="btn btn-gray">
-				<a href="${pageContext.request.contextPath}/ddelete_ok.do?fdpmember_id={{fdpmember_id}}">회원탈퇴</a>
+			<button type="submit" class="btn btn-gray" id="btn5">
+				회원탈퇴
 			</button>
     	</div>
 	</script>
@@ -201,6 +201,10 @@ thead>tr {
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
 	<script>
+	
+	$(function() {
+		
+	});
 	
 		/** handlebars 플러그인 안에 convertGender라는 함수 추가하기 */
 		Handlebars.registerHelper('convertGender', function(g) {
@@ -228,6 +232,15 @@ thead>tr {
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req);
 						$("#memberView").html(html);
+						
+						$("#btn5").click(function(e) {
+							e.preventDefault();
+							if (!confirm("정말 " + req.name + " 님을(를) 탈퇴시키시겠습니까?")) {
+								return false;
+							} else {
+								window.location = "ddelete_ok.do?fdpmember_id="+ req.fdpmember_id;
+							}
+						});
 					}
 				});		// ajax	끝
 			});		// click 끝

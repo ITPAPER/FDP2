@@ -27,6 +27,7 @@ import fdp.project.spring.model.Document;
 import fdp.project.spring.model.Member;
 import fdp.project.spring.service.DocumentService;
 import fdp.project.spring.service.MemberService;
+import net.sf.json.JSONArray;
 
 @Controller
 public class Controller_K {
@@ -302,18 +303,18 @@ public class Controller_K {
 	@RequestMapping(value = "/29_User_stasis2.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView Profile2(Model model) {
 		
-		/** 게시글 목록 조회하기 */
+		/** 회원목록 조회하기 */
 		// 조회결과를 저장할 객체 선언
 		List<Member> output = null;
-
 		try {
 			// 데이터 조회 --> 검색조건 없이 모든 게시글 조회
-			output = memberService.getMemberList(null);
+			output = memberService.getAddrCount(null);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 
-		model.addAttribute("output", output);
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		
 		return new ModelAndView("29_User_stasis2");
 	}
 

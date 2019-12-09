@@ -19,4 +19,6 @@ public interface MemberService {
 	public int getMemberCount(Member input) throws Exception;
 	//한명조회
 	public Member getMemberOne(Member input) throws Exception;
+	//지역별 조회
+	public List<Member> getAddrCount(Member input) throws Exception;
 }

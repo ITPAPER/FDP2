@@ -65,8 +65,8 @@ thead>tr>th:nth-child(1) {
 /* 차트 */
 #chartdiv {
 	width: 100%;
-	height: 500px;
-	padding-bottom: 50px;
+	height: 800px;
+	padding: 50px 0;
 }
 </style>
 </head>
@@ -77,7 +77,7 @@ thead>tr>th:nth-child(1) {
 	<div class="bbox">
 		<div class="container" style="min-height: 750px;">
 
-			<h1 class="page-header">누적 접속 회원 통계</h1>
+			<h1 class="page-header">회원 정보 통계</h1>
 
 			<div>
 				<!-- 탭 버튼 구성 -->
@@ -574,53 +574,33 @@ thead>tr>th:nth-child(1) {
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
 	<script>
-	$(function() {
-		$("#btn5").click(function(e) {
-			e.preventDefault();
-			if (!confirm("정말" + ${output.name} + "님을(를) 탈퇴시키시겠습니까?")) {
-				return false;
-			} else {
-				window.location = "/member/delete_ok.do";
-			}
-		});
-	});
 
 		am4core.ready(function() {
-
+			
+			console.log('${jsonList}')
+			
 			// Themes begin
 			am4core.useTheme(am4themes_animated);
 			// Themes end
-
+			
 			// Create chart
 			var chart = am4core.create("chartdiv", am4charts.PieChart);
 			chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-			chart.data = [ {
-				country : "당산",
-				value : 100
-			}, {
-				country : "분당",
-				value : 95
-			}, {
-				country : "사당",
-				value : 90
-			}, {
-				country : "강남",
-				value : 85
-			}, {
-				country : "마포",
-				value : 80
-			}, {
-				country : "용산",
-				value : 75
-			} ];
-
+			chart.data = ${jsonList}
+			/*
+				[{
+					addr2 : "마포구",
+					ddrcount : 80
+				}];
+			*/  
+ 
 			var series = chart.series.push(new am4charts.PieSeries());
-			series.dataFields.value = "value";
-			series.dataFields.radiusValue = "value";
-			series.dataFields.category = "country";
-			series.slices.template.cornerRadius = 6;
-			series.colors.step = 3;
+			series.dataFields.value = "addrcount";
+			series.dataFields.radiusValue = "addrcount";
+			series.dataFields.category = "addr2";
+			series.slices.template.cornerRadius = 5;
+			series.colors.step = 1;
 
 			series.hiddenState.properties.endAngle = -90;
 

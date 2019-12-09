@@ -21,6 +21,9 @@ public class Member {
 	private String medical_field;
 	private String member_grade;
 	
+	// group by
+	private String addrcount;
+	
 	/** ----- 페이지 구현이 필요한 경우 아래 속성들을 추가한다. (static) ----- */
 	private static int offset;		// LIMIT 절에서 사용할 검색 시작 위치
 	private static int listCount;	// LIMIT 절에서 사용할 검색할 데이터 수
