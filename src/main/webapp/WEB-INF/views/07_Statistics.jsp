@@ -57,16 +57,21 @@
       	top: 20px;
       }
       
+     #h4 {
+      	position: absolute;
+      	top: 0px;
+      }
+      
       .a {
       	line-height: 1.5em;
       }
       
       .tab-content {
       	position: absolute;
-      	top: 300px;
+      	top: 230px;
       	left:-100px;
       	/* border: 1px solid black; */
-      	height: 1000px;
+      	height: 900px;
       	width: 1400px;
       }
       
@@ -95,9 +100,6 @@
  <jsp:include page="./assets/inc/top.jsp" />
    <!-- 자바스크립트 차트 라이브러리 amCharts4 사용 예시 -->
    <div class="container" style="min-height:1500px;">
-   	  <!-- 연습페이지 -->
-   	  <button onclick="location.href='07_1_Statistics.do'">지역별질병자료보기</button>
-   
       <h3 id="title"><strong>국민 관심 보건의료 통계자료</strong></h3>
       <h5 id="subtitle" style="font-style: italic; color: #333;">- 조회를 원하시는 자료의 버튼을 클릭해주세요!</h5>
       
@@ -175,7 +177,7 @@
 			        var chart1 = "<h4><${disName}환자 수></h4>"
 						   $("#chartname1").html(chart1);
 						       
-					var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
+					var chart2 = "<h4><${disName}진료비용 (단위:천원)></h4>"
 						   $("#chartname2").html(chart2);
 					
 					var queryString = $('form').serialize();
@@ -199,7 +201,7 @@
 				        var chart1 = "<h4><${disName}환자 수></h4>"
 							   $("#chartname1").html(chart1);
 							       
-						var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
+						var chart2 = "<h4><${disName}진료비용 (단위:천원)></h4>"
 							   $("#chartname2").html(chart2);
 						
 			    	   var queryString = $('form').serialize();
@@ -220,7 +222,8 @@
 			        $("#ct13").click(function(e) {
 			        	$("#chartname1").empty();
 			        	$("#chartname2").empty();
-						
+				        var chart1 = "<h4><${disName}2014.01 - 2018.12> </br></br> <월별 환자수></h4>"
+							   $("#chartname1").html(chart1);						
 			        	var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
@@ -249,7 +252,7 @@
 					   var chart1 = "<h4><${disName}환자 수></h4>"
 					   $("#chartname1").html(chart1);
 					       
-					   var chart2 = "<h4><${disName}진료비용 (단위:1,000원)></h4>"
+					   var chart2 = "<h4><${disName}진료비용 (단위:천원)></h4>"
 					   $("#chartname2").html(chart2);
 					   
 					   var queryString = $('form').serialize();    
