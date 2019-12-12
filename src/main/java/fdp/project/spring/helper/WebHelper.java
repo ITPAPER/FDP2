@@ -51,10 +51,10 @@ public class WebHelper {
 	private HttpSession session;
 
 	/** 업로드 된 결과물이 저장될 폴더 */
-	private String uploadDir;
+	private String uploadDir="D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload";
 
 	/** 업로드 가능한 최대 용량 */
-	private int uploadMaxFileSize;
+	private int uploadMaxFileSize = 32 * 1024 * 1024;
 
 	/** Multipart 전송 시 File정보를 저장하기 위한 컬렉션 */
 	private List<UploadItem> fileList;

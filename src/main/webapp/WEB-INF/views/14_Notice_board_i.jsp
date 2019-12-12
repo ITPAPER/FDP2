@@ -121,8 +121,7 @@
 							<td><h4>${output.subject}</h4>
 								<h6 class="title_info">
 									작성자:${output.writer_name} &nbsp;&nbsp; 작성일: ${output.reg_date}
-									&nbsp;&nbsp;
-									<span style='display: none'>${item.fdpmember_id}</span>
+									&nbsp;&nbsp; <span style='display: none'>${item.fdpmember_id}</span>
 									<c:choose>
 										<c:when test="${output.edit_date != null}">
 							수정일: ${output.edit_date} &nbsp;&nbsp;
@@ -142,80 +141,83 @@
 									피부 붉은 반점.jpg
 							</a></td>
 						</tr>
+				</table>
+			</form>
 
-						<c:choose>
-							<%-- 의사 답변이 없는 경우 --%>
-							<c:when test="${output1 == null || fn:length(output1) == 0}">
-								<tr id="doc_del">
-									<td colspan="6">
-										<h5>
-											<b>전문의 소견</b>
-										</h5> <br /> 현재까진 의사의 답변이 없습니다.
-									</td>
-								</tr>
-							</c:when>
-							<%-- 조회 결과가 있는 경우 --%>
-							<c:otherwise>
-								<%-- 출력을 위해 준비한 의사답변..., 내용, 제목 --%>
-								<c:forEach var="item" items="${output1}" varStatus="status">
-									<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>
-									<tr>
-										<td>
-											<h4>${item.writer_name}
-												의사님 처방 <span style='display: none' id="DAI${status.index}">${item.docAnswer_id}</span>
+			<form method="post" action="14_Notice_board_docAns_ok.do">
+				<table class="table table-bordered">
 
-												<c:choose>
-													<c:when test="${cookie.PK.value == item.fdpmember_id}">
-														<a
-															href="14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}"
-															title="삭제" class="pull-right bcd"> <i
-															class="glyphicon glyphicon-remove"></i>
-														</a>
-														<a href="${status.index}" title="수정"
-															class="pull-right bcd btn4"> <i
-															class="glyphicon glyphicon-edit"></i>
-														</a>
+					<c:choose>
+						<%-- 의사 답변이 없는 경우 --%>
+						<c:when test="${output1 == null || fn:length(output1) == 0}">
+							<tr id="doc_del">
+								<td colspan="6">
+									<h5>
+										<b>전문의 소견</b>
+									</h5> <br /> 현재까진 의사의 답변이 없습니다.
+								</td>
+							</tr>
+						</c:when>
+						<%-- 조회 결과가 있는 경우 --%>
+						<c:otherwise>
+							<%-- 출력을 위해 준비한 의사답변..., 내용, 제목 --%>
+							<c:forEach var="item" items="${output1}" varStatus="status">
+								<%-- 출력을 위해 준비한 의사답변 작성자명, 내용, 제목 --%>
+								<tr>
+									<td>
+										<h4>${item.writer_name}
+											의사님 처방 <span style='display: none' id="DAI${status.index}">${item.docAnswer_id}</span>
 
-													</c:when>
-												</c:choose>
-											</h4>
+											<c:choose>
+												<c:when test="${cookie.PK.value == item.fdpmember_id}">
+													<a
+														href="14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}"
+														title="삭제" class="pull-right bcd"> <i
+														class="glyphicon glyphicon-remove"></i>
+													</a>
+													<a href="${status.index}" title="수정"
+														class="pull-right bcd btn4"> <i
+														class="glyphicon glyphicon-edit"></i>
+													</a>
 
-
-											<h6>
-												전문 분야 :
-												<c:choose>
-													<c:when test="${item.medical_field == '4' }">외과</c:when>
-													<c:when test="${item.medical_field == '5' }">정형외과</c:when>
-													<c:when test="${item.medical_field == '6' }">신경외과</c:when>
-													<c:when test="${item.medical_field == '8' }">성형외과</c:when>
-													<c:when test="${item.medical_field == '1' }">내과</c:when>
-													<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
-													<c:when test="${item.medical_field == '10' }">산부인과</c:when>
-													<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
-													<c:when test="${item.medical_field == '12' }">안과</c:when>
-													<c:when test="${item.medical_field == '13' }">이비인후과</c:when>
-													<c:when test="${item.medical_field == '14' }">피부과</c:when>
-													<c:when test="${item.medical_field == '15' }">비뇨기과</c:when>
-													<c:when test="${item.medical_field == '21' }">재활의학과</c:when>
-													<c:when test="${item.medical_field == '49' }">치과</c:when>
-													<c:when test="${item.medical_field == '80' }">한의학과</c:when>
-												</c:choose>
-												&nbsp;&nbsp; 답변일: ${item.reg_date}&nbsp;&nbsp;
-												<c:choose>
-													<c:when test="${item.edit_date != null}">
+												</c:when>
+											</c:choose>
+										</h4>
+										<h6>
+											전문 분야 :
+											<c:choose>
+												<c:when test="${item.medical_field == '4' }">외과</c:when>
+												<c:when test="${item.medical_field == '5' }">정형외과</c:when>
+												<c:when test="${item.medical_field == '6' }">신경외과</c:when>
+												<c:when test="${item.medical_field == '8' }">성형외과</c:when>
+												<c:when test="${item.medical_field == '1' }">내과</c:when>
+												<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
+												<c:when test="${item.medical_field == '10' }">산부인과</c:when>
+												<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
+												<c:when test="${item.medical_field == '12' }">안과</c:when>
+												<c:when test="${item.medical_field == '13' }">이비인후과</c:when>
+												<c:when test="${item.medical_field == '14' }">피부과</c:when>
+												<c:when test="${item.medical_field == '15' }">비뇨기과</c:when>
+												<c:when test="${item.medical_field == '21' }">재활의학과</c:when>
+												<c:when test="${item.medical_field == '49' }">치과</c:when>
+												<c:when test="${item.medical_field == '80' }">한의학과</c:when>
+											</c:choose>
+											&nbsp;&nbsp; 답변일: ${item.reg_date}&nbsp;&nbsp;
+											<c:choose>
+												<c:when test="${item.edit_date != null}">
 								수정일: ${item.edit_date}
 								</c:when>
-												</c:choose>
+											</c:choose>
 
-											</h6>
-										</td>
-									</tr>
-									<tr>
-										<td id="${status.index}"><div>${item.content}</div></td>
-									</tr>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
+										</h6>
+									</td>
+								</tr>
+								<tr>
+									<td id="${status.index}"><div>${item.content}</div></td>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 					</tbody>
 
 					<tbody id="abc"></tbody>

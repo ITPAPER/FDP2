@@ -97,7 +97,7 @@ public class FileServiceImpl implements FileService {
 	 * @throws Exception
 	 */
 	@Override
-	public int addFile(File input) throws Exception {
+	public void addFile(File input) throws Exception {
 		int result = 0;
 
 		try {
@@ -113,7 +113,6 @@ public class FileServiceImpl implements FileService {
 			log.error(e.getLocalizedMessage());
 			throw new Exception("데이터 저장에 실패했습니다.");
 		}
-		return result;
 	}
 
 	/**

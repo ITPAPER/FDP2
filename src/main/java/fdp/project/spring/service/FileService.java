@@ -34,7 +34,7 @@ public interface FileService {
 	 * @param File 저장할 정보를 담고 있는 Beans
 	 * @throws Exception
 	 */
-	public int addFile(File input) throws Exception;
+	public void addFile(File input) throws Exception;
 
 	/**
 	 * 파일 데이터 수정하기

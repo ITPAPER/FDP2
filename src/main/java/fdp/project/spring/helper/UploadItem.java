@@ -7,9 +7,11 @@ import lombok.Data;
  */
 @Data
 public class UploadItem {
+	private int file_id;
     private String fieldName;   // <input type="file">의 name속성
     private String originName;   // 원본 파일 이름
     private String filePath;    // 서버상의 파일 경로
     private String contentType; // 파일의 형식
     private long fileSize;      // 파일의 용량
+    private int document_id;
 }

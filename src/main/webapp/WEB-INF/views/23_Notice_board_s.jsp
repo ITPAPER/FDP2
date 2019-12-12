@@ -99,11 +99,7 @@ thead {
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
-		<form id="h" class="clearfix">
-			<fieldset class="pull-left">
-				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
-			</fieldset>
-		</form>
+		
 			<!-- 검색폼 -->
 				<form method="get" action="${pageContext.request.contextPath}/23_Notice_board_s.do">
 					<fieldset class="pull-right">
@@ -113,6 +109,10 @@ thead {
 				</fieldset>
 				</form>
 		
+		<form id="h" class="clearfix">
+			<fieldset class="pull-left">
+				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
+			</fieldset>
 		
 <!-- 조회 결과 목록 -->
 		<div class="table1">
@@ -181,7 +181,7 @@ thead {
 					</c:choose>
 				</tbody>
 			</table>
-			
+			</form>
 	<!-- 페이지 번호 구현 -->
     <div class="pagination pagination-md">
     <%-- 이전 그룹에 대한 링크 --%>
