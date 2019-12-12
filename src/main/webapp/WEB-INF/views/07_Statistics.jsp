@@ -8,7 +8,6 @@
      <jsp:include page="./assets/inc/remote_css.jsp" />
      <link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css"> 
      <!-- handlebar plugin -->
-	
      
      <style type="text/css">
      .container {
@@ -57,11 +56,6 @@
       	top: 20px;
       }
       
-     #h4 {
-      	position: absolute;
-      	top: 0px;
-      }
-      
       .a {
       	line-height: 1.5em;
       }
@@ -70,8 +64,8 @@
       	position: absolute;
       	top: 230px;
       	left:-100px;
-      	/* border: 1px solid black; */
-      	height: 900px;
+/*       	border: 1px solid black;
+ */      	height: 1260px;
       	width: 1400px;
       }
       
@@ -80,16 +74,22 @@
       	top: 100px;
       }
       
+     	#chartname0 {
+      	position: relative;
+      	left: 100px;
+      	top: 0px;
+      }
+      
       #chartname1 {
       	position: relative;
       	left: 100px;
-      	top: 50px;
+      	top: 530px;
       }
       
       #chartname2 {
       	position: relative;
       	left: 720px;
-      	top:20px;
+      	top: 500px;
       }
 
      </style>
@@ -129,6 +129,7 @@
       	
          <!-- 탭 페이지 구성(단일페이지) -->
          <div class="tab-content">
+         	<div id="chartname0"></div>
          	<div id="chartname1"></div>
          	<div id="chartname2"></div>
             <div role="tabpanel1" class="tab-pane fade active in" id="dept">
@@ -174,10 +175,13 @@
 				$("#ct11").click(function(e) {
 			    	$("#chartname1").empty();
 			        $("#chartname2").empty();
-			        var chart1 = "<h4><${disName}환자 수></h4>"
+			        var chart0 = "<h4><${disName}월별 환자 수 및 진료비용></h4>"
+						   $("#chartname0").html(chart0);
+			        
+			        var chart1 = "<h4><${disName}성별 환자 수(단위 :명)></h4>"
 						   $("#chartname1").html(chart1);
 						       
-					var chart2 = "<h4><${disName}진료비용 (단위:천원)></h4>"
+					var chart2 = "<h4><${disName}연령별 환자수(단위: 천원)></h4>"
 						   $("#chartname2").html(chart2);
 					
 					var queryString = $('form').serialize();
@@ -222,7 +226,7 @@
 			        $("#ct13").click(function(e) {
 			        	$("#chartname1").empty();
 			        	$("#chartname2").empty();
-				        var chart1 = "<h4><${disName}2014.01 - 2018.12> </br></br> <월별 환자수></h4>"
+				        var chart1 = "<h4><${disName}/h4>"
 							   $("#chartname1").html(chart1);						
 			        	var queryString = $('form').serialize();
 			             $.ajax({

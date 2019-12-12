@@ -1,94 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-#chartdiv {
-  width: 1300px;
-  height: 800px;
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="./assets/js/mapdata.js"></script>
+<script src="./assets/js/countrymap.js"></script>
+<title>Country Map Example</title>
+</head>
+<style type="text/css">
+#dept {
+	height: 1000px;
 }
 
+div #map_inner {
+	width:1000px;
+	height: 1000px;
+}
+
+.legend {
+	color: black;
+	width: 300px;
+	font-family: arial;
+	font-size: 14px;
+}
+
+.legend_color {
+	display: table;
+	width: 100%;
+	background: white;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.legend_color li {
+	width: 20%;
+	height: 20px;
+	display: table-cell;
+}
+
+.legend_label {
+	display: table;
+	width: 100%;
+	padding: 0px;
+	padding-left: 10%;
+	padding-right: 10%;
+	list-style: none;
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+.legend_label li {
+	width: 25%;
+	height: 20px;
+	display: table-cell;
+	text-align: center;
+}
 </style>
 
-</head>
 <body>
-<!-- Chart code -->
-<!-- Resources -->
-<script src="https://www.amcharts.com/lib/4/core.js"></script>
-<script src="https://www.amcharts.com/lib/4/charts.js"></script>
-<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
-
 <script>
-
-am4core.ready(function() {
-
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
 console.log('${jsonList}')
-// var list = ${jsonList};
-// console.log(list);
-
-
-// Create chart instance
-var chart = am4core.create("chartdiv", am4charts.XYChart);
-
-//Add data
-chart.data = ${jsonList};
-
-
-// Create axes
-var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis.renderer.grid.template.location = 0;
-dateAxis.renderer.minGridDistance = 50;
-
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.logarithmic = true;
-valueAxis.renderer.minGridDistance = 20;
-
-// Create series
-var series = chart.series.push(new am4charts.LineSeries());
-series.dataFields.valueY = "dis_num_patient";
-series.dataFields.dateX = "dis_month";
-series.tensionX = 0.8;
-series.strokeWidth = 3;
-
-var bullet = series.bullets.push(new am4charts.CircleBullet());
-bullet.circle.fill = am4core.color("#fff");
-bullet.circle.strokeWidth = 3;
-
-// Add cursor
-chart.cursor = new am4charts.XYCursor();
-chart.cursor.fullWidthLineX = true;
-chart.cursor.xAxis = dateAxis;
-chart.cursor.lineX.strokeWidth = 0;
-chart.cursor.lineX.fill = am4core.color("#000");
-chart.cursor.lineX.fillOpacity = 0.1;
-
-// Add scrollbar
-chart.scrollbarX = new am4core.Scrollbar();
-
-// Add a guide
-let range = valueAxis.axisRanges.create();
-range.value = 90.4;
-range.grid.stroke = am4core.color("#396478");
-range.grid.strokeWidth = 1;
-range.grid.strokeOpacity = 1;
-range.grid.strokeDasharray = "3,3";
-range.label.inside = true;
-range.label.text = "Average";
-range.label.fill = range.grid.stroke;
-range.label.verticalCenter = "bottom";
-
-}); // end am4core.ready()
+console.log('${output}')
+console.log('${gson}')
 </script>
-<div id="chartdiv"></div>
+	<h1>지역별 환자수</h1>
+	<div id="map"></div>
 
+	<div class="legend">
+		<ul class="legend_label">
+			<li>10</li>
+			<li>100</li>
+			<li>1,000</li>
+			<li>1,0000</li>
+		</ul>
+		<ul class="legend_color">
+			<li style="background-color: #ff6683"></li>
+			<li style="background-color: #ff335a"></li>
+			<li style="background-color: #ff0031"></li>
+			<li style="background-color: #cc0027"></li>
+			<li style="background-color: #99001d"></li>
+		</ul>
+	</div>
 </body>
+
 </html>

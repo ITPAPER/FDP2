@@ -54,11 +54,11 @@ public class DiseaseServiceImpl implements DiseaseService {
      * @throws Exception
      */
 	@Override
-	public List<Disease_age_gender> getDisease_age_genderList(Disease_age_gender input) throws Exception {
+	public List<Disease_age_gender> getDisease_age_genderYear(Disease_age_gender input) throws Exception {
 		  List<Disease_age_gender> result = null;
 
 	        try {
-	            result = sqlSession.selectList("DiseaseMapper.cold", input);
+	            result = sqlSession.selectList("DiseaseMapper.year", input);
 
 	            if (result == null) {
 	                throw new NullPointerException("result=null");

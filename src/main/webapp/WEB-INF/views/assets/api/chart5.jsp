@@ -7,21 +7,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-#chartdiv {
-		  width: 650px;
+#chartdiv0 {
+		  width: 1300px;
 		  height: 500px;
 		  left: 40px;
-		  top:-50px;
+		  top:-200px;
 		  position:absolute;
 		  padding : 0 50px 0 0;
 		  margin : 30px;
 		}
+
+#chartdiv1 {
+		  width: 650px;
+		  height: 450px;
+		  left: 40px;
+		  top: 400px;
+		  position:absolute;
+		  padding : 0 50px 0 0;
+
+		}
 		
-		#chartdiv1 {
-		  width: 600px;
-		  height: 500px;
+#chartdiv2 {
+		  width: 650px;
+		  height: 450px;
 		  left: 700px;
-		  top:-50px;
+		  top:400px;
 		  position:absolute;
 		}
 </style>
@@ -35,16 +45,110 @@
 <!-- Chart code -->
 <script>
 am4core.ready(function() {
+	console.log('${jsonList}')
+	// Themes begin
+	am4core.useTheme(am4themes_animated);
+	// Themes end
+
+	// Create chart instance
+	var chart = am4core.create("chartdiv0", am4charts.XYChart);
+
+	// Add data
+	chart.data = ${jsonList};
+
+	// Create axes
+	var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+	//dateAxis.renderer.grid.template.location = 0;
+	//dateAxis.renderer.minGridDistance = 30;
+
+	var valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
+	valueAxis1.title.text = "환자수";
+
+	var valueAxis2 = chart.yAxes.push(new am4charts.ValueAxis());
+	valueAxis2.title.text = "진료비용";
+	valueAxis2.renderer.opposite = true;
+	valueAxis2.renderer.grid.template.disabled = true;
+
+	// Create series
+	var series1 = chart.series.push(new am4charts.ColumnSeries());
+	series1.dataFields.valueY = "sum_num_patient";
+	series1.dataFields.dateX = "dis_month";
+	series1.yAxis = valueAxis1;
+	series1.name = "월별 환자수(단위 : 명)";
+	series1.tooltipText = "{name}\n[bold font-size: 20]{valueY}[/]";
+	series1.fill = chart.colors.getIndex(0);
+	series1.strokeWidth = 0;
+	series1.clustered = false;
+	series1.columns.template.width = am4core.percent(60);
+
+/* 	var series2 = chart.series.push(new am4charts.ColumnSeries());
+	series2.dataFields.valueY = "sales2";
+	series2.dataFields.dateX = "date";
+	series2.yAxis = valueAxis1;
+	series2.name = "Actual Sales";
+	series2.tooltipText = "{name}\n[bold font-size: 20]${valueY}M[/]";
+	series2.fill = chart.colors.getIndex(0).lighten(0.5);
+	series2.strokeWidth = 0;
+	series2.clustered = false;
+	series2.toBack(); */
+
+	var series3 = chart.series.push(new am4charts.LineSeries());
+	series3.dataFields.valueY = "sum_cost";
+	series3.dataFields.dateX = "dis_month";
+	series3.name = "월별 진료 비용(단위: 천원)";
+	series3.strokeWidth = 2;
+	series3.tensionX = 0.7;
+	series3.yAxis = valueAxis2;
+	series3.tooltipText = "{name}\n[bold font-size: 20]{valueY}[/]";
+
+	var bullet3 = series3.bullets.push(new am4charts.CircleBullet());
+	bullet3.circle.radius = 3;
+	bullet3.circle.strokeWidth = 2;
+	bullet3.circle.fill = am4core.color("#fff");
+
+	/* var series4 = chart.series.push(new am4charts.LineSeries());
+	series4.dataFields.valueY = "market2";
+	series4.dataFields.dateX = "date";
+	series4.name = "Market Days ALL";
+	series4.strokeWidth = 2;
+	series4.tensionX = 0.7;
+	series4.yAxis = valueAxis2;
+	series4.tooltipText = "{name}\n[bold font-size: 20]{valueY}[/]";
+	series4.stroke = chart.colors.getIndex(0).lighten(0.5);
+	series4.strokeDasharray = "3,3";
+
+	var bullet4 = series4.bullets.push(new am4charts.CircleBullet());
+	bullet4.circle.radius = 3;
+	bullet4.circle.strokeWidth = 2;
+	bullet4.circle.fill = am4core.color("#fff"); */
+
+	// Add cursor
+	chart.cursor = new am4charts.XYCursor();
+
+	// Add legend
+	chart.legend = new am4charts.Legend();
+	chart.legend.position = "top";
+
+	// Add scrollbar
+	chart.scrollbarX = new am4charts.XYChartScrollbar();
+	chart.scrollbarX.series.push(series1);
+/* 	chart.scrollbarX.series.push(series3); */
+	chart.scrollbarX.parent = chart.bottomAxesContainer;
+
+	}); // end am4core.ready()
+
+
+am4core.ready(function() {
 
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
-console.log('${jsonList}')
+
 // Create chart instance
-var chart = am4core.create("chartdiv", am4charts.PieChart);
+var chart = am4core.create("chartdiv1", am4charts.PieChart);
 
 // Add data
-chart.data = ${jsonList};
+chart.data = ${jsonList1};
 
 // Set inner radius
 chart.innerRadius = am4core.percent(50);
@@ -70,20 +174,20 @@ am4core.ready(function() {
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
-console.log('${jsonList}')
-// Create chart instance
-var chart = am4core.create("chartdiv1", am4charts.PieChart);
 
-// Add data
-chart.data = ${jsonList};
+// Create chart instance
+var chart = am4core.create("chartdiv2", am4charts.PieChart);
+
+// Add data   
+chart.data = ${jsonList2};
 
 // Set inner radius
 chart.innerRadius = am4core.percent(50);
 
 // Add and configure Series
 var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "sum_cost5";
-pieSeries.dataFields.category = "dis_gender";
+pieSeries.dataFields.value = "sum_num_patient5";
+pieSeries.dataFields.category = "dis_age";
 pieSeries.slices.template.stroke = am4core.color("#fff");
 pieSeries.slices.template.strokeWidth = 2;
 pieSeries.slices.template.strokeOpacity = 1;
@@ -95,7 +199,8 @@ pieSeries.hiddenState.properties.startAngle = -90;
 
 }); // end am4core.ready()
 </script>
-<div id="chartdiv"></div>
+<div id="chartdiv0"></div>
 <div id="chartdiv1"></div>
+<div id="chartdiv2"></div>
 </body>
 </html>

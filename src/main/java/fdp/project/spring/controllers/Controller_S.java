@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.RetrofitHelper;
@@ -198,17 +199,25 @@ public class Controller_S {
 	@RequestMapping(value = "/assets/api/chart5.do")
 	public ModelAndView chart5(Model model) {
 		List<Disease_age_gender> output = null;
+		List<Disease_age_gender> output1 = null;
+		List<Disease_age_gender> output2 = null;
 		//AppInterceptor.preHandle.String.format();
 		
 		
 		  String dname = webHelper.getString("disName"); 
-		  Disease_age_gender input = new Disease_age_gender(); 
+		  Disease_age_gender input = new Disease_age_gender();
+		  Disease_age_gender input1 = new Disease_age_gender();
+		  Disease_age_gender input2 = new Disease_age_gender();
 		  input.setDis_name(dname);
+		  input1.setDis_name(dname);
+		  input2.setDis_name(dname);
 
 		try {
     		
     		// 데이터 조회하기
-    		output = diseaseService.getDisease_age_genderGender(input);
+    		output = diseaseService.getDisease_age_genderYear(input);
+    		output1 = diseaseService.getDisease_age_genderGender(input1);
+    		output2 = diseaseService.getDisease_age_genderAge(input2);
     	} catch (Exception e) {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
@@ -218,7 +227,10 @@ public class Controller_S {
 	        /** 5) View 처리 */
 	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
 	     model.addAttribute("output", output);
+	     model.addAttribute("output1", output1);
 	     model.addAttribute("jsonList", JSONArray.fromObject(output));
+	     model.addAttribute("jsonList1", JSONArray.fromObject(output1));
+	     model.addAttribute("jsonList2", JSONArray.fromObject(output2));
 	     
 		return new ModelAndView ("assets/api/chart5");
 	}
@@ -255,9 +267,14 @@ public class Controller_S {
 	public ModelAndView chart7(Model model) {
 		List<Disease_age_gender> output = null;
 		
+		
+		  String dname = webHelper.getString("disName"); 
+		  Disease_age_gender input = new Disease_age_gender(); 
+		  input.setDis_name(dname);
+		  
 		try {
     		// 데이터 조회하기
-    		output = diseaseService.getDisease_age_genderList(null);
+    		output = diseaseService.getDisease_age_genderYear(input);
     	} catch (Exception e) {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
@@ -282,7 +299,7 @@ public class Controller_S {
 	        }
 		 
 		 	JSONArray jsonArray = new JSONArray();
-//		Gson gson = new Gson();
+			Gson gson = new Gson();
 		
 		
 	        /** 5) View 처리 */
@@ -292,6 +309,7 @@ public class Controller_S {
 	     model.addAttribute("dis_num_patient", dis_num_patient);
 	     model.addAttribute("output", output);
 	     model.addAttribute("jsonList", JSONArray.fromObject(output));
+	     model.addAttribute("gson", gson.toJson(output));
 	     
 		return new ModelAndView ("assets/api/chart7");
 
