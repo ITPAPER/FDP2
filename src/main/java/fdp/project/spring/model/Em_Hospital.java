@@ -48,8 +48,12 @@ public class Em_Hospital {
 					@SerializedName("hvncc")	public String hvncc;	// 신생 중환자
 					@SerializedName("hvicc")	public String hvicc;	// 일반 중환자
 					@SerializedName("hpid")		public String hpid;		// 기관코드(기관ID)
+					
+					public String addr;
+					public String inserttime;
 				}
 			}
 		}
+		
 	}
 }

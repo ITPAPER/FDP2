@@ -31,7 +31,9 @@ import fdp.project.spring.model.MyErList;
 import fdp.project.spring.model.MyErList.Response.Body.Items.Item;
 import fdp.project.spring.model.MyErListUno;
 import fdp.project.spring.model.Addr.Documents;
+import fdp.project.spring.model.EmRoom;
 import fdp.project.spring.model.MyErListUno.Response.Body.Items.Itema;
+import fdp.project.spring.service.ErInfoService;
 import fdp.project.spring.service.ErService;
 import fdp.project.spring.service.GetAddressService;
 import fdp.project.spring.service.HospInfoService;
@@ -435,6 +437,9 @@ public class Controller_M {
 		} catch (Exception e) {
 			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
 		}
+		if(output == null) {
+			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
+		}
 		if(output != null) {
 			if(autologin == 7 ) {
 				webHelper.setCookie("fdpCookie", user_id, 604800);
@@ -484,7 +489,7 @@ public class Controller_M {
 	}
 	
 	@RequestMapping(value= "/coodel.do", method= RequestMethod.GET )
-	public ModelAndView coodel(HttpServletResponse response, HttpServletRequest request ) {
+	public ModelAndView coodel( ) {
 		String aa = webHelper.getCookie("Name");
 		
 		webHelper.removeCookie("fdpCookie");
@@ -495,5 +500,23 @@ public class Controller_M {
 		
 		return webHelper.redirect("index.do", "안녕히가세요 "+ aa +"님");
 	}
+	
+	@Autowired ErInfoService erInfoService;
+	@ResponseBody
+	@RequestMapping(value= "/getErInfo.do", method= RequestMethod.GET,  produces="text/plain;charset=UTF-8")
+	public String getErInfo( ) {
+		List<EmRoom> output = null;
+		
+		try {
+			output = erInfoService.getErInfoList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Gson gson = new Gson();
+		return gson.toJson(output);
+	}
+	
+	
 }
 
