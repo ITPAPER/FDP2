@@ -25,14 +25,13 @@
     		display: inline-block;
     	}
     	
-    	.dupcheck {
-    	 	!important;
-    	 	border: 1.5px solid orange;
-    	 	background-color: white;
-    	 	color: orange;
-    	 	border-radius: 5px;
-    	 	height: 30px;
-    	}
+		#dupcheck { !important;
+			border: 1.5px solid orange;
+			background-color: white;
+			color: orange;
+			border-radius: 5px;
+			height: 30px;
+		}
     	
     	.col-md-10 {
     		text-align: left;
@@ -73,14 +72,15 @@
 			<strong>회원가입 - 의사</strong>
 		</h3>
 
-		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_add.do " >
+		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="10_Sign_up_d_add.do " >
 			<div class="form-group">
 				<label for='user_id' class="col-md-2">아이디 <span class='identify'>*</span></label>
 				<div class="col-md-10">
 					<input type="text" name="user_id" id="user_id" class="form-control" />
 					<br />
 					<br />
-					<button class="dupcheck">아이디 중복검사</button>
+					<button type="button" id="dupcheck" value="0">아이디 중복검사</button>
+					<br />
 				</div>
 			</div>
 			<br />
@@ -219,7 +219,41 @@
     </form>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
+	<script src="./assets/plugins/ajax/ajax_helper.js"></script>
+	
     <script type="text/javascript">
+    
+	$(function() {
+		$("#dupcheck").click(function() {
+			var user_id_val = $("#user_id").val();
+			
+			if(!user_id_val) {
+				alert("아이디를 입력하세요!!!");
+				$("#user_id").focus();
+				return false;
+			} 
+			
+			$.post('idcheck.do', {user_id: user_id_val}, function(req) {
+				//사용 가능한 아이디인 경우 --> req = {status: "OK"}
+				//사용 불가능한 아이디인 경우 --> req = {status: "FAIL"}
+				
+				console.log(user_id_val);
+				console.log(req);
+				
+				if (req == 'OK') {
+					alert("사용 가능한 아이디 입니다.");
+					$("#dupcheck").attr("value", 1);
+					
+				} else {
+					alert("사용할 수 없는 아이디 입니다.");
+					$("#dupcheck").attr("value", 0);
+					$("#user_id").val("");
+					$("#user_id").focus();
+				}
+			});
+		});
+	});
+	
   	$(function() {
         /** 가입폼의 submit 이벤트 */
         $("#join_form").submit(function(e) {

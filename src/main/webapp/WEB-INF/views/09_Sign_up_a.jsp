@@ -241,6 +241,7 @@
 	</div>
 	
 	<button type='submit' onclick='location.href="30_Monitoring_spring.do"'>버튼</button>
+	<button type='submit' onclick='location.href="07_1_Statistics.do"'>버튼2</button>
 	
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
 <%-- 	<script src="${pageContext.request.contextPath}/assets/js/09_Sign_up_a.js"></script> --%>

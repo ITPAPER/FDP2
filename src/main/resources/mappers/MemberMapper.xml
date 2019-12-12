@@ -35,6 +35,9 @@
 			</if>
 		</where>
 	</select>
+	
+	
+	
 
 
 	<!-- 회원목록 조회  -->
@@ -44,11 +47,9 @@
 		SELECT * FROM fdpmember
 		
 		<where>
-
 			<if test="name != null and name != ''">
 				name LIKE concat('%', #{name}, '%')
 			</if>
-
 		</where>
 
 		ORDER BY fdpmember_id DESC
@@ -111,5 +112,7 @@
         SELECT fdpmember_id, name, member_grade  FROM fdpmember WHERE user_id=#{user_id} and user_pw=#{user_pw}
         
     </select>
+    
+    
 	
 </mapper>

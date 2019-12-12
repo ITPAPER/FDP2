@@ -46,18 +46,63 @@
 	<h3>${regionStr}</h3>
 	<h3>${patientCntStr}</h3>
 	
+	<div class="form-group">
+		<label for="user_id">아이디</label>
+		<div class="input-group">
+			<input type="text" class="form-control" id="user_id" />
+			<span class="input-group-btn">
+				<button class="btn btn-primary" type="button" id="id_uniq_check">
+				중복검사
+				</button>		
+			</span>
+		</div>
+	</div>
+	
+	
+	
 	    <!-- 그래프를 표시할 위치 -->
     <div id="barChart" style="width: 1024px; height: 600px"></div>
 
     <!-- 데이터 시각화 구현 -->
     <script src="//d3js.org/d3.v5.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/billboard/billboard.min.js"></script>
-    <script>
-    console.log(${json})
-    console.log(${region1[1]})
-    console.log(${aa})
-    console.log(${regionStr})
+   
+   <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script src="./assets/plugins/ajax/ajax_helper.js"></script> 
+
+    <script type="text/javascript">
     	
+	$(function() {
+		$("#id_uniq_check").click(function() {
+			var user_id_val = $("#user_id").val();
+			
+			if(!user_id_val) {
+				alert("아이디를 입력하세요!!!");
+				$("#user_id").focus();
+				return false;
+			} 
+			
+			$.post('idcheck.do', {user_id: user_id_val}, function(req) {
+				//사용 가능한 아이디인 경우 --> req = {status: "OK"}
+				//사용 불가능한 아이디인 경우 --> req = {status: "FAIL"}
+				
+				console.log(user_id_val);
+				console.log(${json});
+				console.log(req);
+				
+				if (req.status == 'OK') {
+					alert("사용 가능한 아이디 입니다.");
+				} else {
+					alert("사용할 수 없는 아이디 입니다.");
+					$("#user_id").val("");
+					$("#user_id").focus();
+				}
+			});
+		});
+	});
+    
+    
+    
         var chart = bb.generate({
             /** 그래프가 표시될 HTML 태그의 id값 지정 */
             bindto: "#barChart",

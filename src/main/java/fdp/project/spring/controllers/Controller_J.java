@@ -72,13 +72,54 @@ public class Controller_J {
 	
 	@RequestMapping(value = "07_Statistics.do", method = RequestMethod.GET)
 	public ModelAndView statistics(Model model) {
-		
 		return new ModelAndView("07_Statistics");
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "abc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String tablist(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+		
+		String disNo = webHelper.getString("disNo");
+		String gender = null;
+		String age = null;
+		String season = null;
+		String region = null;
+		
+		switch (disNo) {
+			case "감기": gender="감기성별"; age="감기연령별"; season="감기월별"; region="감기지역별"; break;
+			case "고혈압": gender="고혈압성별"; age="고혈압연령별"; season="고혈압월별"; region="고혈압지역별"; break;
+			case "관절병증": gender="관절병증성별"; age="관절병증연령별"; season="관절병증월별"; region="관절병증지역별"; break; 
+			case "비염": gender="비염성별"; age="비염연령별"; season="비염월별"; region="비염지역별"; break; 
+			case "알레르기성결막염": gender="결막염성별"; age="결막염연령별"; season="결막염월별"; region="결막염지역별"; break; 
+			case "위식도 역류질환": gender="알레르기성별"; age="알레르기연령별"; season="알레르기월별"; region="알레르기지역별"; break; 
+			case "접촉피부염": gender="위식도성별"; age="위식도연령별"; season="위식도월별"; region="위식도지역별"; break; 
+			case "척추질환": gender="척추질환성별"; age="척추질환연령별"; season="척추질환월별"; region="척추질환지역별"; break;
+			case "치아우식증": gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증월별"; region="치아우식증지역별"; break; 
+			case "치주질환및치은염": gender="치주질환성별"; age="치주질환연령별"; season="치주질환월별"; region="치주질환지역별"; break;
+		}
+		
+		Gson gson = new Gson();
+		
+		JSONObject json = new JSONObject();
+		json.put("disNo", disNo);
+		json.put("gender", gender);
+		json.put("age", age);
+		json.put("season", season);
+		json.put("region", region);
+		
+		String aa = gson.toJson(json);
+		return aa;
 	}
 	
 	@RequestMapping(value = "09_Sign_up_a.do", method = RequestMethod.GET)
 	public String signup() {
 		return "09_Sign_up_a";
+	}
+	
+	@RequestMapping(value = "09_Sign_up_a2.do", method = {RequestMethod.POST, RequestMethod.GET})
+	public String signupina() {
+		return "09_Sign_up_a2";
 	}
 	
 	@RequestMapping(value = "10_Sign_up_i_d2.do", method = RequestMethod.GET)
@@ -101,19 +142,15 @@ public class Controller_J {
 		}
 		
 		model.addAttribute("output", output);
-		
 		return new ModelAndView("10_Sign_up_i_d2");
 	}
 	
-	
 	@RequestMapping(value = "10_Sign_up_i_d.do", method = RequestMethod.GET)
 	public ModelAndView signupid(Model model) {
-		
 		return new ModelAndView("10_Sign_up_i_d");
 	}
 	
-	
-	@RequestMapping(value = "10_Sign_up_i_add.do", method = RequestMethod.POST)
+	@RequestMapping(value = "10_Sign_up_d_add.do", method = RequestMethod.POST)
 	public ModelAndView signupid2(Model model, HttpServletRequest request, HttpServletResponse response) {
 
 		String name = request.getParameter("name");
@@ -173,16 +210,11 @@ public class Controller_J {
         } catch (Exception e) {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
-
+        
         /** 3) 결과를 확인하기 위한 페이지 이동 */
         // 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
         String redirectUrl = contextPath + "/10_Sign_up_i_d2.do?fdpmember_id=" + input.getFdpmember_id();
         return webHelper.redirect(redirectUrl, "회원정보 입력이 완료되었습니다.");
-	}
-	
-	@RequestMapping(value = "09_Sign_up_a2.do", method = {RequestMethod.POST, RequestMethod.GET})
-	public String signupina() {
-		return "09_Sign_up_a2";
 	}
 	
 	@RequestMapping(value = "11_Sign_up_i_n.do", method = RequestMethod.GET)
@@ -191,7 +223,7 @@ public class Controller_J {
 	}
 	
 	@RequestMapping(value = "11_Sign_up_i_add.do", method = RequestMethod.POST)
-	public ModelAndView signupin2(Model model, HttpServletRequest request) {
+	public ModelAndView signupin2(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String name = request.getParameter("name");
 		String user_id = request.getParameter("user_id");
@@ -207,7 +239,6 @@ public class Controller_J {
 		String reg_date = request.getParameter("reg_date");
 		String edit_date = request.getParameter("edit_date");
 		
-	 	
 	    if (name == null || user_id == null || user_pw == null || email == null || gender == 0 || birthdate == null || tel == null
 	    		|| addr1 == null || addr2 == null || addr3 == null || addr4 == null || reg_date == null || edit_date == null
 	    		) {
@@ -249,10 +280,36 @@ public class Controller_J {
             return webHelper.redirect(null, e.getLocalizedMessage());
         }
 
-        /** 3) 결과를 확인하기 위한 페이지 이동 */
-        // 저장 결과를 확인하기 위해서 데이터 저장시 생성된 PK값을 상세 페이지로 전달해야 한다.
         String redirectUrl = contextPath + "/11_Sign_up_i_n2.do?fdpmember_id=" + input.getFdpmember_id();
-        return webHelper.redirect(redirectUrl, "회원정보 입력이 완료되었습니다.");
+        return webHelper.redirect(redirectUrl, "가입을 환영합니다.");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "idcheck.do", method= RequestMethod.POST, produces="text/plain;charset=UTF-8") 
+	public String idcheck() {
+		String user_id = webHelper.getString("user_id");
+		
+		Member member = new Member();
+		member.setUser_id(user_id);
+		Member output = null;
+		
+		try {
+            // 데이터 저장
+            // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+           output = memberService.getMemberItem(member);
+        } catch (Exception e) {
+        	System.out.println("중복된 아이디가 없습니다.");
+        }
+
+		String status = "OK";
+		System.out.println(output);
+		
+		if (output != null) {
+			status = "FAIL";
+		}
+		
+        Gson gson = new Gson();
+        return gson.toJson(status);
 	}
 	
 	@RequestMapping(value = "11_Sign_up_i_n2.do", method = RequestMethod.GET)
@@ -275,142 +332,12 @@ public class Controller_J {
 		}
 		
 		model.addAttribute("output", output);
-		
 		return new ModelAndView("11_Sign_up_i_n2");
-		
 	}
 	
 	@RequestMapping(value = "12_Sign_up_s.do", method = RequestMethod.GET)
 	public String signups() {
 		return "12_Sign_up_s";
-	}
-	
-	@RequestMapping(value = "/assets/api/chart1.do", method = RequestMethod.GET)
-	public ModelAndView chcart1(Model model) {
-		
-		//데이터베이스로부터 지역병 질병 데이터 불러오기
-	    DiseaseRegion input = new DiseaseRegion();
-	    
-	    List<DiseaseRegion> output = null;
-	    
-	    try {
-	      output = diseaseRegionService.getDisByRegion(input);
-	    } catch (Exception e) {
-	      return webHelper.redirect(null, e.getLocalizedMessage());
-	    }
-	    
-	    //그래프 출력을 위한 문자열 만들기
-	    int size = output.size();
-	    String[] patientCnt = new String[size];
-	    String[] region = new String[size];
-	    String[] array = new String[size];
-	    
-	    
-	    for (int i=0; i<size; i++) {
-	      DiseaseRegion item = output.get(i);
-	      region[i] = "'" + item.getDisRegion() + "'";
-	      //dec[i] = "'"+formatter.format(item.getPatientSum())+"'";
-	      patientCnt[i] = String.valueOf(item.getPatientSum());
-	      array[i] = "{'지역': " + region[i] + ", '환자수':"+ patientCnt[i] + "}";
-	    }
-	    
-	    Gson gson = new Gson();
-	    String jsonList = gson.toJson(output);
-	    
-	    
-	    
-	    String regionStr = String.join(",", region);
-	    String patientCntStr = String.join(",", patientCnt);
-	    String arrayStr = String.join(",", array);
-	    
-	    //View처리
-	    model.addAttribute("output", output);
-	    model.addAttribute("patientCntStr", patientCntStr);
-	    model.addAttribute("regionStr", regionStr);
-	    model.addAttribute("arrayStr", arrayStr);
-	    model.addAttribute("jsonList", jsonList);
-		
-		return new ModelAndView("assets/api/chart1");
-	}
-		
-	@RequestMapping(value = "/assets/api/chart2.do", method = RequestMethod.GET)
-	public String chcart2() {
-		return "assets/api/chart2";
-	}
-	
-	@RequestMapping(value = "/assets/api/chart3.do", method = RequestMethod.GET)
-	public ModelAndView chcart3(Model model) {
-		
-		//데이터베이스로부터 지역병 질병 데이터 불러오기
-	    DiseaseRegion input = new DiseaseRegion();
-	    
-	    List<DiseaseRegion> output = null;
-	    
-	    try {
-	      output = diseaseRegionService.getDisByRegion(input);
-	    } catch (Exception e) {
-	      return webHelper.redirect(null, e.getLocalizedMessage());
-	    }
-	    
-	    //그래프 출력을 위한 문자열 만들기
-	    int size = output.size();
-	    String[] patientCnt = new String[size];
-	    String[] region = new String[size];
-	    String[] array = new String[size];
-	    
-	    
-	    for (int i=0; i<size; i++) {
-	      DiseaseRegion item = output.get(i);
-	      region[i] = "'" + item.getDisRegion() + "'";
-	      //dec[i] = "'"+formatter.format(item.getPatientSum())+"'";
-	      patientCnt[i] = String.valueOf(item.getPatientSum());
-	      array[i] = "{'지역': " + region[i] + ", '환자수':"+ patientCnt[i] + "}";
-	    }
-	    
-	    Gson gson = new Gson();
-	    String jsonList = gson.toJson(output);
-	    
-	    String regionStr = String.join(",", region);
-	    String patientCntStr = String.join(",", patientCnt);
-	    String arrayStr = String.join(",", array);
-	    
-	    //View처리
-	    model.addAttribute("output", output);
-	    model.addAttribute("patientCntStr", patientCntStr);
-	    model.addAttribute("regionStr", regionStr);
-	    model.addAttribute("arrayStr", arrayStr);
-	    model.addAttribute("jsonList", jsonList);
-	    
-		return new ModelAndView("assets/api/chart3") ;
-	}
-	
-	@RequestMapping(value = "/assets/api/chart4.do", method = RequestMethod.GET)
-	public String chcart4() {
-		return "assets/api/chart4";
-	}
-
-	@RequestMapping(value = "/assets/api/chart9.do", method = RequestMethod.GET)
-	public ModelAndView chcart9(Model model) {
-		
-		//데이터베이스로부터 지역병 질병 데이터 불러오기
-	    DiseaseRegion input = new DiseaseRegion();
-	    
-	    List<DiseaseRegion> output = null;
-	    
-	    try {
-	      output = diseaseRegionService.getDisByRegion(input);
-	    } catch (Exception e) {
-	      return webHelper.redirect(null, e.getLocalizedMessage());
-	    }
-	    
-	    //데이터 json형식으로 변환
-	    Gson gson = new Gson();
-	    String jsonList = gson.toJson(output);
-	    
-	    //View처리
-	    model.addAttribute("jsonList", jsonList);
-	    
-		return new ModelAndView("assets/api/chart9") ;
 	}
 	
 	@RequestMapping(value = "/assets/api/chart10.do")
@@ -522,10 +449,6 @@ public class Controller_J {
 		String region = null;
 	
 		JSONObject json = new JSONObject();
-		/*
-		 * try { disNo = Integer.parseInt(request.getParameter("disNo")); } catch
-		 * (Exception e) {}
-		 */
 		
 		for (int i=1; i<=10; i++) {
 			disNo = i;
@@ -596,40 +519,5 @@ public class Controller_J {
 		return new ModelAndView("07_1_Statistics");
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "abc.do", method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String tablist(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-		
-		String disNo = webHelper.getString("disNo");
-		String gender = null;
-		String age = null;
-		String season = null;
-		String region = null;
-		
-		switch (disNo) {
-			case "감기": gender="감기성별"; age="감기연령별"; season="감기월별"; region="감기지역별"; break;
-			case "고혈압": gender="고혈압성별"; age="고혈압연령별"; season="고혈압월별"; region="고혈압지역별"; break;
-			case "관절병증": gender="관절병증성별"; age="관절병증연령별"; season="관절병증월별"; region="관절병증지역별"; break; 
-			case "비염": gender="비염성별"; age="비염연령별"; season="비염월별"; region="비염지역별"; break; 
-			case "알레르기성결막염": gender="결막염성별"; age="결막염연령별"; season="결막염월별"; region="결막염지역별"; break; 
-			case "위식도 역류질환": gender="알레르기성별"; age="알레르기연령별"; season="알레르기월별"; region="알레르기지역별"; break; 
-			case "접촉피부염": gender="위식도성별"; age="위식도연령별"; season="위식도월별"; region="위식도지역별"; break; 
-			case "척추질환": gender="척추질환성별"; age="척추질환연령별"; season="척추질환월별"; region="척추질환지역별"; break;
-			case "치아우식증": gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증월별"; region="치아우식증지역별"; break; 
-			case "치주질환및치은염": gender="치주질환성별"; age="치주질환연령별"; season="치주질환월별"; region="치주질환지역별"; break;
-		}
-		
-		Gson gson = new Gson();
-		
-		JSONObject json = new JSONObject();
-		json.put("disNo", disNo);
-		json.put("gender", gender);
-		json.put("age", age);
-		json.put("season", season);
-		json.put("region", region);
-		
-		String aa = gson.toJson(json);
-		
-		return aa;
-	}
+
 }

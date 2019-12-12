@@ -27,7 +27,15 @@
 			display: inline-block;
 		}
 		
-		.dupcheck { !important;
+		#dupcheck { !important;
+			border: 1.5px solid orange;
+			background-color: white;
+			color: orange;
+			border-radius: 5px;
+			height: 30px;
+		}
+		
+		#emailcerti { !important;
 			border: 1.5px solid orange;
 			background-color: white;
 			color: orange;
@@ -72,15 +80,16 @@
 		<h3 class="title">
 			<strong>회원가입 - 일반인</strong>
 		</h3>
-
-		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_add.do " >
+		
+		<form class="form-horizontal" name="join_form" id="join_form" method = "post"  action="11_Sign_up_i_add.do" >
 			<div class="form-group">
 				<label for='user_id' class="col-md-2">아이디 <span class='identify'>*</span></label>
 				<div class="col-md-10">
 					<input type="text" name="user_id" id="user_id" class="form-control" />
 					<br />
 					<br />
-					<button class="dupcheck">아이디 중복검사</button>
+					<button type="button" id="dupcheck" value="0">아이디 중복검사</button>
+					<br />
 				</div>
 			</div>
 			<br />
@@ -126,7 +135,7 @@
 				<div class="col-md-10">
 					<input type="email" name="email" id="email" class="form-control" />
 					<br />
-					<button class="dupcheck">이메일 인증</button>
+					<!-- <button id="emailcerti">이메일 인증</button> -->
 				</div>
 			</div>
 			<br />
@@ -192,16 +201,53 @@
 		</form>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
-	<!-- 정규표현식 검사 객체를 참조한다. -->
+	<script src="./assets/plugins/ajax/ajax_helper.js"></script>
 	
 	<script type="text/javascript">
+	$(function() {
+		$("#dupcheck").click(function() {
+			var user_id_val = $("#user_id").val();
+			
+			if(!user_id_val) {
+				alert("아이디를 입력하세요!!!");
+				$("#user_id").focus();
+				return false;
+			} 
+			
+			$.post('idcheck.do', {user_id: user_id_val}, function(req) {
+				//사용 가능한 아이디인 경우 --> req = {status: "OK"}
+				//사용 불가능한 아이디인 경우 --> req = {status: "FAIL"}
+				
+				console.log(user_id_val);
+				console.log(req);
+				
+				if (req == 'OK') {
+					alert("사용 가능한 아이디 입니다.");
+					$("#dupcheck").attr("value", 1);
+					
+				} else {
+					alert("사용할 수 없는 아이디 입니다.");
+					$("#dupcheck").attr("value", 0);
+					$("#user_id").val("");
+					$("#user_id").focus();
+				}
+			});
+		});
+	});
 	
 	$(function() {
 		/** 가입폼의 submit 이벤트 */
 		$("#join_form").submit(	function(e) {
 			// 기본동작 수행 방식
 			//e.preventDefault();
-
+	
+			var complete = $("#dupcheck").val();
+			
+			if (complete == 0) {
+				alert("아이디 중복검사를 실행해주세요");
+				return false;
+			} 
+			
 			/** 아이디 검사 */
             if (!regex.value('#user_id', '아이디를 입력하세요.')) { return false; }
             if (!regex.eng_num('#user_id', '아이디는 영어와 숫자 조합만 입력 가능합니다.')) { return false; }
@@ -239,7 +285,6 @@
             /** 연락처 검사 */
             if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
             if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) { return false; }
-            
             
 			// 처리 완료
 			alert("회원정보 입력이 완료되었습니다.");
