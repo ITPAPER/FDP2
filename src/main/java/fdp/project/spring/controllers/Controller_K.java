@@ -112,6 +112,7 @@ public class Controller_K {
 		
 		// 세션 유지시간 10분
 		session.setMaxInactiveInterval(600);
+		
 		/** 3) Spring 방식의 페이지 이동 */
 		return "redirect:/21_Management.do";
 	}
@@ -158,7 +159,7 @@ public class Controller_K {
 			String redirectUrl = contextPath + "/22_Login_s.do";
 			return webHelper.redirect(redirectUrl, "관리자 계정이 아닙니다.");
 		} else {
-			model.addAttribute("output", output.getUser_id());
+			model.addAttribute("user_id", output.getUser_id());
 			model.addAttribute("user_pw", output.getUser_pw());
 			return new ModelAndView("redirect:/session/save.do");
 		}
@@ -235,13 +236,13 @@ public class Controller_K {
 	}
 
 	@RequestMapping(value = "/28_User_stasis.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView User_stasis(Model model) {
+	public ModelAndView User_stasis(Model model, HttpServletRequest request) {
 
 		/** 1) 필요한 변수값 생성 */
 		String keyword = webHelper.getString("keyword", ""); // 검색어
 		int nowPage = webHelper.getInt("page", 1); // 페이지 번호 (기본값 1)
 		int totalCount = 0; // 전체 게시글 수
-		int listCount = 5; // 한 페이지당 표시할 목록 수
+		int listCount = 10; // 한 페이지당 표시할 목록 수
 		int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
 
 		/** 2) 데이터 조회하기 */
@@ -267,11 +268,25 @@ public class Controller_K {
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
+		
+		/** 컨트롤러에서 세션을 식별하기 위한 처리 */
+		HttpSession session = request.getSession();
+		String mySessionId = (String) session.getAttribute("session_id");
+		if (mySessionId == null) {
+			mySessionId = "";
+		}
+		String mySessionPw = (String) session.getAttribute("session_pw");
+		if (mySessionPw == null) {
+			mySessionPw = "";
+		}
 
 		/** 3) View 처리 */
 		model.addAttribute("output", output);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pageData", pageData);
+		/** 세션 값 */
+		model.addAttribute("my_session_id", mySessionId);
+		model.addAttribute("my_session_pw", mySessionPw);
 
 		return new ModelAndView("28_User_stasis");
 	}
@@ -303,19 +318,21 @@ public class Controller_K {
 	}
 
 	@RequestMapping(value = "/29_User_stasis2.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView Profile2(Model model) {
+	public ModelAndView Profile2(Model model, HttpServletRequest request) {
 		
-		/** 회원목록 조회하기 */
-		// 조회결과를 저장할 객체 선언
-		List<Member> output = null;
-		try {
-			// 데이터 조회 --> 검색조건 없이 모든 게시글 조회
-			output = memberService.getAddrCount(null);
-		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
+		/** 컨트롤러에서 세션을 식별하기 위한 처리 */
+		HttpSession session = request.getSession();
+		String mySessionId = (String) session.getAttribute("session_id");
+		if (mySessionId == null) {
+			mySessionId = "";
+		}
+		String mySessionPw = (String) session.getAttribute("session_pw");
+		if (mySessionPw == null) {
+			mySessionPw = "";
 		}
 
-		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		model.addAttribute("my_session_id", mySessionId);
+		model.addAttribute("my_session_pw", mySessionPw);
 		
 		return new ModelAndView("29_User_stasis2");
 	}
@@ -402,5 +419,23 @@ public class Controller_K {
 		/** 3) 페이지 이동 */
 		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
 		return webHelper.redirect("28_User_stasis.do", "회원 탈퇴가 완료되었습니다.");
+	}
+	
+	@RequestMapping(value = "/assets/api/chart99.do")
+	public ModelAndView chcart99(Model model) {
+		
+		/** 회원목록 조회하기 */
+		// 조회결과를 저장할 객체 선언
+		List<Member> output = null;
+		
+		try {
+			// 데이터 조회 --> 검색조건 없이 모든 게시글 조회
+			output = memberService.getAddrCount(null);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		
+		return new ModelAndView("assets/api/chart99");
 	}
 }

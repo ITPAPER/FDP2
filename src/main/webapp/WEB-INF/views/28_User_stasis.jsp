@@ -6,101 +6,232 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
-	<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/animate/animate.css" />
 <jsp:include page="./assets/inc/head.jsp" />
 
 
-<style type="text/css">
+<style>
+	.bbox {
+		width: 1300px;
+		min-height: 750px;
+		margin: auto;
+		position: relative;
+		background: #f8f8f8;
+	}
 
-/* 전체 박스 */
-.bbox {
-	width: 1170px;
-	margin: auto;
-	padding-bottom: 50px;
-}
+	nav {
+		height: 500px;
+		width: 20%;
+		margin: 0 20px;
+		border: 1px solid #f7f7f7;
+	}
+	
+	#memberView {
+		height: 750px;
+		width: 30%;
+		position: absolute;
+		box-shadow: 0px 10px 20px 0px gray;
+		background: #fff;
+		right: 0;
+		top: 0;
+		visibility: hidden;
+	}	
+	
+	.center {
+		display: inline-block;
+		height: 500px;
+		width: 75%;
+		margin: auto;
+		margin: 0 20px 0 0;
+		border: 1px solid #f7f7f7;
+	}
+	
+	.center-body {
+		height: 600px;
+		background: #fff;
+	}
+	
+	.center-bottom {
+		height: 100px;
+	}
+	
+	.pagination {
+		padding-top: 10px;
+		padding-left: 360px;
+	}
+	
+	.ttap {
+		height: 70px;
+		width: 100%;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	thead > tr {
+		background: #ffa500;
+	}
+	
+	/* 핸들바 CSS */
+/* 	.membertmpl {
+		width: auto;
+	} */
+	
+	#htop1 {
+		height: 50px;
+		width: auto;
+	}
+	
+	#htop1 .cbtn {
+		padding: 10px;
+	}
 
-thead>tr {
-	background: #ffa500;
-	border-top: 2px solid #ccc;
-}
+	#htop2 {
+		height: 60px;
+		width: auto;
+	}
+	
+	#htop2 h4 {
+		margin: 15px;
+	}
+	
+	#htop2 button {
+		margin: 10px 5px;
+	}
+	
+	#htop2 hr {
+		width: 380px;
+	}
+	
+	#htop2 a{
+		color: #000;
+	}
+	
+	#htop3 {
+		height: 640px;
+		width: auto;
+		padding-left: 15px;
+	}
+	
+	#bbl {
+		width: 65%;
+		height: 150px;
+	}
+	
+	#bbr {
+		width: 35%;
+		height: 150px;
+	}
+	
+	#hheader {
+		width: 390px;
+		height: 150px;
+	}
+		
+	#hfooter {
+	}
+	
+	
+	
 </style>
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-
-	<div class="bbox">
-		<div class="container" style="min-height: 750px;">
-
-			<h1 class="page-header">회원 상세페이지</h1>
-
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th class="text-center" style="width: 50px;"><input
-							type='checkbox' class='all' value="checked"></th>
-						<th class="text-center">회원번호</th>
-						<th class="text-center">이름</th>
-						<th class="text-center">아이디</th>
-						<th class="text-center">비밀번호</th>
-						<th class="text-center">이메일</th>
-						<th class="text-center">전화번호</th>
-						<th class="text-center">성별</th>
-						<th class="text-center">지역</th>
-						<th class="text-center">회원등급</th>
-						<th class="text-center">가입일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose>
-						<%-- 조회결과가 없는 경우 --%>
-						<c:when test="${output == null || fn:length(output) ==0 }">
-							<tr>
-								<td colspan="11" align="center">조회결과가 없습니다.</td>
-							</tr>
-						</c:when>
-						<%-- 조회결과가 있는 경우 --%>
-						<c:otherwise>
-							<%-- 조회 결과에 따른 반복 처리 --%>
-							<c:forEach var="item" items="${output}" varStatus="status">
-								<%-- 출력을 위해 준비한 교수이름 변수 --%>
-								<c:set var="name" value="${item.name}" />
-
-								<%-- 검색어가 있다면? --%>
-								<c:if test="${keyword != ''}">
-									<%-- 검색어에 <mark> 태그를 적용하여 형광펜 효과 준비 --%>
-									<c:set var="mark" value="<mark>${keyword}</mark>" />
-									<%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광펜 효과로 변경 --%>
-									<c:set var="name" value="${fn:replace(name, keyword, mark)}" />
-								</c:if>
-
-								<%-- 상세페이지로 이동하기 위한 URL --%>
-								<c:url value="/29_User_stasis2.do" var="viewUrl">
-									<c:param name="fdpmember_id" value="${item.fdpmember_id}" />
-								</c:url>
+		<div class="bbox clearfix">
+		<div class="hhheader">
+			<h2><b>관리자 페이지</b></h2>
+		</div>
+		<hr />
+		
+		<nav class="pull-left">
+		
+			<!-- 아코디언 영역 -->
+			<div class="panel-group" id="accordion">
+				<!-- 항목(1) -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 회원 통계 </a></h4>
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in">
+						<div class="panel-body">
+							첫 번째 항목의 내용입니다.
+						</div>
+						<div class="panel-body">
+							두 번째 항목의 내용입니다.
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--// 아코디언 영역 -->
+			
+		</nav>
+		<div class="center">
+			<div class="center-body">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th class="text-center" style="width: 50px;"><input
+								type='checkbox' class='all' value="checked"></th>
+							<th class="text-center">회원번호</th>
+							<th class="text-center">이름</th>
+							<th class="text-center">아이디</th>
+							<th class="text-center">비밀번호</th>
+							<th class="text-center">이메일</th>
+							<th class="text-center">전화번호</th>
+							<th class="text-center">성별</th>
+							<th class="text-center">지역</th>
+							<th class="text-center">회원등급</th>
+							<th class="text-center">가입일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:choose>
+							<%-- 조회결과가 없는 경우 --%>
+							<c:when test="${output == null || fn:length(output) ==0 }">
 								<tr>
-									<th class="text-center"><input type='checkbox'></th>
-									<td align="center">${item.fdpmember_id}</td>
-									<td align="center"><a class="bbttnn" href="${item.fdpmember_id}">${item.name}</a></td>
-									<td align="center">${item.user_id}</td>
-									<td align="center">${item.user_pw}</td>
-									<td align="center">${item.email}</td>
-									<td align="center">${item.tel}</td>
-									<td align="center">${item.gender}</td>
-									<td align="center">${item.addr2}</td>
-									<td align="center">${item.member_grade}</td>
-									<td align="center">${item.reg_date}</td>
+									<td colspan="11" align="center">조회결과가 없습니다.</td>
 								</tr>
-
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</tbody>
-			</table>
-			<div>
+							</c:when>
+							<%-- 조회결과가 있는 경우 --%>
+							<c:otherwise>
+								<%-- 조회 결과에 따른 반복 처리 --%>
+								<c:forEach var="item" items="${output}" varStatus="status">
+									<%-- 출력을 위해 준비한 교수이름 변수 --%>
+									<c:set var="name" value="${item.name}" />
+	
+									<%-- 검색어가 있다면? --%>
+									<c:if test="${keyword != ''}">
+										<%-- 검색어에 <mark> 태그를 적용하여 형광펜 효과 준비 --%>
+										<c:set var="mark" value="<mark>${keyword}</mark>" />
+										<%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광펜 효과로 변경 --%>
+										<c:set var="name" value="${fn:replace(name, keyword, mark)}" />
+									</c:if>
+	
+									<%-- 상세페이지로 이동하기 위한 URL --%>
+									<c:url value="/29_User_stasis2.do" var="viewUrl">
+										<c:param name="fdpmember_id" value="${item.fdpmember_id}" />
+									</c:url>
+									<tr>
+										<th class="text-center"><input type='checkbox'></th>
+										<td align="center">${item.fdpmember_id}</td>
+										<td align="center"><a class="bbttnn" href="${item.fdpmember_id}">${item.name}</a></td>
+										<td align="center">${item.user_id}</td>
+										<td align="center">${item.user_pw}</td>
+										<td align="center">${item.email}</td>
+										<td align="center">${item.tel}</td>
+										<td align="center">${item.gender}</td>
+										<td align="center">${item.addr2}</td>
+										<td align="center">${item.member_grade}</td>
+										<td align="center">${item.reg_date}</td>
+									</tr>
+	
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</tbody>
+				</table>
+				<div>
 				<!-- 페이지 번호 구현 -->
 				<%-- 이전 그룹에 대한 링크 --%>
 				<c:choose>
@@ -161,54 +292,78 @@ thead>tr {
 						name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
 					<button type="submit">검색</button>
 				</form>
+			</div>	
+			<input type="hidden" id="check" value="${my_session_id}" />		
 			</div>
-			<div id="memberView"></div>
 		</div>
-		
+		<aside>
+			<div id="memberView"></div>
+		</aside>
 	</div>
+
 	<!-- 동적으로 생성될 HTML의 기본틀 -->
 	<script type="text/x-handlebars-template" id="list-item-tmpl">
-		<div class='membertmpl'>
-    		<h3>회원상세 정보(임시)</h3>
-			<p>회원번호: {{fdpmember_id}}</p>
-			<p>회원이름: {{name}}</p>
-			<p>아이디: {{user_id}}</p>
-			<p>비밀번호: {{user_pw}}</p>
-			<p>이메일: {{email}}</p>
-			<p>성별: {{convertGender gender}}</p>
-			<p>생일: {{birthdate}}</p>
-			<p>번호: {{tel}}</p>
-			<p>주소1: {{addr1}}</p>
-			<p>주소2: {{addr2}}</p>
-			<p>주소3: {{addr3}}</p>
-			<p>주소4: {{addr4}}</p>
-			<p>가입일: {{reg_date}}</p>
-			<p>정보수정일: {{edit_date}}</p>
-			<p>의사번호: {{medical_field}}</p>
-			<p>회원등급: {{member_grade}}</p>
-			
-			<button type="submit" class="btn btn-gray">
-				<a href="${pageContext.request.contextPath}/27_Profile.do?fdpmember_id={{fdpmember_id}}">회원수정</a>
-			</button>
-			<button type="submit" class="btn btn-gray" id="btn5">
-				회원탈퇴
-			</button>
+		<div class='membertmpl clearfix'>
+
+			<div id="htop1">
+				<div>
+					<button type="submit" class="close cbtn" aria-hidden="true">&times;&nbsp;닫기</button>
+				</div>
+			</div>
+			<div id="htop2">
+				<h4 class="pull-left"><strong>회원 상세정보</strong></h4>
+				<button type="submit" class="btn btn-default pull-right" id="btn5">
+					회원탈퇴
+				</button>
+				<button type="submit" class="btn btn-default pull-right">
+					<a href="${pageContext.request.contextPath}/27_Profile.do?fdpmember_id={{fdpmember_id}}">회원수정</a>
+				</button>
+				<hr />
+			</div>
+			<div id="htop3">
+				<div id="hheader">
+					<div id="bbl" class="pull-left">
+						<h3><strong>{{name}}</strong></h3>
+						<h6>회원 번호&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{fdpmember_id}}</h6>
+						<h6>회원 아이디 :&nbsp;{{user_id}}</h6>
+						<h6>가입일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{reg_date}}</h6>
+					</div>
+					<div id="bbr" class="pull-right">
+						<span></span>
+					</div>
+				</div>
+				<div id="hfooter">
+					<p>비밀번호: {{user_pw}}</p>
+					<p>이메일: {{email}}</p>
+					<p>성별: {{convertGender gender}}</p>
+					<p>생일: {{birthdate}}</p>
+					<p>번호: {{tel}}</p>
+					<p>주소1: {{addr1}}</p>
+					<p>주소2: {{addr2}}</p>
+					<p>주소3: {{addr3}}</p>
+					<p>주소4: {{addr4}}</p>
+					<p>정보수정일: {{edit_date}}</p>
+					<p>의사번호: {{medical_field}}</p>
+					<p>회원등급: {{member_grade}}</p>
+				</div>
+			</div>
     	</div>
 	</script>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
 	<!-- ajax-helper -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
-	<script>
 	
+	<script>
 		// 세션 없을 때는 21로 
 		$(document).ready(function(){
-			    var check = "session_id";
-				console.log(check)
-			    if(check == '') {
-			        alert("세션이 만료 되었습니다 .로그인 후 이용하세요.");
-			        location.href="${pageContext.request.contextPath}/21_Management.do";
+				var sessionCheck = $('#check').attr('value');
+				console.log(sessionCheck)
+			    if(sessionCheck == '') {
+					location.href="${pageContext.request.contextPath}/21_Management.do";
+			        alert("세션이 만료 되었습니다. 로그인 후 이용하세요.");
 			}   
 		});
 
@@ -222,10 +377,14 @@ thead>tr {
 		});
 		
 		$(function() {
+			
 			$(".bbttnn").click(function(e) {
 				e.preventDefault();
 				
 				var src = $(this).attr('href');
+				
+				$("#memberView").animateCSS('fadeInRight')
+	
 				console.log(src)
 				
 				$.ajax({
@@ -247,6 +406,14 @@ thead>tr {
 								window.location = "ddelete_ok.do?fdpmember_id="+ req.fdpmember_id;
 							}
 						});
+						
+						$('.cbtn').click(function(e) {
+							e.preventDefault();
+							$("#memberView").animateCSS('fadeOutRight')
+							setTimeout(function() {
+								$("div[id='memberView']").css("visibility","hidden")
+							}, 1000);
+						}); // click 끝
 					}
 				});		// ajax	끝
 			});		// click 끝
