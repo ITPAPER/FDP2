@@ -37,7 +37,7 @@
 								<li id="divider"></li>
 								<li><a href="05_Find_e.do">응급실 찾기</a></li>
 								<li id="divider"></li>
-								<li><a href="30_Monitoring.do">응급실 현황</a></li>
+								<li><a href="monitor.do">응급실 현황</a></li>
 						</ul>
 					</li>
 					<li><a href="13_Notice_board.do" class="page-move1">게시판</a></li>

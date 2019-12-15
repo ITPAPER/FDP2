@@ -46,6 +46,15 @@ public class ErInfoServiceImpl implements ErInfoService{
 		
 		return output;
 	}
+	
+	@Override
+	public List<EmRoom> getErGraph(EmRoom emRoom) throws Exception {
+		List<EmRoom> output = null;
+		
+		output = sqlSession.selectList("ErInfoMapper.selectEr", emRoom);
+		
+		return output;
+	}
 
 	@Override
 	public void byeErInfoList() throws Exception {

@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,6 +41,9 @@ import retrofit2.Retrofit;
 
 @Controller
 public class Controller_M {
+	@Autowired WebHelper webHelper;
+	@Autowired RetrofitHelper retrofitHelper;
+	
 	
 	@RequestMapping(value = "02_Login.do", method = RequestMethod.GET)
 	public String Login(Model model) {
@@ -52,6 +53,15 @@ public class Controller_M {
 		
 		return "02_Login";
 	}
+	
+	
+	@RequestMapping(value = "monitor.do", method = RequestMethod.GET)
+	public String monitor() {
+		
+		return "30_Monitoring";
+	}
+
+	
 	@RequestMapping(value = "03_Find_h.do", method = RequestMethod.GET)
 	public String Find_h(Model model) {
 		String fdpCookie = webHelper.getCookie("fdpCookie", "");
@@ -125,8 +135,7 @@ public class Controller_M {
 		
 		return "05_Find_e";
 	}
-	@Autowired WebHelper webHelper;
-	@Autowired RetrofitHelper retrofitHelper;
+	
 	@ResponseBody
 	@RequestMapping(value = {"fer.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String fer() { 
@@ -226,10 +235,10 @@ public class Controller_M {
 	@Autowired HospInfoService hospInfoService;
 	@ResponseBody
 	@RequestMapping(value = {"findh.do"}, method = RequestMethod.GET, produces="text/plain;charset=UTF-8")
-	public String findh(Model model,
-			@RequestParam(value="subject") String dgsbjtCd,
-			@RequestParam(value="data") String sgguCd,
-			@RequestParam(value="dong") String emdongNm) {
+	public String findh() {
+		String dgsbjtCd = webHelper.getString("subject");
+		String sgguCd = webHelper.getString("data");
+		String emdongNm = webHelper.getString("dong");
 		
 		int bbb = Integer.parseInt(sgguCd);
 		String aaa="";
@@ -444,7 +453,6 @@ public class Controller_M {
 			if(autologin == 7 ) {
 				webHelper.setCookie("fdpCookie", user_id, 604800);
 				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
-//				webHelper.setCookie("Name", output.getName(), 604800);
 				
 				Cookie cookie = new Cookie("Name", output.getName());
 				cookie.setPath("/");
@@ -517,6 +525,23 @@ public class Controller_M {
 		return gson.toJson(output);
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value= "/ErGraph.do", method= RequestMethod.POST,  produces="text/plain;charset=UTF-8")
+	public String ErGraph() {
+		String hosname = webHelper.getString("hos");
+		EmRoom input = new EmRoom();
+		input.setDutyName(hosname);
+		List<EmRoom> output = null;
+		
+		try {
+			output = erInfoService.getErGraph(input);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(input.getDutyName());
+		System.out.println(hosname);
+		Gson gson = new Gson();
+		return gson.toJson(output);
+	}
 }
 

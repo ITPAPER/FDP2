@@ -12,4 +12,6 @@ public interface ErInfoService {
 	  
 	  public void byeErInfoList() throws Exception;
 	  
+	  public List<EmRoom> getErGraph(EmRoom emRoom) throws Exception;
+	  
 }

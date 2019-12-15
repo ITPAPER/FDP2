@@ -84,6 +84,12 @@ public class EmRoom {
 		this.hvicc = hvicc;
 		this.hpid = hpid;
 		this.addr = addr;
+	}
+
+
+
+	public EmRoom() {
+		super();
 	}	
 	
 	

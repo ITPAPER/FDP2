@@ -36,7 +36,17 @@
 		resultMap="EmRoomMap">
 		select dutyName,
 		dutyTel3, hv1, hv2, hv3, hv4, hv5, hv6, hv7, hv8, hv9, hv10, hv11, hv12, hvec, hvcc, hvccc, hvncc, hvicc, hpid, addr
-		FROM erinfo ORDER BY inserttime ASC LIMIT 0, 49;
+		FROM erinfo ORDER BY inserttime DESC, dutyName LIMIT 0, 49;
+	</select>
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectEr"
+		parameterType="fdp.project.spring.model.EmRoom"
+		resultMap="EmRoomMap">
+		select hvec, inserttime
+		FROM erinfo 
+		WHERE dutyName = #{dutyName}
+		ORDER BY inserttime ASC;
 	</select>
 	
 	
@@ -54,6 +64,6 @@
 	
 	<!-- 데이터 삭제를 위한 기능 정의 -->
     <delete id="deleteList">
-        DELETE FROM erinfo  <![CDATA[ where inserttime < DATE_SUB(now(), interval 20 minute); ]]>
+        DELETE FROM erinfo  <![CDATA[ where inserttime < DATE_SUB(now(), interval 120 hour); ]]>
     </delete>
 </mapper>

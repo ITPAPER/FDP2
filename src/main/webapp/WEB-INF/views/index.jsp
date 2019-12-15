@@ -284,7 +284,7 @@
 								</a>
 							</li>
 							<li class="beinline">
-								<a class="hos-btn" href="30_Monitoring.do">
+								<a class="hos-btn" href="monitor.do">
 									<img  class="thumb" src="./assets/img/monitor.jpg" >
 									<span class="text"><b>응급실 상황판</b></span>
 								</a>
