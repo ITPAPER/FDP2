@@ -81,35 +81,36 @@ public class Controller_J {
 	public String tablist(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
 		
 		String disNo = webHelper.getString("disNo");
-		String gender = null;
-		String age = null;
-		String season = null;
-		String region = null;
+		String year1 = null;
+		String year2 = null;
+		String year3 = null;
+		String year4 = null;
+		String year5 = null;
 		
 		switch (disNo) {
-			case "감기": gender="감기성별"; age="감기연령별"; season="감기월별"; region="감기지역별"; break;
-			case "고혈압": gender="고혈압성별"; age="고혈압연령별"; season="고혈압월별"; region="고혈압지역별"; break;
-			case "관절병증": gender="관절병증성별"; age="관절병증연령별"; season="관절병증월별"; region="관절병증지역별"; break; 
-			case "비염": gender="비염성별"; age="비염연령별"; season="비염월별"; region="비염지역별"; break; 
-			case "알레르기성결막염": gender="결막염성별"; age="결막염연령별"; season="결막염월별"; region="결막염지역별"; break; 
-			case "위식도 역류질환": gender="알레르기성별"; age="알레르기연령별"; season="알레르기월별"; region="알레르기지역별"; break; 
-			case "접촉피부염": gender="위식도성별"; age="위식도연령별"; season="위식도월별"; region="위식도지역별"; break; 
-			case "척추질환": gender="척추질환성별"; age="척추질환연령별"; season="척추질환월별"; region="척추질환지역별"; break;
-			case "치아우식증": gender="치아우식증성별"; age="치아우식증연령별"; season="치아우식증월별"; region="치아우식증지역별"; break; 
-			case "치주질환및치은염": gender="치주질환성별"; age="치주질환연령별"; season="치주질환월별"; region="치주질환지역별"; break;
+			case "감기": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
+			case "고혈압": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
+			case "관절병증": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "비염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "알레르기성결막염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "위식도 역류질환": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "접촉피부염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "척추질환": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
+			case "치아우식증": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "치주질환및치은염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
 		}
 		
 		Gson gson = new Gson();
 		
 		JSONObject json = new JSONObject();
 		json.put("disNo", disNo);
-		json.put("gender", gender);
-		json.put("age", age);
-		json.put("season", season);
-		json.put("region", region);
+		json.put("year1", year1);
+		json.put("year2", year2);
+		json.put("year3", year3);
+		json.put("year4", year4);
+		json.put("year5", year5);
 		
-		String aa = gson.toJson(json);
-		return aa;
+		return gson.toJson(json);
 	}
 	
 	@RequestMapping(value = "09_Sign_up_a.do", method = RequestMethod.GET)
@@ -340,7 +341,7 @@ public class Controller_J {
 		return "12_Sign_up_s";
 	}
 	
-	@RequestMapping(value = "/assets/api/chart10.do")
+	@RequestMapping(value = "/assets/api/chart2.do")
 	public ModelAndView chcart10(Model model) {
 		
 		//데이터베이스로부터 지역병 질병 데이터 불러오기
@@ -365,7 +366,7 @@ public class Controller_J {
 	    model.addAttribute("jsonList", jsonList);
 	    model.addAttribute("output",output);
 	    
-		return new ModelAndView("assets/api/chart10") ;
+		return new ModelAndView("assets/api/chart2") ;
 	}
 	
 	@RequestMapping(value = "30_Monitoring_spring.do", method = RequestMethod.GET)

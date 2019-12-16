@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.DiseaseRegion;
 import fdp.project.spring.model.Disease_age_gender;
 import fdp.project.spring.model.EmAddr;
 import fdp.project.spring.model.EmRoom;
@@ -28,6 +29,7 @@ import fdp.project.spring.model.EmergencyAddr;
 import fdp.project.spring.model.EmergencyAddr.Response.Body.Items.Itema;
 //import fdp.project.spring.model.EmergencyAddr;
 import fdp.project.spring.service.ApiHospitalService;
+import fdp.project.spring.service.DiseaseRegionService;
 import fdp.project.spring.service.DiseaseService;
 import net.sf.json.JSONArray;
 import retrofit2.Call;
@@ -51,6 +53,9 @@ public class Controller_S {
 	DiseaseService diseaseService;
 	// --> import study.spring.springhelper.helper.RetrofitHelper;
 
+	@Autowired
+	DiseaseRegionService diseaseRegionService;
+	
 	/** "/프로젝트이름" 에 해당하는 ContextPath 변수 주입 */
 	// --> import org.springframework.beans.factory.annotation.Value;
 	@Value("#{servletContext.contextPath}")
@@ -204,16 +209,15 @@ public class Controller_S {
 		//AppInterceptor.preHandle.String.format();
 		
 		
-		  String dname = webHelper.getString("disName"); 
-		  Disease_age_gender input = new Disease_age_gender();
-		  Disease_age_gender input1 = new Disease_age_gender();
-		  Disease_age_gender input2 = new Disease_age_gender();
-		  input.setDis_name(dname);
-		  input1.setDis_name(dname);
-		  input2.setDis_name(dname);
+		String dname = webHelper.getString("disName"); 
+		Disease_age_gender input = new Disease_age_gender();
+		Disease_age_gender input1 = new Disease_age_gender();
+		Disease_age_gender input2 = new Disease_age_gender();
+		input.setDis_name(dname);
+		input1.setDis_name(dname);
+		input2.setDis_name(dname);
 
 		try {
-    		
     		// 데이터 조회하기
     		output = diseaseService.getDisease_age_genderYear(input);
     		output1 = diseaseService.getDisease_age_genderGender(input1);
@@ -221,16 +225,30 @@ public class Controller_S {
     	} catch (Exception e) {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
+		
+		//지역별 질병 데이터 테이블 받아오기
+		List<DiseaseRegion> output3 = null;
+		DiseaseRegion input3 = new DiseaseRegion();
+		String disName = webHelper.getString("disName");
+		input3.setDisName(disName);
+		
+		try {
+			output3 = diseaseRegionService.getDisByRegion(input3);
+		}  catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
 	 
-		 	JSONArray jsonArray = new JSONArray();
-
-	        /** 5) View 처리 */
-	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
+	     /** 5) View 처리 */
+	     // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
 	     model.addAttribute("output", output);
 	     model.addAttribute("output1", output1);
 	     model.addAttribute("jsonList", JSONArray.fromObject(output));
 	     model.addAttribute("jsonList1", JSONArray.fromObject(output1));
 	     model.addAttribute("jsonList2", JSONArray.fromObject(output2));
+	     
+	     model.addAttribute("output3", output3);
+	     model.addAttribute("jsonList3", JSONArray.fromObject(output3));
+	     //model.addAttribute("output3", output3);
 	     
 		return new ModelAndView ("assets/api/chart5");
 	}

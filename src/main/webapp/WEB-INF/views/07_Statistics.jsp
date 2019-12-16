@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -74,10 +72,10 @@
       	top: 100px;
       }
       
-     	#chartname0 {
+     #chartname0 {
       	position: relative;
       	left: 100px;
-      	top: 0px;
+      	top: 10px;
       }
       
       #chartname1 {
@@ -110,7 +108,7 @@
       	<form name="form" id="form">
 			<select name="disName" id="disName" class="form-control dislist" style="width: 170px; text-align:center; font-weight:normal;">
 	        	<option value="">-------- 질병명 -------</option>
-	        	<option value="감기">감기!</option>
+	        	<option value="감기">감기</option>
 				<option value="고혈압">고혈압</option>
 				<option value="관절병증">관절병</option>
 				<option value="비염">비염</option>
@@ -138,13 +136,14 @@
       </div>   
 	</div>      
    <script id="item_tmpl" type="text/x-handlebars-template">
-         <ul class="nav nav-tabs" id="mytab1">
-            <li><a href="#dept" data-toggle="tab" data-deptno="1" id="ct11">{{gender}}</a></li>
-            <li><a href="#dept" data-toggle="tab" data-deptno="2" id="ct12">{{age}}</a></li>
-            <li><a href="#dept" data-toggle="tab" data-deptno="3" id="ct13">{{season}}</a></li>
-            <li><a href="#dept" data-toggle="tab" data-deptno="4" id="ct14">{{region}}</a></li>
+         <ul class="nav nav-tabs" id="mytab1f">
+            <li><a href="#dept" data-toggle="tab" id="ct11">{{year1}}</a></li>
+            <li><a href="#dept" data-toggle="tab" id="ct12">{{year2}}</a></li>
+            <li><a href="#dept" data-toggle="tab" id="ct13">{{year3}}</a></li>
+            <li><a href="#dept" data-toggle="tab" id="ct14">{{year4}}</a></li>
+            <li><a href="#dept" data-toggle="tab" id="ct15">{{year5}}</a></li>
          </ul>
-		</script>
+	</script>
    <jsp:include page="./assets/inc/bottom.jsp" />
    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
    
@@ -173,15 +172,16 @@
 				$("#result").append(html);
 				
 				$("#ct11").click(function(e) {
+			    	$("#chartname0").empty();
 			    	$("#chartname1").empty();
 			        $("#chartname2").empty();
-			        var chart0 = "<h4><${disName}월별 환자 수 및 진료비용></h4>"
+			        var chart0 = "<h4><${disNo}월별 환자 수 및 진료비용></h4>"
 						   $("#chartname0").html(chart0);
 			        
-			        var chart1 = "<h4><${disName}성별 환자 수(단위 :명)></h4>"
+			        var chart1 = "<h4><${disNo}성별 환자 수(단위 :명)></h4>"
 						   $("#chartname1").html(chart1);
 						       
-					var chart2 = "<h4><${disName}연령별 환자수(단위: 천원)></h4>"
+					var chart2 = "<h4><${disNo}연령별 환자수(단위: 천원)></h4>"
 						   $("#chartname2").html(chart2);
 					
 					var queryString = $('form').serialize();
@@ -200,18 +200,22 @@
 		          }); // end #ct11 click
 			       
 			       $("#ct12").click(function(e) {
+			    	   $("#chartname0").empty();
 			    	   $("#chartname1").empty();
 			           $("#chartname2").empty();
-				        var chart1 = "<h4><${disName}환자 수></h4>"
-							   $("#chartname1").html(chart1);
-							       
-						var chart2 = "<h4><${disName}진료비용 (단위:천원)></h4>"
-							   $("#chartname2").html(chart2);
+			           var chart0 = "<h4><${disNo}월별 환자 수 및 진료비용></h4>"
+						   $("#chartname0").html(chart0);
+			        
+			       	   var chart1 = "<h4><${disNo}성별 환자 수(단위 :명)></h4>"
+						   $("#chartname1").html(chart1);
+						       
+					   var chart2 = "<h4><${disNo}연령별 환자수(단위: 천원)></h4>"
+						   $("#chartname2").html(chart2);
 						
 			    	   var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
-			                url: './assets/api/chart6.do',// 읽어들일 파일의 경로
+			                url: './assets/api/chart5.do',// 읽어들일 파일의 경로
 			                data : queryString,// 읽어들일 파일의 경로
 			                dataType: 'html',	//읽어올 내용 형식(html, xml, json)
 			                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
@@ -224,14 +228,23 @@
 			        }); // end #ct12 click
 			        
 			        $("#ct13").click(function(e) {
-			        	$("#chartname1").empty();
-			        	$("#chartname2").empty();
-				        var chart1 = "<h4><${disName}/h4>"
-							   $("#chartname1").html(chart1);						
+				    	   $("#chartname0").empty();
+				    	   $("#chartname1").empty();
+				           $("#chartname2").empty();
+				           var chart0 = "<h4><${disNo}월별 환자 수 및 진료비용></h4>"
+							   $("#chartname0").html(chart0);
+				        
+				       	   var chart1 = "<h4><${disNo}성별 환자 수(단위 :명)></h4>"
+							   $("#chartname1").html(chart1);
+							       
+						   var chart2 = "<h4><${disNo}연령별 환자수(단위: 천원)></h4>"
+							   $("#chartname2").html(chart2);
+				        
+				        
 			        	var queryString = $('form').serialize();
 			             $.ajax({
 			                /** ajax 기본 옵션 */
-			                url: './assets/api/chart7.do',// 읽어들일 파일의 경로
+			                url: './assets/api/chart5.do',// 읽어들일 파일의 경로
 			                data : queryString,// 읽어들일 파일의 경로
 			                dataType: 'html',	//읽어올 내용 형식(html, xml, json)
 			                // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
@@ -251,19 +264,22 @@
 			        }); // end #ct13 click
 			        
 			        $("#ct14").click(function(e) {
-			        	$("#chartname1").empty();
-			        	$("#chartname2").empty();
-					   var chart1 = "<h4><${disName}환자 수></h4>"
-					   $("#chartname1").html(chart1);
-					       
-					   var chart2 = "<h4><${disName}진료비용 (단위:천원)></h4>"
-					   $("#chartname2").html(chart2);
+				    	   $("#chartname0").empty();
+				    	   $("#chartname1").empty();
+				           $("#chartname2").empty();
+				           var chart0 = "<h4><${disNo}월별 환자 수 및 진료비용></h4>"
+							   $("#chartname0").html(chart0);
+				        
+				       	   var chart1 = "<h4><${disNo}성별 환자 수(단위 :명)></h4>"
+							   $("#chartname1").html(chart1);
+							       
+						   var chart2 = "<h4><${disNo}연령별 환자수(단위: 천원)></h4>"
+							   $("#chartname2").html(chart2);
 					   
 					   var queryString = $('form').serialize();    
 			           $.ajax({
-
 			              /** ajax 기본 옵션 */
-			              url: './assets/api/chart10.do',// 읽어들일 파일의 경로
+			              url: './assets/api/chart5.do',// 읽어들일 파일의 경로
 			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
 				          //method: 'get',          // 통신방법 (get(기본값), post)
 				          data: queryString,             // 접속대상에게 전달할 파라미터
@@ -275,7 +291,40 @@
 			              }
 			           });
 			        }); // end #ct14 click
-			}) 
+			        
+			        $("#ct15").click(function(e) {
+				    	   $("#chartname0").empty();
+				    	   $("#chartname1").empty();
+				           $("#chartname2").empty();
+				           var chart0 = "<h4><${disNo}월별 환자 수 및 진료비용></h4>"
+							   $("#chartname0").html(chart0);
+				        
+				       	   var chart1 = "<h4><${disNo}성별 환자 수(단위 :명)></h4>"
+							   $("#chartname1").html(chart1);
+							       
+						   var chart2 = "<h4><${disNo}연령별 환자수(단위: 천원)></h4>"
+							   $("#chartname2").html(chart2);
+					   
+						   console.log(req);
+					   var queryString = $('form').serialize();    
+			           $.ajax({
+			              /** ajax 기본 옵션 */
+			              url: './assets/api/chart5.do',// 읽어들일 파일의 경로
+			              dataType: 'html',	//읽어올 내용 형식(html, xml, json)
+				          //method: 'get',          // 통신방법 (get(기본값), post)
+				          data: queryString,             // 접속대상에게 전달할 파라미터
+			              // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+			              success: function(req) {
+			                 console.log(">> 성공!!!! >> " + req);
+			                 // 준비된 요소에게 읽어온 내용을 출력한다.
+			                 $("#dept").html(req);
+			              }
+			           });
+			        }); // end #ct14 click
+			        
+			        
+			        
+			}) //end $.get (abc.do)
 		})
 	})
       
