@@ -270,6 +270,9 @@ h5 {
 							range.contents.stroke = am4core.color("#FF0000");
 							range.contents.fill = range.contents.stroke;
 
+							
+							
+							
 							// Add scrollbar
 							var scrollbarX = new am4charts.XYChartScrollbar();
 							scrollbarX.series.push(series);

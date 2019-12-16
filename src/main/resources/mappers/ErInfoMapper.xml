@@ -24,7 +24,6 @@
 		<result property="hv12" column="hv12" />
 		<result property="hvec" column="hvec" />
 		<result property="hvcc" column="hvcc" />
-		<result property="hvvcc" column="hvvcc" />
 		<result property="hvicc" column="hvicc" />
 		<result property="hpid" column="hpid" />
 		<result property="addr" column="addr" />
