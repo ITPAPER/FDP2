@@ -10,7 +10,7 @@
 		<!-- 기본 인코딩 타입 -->
 		<prop key="encType">UTF-8</prop>
 		<!-- 업로드 디렉토리 -->
-		<prop key="uploadDir">D:/project/FDP/upload</prop>
+		<prop key="uploadDir">D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload</prop>
 		<!-- 최대 업로드 가능 용량 -->
 		<prop key="uploadMaxFileSize">1000000</prop>
 		<!-- 기본 도메인 (쿠키설정용) -->
@@ -53,11 +53,6 @@
 			</value>
 		</property>
 		<property name="domain" value="#{config['domain']}" />
-	</bean>
-	
-	<!-- DownloadHelper 주입 설정 -->
-	<bean id="downloadHelper" class="fdp.project.spring.helper.DownloadHelper">
-		<property name="uploadDir" value="#{config['uploadDir']}"></property>
 	</bean>
 	
 	<!-- 메일 발송에 필요한 정보를 저장하는 객체 정의 -->

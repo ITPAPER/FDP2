@@ -8,7 +8,6 @@
 		type="fdp.project.spring.model.File">
 		<!-- Beans의 멤버변수(property) 이름과 대상 테이블의 컬럼(column)을 연결한다. -->
 		<result property="file_id" column="file_id" />
-		<result property="fieldName" column="fieldName" />
 		<result property="originName" column="originName" />
 		<result property="filePath" column="filePath" />
 		<result property="contentType" column="contentType" />
@@ -21,7 +20,7 @@
 	<select id="selectItem"
 		parameterType="fdp.project.spring.model.File"
 		resultMap="fileMap">
-		SELECT file_id, fieldName, originName, filePath, fileName,
+		SELECT file_id, originName, filePath,
 		contentType, fileSize, document_id
 		FROM file
 		WHERE
@@ -32,19 +31,19 @@
 	<select id="selectList"
 		parameterType="fdp.project.spring.model.File"
 		resultMap="fileMap">
-		SELECT file_id, fieldName, originName, filePath, fileName,
+		SELECT file_id, originName, filePath,
 		contentType, fileSize, document_id FROM file
 		WHERE
-		file_id = #{file_id}
+		document_id = #{document_id}
 	</select>
 
 	<!-- 데이터 저장을 위한 기능 정의 -->
 	<insert id="insertItem"
 		parameterType="fdp.project.spring.model.File"
 		useGeneratedKeys="true" keyProperty="file_id">
-		INSERT INTO file (fieldName, originName,
-		filePath, fileName, contentType, fileSize, document_id)
-		VALUES (#{fieldName}, #{originName}, #{filePath}, #{fileName},
+		INSERT INTO file (originName,
+		filePath, contentType, fileSize, document_id)
+		VALUES (#{originName}, #{filePath},
 		#{contentType}, #{fileSize}, #{document_id});
 	</insert>
 
@@ -58,8 +57,7 @@
 	<!-- 데이터 갱신을 위한 기능 정의 -->
 	<update id="updateItem"
 		parameterType="fdp.project.spring.model.File">
-		UPDATE file SET fieldName=#{fieldName}, originName=#{originName}, filePath=#{filePath},
-		fileName=#{fileName}, contentType=#{contentType}, fileSize=#{fileSize}
+		UPDATE file SET originName=#{originName}, filePath=#{filePath}, contentType=#{contentType}, fileSize=#{fileSize}
 		WHERE
 		file_id=#{file_id};
 	</update>

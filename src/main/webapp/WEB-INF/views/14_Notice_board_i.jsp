@@ -23,13 +23,6 @@
 	display: inline-block;
 }
 
-/** 첨부파일 클립모양 이미지 설정 */
-.attachment {
-	width: 20px;
-	height: 20px;
-	padding-right: 5px;
-}
-
 /** 하단의 버튼들 위치 조절 */
 .bottom-button {
 	padding: 15px 0 30px 15px;
@@ -97,6 +90,24 @@
 	color: #888;
 	border-bottom: 1px solid #888;
 }
+
+.file {
+	display: inline-block;
+	margin-right: 38px;
+}
+
+.fileimg {
+	display: block;
+	min-width: 50%;
+	min-height: 50%;
+	align: center;
+}
+
+.filediv {
+	overflow: hidden;
+	width: 320px;
+	height: 200px;
+}
 </style>
 
 <head>
@@ -135,12 +146,26 @@
 								<div class="ctt">${output.content}</div>
 							</td>
 						</tr>
-						<tr>
-							<td><a href="./assets/img/baby_redspot.jpg"> <img
-									class="attachment" alt="첨부파일" src="./assets/img/attachment.png" />
-									피부 붉은 반점.jpg
-							</a></td>
-						</tr>
+						<c:choose>
+							<c:when test="${output4 != null}">
+								<tr>
+									<td>
+										<ul>
+											<c:forEach var="item" items="${output4}" varStatus="status">
+												<li class="file">
+													<div class="filediv">
+														<a href="./assets/upload${item.filePath}"> <img
+															src="./assets/upload${item.filePath}" class="fileimg" />
+														</a>
+													</div> ${item.originName}
+												</li>
+
+											</c:forEach>
+										</ul>
+									</td>
+								</tr>
+							</c:when>
+						</c:choose>
 				</table>
 			</form>
 
@@ -349,7 +374,7 @@
 						
 					$("#btn3").click(function() {
 						console.log("${output1}");
-						if(${output1 eq "[]"}){
+						if(${output1 == "[]"}){
 						$("#abc").empty();
 						var doc_origin = "<tr><td colspan='6'><h5><b>전문의 소견</b></h5><br />현재까진 의사의 답변이 없습니다.</td></tr>"
 							$("#abc").html(doc_origin);

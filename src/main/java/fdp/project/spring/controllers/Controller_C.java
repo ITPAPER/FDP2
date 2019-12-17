@@ -171,10 +171,20 @@ public class Controller_C {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 
-		/** 3) view 처리 */
+		File input4 = new File();
+		input4.setDocument_id(document_id);
+		List<File> output4 = null;
+		
+		try {
+			output4 = fileService.getFileList(input4);
+		} catch(Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+ 		/** 3) view 처리 */
 		model.addAttribute("output", output);
 		model.addAttribute("output1", output1);
 		model.addAttribute("output3", output3);
+		model.addAttribute("output4", output4);
 		return new ModelAndView("14_Notice_board_i");
 	}
 
@@ -499,7 +509,7 @@ public class Controller_C {
 			file.setContentType(aa.getContentType());
 			file.setDocument_id(input.getDocument_id());
 			file.setFile_id(aa.getFile_id());
-			file.setFileName(aa.getFilePath());
+			file.setFilePath(aa.getFilePath());
 			file.setFileSize(aa.getFileSize());
 			file.setOriginName(aa.getOriginName());
 			file.setFieldName(aa.getFieldName());
@@ -670,6 +680,7 @@ public class Controller_C {
 			return webHelper.redirect(null, "게시글 번호가 없습니다.");
 		}
 
+		/** 2-1) 데이터 삭제하기(게시물 삭제 전 내용물 삭제) */
 		/** DocAnswer테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
 		DocAnswer input1 = new DocAnswer();
 		input1.setDocument_id(document_id);
@@ -691,8 +702,19 @@ public class Controller_C {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		/** File테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
+		File input3 = new File();
+		input3.setDocument_id(document_id);
 
-		/** 2) 데이터 삭제하기 */
+		try {
+			// 데이터 삭제
+			fileService.deleteFile(input3);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/** 2-2) 게시물 데이터 삭제하기 */
 		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 		Document input = new Document();
 		input.setDocument_id(document_id);
@@ -716,5 +738,4 @@ public class Controller_C {
 
 		return "25_Notice_board_s_i";
 	}
-
 }
