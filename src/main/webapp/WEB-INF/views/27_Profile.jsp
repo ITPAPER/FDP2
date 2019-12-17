@@ -202,7 +202,7 @@
 						</label>
 					</div>
 				</div>
-				<c:if test="${2 eq output.member_grade}">
+				<c:if test="${1 eq output.member_grade}">
 					<input type="hidden" id="check" value="${output.member_grade}" />
 					<div class="form-group">
 						<label for='medical_field'>전공분야</label>

@@ -18,7 +18,6 @@
 		min-height: 750px;
 		margin: auto;
 		position: relative;
-		background: #f8f8f8;
 	}
 
 	nav {
@@ -32,7 +31,7 @@
 		height: 750px;
 		width: 30%;
 		position: absolute;
-		box-shadow: 0px 10px 20px 0px gray;
+		box-shadow: -20px 20px 30px -15px gray;
 		background: #fff;
 		right: 0;
 		top: 0;
@@ -73,10 +72,7 @@
 	}
 	
 	/* 핸들바 CSS */
-/* 	.membertmpl {
-		width: auto;
-	} */
-	
+
 	#htop1 {
 		height: 50px;
 		width: auto;
@@ -103,10 +99,6 @@
 		width: 380px;
 	}
 	
-	#htop2 a{
-		color: #000;
-	}
-	
 	#htop3 {
 		height: 640px;
 		width: auto;
@@ -127,11 +119,6 @@
 		width: 390px;
 		height: 150px;
 	}
-		
-	#hfooter {
-	}
-	
-	
 	
 </style>
 </head>
@@ -140,7 +127,7 @@
 	<jsp:include page="./assets/inc/top.jsp" />
 		<div class="bbox clearfix">
 		<div class="hhheader">
-			<h2><b>관리자 페이지</b></h2>
+			<h2><b>&nbsp;&nbsp;&nbsp;관리자 페이지</b></h2>
 		</div>
 		<hr />
 		
@@ -153,7 +140,7 @@
 					<div class="panel-heading">
 						<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 회원 통계 </a></h4>
 					</div>
-					<div id="collapseOne" class="panel-collapse collapse in">
+					<div id="collapseOne" class="panel-collapse collapse out">
 						<div class="panel-body">
 							첫 번째 항목의 내용입니다.
 						</div>
@@ -220,9 +207,16 @@
 										<td align="center">${item.user_pw}</td>
 										<td align="center">${item.email}</td>
 										<td align="center">${item.tel}</td>
-										<td align="center">${item.gender}</td>
+										<td align="center">
+											<c:if test="${item.gender eq 1}">남</c:if>
+											<c:if test="${item.gender eq 2}">여</c:if>
+										</td>
 										<td align="center">${item.addr2}</td>
-										<td align="center">${item.member_grade}</td>
+										<td align="center">
+											<c:if test="${item.member_grade eq 0}">관리자</c:if>
+											<c:if test="${item.member_grade eq 1}">의사</c:if>
+											<c:if test="${item.member_grade eq 2}">일반인</c:if>
+										</td>
 										<td align="center">${item.reg_date}</td>
 									</tr>
 	
@@ -315,8 +309,9 @@
 				<button type="submit" class="btn btn-default pull-right" id="btn5">
 					회원탈퇴
 				</button>
-				<button type="submit" class="btn btn-default pull-right">
-					<a href="${pageContext.request.contextPath}/27_Profile.do?fdpmember_id={{fdpmember_id}}">회원수정</a>
+				<button type="submit" class="btn btn-default pull-right"
+					onclick = "location.href = '${pageContext.request.contextPath}/27_Profile.do?fdpmember_id={{fdpmember_id}}'">
+					회원수정
 				</button>
 				<hr />
 			</div>
@@ -344,7 +339,7 @@
 					<p>주소4: {{addr4}}</p>
 					<p>정보수정일: {{edit_date}}</p>
 					<p>의사번호: {{medical_field}}</p>
-					<p>회원등급: {{member_grade}}</p>
+					<p>회원등급: {{convertMember_grade member_grade}}</p>
 				</div>
 			</div>
     	</div>
@@ -367,12 +362,23 @@
 			}   
 		});
 
-		/** handlebars 플러그인 안에 convertGender라는 함수 추가하기 */
+		/** handlebars 플러그인 안에 convertGender 함수 추가 */
 		Handlebars.registerHelper('convertGender', function(g) {
 			if (g == 1) {
 				return "남자";
 			} else {
 				return "여자";
+			}
+		});
+		
+		/** handlebars 플러그인 안에 convertMember_grade 함수 추가 */
+		Handlebars.registerHelper('convertMember_grade', function(m) {
+			if (m == 0) {
+				return "관리자";
+			} else if (m == 1) {
+				return "의사";
+			} else {
+				return "일반인";
 			}
 		});
 		

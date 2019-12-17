@@ -23,8 +23,10 @@ import com.google.gson.Gson;
 import fdp.project.spring.helper.PageData;
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.WebHelper;
+import fdp.project.spring.model.Count;
 import fdp.project.spring.model.Document;
 import fdp.project.spring.model.Member;
+import fdp.project.spring.service.CountService;
 import fdp.project.spring.service.DocumentService;
 import fdp.project.spring.service.MemberService;
 import net.sf.json.JSONArray;
@@ -40,6 +42,9 @@ public class Controller_K {
 
 	@Autowired
 	DocumentService documentService;
+	
+	@Autowired
+	CountService countService;
 
 	@Autowired
 	MemberService memberService;
@@ -390,7 +395,7 @@ public class Controller_K {
 
 		/** 3) 결과를 확인하기 위한 페이지 이동 */
 		// 수정한 대상을 상세페이지에 알려주기 위해서 PK값을 전달해야 한다.
-		String redirectUrl = contextPath + "/28_User_stasis.do";
+		String redirectUrl = contextPath + "/index.do";
 		return webHelper.redirect(redirectUrl, "수정되었습니다.");
 	}
 
@@ -424,18 +429,51 @@ public class Controller_K {
 	@RequestMapping(value = "/assets/api/chart99.do")
 	public ModelAndView chcart99(Model model) {
 		
-		/** 회원목록 조회하기 */
+		/** 구별 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
-		List<Member> output = null;
+		List<Count> output = null;
 		
 		try {
-			// 데이터 조회 --> 검색조건 없이 모든 게시글 조회
-			output = memberService.getAddrCount(null);
+			output = countService.getAddrCount(null);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-		model.addAttribute("jsonList", JSONArray.fromObject(output));
 		
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
 		return new ModelAndView("assets/api/chart99");
+	}
+	
+	@RequestMapping(value = "/assets/api/chart98.do")
+	public ModelAndView chcart98(Model model) {
+		
+		/** 남,여 회원 수 조회하기 */
+		// 조회결과를 저장할 객체 선언
+		List<Count> output = null;
+		
+		try {
+			output = countService.getGenderCount(null);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		return new ModelAndView("assets/api/chart98");
+	}
+	
+	@RequestMapping(value = "/assets/api/chart97.do")
+	public ModelAndView chcart97(Model model) {
+		
+		/** 회원 나이별로 조회하기 */
+		// 조회결과를 저장할 객체 선언
+		List<Count> output = null;
+		
+		try {
+			output = countService.getAgeCount(null);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		return new ModelAndView("assets/api/chart97");
 	}
 }

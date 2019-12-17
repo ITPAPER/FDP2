@@ -140,8 +140,7 @@
 		/* 차트 */
 		#chartdiv {
 			width: 100%;
-			height: 500px;
-			padding-bottom: 50px;
+			height: 600px;
 		}
 	</style>
 </head>
@@ -242,7 +241,7 @@
 			</div>
 			<div class="box1 box-left">
 				<div class="top">
-					<h4 class="pull-left">누적 접속회원 통계(modal)</h4>
+					<h4 class="pull-left">누적 접속회원 통계</h4>
 					<button type="button" class="btn btn-primary pull-right" onclick="location.href ='29_User_stasis2.do'">
 						더보기
 					</button>
@@ -258,29 +257,23 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="text-center">제목</th>
-								<th class="text-center">통계</th>
+								<th class="text-center">회원 정보 통계</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-toggle="modal" data-target="#myModal">
-								<td class="text-center">1</td>
-								<td class="text-center">지역</td>
+							<tr id="gr1" data-toggle="modal" data-target="#myModal">
+								<td class="text-center">지역별</td>
 							</tr>
-							<tr data-toggle="modal" data-target="#myModal">
-								<td class="text-center">2</td>
-								<td class="text-center">나이</td>
+							<tr id="gr2" data-toggle="modal" data-target="#myModal">
+								<td class="text-center">남여별</td>
 							</tr>
-							<tr data-toggle="modal" data-target="#myModal">
-								<td class="text-center">3</td>
-								<td class="text-center">남여</td>
+							<tr id="gr3" data-toggle="modal" data-target="#myModal">
+								<td class="text-center">나이별</td>
 							</tr>
-							<tr data-toggle="modal" data-target="#myModal">
-								<td class="text-center">4</td>
+							<tr id="gr4" data-toggle="modal" data-target="#myModal">
 								<td class="text-center">시간</td>
 							</tr>
-							<tr data-toggle="modal" data-target="#myModal">
-								<td class="text-center">5</td>
+							<tr id="gr5" data-toggle="modal" data-target="#myModal">
 								<td class="text-center">등급</td>
 							</tr>
 						</tbody>
@@ -349,14 +342,14 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="myModalLabel">
-							Modal 써보기
+							통계
 						</h4>
 					</div>
+					
 					<!-- 내용 -->
-					<div class="modal-body">
-						<h3>그래프 예제</h3>
-						<div id="chartdiv"></div>
-					</div>
+					<div class="modal-body"></div>
+					<div id="chartdiv"></div>
+					
 					<!-- 하단 -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">
@@ -376,12 +369,56 @@
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
-	<script
-		src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
+	
 		$(function() {
+			
+			$("#gr1").click(function() {
+				$("#chartdiv").empty();
+				$(".modal-body").empty();
+				$.ajax({
+					url : './assets/api/chart99.do',// 읽어들일 파일의 경로
+					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success : 
+						function(req) {
+						console.log(">> 성공!!! >> " + req);
+						$(".modal-body").html(req);
+					}
+				});		//end $.ajax
+			});		// end #gr1 click
+			
+			$("#gr2").click(function() {
+				$("#chartdiv").empty();
+				$(".modal-body").empty();
+				$.ajax({
+					url : './assets/api/chart98.do',// 읽어들일 파일의 경로
+					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success : 
+						function(req) {
+						console.log(">> 성공!!! >> " + req);
+						$(".modal-body").html(req);
+					}
+				});		//end $.ajax
+			});		// end #gr1 click
+			
+			$("#gr3").click(function() {
+				$("#chartdiv").empty();
+				$(".modal-body").empty();
+				$.ajax({
+					url : './assets/api/chart97.do',// 읽어들일 파일의 경로
+					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success : 
+						function(req) {
+						console.log(">> 성공!!! >> " + req);
+						$(".modal-body").html(req);
+					}
+				});		//end $.ajax
+			});		// end #gr1 click
 
 			/** 페이지 열린 직후의 처리*/
 			var box = $(".page").find(".box1"); 	// 0번째 `.page`요소에 있는 .box 얻기
@@ -423,50 +460,8 @@
 					}
 				});
 			});
-		});
-
-		am4core.ready(function() {
-
-			// Themes begin
-			am4core.useTheme(am4themes_animated);
-			// Themes end
-
-			// Create chart
-			var chart = am4core.create("chartdiv", am4charts.PieChart);
-			chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-			chart.data = [ {
-				country : "당산",
-				value : 100
-			}, {
-				country : "분당",
-				value : 95
-			}, {
-				country : "사당",
-				value : 90
-			}, {
-				country : "강남",
-				value : 85
-			}, {
-				country : "마포",
-				value : 80
-			}, {
-				country : "용산",
-				value : 75
-			} ];
-
-			var series = chart.series.push(new am4charts.PieSeries());
-			series.dataFields.value = "value";
-			series.dataFields.radiusValue = "value";
-			series.dataFields.category = "country";
-			series.slices.template.cornerRadius = 6;
-			series.colors.step = 3;
-
-			series.hiddenState.properties.endAngle = -90;
-
-			chart.legend = new am4charts.Legend();
-
-		}); // end am4core.ready()
+			
+		}); // 끝
 	</script>
 </body>
 </html>
