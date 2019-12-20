@@ -11,14 +11,15 @@
 		<result property="disCost" column="dis_cost"/>
 		<result property="patientSum" column="sum(dis_num_patient)"/>
 		<result property="costSum" column="sum(dis_cost)"/>
+		<result property="disYear" column="dis_year"/>
 	</resultMap>
 
 
 	<select id="selectList"
 		parameterType="fdp.project.spring.model.DiseaseRegion"
 		resultMap="DiseaseRegionMap">
-		SELECT iddisease_region, dis_month, dis_name, dis_region, sum(dis_num_patient), sum(dis_cost) FROM disease_region 
-		WHERE dis_name=#{disName} 
+		SELECT dis_name, dis_region, sum(dis_num_patient), sum(dis_cost) FROM disease_region 
+		WHERE dis_name=#{disName} and dis_year=#{disYear}
 		GROUP BY dis_region;
 	</select>
 

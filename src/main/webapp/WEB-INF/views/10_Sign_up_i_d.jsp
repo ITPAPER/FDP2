@@ -63,6 +63,19 @@
     	#addr1, #addr2, #addr3, #addr4, .col-md-10 > input {
     		display: inline;
     	}
+    	
+    	#joinbutton {
+			position: relative;
+			top: -50px;
+			left: -20px;
+		}
+		
+		#resetbutton {
+			position: relative;
+			top: -50px;
+			right: -20px;
+		}
+    	
      </style>
   </head>
   <body>
@@ -126,8 +139,6 @@
 				<div class="col-md-10">
 					<input type="email" name="email" id="email" class="form-control" />
 					<br />	
-					<br />
-					<button class="dupcheck">이메일 인증</button>
 				</div>
 			</div>
 			<br />
@@ -213,7 +224,7 @@
             <div class="text-center">
                 <button type="submit" id="joinbutton" class="btn btn-warning btn-lg">가입하기</button>
                 &nbsp;
-                <button type="reset" class="btn btn-warning btn-lg">다시작성</button>
+                <button type="reset" id="resetbutton" class="btn btn-warning btn-lg">다시작성</button>
             </div>
         </div>
     </form>
@@ -259,6 +270,14 @@
         $("#join_form").submit(function(e) {
             // 기본동작 수행 방식
             //e.preventDefault();
+            
+            
+            var complete = $("#dupcheck").val();
+			
+			if (complete == 0) {
+				alert("아이디 중복검사를 실행해주세요");
+				return false;
+			} 
 
 			/** 아이디 검사 */
             if (!regex.value('#user_id', '아이디를 입력하세요.')) { return false; }
@@ -302,7 +321,7 @@
             if (!regex.value('#user_field', '전공분야를 선택하세요.')) { return false; }
 
             // 처리 완료
-            alert("회원정보 입력이 완료되었습니다.");
+            /* alert("회원정보 입력이 완료되었습니다."); */
         });
     });
     </script>

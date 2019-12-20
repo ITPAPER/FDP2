@@ -12,4 +12,5 @@ public class DiseaseRegion {
 	private int disCost;
 	private long patientSum;
 	private long costSum;
+	private String disYear;
 }

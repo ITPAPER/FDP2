@@ -71,7 +71,9 @@ public class Controller_J {
 	 */
 	
 	@RequestMapping(value = "07_Statistics.do", method = RequestMethod.GET)
-	public ModelAndView statistics(Model model) {
+	public ModelAndView statistics(HttpServletRequest request, Model model) {
+		String value = request.getParameter("selectedValue");
+		System.out.println("***************"+value);
 		return new ModelAndView("07_Statistics");
 	}
 	
@@ -89,15 +91,15 @@ public class Controller_J {
 		
 		switch (disNo) {
 			case "감기": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
-			case "고혈압": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
-			case "관절병증": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
-			case "비염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
-			case "알레르기성결막염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
-			case "위식도 역류질환": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
-			case "접촉피부염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
-			case "척추질환": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
-			case "치아우식증": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
-			case "치주질환및치은염": year1="2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
+			case "고혈압": year1="sdf2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
+			case "관절병증": year1="관절2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "비염": year1="비염2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "알레르기성결막염": year1="알레2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "위식도 역류질환": year1="위식2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "접촉피부염": year1="접촉2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "척추질환": year1="척추2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
+			case "치아우식증": year1="치아2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break; 
+			case "치주질환및치은염": year1="치주2014년"; year2="2015년"; year3="2016년"; year4="2017년"; year5="2018년"; break;
 		}
 		
 		Gson gson = new Gson();

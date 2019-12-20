@@ -11,7 +11,7 @@
 		  width: 1300px;
 		  height: 500px;
 		  left: 40px;
-		  top:-200px;
+		  top:-130px;
 		  position:absolute;
 		  padding : 0 50px 0 0;
 		  margin : 30px;
@@ -21,7 +21,7 @@
 		  width: 650px;
 		  height: 450px;
 		  left: 40px;
-		  top: 400px;
+		  top: 530px;
 		  position:absolute;
 		  padding : 0 50px 0 0;
 
@@ -31,17 +31,17 @@
 		  width: 650px;
 		  height: 450px;
 		  left: 700px;
-		  top:400px;
+		  top:530px;
 		  position:absolute;
 		}
 		
 #chartdiv3 {
-		  width: 650px;
-		  height: 450px;
-		  left: 700px;
-		  top:900px;
+		  width: 1300px;
+		  height: 750px;
+		  left: 40px;
+		  top:1150px;
 		  position:absolute;
-		}	
+		}	 
 		
 </style>
 </head>
@@ -52,7 +52,7 @@
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
 <script>
-<!-- Chart0 code -->
+/* Chart0 code */  
 am4core.ready(function() {
 	// Themes begin
 	am4core.useTheme(am4themes_animated);
@@ -89,17 +89,6 @@ am4core.ready(function() {
 	series1.clustered = false;
 	series1.columns.template.width = am4core.percent(60);
 
-/* 	var series2 = chart.series.push(new am4charts.ColumnSeries());
-	series2.dataFields.valueY = "sales2";
-	series2.dataFields.dateX = "date";
-	series2.yAxis = valueAxis1;
-	series2.name = "Actual Sales";
-	series2.tooltipText = "{name}\n[bold font-size: 20]${valueY}M[/]";
-	series2.fill = chart.colors.getIndex(0).lighten(0.5);
-	series2.strokeWidth = 0;
-	series2.clustered = false;
-	series2.toBack(); */
-
 	var series3 = chart.series.push(new am4charts.LineSeries());
 	series3.dataFields.valueY = "sum_cost";
 	series3.dataFields.dateX = "dis_month";
@@ -114,22 +103,6 @@ am4core.ready(function() {
 	bullet3.circle.strokeWidth = 2;
 	bullet3.circle.fill = am4core.color("#fff");
 
-	/* var series4 = chart.series.push(new am4charts.LineSeries());
-	series4.dataFields.valueY = "market2";
-	series4.dataFields.dateX = "date";
-	series4.name = "Market Days ALL";
-	series4.strokeWidth = 2;
-	series4.tensionX = 0.7;
-	series4.yAxis = valueAxis2;
-	series4.tooltipText = "{name}\n[bold font-size: 20]{valueY}[/]";
-	series4.stroke = chart.colors.getIndex(0).lighten(0.5);
-	series4.strokeDasharray = "3,3";
-
-	var bullet4 = series4.bullets.push(new am4charts.CircleBullet());
-	bullet4.circle.radius = 3;
-	bullet4.circle.strokeWidth = 2;
-	bullet4.circle.fill = am4core.color("#fff"); */
-
 	// Add cursor
 	chart.cursor = new am4charts.XYCursor();
 
@@ -140,11 +113,10 @@ am4core.ready(function() {
 	// Add scrollbar
 	chart.scrollbarX = new am4charts.XYChartScrollbar();
 	chart.scrollbarX.series.push(series1);
-/* 	chart.scrollbarX.series.push(series3); */
 	chart.scrollbarX.parent = chart.bottomAxesContainer;
 }); // end am4core.ready()
 	
-<!-- Chart1 code -->
+/* Chart0 code */  
 am4core.ready(function() {
 
 	// Themes begin
@@ -174,7 +146,7 @@ am4core.ready(function() {
 	pieSeries.hiddenState.properties.startAngle = -90;
 }); // end am4core.ready()
 
-<!-- Chart2 code -->
+/* Chart0 code */  
 am4core.ready(function() {
 	// Themes begin
 	am4core.useTheme(am4themes_animated);
@@ -203,8 +175,8 @@ am4core.ready(function() {
 	pieSeries.hiddenState.properties.startAngle = -90;
 }); // end am4core.ready()
 
-<!-- Chart3 code -->
-<script>
+/* Chart0 code */  
+
 am4core.ready(function() {
 	// Themes begin
 	am4core.useTheme(am4themes_animated);
@@ -255,7 +227,7 @@ am4core.ready(function() {
 	}
 	
 	createSeries("patientSum", "patientSum");
-}); // end am4core.ready()
+}); // end am4core.ready() 
 
 
 

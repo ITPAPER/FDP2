@@ -72,6 +72,20 @@
 		#addr1, #addr2, #addr3, #addr4, .col-md-10 > input {
 		    display: inline;
 		}
+		
+		#joinbutton {
+			position: relative;
+			top: -100px;
+			left: -20px;
+		}
+		
+		#resetbutton {
+			position: relative;
+			top: -100px;
+			right: -20px;
+		}
+		
+		
      </style>
 </head>
 <body>
@@ -110,7 +124,7 @@
 			<div class="form-group">
 				<label for='user_name' class="col-md-2">이름 <span class='identify'>*</span></label>
 				<div class="col-md-10">
-					<input type="text" name="name" id="name"	class="form-control" />
+					<input type="text" name="name" id="name" class="form-control" />
 				</div>
 			</div>
 			<br />
@@ -135,7 +149,6 @@
 				<div class="col-md-10">
 					<input type="email" name="email" id="email" class="form-control" />
 					<br />
-					<!-- <button id="emailcerti">이메일 인증</button> -->
 				</div>
 			</div>
 			<br />
@@ -190,12 +203,11 @@
 				</div>
 			</div>
 			<br /> 
-			<br />
 			<div class="form-group">
 				<div class="text-center">
 					<button type="submit" id="joinbutton" class="btn btn-warning btn-lg">가입하기</button>
 					&nbsp;
-					<button type="reset" class="btn btn-warning btn-lg">다시작성</button>
+					<button type="reset" id="resetbutton" class="btn btn-warning btn-lg">다시작성</button>
 				</div>
 			</div>
 		</form>
@@ -287,7 +299,7 @@
             if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) { return false; }
             
 			// 처리 완료
-			alert("회원정보 입력이 완료되었습니다.");
+			/* alert("회원정보 입력이 완료되었습니다."); */
 			});
 	});
 	</script>

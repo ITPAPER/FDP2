@@ -126,7 +126,6 @@
 									${output.addr2}
 								</c:otherwise>
 							</c:choose>
-							
 						
 						&nbsp;${output.addr3}&nbsp;${output.addr4}</td>
 					</tr>
@@ -137,7 +136,7 @@
 			</tbody>
 		 </table>
 	 	</div>
-	 <h4 class='complete'>'가입완료' 버튼을 누르시면 가입이 완료됩니다!</h4>
+	 <!-- <h4 class='complete'>'가입완료' 버튼을 누르시면 가입이 완료됩니다!</h4> -->
 	 <button type="submit" id="joinbutton" class="btn btn-warning btn-lg" >가입 완료</button>
 	 </form>
 	 

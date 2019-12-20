@@ -6,8 +6,80 @@
   <head>
      <jsp:include page="./assets/inc/head.jsp" />
      <jsp:include page="./assets/inc/remote_css.jsp" />
-     <link rel="stylesheet" href="./assets/css/09_Sign_up_a.css">
+     
+     <style type="text/css">
+     .container {
+    		position: relative;
+    		text-align: center;
+    	}
+    	
+    	.agrment1 {
+    		overflow:scroll; 
+    		width:1000px; 
+    		height:400px; 
+    		padding:10px; 
+    		background-color:#eee;
+    		position: absolute;
+    		top: 100px;
+    		left: 85px;
+    		margin:auto;
+    		text-align: left;
+    	}
+  
+    	.agrment2 {
+    		overflow:scroll; 
+    		width:1000px; 
+    		height:400px; 
+    		padding:10px; 
+    		background-color:#eee;
+    		position: absolute;
+    		top: 670px;
+    		left: 85px;
+    		text-align: left;
+    	}
+    	
+    	.agrtitle1 {
+    		position: absolute;
+    		top: 30px;
+    		left: 85px;
+    	}
+    	
+    	.agrtitle2 {
+    		position: absolute;
+    		top: 600px;
+    		left: 85px;
+    	}
+    	
+    	.agrmsg1-1 {
+    		position: absolute;
+    		top: 520px;
+    		left: 85px;
+    	}
+    	
+    	.agrmsg2-1 {
+    		position: absolute;
+    		top: 1090px;
+    		left: 85px;
+    	}
+    	
+    	.confirm {
+    		width: 1170px;
+    		height: 100px;
+    		position: absolute;
+    		top: 1200px;
+    		text-align: center;
+    	}
+    	
+    	.all {
+    		position: absolute;
+    		top: 1130px;
+    		left: 85px;
+    		display: inline-block;
+    	}
+     
+     </style>
   </head>
+  
   <body>
   <jsp:include page="./assets/inc/top.jsp" />
 	<div class="container"style="width: 1170px; height:1300px;">
@@ -240,11 +312,7 @@
 	 
 	</div>
 	
-	<button type='submit' onclick='location.href="30_Monitoring_spring.do"'>버튼</button>
-	<button type='submit' onclick='location.href="07_1_Statistics.do"'>버튼2</button>
-	
 	<jsp:include page="./assets/inc/bottom.jsp" /> 
-<%-- 	<script src="${pageContext.request.contextPath}/assets/js/09_Sign_up_a.js"></script> --%>
 	<script type="text/javascript">
 	 function moveD() {
 			location.href = '10_Sign_up_i_d.do';

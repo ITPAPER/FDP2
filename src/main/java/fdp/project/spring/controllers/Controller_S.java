@@ -32,6 +32,7 @@ import fdp.project.spring.service.ApiHospitalService;
 import fdp.project.spring.service.DiseaseRegionService;
 import fdp.project.spring.service.DiseaseService;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -201,55 +202,60 @@ public class Controller_S {
 	}
 	
 	
-	@RequestMapping(value = "/assets/api/chart5.do")
-	public ModelAndView chart5(Model model) {
+	@RequestMapping(value = "/assets/api/chart5.do", method = RequestMethod.GET)
+	public ModelAndView chart5(Model model, HttpServletRequest request) {
 		List<Disease_age_gender> output = null;
 		List<Disease_age_gender> output1 = null;
 		List<Disease_age_gender> output2 = null;
-		//AppInterceptor.preHandle.String.format();
+		List<DiseaseRegion> output3 = null;
 		
-		
-		String dname = webHelper.getString("disName"); 
+		//질병이름별
+		String year = request.getParameter("selectedValue");
+		String disName = webHelper.getString("disName");
+
 		Disease_age_gender input = new Disease_age_gender();
-		Disease_age_gender input1 = new Disease_age_gender();
-		Disease_age_gender input2 = new Disease_age_gender();
-		input.setDis_name(dname);
-		input1.setDis_name(dname);
-		input2.setDis_name(dname);
+		DiseaseRegion input3 = new DiseaseRegion();
+		
+		input.setDis_name(disName);
+		input3.setDisName(disName);
+		
+		//년도별
+		input.setDis_year(year);
+		input3.setDisYear(year);
 
 		try {
     		// 데이터 조회하기
     		output = diseaseService.getDisease_age_genderYear(input);
-    		output1 = diseaseService.getDisease_age_genderGender(input1);
-    		output2 = diseaseService.getDisease_age_genderAge(input2);
+    		output1 = diseaseService.getDisease_age_genderGender(input);
+    		output2 = diseaseService.getDisease_age_genderAge(input);
+    		output3 = diseaseRegionService.getDisByRegion(input3);
+    		
     	} catch (Exception e) {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
-		
-		//지역별 질병 데이터 테이블 받아오기
-		List<DiseaseRegion> output3 = null;
-		DiseaseRegion input3 = new DiseaseRegion();
-		String disName = webHelper.getString("disName");
-		input3.setDisName(disName);
-		
-		try {
-			output3 = diseaseRegionService.getDisByRegion(input3);
-		}  catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
 	 
+		System.out.println("***********************************"+output);
+		
+		
 	     /** 5) View 처리 */
 	     // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
-	     model.addAttribute("output", output);
-	     model.addAttribute("output1", output1);
-	     model.addAttribute("jsonList", JSONArray.fromObject(output));
-	     model.addAttribute("jsonList1", JSONArray.fromObject(output1));
-	     model.addAttribute("jsonList2", JSONArray.fromObject(output2));
 	     
-	     model.addAttribute("output3", output3);
-	     model.addAttribute("jsonList3", JSONArray.fromObject(output3));
-	     //model.addAttribute("output3", output3);
-	     
+		 Gson gson = new Gson();
+		 
+		 JSONObject json = new JSONObject();
+		 json.put("output", output);
+		 json.put("output1", output1);
+		 json.put("output2", output2);
+		 json.put("output3", output3);
+		
+		 model.addAttribute("jsonObj", gson.toJson(json));
+		 
+		 model.addAttribute("jsonList", JSONArray.fromObject(output));
+		 model.addAttribute("jsonList1", JSONArray.fromObject(output1));
+		 model.addAttribute("jsonList2", JSONArray.fromObject(output2));
+		 model.addAttribute("jsonList3", JSONArray.fromObject(output3));
+		 model.addAttribute("output", output);
+		 
 		return new ModelAndView ("assets/api/chart5");
 	}
 	
