@@ -562,7 +562,6 @@ public class Controller_C {
 					/** 1) 파일데이터 삭제하기 */
 					// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 					
-					
 					NFile input = new NFile();
 					input.setFile_id(Integer.parseInt(file_id));
 					
@@ -578,10 +577,6 @@ public class Controller_C {
 					File f1 = new File("D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload", output4.getFilePath());
 					boolean del_ok = f1.delete();
 					System.out.println("파일 삭제 여부: "+del_ok);
-					
-					
-					
-					
 					
 					try {
 						// 데이터 삭제
@@ -871,7 +866,7 @@ public class Controller_C {
 
 	@RequestMapping(value = "/15_Notice_board_delete.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_delete(Model model) {
-		/** 1) 필요한 변수값 생성 */
+				/** 1) 필요한 변수값 생성 */
 		// 삭제할 대상에 대한 PK값
 		int document_id = webHelper.getInt("document_id");
 
@@ -884,7 +879,6 @@ public class Controller_C {
 		/** DocAnswer테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
 		DocAnswer input1 = new DocAnswer();
 		input1.setDocument_id(document_id);
-
 		try {
 			// 데이터 삭제
 			docAnswerService.deleteDocAnswer(input1);
@@ -905,15 +899,29 @@ public class Controller_C {
 		
 		/** File테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
 		NFile input3 = new NFile();
-		input3.setDocument_id(document_id);
-
+		input3.setDocument_id(document_id);		
+		
+		List<NFile> output4 = null;
+		
+		// file db 조회
+		try {
+			output4 = fileService.getFileList(input3);
+		} catch(Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		for(NFile aa : output4) {
+		File f1 = new File("D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload", aa.getFilePath());
+		boolean del_ok = f1.delete();
+		System.out.println("파일 삭제 여부: "+del_ok);
+		}
+		
 		try {
 			// 데이터 삭제
 			fileService.deleteFile(input3);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		/** 2-2) 게시물 데이터 삭제하기 */
 		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 		Document input = new Document();
