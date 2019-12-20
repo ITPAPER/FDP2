@@ -1,5 +1,6 @@
 package fdp.project.spring.controllers;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -25,12 +26,12 @@ import fdp.project.spring.helper.WebHelper;
 import fdp.project.spring.model.Comment;
 import fdp.project.spring.model.DocAnswer;
 import fdp.project.spring.model.Document;
-import fdp.project.spring.model.File;
+import fdp.project.spring.model.NFile;
 import fdp.project.spring.model.Member;
 import fdp.project.spring.service.CommentService;
 import fdp.project.spring.service.DocAnswerService;
 import fdp.project.spring.service.DocumentService;
-import fdp.project.spring.service.FileService;
+import fdp.project.spring.service.NFileService;
 import fdp.project.spring.service.MemberService;
 
 @Controller
@@ -60,7 +61,7 @@ public class Controller_C {
 	CommentService commentService;
 
 	@Autowired
-	FileService fileService;
+	NFileService fileService;
 
 	/** "/프로젝트이름"에 해당하는 ContextPath 변수 주입 */
 	@Value("#{servletContext.contextPath}")
@@ -171,9 +172,9 @@ public class Controller_C {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 
-		File input4 = new File();
+		NFile input4 = new NFile();
 		input4.setDocument_id(document_id);
-		List<File> output4 = null;
+		List<NFile> output4 = null;
 		
 		try {
 			output4 = fileService.getFileList(input4);
@@ -392,22 +393,47 @@ public class Controller_C {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 
+		NFile input4 = new NFile();
+		input4.setDocument_id(document_id);
+		List<NFile> output4 = null;
+		
+		try {
+			output4 = fileService.getFileList(input4);
+		} catch(Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
 		/** 3) View 처리 */
 		model.addAttribute("output", output);
+		model.addAttribute("output4", output4);
 		return new ModelAndView("15_Notice_board_2");
 	}
 
 	/** 수정폼에 대한 action 페이지 */
-	@RequestMapping(value = "/15_Notice_board_2_ok.do")
+	@RequestMapping(value = "/15_Notice_board_2_ok.do", method = RequestMethod.POST)
 	public ModelAndView Notice_board_i_ok(Model model) {
-		/** 1) 사용자가 입력한 파라미터 수신 및 유효성 검사 */
-		int document_id = webHelper.getInt("document_id");
-		String writer_name = webHelper.getString("writer_name");
-		String subject = webHelper.getString("subject");
-		String content = webHelper.getString("content");
-		int hit = webHelper.getInt("hit");
-		String reg_date = webHelper.getString("reg_date");
+		/** 업로드를 수행 */
+		try {
+			webHelper.upload();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		/** 1) 사용자가 입력한 파라미터 수신 및 유효성 검사 */
+		Map<String, String> paramMap = webHelper.getParamMap();
+		int document_id = Integer.parseInt(paramMap.get("document_id"));
+		String writer_name = paramMap.get("writer_name");
+		String subject = paramMap.get("subject");
+		String content = paramMap.get("content");
+		int hit = Integer.parseInt(paramMap.get("hit"));
+		String reg_date = paramMap.get("reg_date");
+		String dou = paramMap.get("dou");
+//		if (dou == null) {
+//			dou = "3";
+//		}
+		String file_id = paramMap.get("file_id");
+		if (file_id == null) {
+			file_id = "0";
+		}
 		SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar time = Calendar.getInstance();
 		String edit_date = d.format(time.getTime());
@@ -432,10 +458,185 @@ public class Controller_C {
 			return webHelper.redirect(null, "등록일이 없습니다.");
 		}
 
+//		for(String a : doulist) {
+//		System.out.println("-------------------------"+a);
+//		}
+//	
+//		for(String b : fileidList) {
+//			System.out.println("-------------------------"+b);
+//			}
+
+		List<UploadItem> fileList = webHelper.getFileList();
+		
+
+		int j = 0;
+		int k = 0;
+		if (dou.contains(",") == true) {
+			String[] doulist = dou.split(",");
+			String[] fileidList = new String[3];
+			
+			if (file_id.contains(",")) {
+				fileidList = file_id.split(",");
+			} else if(file_id != null){
+				fileidList[0]=file_id;
+			}
+			
+			
+			for (int i = 0; i < doulist.length; i++) {
+				if (doulist[i].equals("0")) {
+					/** 1) 파일데이터 삭제하기 */
+					// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+					NFile input = new NFile();
+					
+					input.setFile_id(Integer.parseInt(fileidList[k]));
+					NFile output4 = null;
+					
+					// file db 조회
+					try {
+						output4 = fileService.getFileItem(input);
+					} catch(Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+					
+					File f1 = new File("D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload", output4.getFilePath());
+					
+					boolean del_ok = f1.delete();
+					System.out.println("파일 삭제 여부: "+del_ok);
+				
+					k++;
+					
+					try {
+						// 데이터 삭제
+						fileService.deleteFile(input);
+					} catch (Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+				} else if(doulist[i].equals("1")) {
+					/** 2) 파일데이터 수정하기 */
+					// 수정할 값들을 Beans에 담는다.
+					NFile input = new NFile();
+					UploadItem bb = fileList.get(j);
+					input.setFile_id(Integer.parseInt(fileidList[k]));
+					input.setContentType(bb.getContentType());
+					input.setDocument_id(bb.getDocument_id());
+					input.setFilePath(bb.getFilePath());
+					input.setFileSize(bb.getFileSize());
+					input.setOriginName(bb.getOriginName());
+					input.setFieldName(bb.getFieldName());
+
+					k++;
+					
+					if (fileList.size() - 1 > j) {
+						j++;
+					}
+
+					try {
+						// 데이터 수정
+						fileService.editFile(input);
+					} catch (Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+				} else if (doulist[i].equals("2")) {
+					NFile input = new NFile();
+					UploadItem bb = fileList.get(j);
+					input.setContentType(bb.getContentType());
+					input.setDocument_id(document_id);
+					input.setFilePath(bb.getFilePath());
+					input.setFileSize(bb.getFileSize());
+					input.setOriginName(bb.getOriginName());
+					
+					j++;
+					
+					try {
+						// 데이터 저장
+						fileService.addFile(input);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} 
+		
+		if(dou.contains(",") == false) {
+				if (dou.equals("0")) {
+					/** 1) 파일데이터 삭제하기 */
+					// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+					
+					
+					NFile input = new NFile();
+					input.setFile_id(Integer.parseInt(file_id));
+					
+					NFile output4 = null;
+					
+					// file db 조회
+					try {
+						output4 = fileService.getFileItem(input);
+					} catch(Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+					
+					File f1 = new File("D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload", output4.getFilePath());
+					boolean del_ok = f1.delete();
+					System.out.println("파일 삭제 여부: "+del_ok);
+					
+					
+					
+					
+					
+					try {
+						// 데이터 삭제
+						fileService.deleteFile(input);
+					} catch (Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+				} else if(dou.equals("1")){
+					/** 2) 파일데이터 수정하기 */
+					// 수정할 값들을 Beans에 담는다.
+					NFile input = new NFile();
+				
+					input.setFile_id(Integer.parseInt(file_id));
+
+					for (UploadItem aa : fileList) {
+						input.setContentType(aa.getContentType());
+						// input.setDocument_id(document_id);
+						input.setFilePath(aa.getFilePath());
+						input.setFileSize(aa.getFileSize());
+						input.setOriginName(aa.getOriginName());
+						input.setFieldName(aa.getFieldName());
+					}
+					
+					try {
+						// 데이터 수정
+						fileService.editFile(input);
+					} catch (Exception e) {
+						return webHelper.redirect(null, e.getLocalizedMessage());
+					}
+				} else if(dou.equals("2")) {
+					
+					NFile input = new NFile();
+					
+					for (UploadItem aa : fileList) {
+						input.setContentType(aa.getContentType());
+						input.setDocument_id(document_id);
+						input.setFilePath(aa.getFilePath());
+						input.setFileSize(aa.getFileSize());
+						input.setOriginName(aa.getOriginName());
+						input.setFieldName(aa.getFieldName());
+					}
+					
+					try {
+						// 데이터 저장
+						fileService.addFile(input);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+
+		}
+
 		/** 2) 데이터 수정하기 */
 		// 수정할 값들을 Beans에 담는다.
 		Document input = new Document();
-
 		input.setDocument_id(document_id);
 		input.setWriter_name(writer_name);
 		input.setSubject(subject);
@@ -505,7 +706,7 @@ public class Controller_C {
 
 		List<UploadItem> fileList = webHelper.getFileList();
 		for (UploadItem aa : fileList) {
-			File file = new File();
+			NFile file = new NFile();
 			file.setContentType(aa.getContentType());
 			file.setDocument_id(input.getDocument_id());
 			file.setFile_id(aa.getFile_id());
@@ -530,7 +731,6 @@ public class Controller_C {
 			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
 
 		/** 1) 필요한 변수 값 생성 */
-		// String keyword = webHelper.getString("keyword", ""); // 검색어
 		int nowPage = webHelper.getInt("page", 1); // 페이지 번호 (기본값 1)
 		int totalCount = 0; // 전체 게시글 수
 		int listCount = 10; // 한 페이지당 표시할 목록 수
@@ -704,7 +904,7 @@ public class Controller_C {
 		}
 		
 		/** File테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
-		File input3 = new File();
+		NFile input3 = new NFile();
 		input3.setDocument_id(document_id);
 
 		try {

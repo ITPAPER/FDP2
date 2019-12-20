@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="ko">
 <style type="text/css">
@@ -31,12 +34,12 @@
 }
 
 .table1 .table .d {
-	vertical-align : middle;
-} 
+	vertical-align: middle;
+}
 
 /** ckeditor 박스 크기 설정 */
 #cke_1_contents {
-	min-height: 600px"WebContent/pages/15_Notice_board_2.jsp" !important;
+	min-height: 600px "WebContent/pages/15_Notice_board_2.jsp" !important;
 }
 
 .aaa {
@@ -47,72 +50,149 @@
 .subject_content {
 	background-color: #eee;
 }
+
+.file {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.fileimg {
+	display: block;
+	min-width: 50%;
+	min-height: 50%;
+	align: center;
+}
+
+.filediv {
+	overflow: hidden;
+	width: 320px;
+	height: 200px;
+}
+
+.file1 {
+	border: 1px solid #ddd;
+	border-radius: 20px;
+}
 </style>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 <head>
-	<jsp:include page="./assets/inc/head.jsp" />
-	<jsp:include page="./assets/inc/remote_css.jsp" />
+<jsp:include page="./assets/inc/head.jsp" />
+<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 720px;">
-	<jsp:include page="./assets/inc/remote.jsp" />
+		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table1">
-		<form  method="post" action="${pageContext.request.contextPath}/15_Notice_board_2_ok.do">
-			<input type="hidden" name="document_id" value="${output.document_id}" />
-			
-			<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<td class="aaa">
-							<h5 align="center">작성자</h5>
-						</td>
-						<td>	
-							<h5>${output.writer_name}</h5>
-							<input type="hidden" name="writer_name" value="${output.writer_name}" /> 
-						</td>
-					</tr>
-					<tr>
-						<td class="subject1 aaa">
-							<h5 class="subject1" align="center">제목</h5>
-						<input type="hidden" name="hit" value="${output.hit}" />
-						<input type="hidden" name="reg_date" value="${output.reg_date}" />
-						<input type="hidden" name="edit_date" value="${output.edit_date}" />
-						</td>
-						
-						<td>
-							<input type="text" name="subject" class="subject" value="${output.subject}"/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<textarea name="content" class="ckeditor"> ${output.content}</textarea>
-						</td>
-					</tr>
+			<form enctype='multipart/form-data' method="post" action="${pageContext.request.contextPath}/15_Notice_board_2_ok.do">
+				<input type="hidden" name="document_id" value="${output.document_id}" />
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<td class="aaa">
+								<h5 align="center">작성자</h5>
+							</td>
+							<td>
+								<h5>${output.writer_name}</h5> <input type="hidden"
+								name="writer_name" value="${output.writer_name}" />
+							</td>
+						</tr>
+						<tr>
+							<td class="subject1 aaa">
+								<h5 class="subject1" align="center">제목</h5> <input type="hidden"
+								name="hit" value="${output.hit}" /> <input type="hidden"
+								name="reg_date" value="${output.reg_date}" /> <input
+								type="hidden" name="edit_date" value="${output.edit_date}" />
+							</td>
+
+							<td><input type="text" name="subject" class="subject"
+								value="${output.subject}" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><textarea name="content" class="ckeditor"> ${output.content}</textarea>
+							</td>
+						</tr>
+
 					</tbody>
 				</table>
-					<div>
-						<label for="photo">첨부파일</label> <input type="file"
-							name="photo" id="photo" />
-					</div>
-		
-		<div class="b">
-			<ul class="pull-right">
-				<li class="a"><a href="13_Notice_board.do"
-					class="btn btn-default btn-sm">취소</a></li>
-				<!-- <li class="a"><a href="15_Notice_board_2_ok.do"
-					class="btn btn-default btn-sm">완료</a></li> -->
-				<li class="a"><button type="submit"
-					class="btn btn-default btn-sm">완료</button></li>	
-			</ul>
-		</div>
-		</form>
+				<table>
+					<tbody>
+						<c:set var="s" value="1" />
+						<tr>
+							<td>
+								<ul>
+									<c:forEach var="item" items="${output4}" varStatus="status">
+										<li class="file" id="${status.index}"><span
+											style='display: none' id="a${status.index}">${item.file_id}</span>
+											<button type="button" value="${status.index}" class="close"
+												aria-hidden="true">&times;</button>
+											<div class="filediv">
+												<a href="./assets/upload${item.filePath}"> <img
+													src="./assets/upload${item.filePath}" class="fileimg" />
+												</a>
+											</div> ${item.originName}</li>
+										<c:set var="s" value="${s+1}" />
+									</c:forEach>
+									<c:forEach var="i" begin="${s}" end="3" step="1"
+										varStatus="status">
+										<li class="file file1">
+											<div class="filediv">
+												<label for="photo">첨부파일${i}</label> 
+												<input type="file" name="photo" class="newf" />
+											</div>
+										</li>
+									</c:forEach>
+								</ul>
+							</td>
+						</tr>
+
+					</tbody>
+
+
+					<!-- <label for="photo">첨부파일</label>
+					<input type="file" name="photo" id="photo" />
+ -->
+				</table>
+
+				<div class="b">
+					<ul class="pull-right">
+						<li class="a"><a href="13_Notice_board.do"
+							class="btn btn-default btn-sm">취소</a></li>
+						<li class="a"><button type="submit"
+								class="btn btn-default btn-sm">완료</button></li>
+					</ul>
+				</div>
+			</form>
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
+	<script>
+	
+	
+		$(".close").click(
+						function() {
+							var result = confirm("정말  삭제하시겠습니까?");
+							if (result) {
+								var x = $(this).attr("value");
+								var y = $("#a" + x).html();
+								var add_op = "<li class='file file1'><div class='filediv'><label for='photo'>첨부파일</label><input type='hidden' name='file_id' value='"+y+"' /><input type='hidden' name='dou' value='0'/><input type='file' name='photo' class='fcl'/></div></li>";
+								$("#" + x).html(add_op);
+								$(".fcl").change(function() {
+									$(this).prev().attr("value", 1);
+								});
+							};
+						})
+						
+		$(".newf").change(
+			function() {
+				var a = "<input type='hidden' name='dou' value='2'/>";
+				$(this).parent("div").append(a);
+			}		
+		)				
+	</script>
 </body>
 </html>

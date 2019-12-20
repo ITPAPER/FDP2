@@ -3,7 +3,7 @@ package fdp.project.spring.model;
 import lombok.Data;
 
 @Data
-public class File {
+public class NFile {
 
 	/** 첨부파일 번호(PK) */
 	private int file_id;

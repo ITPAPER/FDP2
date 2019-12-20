@@ -76,12 +76,12 @@
 
 
 				<div>
-					<label for="photo">첨부파일</label> 
-					<input type="file" name="phopho1" id="photo" /> 
-					<label for="photo">첨부파일</label> 
-					<input type="file" name="phopho2" id="photo" /> 
-					<label for="photo">첨부파일</label> 
-					<input type="file" name="phopho3" id="photo" />
+					<label for="photo">첨부파일1</label> 
+					<input type="file" name="phopho1"/> 
+					<label for="photo">첨부파일2</label> 
+					<input type="file" name="phopho2"/> 
+					<label for="photo">첨부파일3</label> 
+					<input type="file" name="phopho3"/>
 				</div>
 				<div class="b">
 					<ul class="pull-right">

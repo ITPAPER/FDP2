@@ -6,13 +6,13 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import fdp.project.spring.model.File;
-import fdp.project.spring.service.FileService;
+import fdp.project.spring.model.NFile;
+import fdp.project.spring.service.NFileService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class FileServiceImpl implements FileService {
+public class NFileServiceImpl implements NFileService {
 
 	/** MyBatis */
 	// --> import org.apache.ibatis.session.SqlSession;
@@ -21,13 +21,13 @@ public class FileServiceImpl implements FileService {
 
 	/**
 	 * 파일 데이터 상세 조회
-	 * @param File 조회할 파일의 일련번호를 담고 있는 Beans
+	 * @param NFile 조회할 파일의 일련번호를 담고 있는 Beans
 	 * @return 조회된 데이터가 저장된 Beans
 	 * @throws Exception
 	 */
 	@Override
-	public File getFileItem(File input) throws Exception {
-		File result = null;
+	public NFile getFileItem(NFile input) throws Exception {
+		NFile result = null;
 
 		try {
 			result = sqlSession.selectOne("FileMapper.selectItem", input);
@@ -52,8 +52,8 @@ public class FileServiceImpl implements FileService {
 	 * @throws Exception
 	 */
 	@Override
-	public List<File> getFileList(File input) throws Exception {
-		List<File> result = null;
+	public List<NFile> getFileList(NFile input) throws Exception {
+		List<NFile> result = null;
 
 		try {
 			result = sqlSession.selectList("FileMapper.selectList", input);
@@ -78,7 +78,7 @@ public class FileServiceImpl implements FileService {
 	 * @throws Exception
 	 */
 	@Override
-	public int getFileCount(File input) throws Exception {
+	public int getFileCount(NFile input) throws Exception {
 		int result = 0;
 
 		try {
@@ -93,11 +93,11 @@ public class FileServiceImpl implements FileService {
 
 	/**
 	 * 파일 데이터 등록하기
-	 * @param File 저장할 정보를 담고 있는 Beans
+	 * @param NFile 저장할 정보를 담고 있는 Beans
 	 * @throws Exception
 	 */
 	@Override
-	public void addFile(File input) throws Exception {
+	public void addFile(NFile input) throws Exception {
 		int result = 0;
 
 		try {
@@ -117,11 +117,11 @@ public class FileServiceImpl implements FileService {
 
 	/**
 	 * 파일 데이터 수정하기
-	 * @param File 수정할 정보를 담고 있는 Beans
+	 * @param NFile 수정할 정보를 담고 있는 Beans
 	 * @throws Exception
 	 */
 	@Override
-	public int editFile(File input) throws Exception {
+	public int editFile(NFile input) throws Exception {
 		int result = 0;
 
 		try {
@@ -142,11 +142,11 @@ public class FileServiceImpl implements FileService {
 
 	/**
 	 * 파일 데이터 삭제하기
-	 * @param File 삭제할 파일의 일련번호를 담고 있는 Beans
+	 * @param NFile 삭제할 파일의 일련번호를 담고 있는 Beans
 	 * @throws Exception
 	 */
 	@Override
-	public int deleteFile(File input) throws Exception {
+	public int deleteFile(NFile input) throws Exception {
 		int result = 0;
 
 		try {

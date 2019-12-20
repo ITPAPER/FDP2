@@ -93,7 +93,7 @@
 
 .file {
 	display: inline-block;
-	margin-right: 38px;
+	margin-right: 30px;
 }
 
 .fileimg {
@@ -204,7 +204,6 @@
 														class="pull-right bcd btn4"> <i
 														class="glyphicon glyphicon-edit"></i>
 													</a>
-
 												</c:when>
 											</c:choose>
 										</h4>
