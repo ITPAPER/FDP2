@@ -196,9 +196,9 @@ public class Controller_S {
 			return "30_Monitoring";
 	}
 	
-	@RequestMapping(value = "07_Statistics_making.do", method = RequestMethod.GET)
+	@RequestMapping(value = "gogo.do")
 	public String statistics() {
-		return "07_Statistics_making";
+		return "gogo";
 	}
 	
 	
@@ -277,7 +277,6 @@ public class Controller_S {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
 	 
-		 	JSONArray jsonArray = new JSONArray();
 
 	        /** 5) View 처리 */
 	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
@@ -322,7 +321,6 @@ public class Controller_S {
 			 dis_num_patient[i] = String.valueOf(item.getDis_num_patient());
 	        }
 		 
-		 	JSONArray jsonArray = new JSONArray();
 			Gson gson = new Gson();
 		
 		
@@ -357,7 +355,6 @@ public class Controller_S {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
 	 
-		 	JSONArray jsonArray = new JSONArray();
 
 	        /** 5) View 처리 */
 	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
