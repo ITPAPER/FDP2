@@ -4,8 +4,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,7 +123,7 @@ public class Controller_C {
 		/** 1) 필요한 변수 값 생성 */
 		// 조회할 대상에 대한 PK 값
 		int document_id = webHelper.getInt("document_id");
-
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
 //      이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시물 번호가 없습니다.");
@@ -131,6 +133,7 @@ public class Controller_C {
 		// Document 테이블 데이터
 		Document input = new Document();
 		input.setDocument_id(document_id);
+		input.setFdpmember_id(fdpmember_id);
 		Document output = null;
 
 		try {
@@ -721,83 +724,6 @@ public class Controller_C {
 		return gson.toJson(input);
 	}
 
-	@RequestMapping(value = "/23_Notice_board_s.do", method = RequestMethod.GET)
-	public ModelAndView Notice_board_s(Model model,
-			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
-
-		/** 1) 필요한 변수 값 생성 */
-		int nowPage = webHelper.getInt("page", 1); // 페이지 번호 (기본값 1)
-		int totalCount = 0; // 전체 게시글 수
-		int listCount = 10; // 한 페이지당 표시할 목록 수
-		int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
-
-		/** 2) 데이터 조회하기 */
-		// 조회에 필요한 조건 값(검색어)를 Beans에 담는다.
-		Document input = new Document();
-		input.setWriter_name(keyword);
-		input.setSubject(keyword);
-		input.setContent(keyword);
-		input.setHit(0);
-		input.setReg_date(keyword);
-		input.setEdit_date(keyword);
-
-		List<Document> output = null; // 조회 결과가 저장될 객체
-		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
-
-		try {
-			// 전체 게시글 수 조회
-			totalCount = documentService.getDocumentCount(input);
-			// 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
-			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
-
-			// SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
-			Document.setOffset(pageData.getOffset());
-			Document.setListCount(pageData.getListCount());
-
-			// 데이터 조회하기
-			output = documentService.getDocumentList(input);
-		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-
-		/** 3) View 처리 */
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("output", output);
-		model.addAttribute("pageData", pageData);
-		String viewPath = "23_Notice_board_s";
-		return new ModelAndView(viewPath);
-
-	}
-
-	@RequestMapping(value = "/24_Notice_board_s_2.do", method = RequestMethod.GET)
-	public ModelAndView Notice_board_s_2(Model model) {
-		/** 1) 필요한 변수 값 생성 */
-		// 조회할 대상에 대한 PK 값
-		int document_id = webHelper.getInt("document_id");
-
-		// 이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
-		if (document_id == 0) {
-			return webHelper.redirect(null, "게시물 번호가 없습니다.");
-		}
-
-		/** 2) 데이터 조회하기 */
-		Document input = new Document();
-		input.setDocument_id(document_id);
-
-		Document output = null;
-
-		try {
-			// 데이터 조회
-			output = documentService.getDocumentItem(input);
-		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}
-
-		/** 3) view 처리 */
-		model.addAttribute("output", output);
-		return new ModelAndView("24_Notice_board_s_2");
-	}
-
 	@RequestMapping(value = "/14_Notice_board_docAnswer_delete.do", method = RequestMethod.GET)
 	public ModelAndView Notice_board_docAnswer_delete(Model model) {
 		/** 1) 필요한 변수값 생성 */
@@ -865,16 +791,19 @@ public class Controller_C {
 	}
 
 	@RequestMapping(value = "/15_Notice_board_delete.do", method = RequestMethod.GET)
-	public ModelAndView Notice_board_delete(Model model) {
+	public ModelAndView Notice_board_delete(Model model, HttpServletRequest request) {
 				/** 1) 필요한 변수값 생성 */
 		// 삭제할 대상에 대한 PK값
 		int document_id = webHelper.getInt("document_id");
-
+		
+		/** 컨트롤러에서 세션을 식별하기 위한 처리 */
+		HttpSession session = request.getSession();
+		String mySessionId = (String) session.getAttribute("session_id");
 		// 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시글 번호가 없습니다.");
 		}
-
+			
 		/** 2-1) 데이터 삭제하기(게시물 삭제 전 내용물 삭제) */
 		/** DocAnswer테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
 		DocAnswer input1 = new DocAnswer();
@@ -915,6 +844,7 @@ public class Controller_C {
 		System.out.println("파일 삭제 여부: "+del_ok);
 		}
 		
+		
 		try {
 			// 데이터 삭제
 			fileService.deleteFile(input3);
@@ -937,13 +867,212 @@ public class Controller_C {
 
 		/** 3) 페이지 이동 */
 		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
+		if(mySessionId == null) {
+			return webHelper.redirect(contextPath + "/13_Notice_board.do", "삭제되었습니다.");
+		} else {
+			return webHelper.redirect(contextPath + "/23_Notice_board_s.do", "삭제되었습니다.");
+		}
+		}
+	
+	@RequestMapping(value = "23_checkbox_Delete_ok.do")
+	public ModelAndView allDelete_ok(Model model, HttpServletRequest request) {
+		
+		/** 1) 필요한 변수값 생성 */
+		// 삭제할 대상에 대한 PK값
+		String[] document_id1 = request.getParameterValues("document_id1[]");
+		
+			// docAnswer 삭제
+			for (int i = 0; i < document_id1.length; i++) {
+		/** 2) 데이터 삭제하기 */
+		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+		DocAnswer input5 = new DocAnswer();
+		input5.setDocument_id(Integer.parseInt(document_id1[i]));
+			
+			try {
+				docAnswerService.deleteDocAnswer(input5); // 데이터 삭제
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+			// comment 삭제
+				for (int i = 0; i < document_id1.length; i++) {
+				/** 2) 데이터 삭제하기 */
+				// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+				Comment input5 = new Comment();
+				input5.setDocument_id(Integer.parseInt(document_id1[i]));
+					
+					try {
+						commentService.deleteComment(input5); // 데이터 삭제
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+		
+				
+		for (int i = 0; i < document_id1.length; i++) {
+			/** File테이블에서 특정 게시글(document_id)같은 값 삭제하기 */
+			NFile input5 = new NFile();
+			input5.setDocument_id(Integer.parseInt(document_id1[i]));
 
-		return webHelper.redirect(contextPath + "/13_Notice_board.do", "삭제되었습니다.");
+			List<NFile> output4 = null;
+
+			// file db 조회
+			try {
+				output4 = fileService.getFileList(input5);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+			
+			for (NFile aa : output4) {
+				File f1 = new File("D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload",
+						aa.getFilePath());
+				boolean del_ok = f1.delete();
+				System.out.println("파일 삭제 여부: " + del_ok);
+			}
+			
+			try {
+				// 데이터 삭제
+				fileService.deleteFile(input5);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+				
+		// document 삭제
+		for (int i = 0; i < document_id1.length; i++) {
+			// 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
+			if (document_id1[i] == null) {
+				return webHelper.redirect(null, "회원 번호가 없습니다.");
+			}
+			
+		/** 2) 데이터 삭제하기 */
+		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+		Document input5 = new Document();
+		input5.setDocument_id(Integer.parseInt(document_id1[i]));
+			
+			try {
+				documentService.deleteDocument(input5); // 데이터 삭제
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+		}
+		
+		/** 3) 페이지 이동 */
+		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
+		return webHelper.redirect(contextPath + "23_Notice_board_s.do", "게시물 삭제가 완료되었습니다.");
+
+	}
+	
+	@RequestMapping(value = "/23_Notice_board_s.do", method = RequestMethod.GET)
+	public ModelAndView Notice_board_s(Model model,
+			@RequestParam(value = "keyword", defaultValue = "") String keyword) {
+		/** 1) 필요한 변수 값 생성 */
+		// String keyword = webHelper.getString("keyword", ""); // 검색어
+		int nowPage = webHelper.getInt("page", 1); // 페이지 번호 (기본값 1)
+		int totalCount = 0; // 전체 게시글 수
+		int listCount = 10; // 한 페이지당 표시할 목록 수
+		int pageCount = 5; // 한 그룹당 표시할 페이지 번호 수
+
+		/** 2) 데이터 조회하기 */
+		// 조회에 필요한 조건 값(검색어)를 Beans에 담는다.
+		Document input = new Document();
+		input.setWriter_name(keyword);
+		input.setSubject(keyword);
+		input.setContent(keyword);
+		input.setHit(0);
+		input.setReg_date(keyword);
+		input.setEdit_date(keyword);
+
+		List<Document> output = null; // 조회 결과가 저장될 객체
+		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
+
+		try {
+			// 전체 게시글 수 조회
+			totalCount = documentService.getDocumentCount(input);
+			// 페이지 번호 계산 --> 계산결과를 로그로 출력될 것이다.
+			pageData = new PageData(nowPage, totalCount, listCount, pageCount);
+
+			// SQL의 LIMIT절에서 사용될 값을 Beans의 static 변수에 저장
+			Document.setOffset(pageData.getOffset());
+			Document.setListCount(pageData.getListCount());
+
+			// 데이터 조회하기
+			output = documentService.getDocumentList(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) View 처리 */
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("output", output);
+		model.addAttribute("pageData", pageData);
+		String viewPath = "23_Notice_board_s";
+		return new ModelAndView(viewPath);
+
 	}
 
-	@RequestMapping(value = "/25_Notice_board_s_i.do", method = RequestMethod.GET)
-	public String Notice_board_s_i(Locale locale, Model model) {
+	@RequestMapping(value = "/24_Notice_board_s_2.do", method = RequestMethod.GET)
+	public ModelAndView Notice_board_s_2(Model model) {
+		/** 1) 필요한 변수 값 생성 */
+		// 조회할 대상에 대한 PK 값
+		int document_id = webHelper.getInt("document_id");
+		int fdpmember_id = webHelper.getInt("fdpmember_id");
+//      이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
+		if (document_id == 0) {
+			return webHelper.redirect(null, "게시물 번호가 없습니다.");
+		}
 
-		return "25_Notice_board_s_i";
+		/** 2) 데이터 조회하기 */
+		// Document 테이블 데이터
+		Document input = new Document();
+		input.setDocument_id(document_id);
+		input.setFdpmember_id(fdpmember_id);
+		Document output = null;
+
+		try {
+			// 데이터 조회
+			output = documentService.getDocumentItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		// DocAnswer 테이블 데이터
+		DocAnswer input1 = new DocAnswer();
+		input1.setDocument_id(document_id);
+		List<DocAnswer> output1 = null;
+
+		try { // 데이터 조회
+			output1 = docAnswerService.getDocAnswerList(input1);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		// Comment 테이블 데이터
+		Comment input3 = new Comment();
+		input3.setDocument_id(document_id);
+		List<Comment> output3 = null;
+
+		try { // 데이터 조회
+			output3 = commentService.getCommentList(input3);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		NFile input4 = new NFile();
+		input4.setDocument_id(document_id);
+		List<NFile> output4 = null;
+		
+		try {
+			output4 = fileService.getFileList(input4);
+		} catch(Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+ 		/** 3) view 처리 */
+		model.addAttribute("output", output);
+		model.addAttribute("output1", output1);
+		model.addAttribute("output3", output3);
+		model.addAttribute("output4", output4);
+		return new ModelAndView("24_Notice_board_s_2");
 	}
 }

@@ -76,7 +76,6 @@ thead {
 	width: 50%;
 }
 </style>
-
 </head>
 
 <body>
@@ -86,11 +85,11 @@ thead {
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
-		<form id="h" class="clearfix">
+	<!-- 	<form id="h" class="clearfix">
 			<fieldset class="pull-left">
 				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
 			</fieldset>
-		</form>
+		</form> -->
 		<!-- 검색폼 -->
 		<form method="get"
 			action="${pageContext.request.contextPath}/13_Notice_board.do">
@@ -108,8 +107,8 @@ thead {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="cbox"></th>
-						<th class="numbering">#</th>
+						<!-- <th class="cbox"></th> -->
+						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
 						<th class="text-center reg_date">조회수</th>
@@ -162,8 +161,8 @@ thead {
 								</c:url>
 
 								<tr>
-									<td><label><input type='checkbox' class='all'
-											value="checked"></label></td>
+									<!-- <td><label><input type='checkbox' class='all'
+											value="checked"></label></td> -->
 									<td align="center">${item.document_id}</td>
 									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
 									<td align="center">${writer_name}</td>
@@ -253,8 +252,8 @@ thead {
 						<li class="a"><a
 							href="${pageContext.request.contextPath}/16_Notice_board_new.do?document_id="
 							class="btn btn-default btn-sm">글쓰기</a></li>
-						<li class="a"><a href="Notice_board_i.do"
-							class="btn btn-default btn-sm" id="btn1">삭제</a></li>
+<!-- 						<li class="a"><a href="Notice_board_i.do"
+							class="btn btn-default btn-sm" id="btn1">삭제</a></li> -->
 					</ul>
 				</c:when>
 			</c:choose>

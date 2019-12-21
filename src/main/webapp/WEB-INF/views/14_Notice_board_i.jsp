@@ -275,11 +275,11 @@
 										</c:otherwise>
 									</c:choose>
 									<input type="hidden" value="${cookie.Name.value}"
-										name="writer_name" /> <input type="hidden"
-										value="${output.document_id}" name="document_id" /> <input
-										type="hidden" value="${cookie.PK.value}" name="fdpmember_id" />
-
-								</div> <c:forEach var="item1" items="${output3}" varStatus="status">
+										name="writer_name" /> 
+									<input type="hidden" value="${output.document_id}" name="document_id" /> 
+									<input type="hidden" value="${cookie.PK.value}" name="fdpmember_id" />
+									</div> 
+								<c:forEach var="item1" items="${output3}" varStatus="status">
 									<span style='display: none' id="CIa${status.index}">${item1.comment_id}</span>
 									<ul class="comment">
 										<!-- 목록의 개별 항목이 웹진 박스로 구성됩니다. -->
@@ -327,12 +327,16 @@
 		</div>
 		<div class="clearfix b">
 			<ul class="pull-right bottom-button">
+				<c:choose>
+					<c:when test="${cookie.PK.value == output.fdpmember_id}">
 				<li class="a"><input type="button" value="삭제"
 					onclick="del(${output.document_id})" class="btn btn-default btn-sm"
 					id="btn1" /></li>
 				<li class="a"><a
 					href="${pageContext.request.contextPath}/15_Notice_board_2.do?document_id=${output.document_id}"
 					class="btn btn-default btn-sm">수정</a></li>
+					</c:when>
+				</c:choose>
 				<li class="a"><a
 					href="${pageContext.request.contextPath}/13_Notice_board.do"
 					class="btn btn-default btn-sm">메뉴</a></li>
@@ -352,7 +356,6 @@
 	<script>
 			function del(document_id) {
 				var chk = confirm("정말 게시글을 삭제하시겠습니까?");
-				
 				if(chk) {
 					location.href='15_Notice_board_delete.do?document_id=' + ${output.document_id};
 				}

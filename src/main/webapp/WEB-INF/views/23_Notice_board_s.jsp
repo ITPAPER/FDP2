@@ -28,13 +28,6 @@ thead {
 	width: 1140px;
 }
 
-/** 우측 상단 전체 선택 체크박스 설정 */
-#all_check {
-	display: inline-block;
-	margin-top: 40px;
-	margin-left: 8px;
-}
-
 /** 우측 상단 검색 부분 설정 */
 #search {
 	padding: 5px 12px;
@@ -76,7 +69,6 @@ thead {
 	width: 50%;
 }
 </style>
-
 </head>
 
 <body>
@@ -84,16 +76,16 @@ thead {
 	<div class="container" style="min-height: 870px;">
 		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
-		<p id="description">게시글 관리 페이지입니다.</p>
+		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
-		<form id="h" class="clearfix">
+		<!-- <form id="h" class="clearfix">
 			<fieldset class="pull-left">
 				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
 			</fieldset>
-		</form>
+		</form> -->
 		<!-- 검색폼 -->
 		<form method="get"
-			action="${pageContext.request.contextPath}/13_Notice_board.do">
+			action="${pageContext.request.contextPath}/23_Notice_board_s.do">
 			<fieldset class="pull-right">
 				<!-- <label for="keyword">검색 </label> -->
 				<input type="search" name="keyword" id="keyword search"
@@ -108,8 +100,10 @@ thead {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="cbox"></th>
-						<th class="numbering">#</th>
+						<th class="text-center" style="width: 50px;">
+							<input type="checkbox" id="all_check" />
+						</th>
+						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
 						<th class="text-center reg_date">조회수</th>
@@ -162,8 +156,10 @@ thead {
 								</c:url>
 
 								<tr>
-									<td><label><input type='checkbox' class='all'
-											value="checked"></label></td>
+									<td class="text-center">
+										<input type="checkbox" class="checkBtn" name="checkBtn" value="${item.document_id}">
+										<input type="hidden" name="fdpmember_id" value="${item.fdpmember_id }">
+									</td> 
 									<td align="center">${item.document_id}</td>
 									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
 									<td align="center">${writer_name}</td>
@@ -198,7 +194,7 @@ thead {
 				<c:forEach var="i" begin="${pageData.startPage}"
 					end="${pageData.endPage}" varStatus="status">
 					<%-- 이동할 URL 생성 --%>
-					<c:url value="/23_Notice_board_s.do" var="pageUrl">
+					<c:url value="/23_Notice_board.do" var="pageUrl">
 						<c:param name="page" value="${i}" />
 						<c:param name="keyword" value="${keyword}" />
 					</c:url>
@@ -221,7 +217,7 @@ thead {
 					<%-- 다음 그룹으로 이동 가능하다면? --%>
 					<c:when test="${pageData.nextPage > 0}">
 						<%-- 이동할 URL 생성 --%>
-						<c:url value="/23_Notice_board_s.do" var="nextPageUrl">
+						<c:url value="/23_Notice_board.do" var="nextPageUrl">
 							<c:param name="page" value="${pageData.nextPage}" />
 							<c:param name="keyword" value="${keyword}" />
 						</c:url>
@@ -238,9 +234,7 @@ thead {
 				<li class="a"><a
 					href="${pageContext.request.contextPath}/23_Notice_board_s.do?document_id="
 					class="btn btn-default btn-sm">공지등록</a></li>
-				<li class="a"><a
-					href="${pageContext.request.contextPath}/15_Notice_board_2.do"
-					class="btn btn-default btn-sm" id="btn1">삭제</a></li>
+					<li class="a"><input type="button" value="체크버튼삭제" id="checkbtn" />
 			</ul>
 		</div>
 	</div>
@@ -248,46 +242,65 @@ thead {
 	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
 		$(function() {
-			$("#btn1").click(function(e) {
-
+			/* #all_check의 선택 상태가 변경되었을 때의 이벤트 */
+			$("#all_check").change(function() {
+				// 모든 .checkBtn의 선택 상태를 `#all_check`와 동일하게 맞춘다.
+	            $(".checkBtn").prop('checked', $(this).prop('checked'));
+			});
+			
+			/* 체크박스 버튼 클릭 시 전체 체크 버튼 끄기 */
+			$(".checkBtn").click(function() {
+				$("#all_check").prop('checked', false);
+			});
+			
+			$("#checkbtn").click(function(e) {
 				e.preventDefault();
-
-				// 확인, 취소버튼에 따른 후속 처리 구현
+				var check_list = $(".checkBtn:checked");
+                // 배열의 길이가 0이라면 선택된 항목이 없다는 의미이므로 중단
+                	if(check_list.length == 0) {
+                    	alert("선택된 항목이 없습니다.");
+                    	return false
+               }
+                
+				var checkboxValues = [];
+			    	$("input[name='checkBtn']:checked").each(function() {
+			        	checkboxValues.push($(this).val());
+			    	});	
+		
+			    var allData = { 'document_id1': checkboxValues };
+			    console.log(allData);
+			    
 				swal({
 					title : '확인', // 제목
-					text : "정말 선택하신 항목을 삭제하시겠습니까?", // 내용
-					type : 'warning', // 종류
+					text : "선택한 게시물을 모두 삭제하겠습니까?", // 내용
+					type : 'question', // 종류
 					confirmButtonText : 'Yes', // 확인버튼 표시 문구
 					showCancelButton : true, // 취소버튼 표시 여부
 					cancelButtonText : 'No', // 취소버튼 표시 문구
 				}).then(function(result) { // 버튼이 눌러졌을 경우의 콜백 연결
 					if (result.value) { // 확인 버튼이 눌러진 경우
-						swal('삭제', '성공적으로 삭제되었습니다.', 'success');
-					} else if (result.dismiss === 'cancel') { // 취소버튼이 눌러진 경우
-						swal('취소', '삭제가 취소되었습니다.', 'error');
+						swal('완료', '게시물 삭제가 완료되었습니다.', 'success')
+						$('.swal2-confirm').click(function() {
+			                $.ajax({
+			                    url : "23_checkbox_Delete_ok.do",
+			                    type : "post",
+			                    dataType : "text",
+			                    data : allData,
+			                    success     :
+									function(data) {
+										console.log(">> 성공!!! >> " + data);
+										window.location = "${pageContext.request.contextPath}/23_Notice_board_s.do";
+			                    }
+			                }); // ajax 끝
+			                
+						});
+					} else if (result.dismiss === 'cancel') {
+						swal('취소', '게시물 삭제가 취소되었습니다.', 'error');
 					}
-				});
-			});
-		});
-
-		$(function() {
-			/* `#all_check`의 선택 상태가 변경되었을 때의 이벤트 */
-			$("#all_check").change(function() {
-				// 모든 `.hobby`의 선택 상태를 `#all_check`와 동일하게 맞춘다.
-				$(".all").prop('checked', $(this).prop('checked'));
-			});
-		});
-
-		var hit = 0;
-
-		$(function() {
-			$("#sub1").click(function() {
-				hit++;
-				console.log(hit);
+				}) // swal 끝 
+			   
 			});
 		});
 	</script>
-
-
 </body>
 </html>
