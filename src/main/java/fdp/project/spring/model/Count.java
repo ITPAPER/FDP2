@@ -14,5 +14,4 @@ public class Count {
 	
 	private String gender;
 	private String gendercount;
-	
 }

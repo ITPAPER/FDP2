@@ -257,8 +257,7 @@
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$("#btn9").click(
-					function(e) {
+			$("#btn9").click(function(e) {
 						e.preventDefault();
 
 						if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
@@ -331,7 +330,7 @@
 								swal('취소', '수정이 취소되었습니다.', 'error');
 								/* parent.location.replace('27_Profile.do'); */
 							}
-						})
+						}) // swal 끝
 					});
 		});
 	</script>

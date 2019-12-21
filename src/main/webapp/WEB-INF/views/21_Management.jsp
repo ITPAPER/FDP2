@@ -137,6 +137,7 @@
 			position: relative;
 			bottom: -160px;
 		}
+		
 		/* 차트 */
 		#chartdiv {
 			width: 100%;
@@ -165,7 +166,7 @@
 					</button>
 				</c:if>
 				
-				<c:if test="${not empty session_pw && not empty session_pw}">
+				<c:if test="${not empty session_id && not empty session_pw}">
 					<div class="imgbox">
 						<h3>관리자 로그인 성공</h3>
 						<button type="button" id="btn6" class="btn btn-primary">
@@ -189,7 +190,7 @@
 					</div>
 				</c:if>
 
-				<c:if test="${not empty session_pw && not empty session_pw}">
+				<c:if test="${not empty session_id && not empty session_pw}">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -253,7 +254,7 @@
 					</div>
 				</c:if>
 				
-				<c:if test="${not empty session_pw && not empty session_pw}">
+				<c:if test="${not empty session_id && not empty session_pw}">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -292,7 +293,7 @@
 						<h3>관리자 로그인을 해주세요.</h3>
 					</div>
 				</c:if>
-				<c:if test="${not empty session_pw && not empty session_pw}">
+				<c:if test="${not empty session_id && not empty session_pw}">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -377,7 +378,6 @@
 			
 			$("#gr1").click(function() {
 				$("#chartdiv").empty();
-				$(".modal-body").empty();
 				$.ajax({
 					url : './assets/api/chart99.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
@@ -392,7 +392,6 @@
 			
 			$("#gr2").click(function() {
 				$("#chartdiv").empty();
-				$(".modal-body").empty();
 				$.ajax({
 					url : './assets/api/chart98.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
@@ -407,7 +406,6 @@
 			
 			$("#gr3").click(function() {
 				$("#chartdiv").empty();
-				$(".modal-body").empty();
 				$.ajax({
 					url : './assets/api/chart97.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)

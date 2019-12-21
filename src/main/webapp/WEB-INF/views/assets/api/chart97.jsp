@@ -9,20 +9,29 @@
 <!-- Chart code -->
 <script>
 
-/* var array = new Array();
+var json = ${jsonList};
+var json_length = Object.keys(json).length;
+
+var array = new Array();
+var count = new Array(5);
 var obj = new Object();
+var sum = 0;
 
-for (var i = 0; i < 10; i++) {
-	obj.age = "20~29";
-	var agecount += ${jsonList.get(i).agecount};
-	obj.agecount = agecount; 
-} 
-array.push(obj);
-console.log(array) */
-
- 
-
-
+for (var i = 0; i < count.length; i++) {
+	for (var j = i*10; j < i*10+10; j++) {
+		sum += Number(json[j].agecount);
+	}
+	count[i] = sum;
+	sum = 0;	
+}
+console.log(Number(json[50].agecount));
+for (var i = 0; i < count.length; i++) {
+	obj = new Object();
+	obj.age = ((i+2) + "0 ~ " + (i+2) + "9");
+	obj.agecount = count[i];
+	array.push(obj)
+}
+console.log(array);
 
 am4core.ready(function() {
 
@@ -34,10 +43,8 @@ am4core.useTheme(am4themes_animated);
 var chart = am4core.create("chartdiv", am4charts.XYChart);
 chart.scrollbarX = new am4core.Scrollbar();
 
-/* console.log('${jsonList}') */
-
 // Add data
-chart.data = ${jsonList}
+chart.data = array
 
 // Create axes
 var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());

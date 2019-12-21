@@ -21,10 +21,8 @@
 	}
 
 	nav {
-		height: 500px;
 		width: 20%;
 		margin: 0 20px;
-		border: 1px solid #f7f7f7;
 	}
 	
 	#memberView {
@@ -155,15 +153,25 @@
 		</nav>
 		<div class="center">
 			<div class="center-body">
+			
+			<!-- 검색폼 -->
+			<form method="get"
+				action="${pageContext.request.contextPath}/28_User_stasis.do">
+				<label for="keyword">검색어: </label> <input type="search"
+					name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
+				<button type="submit">검색</button>
+				<button type='button' id="checkbtn">전체 삭제</button>
+			</form>
+			
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="text-center" style="width: 50px;"><input
-								type='checkbox' class='all' value="checked"></th>
+							<th class="text-center" style="width: 50px;">
+								<input type='checkbox' id="all_check">
+							</th>
 							<th class="text-center">회원번호</th>
 							<th class="text-center">이름</th>
 							<th class="text-center">아이디</th>
-							<th class="text-center">비밀번호</th>
 							<th class="text-center">이메일</th>
 							<th class="text-center">전화번호</th>
 							<th class="text-center">성별</th>
@@ -196,15 +204,20 @@
 									</c:if>
 	
 									<%-- 상세페이지로 이동하기 위한 URL --%>
+									
+									<%--
 									<c:url value="/29_User_stasis2.do" var="viewUrl">
 										<c:param name="fdpmember_id" value="${item.fdpmember_id}" />
-									</c:url>
+									</c:url> 
+									--%>
+									
 									<tr>
-										<th class="text-center"><input type='checkbox'></th>
+										<th class="text-center">
+											<input type='checkbox' class="checkBtn" name="checkBtn" value="${item.fdpmember_id}">
+										</th>
 										<td align="center">${item.fdpmember_id}</td>
 										<td align="center"><a class="bbttnn" href="${item.fdpmember_id}">${item.name}</a></td>
 										<td align="center">${item.user_id}</td>
-										<td align="center">${item.user_pw}</td>
 										<td align="center">${item.email}</td>
 										<td align="center">${item.tel}</td>
 										<td align="center">
@@ -225,68 +238,68 @@
 						</c:choose>
 					</tbody>
 				</table>
-				<div>
-				<!-- 페이지 번호 구현 -->
-				<%-- 이전 그룹에 대한 링크 --%>
-				<c:choose>
-					<c:when test="${pageData.prevPage > 0}">
-						<%-- 이동할 URL 생성 --%>
-						<c:url value="/28_User_stasis.do" var="prevPageUrl">
-							<c:param name="page" value="${pageData.prevPage}" />
-							<c:param name="keyword" value="${keyword}" />
-						</c:url>
-						<a href="${prevPageUrl}">[이전]</a>
-					</c:when>
-					<c:otherwise>
-							[이전]
-						</c:otherwise>
-				</c:choose>
-
-				<%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
-				<c:forEach var="i" begin="${pageData.startPage}"
-					end="${pageData.endPage}" varStatus="status">
-					<%-- 이동할 URL 생성 --%>
-					<c:url value="/28_User_stasis.do" var="pageUrl">
-						<c:param name="page" value="${i}" />
-						<c:param name="keyword" value="${keyword}" />
-					</c:url>
-
-					<%-- 페이지 번호 출력 --%>
+				
+			<!-- 페이지 번호 구현 div 시작-->
+			<div >
+				<ul class="pagination">			 
+					<li class="disabled">
+					<%-- 이전 그룹에 대한 링크 --%>
 					<c:choose>
-						<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
-						<c:when test="${pageData.nowPage == i}">
-							<strong>[${i}]</strong>
+						<c:when test="${pageData.prevPage > 0}">
+							<%-- 이동할 URL 생성 --%>
+							<c:url value="/28_User_stasis.do" var="prevPageUrl">
+								<c:param name="page" value="${pageData.prevPage}" />
+								<c:param name="keyword" value="${keyword}" />
+							</c:url>
+							<li><a href="${prevPageUrl}">&lt;</a></li>
 						</c:when>
-						<%-- 나머지 페이지의 경우 링크 적용함 --%>
 						<c:otherwise>
-							<a href="${pageUrl}">[${i}]</a>
+							<li class="disabled"><a>&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-
-				<%-- 다음 그룹에 대한 링크 --%>
-				<c:choose>
-					<%-- 다음 그룹으로 이동 가능하다면? --%>
-					<c:when test="${pageData.nextPage > 0}">
+					</li>
+					
+					<%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+					<c:forEach var="i" begin="${pageData.startPage}"
+						end="${pageData.endPage}" varStatus="status">
 						<%-- 이동할 URL 생성 --%>
-						<c:url value="/28_User_stasis.do" var="nextPageUrl">
-							<c:param name="page" value="${pageData.nextPage}" />
+						<c:url value="/28_User_stasis.do" var="pageUrl">
+							<c:param name="page" value="${i}" />
 							<c:param name="keyword" value="${keyword}" />
 						</c:url>
-						<a href="${nextPageUrl}">[다음]</a>
-					</c:when>
-					<c:otherwise>
-							[다음]
+	
+						<%-- 페이지 번호 출력 --%>
+						<c:choose>
+							<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+							<c:when test="${pageData.nowPage == i}">
+								<li class="active"><a>${i}</a></li>
+							</c:when>
+							<%-- 나머지 페이지의 경우 링크 적용함 --%>
+							<c:otherwise>
+								<li><a href="${pageUrl}">${i}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<%-- 다음 그룹에 대한 링크 --%>
+					<c:choose>
+						<%-- 다음 그룹으로 이동 가능하다면? --%>
+						<c:when test="${pageData.nextPage > 0}">
+							<%-- 이동할 URL 생성 --%>
+							<c:url value="/28_User_stasis.do" var="nextPageUrl">
+								<c:param name="page" value="${pageData.nextPage}" />
+								<c:param name="keyword" value="${keyword}" />
+							</c:url>
+							<li><a href="${nextPageUrl}">&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="disabled"><a>&gt;</a></li>
 						</c:otherwise>
-				</c:choose>
-				<!-- 검색폼 -->
-				<form method="get"
-					action="${pageContext.request.contextPath}/28_User_stasis.do">
-					<label for="keyword">검색어: </label> <input type="search"
-						name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
-					<button type="submit">검색</button>
-				</form>
-			</div>	
+					</c:choose>
+				</ul>
+			</div>
+			<!-- 페이지 번호구현 div 끝 -->
+			
 			<input type="hidden" id="check" value="${my_session_id}" />		
 			</div>
 		</div>
@@ -347,6 +360,7 @@
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/animate/jquery.animatecss.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- ajax-helper -->
 	<script src="${pageContext.request.contextPath}/assets/plugins/ajax/ajax_helper.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
@@ -383,7 +397,67 @@
 		});
 		
 		$(function() {
+			/* #all_check의 선택 상태가 변경되었을 때의 이벤트 */
+			$("#all_check").change(function() {
+				// 모든 .checkBtn의 선택 상태를 `#all_check`와 동일하게 맞춘다.
+	            $(".checkBtn").prop('checked', $(this).prop('checked'));
+			});
 			
+			/* 체크박스 버튼 클릭 시 전체 체크 버튼 끄기 */
+			$(".checkBtn").click(function() {
+				$("#all_check").prop('checked', false);
+			});
+			
+			$("#checkbtn").click(function() {
+				
+				var check_list = $(".checkBtn:checked");
+                // 배열의 길이가 0이라면 선택된 항목이 없다는 의미이므로 중단
+                if (check_list.length == 0) {
+                    alert("선택된 항목이 없습니다.");
+                    return false
+                }
+                
+				var checkboxValues = [];
+			    $("input[name='checkBtn']:checked").each(function() {
+			        checkboxValues.push($(this).val());
+			    });	
+			    
+			    var allData = { 'fdpmember_id': checkboxValues };
+			    console.log(allData);
+			    
+				swal({
+					title : '확인', // 제목
+					text : "선택한 회원들을 모두 탈퇴 시키시겠습니까?", // 내용
+					type : 'question', // 종류
+					confirmButtonText : 'Yes', // 확인버튼 표시 문구
+					showCancelButton : true, // 취소버튼 표시 여부
+					cancelButtonText : 'No', // 취소버튼 표시 문구
+				}).then(function(result) { // 버튼이 눌러졌을 경우의 콜백 연결
+					if (result.value) { // 확인 버튼이 눌러진 경우
+						swal('완료', '회원 탈퇴가 완료 되었습니다.', 'success')
+						$('.swal2-confirm').click(function() {
+							
+			                $.ajax({
+			                    url : "allDelete_ok.do",
+			                    type : "post",
+			                    dataType : "text",
+			                    data : allData,
+			                    success     :
+									function(data) {
+										console.log(">> 성공!!! >> " + data);
+										window.location = "${pageContext.request.contextPath}/28_User_stasis.do";
+			                    }
+			                }); // ajax 끝
+			                
+						});
+					} else if (result.dismiss === 'cancel') {
+						swal('취소', '탈퇴가 취소되었습니다.', 'error');
+					}
+				}) // swal 끝
+			   
+			});
+			
+			/* 회원 상세 정보 버튼 */
 			$(".bbttnn").click(function(e) {
 				e.preventDefault();
 				

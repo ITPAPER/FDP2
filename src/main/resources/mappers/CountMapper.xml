@@ -6,6 +6,7 @@
 	<resultMap type="fdp.project.spring.model.Count" id="CountMap">
 		<result property="addr2" column="addr2" />
 		<result property="birthdate" column="birthdate" />
+		
 	</resultMap>
 
     <!-- 나이 별 조회 -->
@@ -32,4 +33,5 @@
 		SELECT gender, count(*) as genderCount from fdpmember GROUP BY gender HAVING count(*) > 0 ORDER BY genderCount;
 		
     </select>
+	
 </mapper>

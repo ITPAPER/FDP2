@@ -35,10 +35,6 @@
 			</if>
 		</where>
 	</select>
-	
-	
-	
-
 
 	<!-- 회원목록 조회  -->
 	<select id="selectList"
@@ -95,14 +91,6 @@
                 name LIKE concat('%', #{name}, '%')
             </if>
         </where>
-    </select>
-    
-    <!-- 구 별 갯수 조회 -->
-	<select id="selectCountAddr" 
-		parameterType="fdp.project.spring.model.Member" resultMap="MemberMap">
-        
-		SELECT addr2, count(*) as addrCount from fdpmember GROUP BY addr2 HAVING count(*) > 0 ORDER BY addrCount DESC;
-		        
     </select>
     
     <select id="selectOneMember" 

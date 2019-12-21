@@ -426,6 +426,38 @@ public class Controller_K {
 		return webHelper.redirect("28_User_stasis.do", "회원 탈퇴가 완료되었습니다.");
 	}
 	
+	
+	@RequestMapping(value = "/allDelete_ok.do")
+	public ModelAndView allDelete_ok(Model model, HttpServletRequest request) {
+		
+		/** 1) 필요한 변수값 생성 */
+		// 삭제할 대상에 대한 PK값
+		String[] fdpmember_id = request.getParameterValues("fdpmember_id[]");
+		
+		for (int i = 0; i < fdpmember_id.length; i++) {
+			// 이 값이 존재하지 않는다면 데이터 삭제가 불가능하므로 반드시 필수값으로 처리해야 한다.
+			if (fdpmember_id[i] == null) {
+				return webHelper.redirect(null, "회원 번호가 없습니다.");
+			}
+			
+			/** 2) 데이터 삭제하기 */
+			// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
+			Member input = new Member();
+			input.setFdpmember_id(Integer.parseInt(fdpmember_id[i]));
+			
+			try {
+				memberService.deleteMember(input); // 데이터 삭제
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+		} // for문 끝
+		
+		/** 3) 페이지 이동 */
+		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
+		return webHelper.redirect("28_User_stasis.do", "회원 탈퇴가 완료되었습니다.");
+
+	}
+
 	@RequestMapping(value = "/assets/api/chart99.do")
 	public ModelAndView chcart99(Model model) {
 		
