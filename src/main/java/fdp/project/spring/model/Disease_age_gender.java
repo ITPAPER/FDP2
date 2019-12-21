@@ -16,6 +16,4 @@ public class Disease_age_gender {
 		private int dis_num_patient;
 		private int sum_cost;
 		private int sum_num_patient;
-		private	float sum_cost5;
-		private float sum_num_patient5;
 }

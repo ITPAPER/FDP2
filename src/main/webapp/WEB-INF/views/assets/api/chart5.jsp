@@ -11,7 +11,7 @@
 		  width: 1300px;
 		  height: 500px;
 		  left: 40px;
-		  top:-130px;
+		  top:-160px;
 		  position:absolute;
 		  padding : 0 50px 0 0;
 		  margin : 30px;
@@ -39,7 +39,7 @@
 		  width: 1300px;
 		  height: 750px;
 		  left: 40px;
-		  top:1150px;
+		  top:1100px;
 		  position:absolute;
 		}	 
 		
@@ -116,7 +116,7 @@ am4core.ready(function() {
 	chart.scrollbarX.parent = chart.bottomAxesContainer;
 }); // end am4core.ready()
 	
-/* Chart0 code */  
+/* Chart1 code */  
 am4core.ready(function() {
 
 	// Themes begin
@@ -134,7 +134,7 @@ am4core.ready(function() {
 	
 	// Add and configure Series
 	var pieSeries = chart.series.push(new am4charts.PieSeries());
-	pieSeries.dataFields.value = "sum_num_patient5";
+	pieSeries.dataFields.value = "sum_num_patient";
 	pieSeries.dataFields.category = "dis_gender";
 	pieSeries.slices.template.stroke = am4core.color("#fff");
 	pieSeries.slices.template.strokeWidth = 2;
@@ -146,7 +146,7 @@ am4core.ready(function() {
 	pieSeries.hiddenState.properties.startAngle = -90;
 }); // end am4core.ready()
 
-/* Chart0 code */  
+/* Chart2 code */  
 am4core.ready(function() {
 	// Themes begin
 	am4core.useTheme(am4themes_animated);
@@ -163,7 +163,7 @@ am4core.ready(function() {
 	
 	// Add and configure Series
 	var pieSeries = chart.series.push(new am4charts.PieSeries());
-	pieSeries.dataFields.value = "sum_num_patient5";
+	pieSeries.dataFields.value = "sum_num_patient";
 	pieSeries.dataFields.category = "dis_age";
 	pieSeries.slices.template.stroke = am4core.color("#fff");
 	pieSeries.slices.template.strokeWidth = 2;
@@ -175,7 +175,7 @@ am4core.ready(function() {
 	pieSeries.hiddenState.properties.startAngle = -90;
 }); // end am4core.ready()
 
-/* Chart0 code */  
+/* Chart3 code */  
 
 am4core.ready(function() {
 	// Themes begin

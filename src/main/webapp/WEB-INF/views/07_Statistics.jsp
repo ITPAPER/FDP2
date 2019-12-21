@@ -136,7 +136,7 @@
       	</form>
 		</div>
 		
-		<div id="result"></div>
+		<!-- <div id="result"></div> -->
      </div> 
       	
          <!-- 탭 페이지 구성(단일페이지) -->
@@ -169,7 +169,7 @@
 
 	$(function() {
 		$("#disName").change(function() {
-			$("#result").empty();
+			$("#dept").empty();
 			var choice = $(this).find("option:selected").val();
 			if(!choice) {
 				return false;
@@ -194,17 +194,17 @@
 					
 			        console.log(${output.dis_name});
 			        
-			        var chart0 = "<h4><strong><'${output.dis_name}'월별 환자 수 및 진료비용></strong></h4>"
+			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 						$("#chartname0").html(chart0);
 			        
-				    var chart1 = "<h4><strong><${disName}성별 환자 수(단위 :명)></strong></h4>"
+				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 						$("#chartname1").html(chart1);
 							       
-					var chart2 = "<h4><strong><${disName}연령별 환자수></strong></h4>"
+					var chart2 = "<h4><strong><연령별 환자수></strong></h4>"
 						$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><${disName}지역별 환자수></strong></h4>"
-						$("#chartname3").html(chart2);
+					var chart3 = "<h4><strong><지역별 환자수></strong></h4>"
+						$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serializeArray();
 					
@@ -235,17 +235,17 @@
 			        $("#chartname2").empty();
 			        $("#chartname3").empty();
 					
-			        var chart0 = "<h4><strong><${disNo}월별 환자 수 및 진료비용></strong></h4>"
+			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 						$("#chartname0").html(chart0);
 				        
-				    var chart1 = "<h4><strong><${disNo}성별 환자 수(단위 :명)></strong></h4>"
+				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 						$("#chartname1").html(chart1);
 							       
-					var chart2 = "<h4><strong><${disNo}연령별 환자수(단위: 천원)></strong></h4>"
+					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 						$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><${disNo}지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart2);
+					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+						$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -274,17 +274,17 @@
 			        $("#chartname2").empty();
 			        $("#chartname3").empty();
 					
-			        var chart0 = "<h4><strong><${disNo}월별 환자 수 및 진료비용></strong></h4>"
+			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 						$("#chartname0").html(chart0);
 				        
-				    var chart1 = "<h4><strong><${disNo}성별 환자 수(단위 :명)></strong></h4>"
+				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 						$("#chartname1").html(chart1);
 							       
-					var chart2 = "<h4><strong><${disNo}연령별 환자수(단위: 천원)></strong></h4>"
+					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 						$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><${disNo}지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart2);
+					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+						$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -313,17 +313,17 @@
 			        $("#chartname2").empty();
 			        $("#chartname3").empty();
 					
-			        var chart0 = "<h4><strong><${disNo}월별 환자 수 및 진료비용></strong></h4>"
+			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 						$("#chartname0").html(chart0);
 				        
-				    var chart1 = "<h4><strong><${disNo}성별 환자 수(단위 :명)></strong></h4>"
+				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 						$("#chartname1").html(chart1);
 							       
-					var chart2 = "<h4><strong><${disNo}연령별 환자수(단위: 천원)></strong></h4>"
+					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 						$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><${disNo}지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart2);
+					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+						$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -352,17 +352,17 @@
 			        $("#chartname2").empty();
 			        $("#chartname3").empty();
 					
-			        var chart0 = "<h4><strong><${disNo}월별 환자 수 및 진료비용></strong></h4>"
+			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 						$("#chartname0").html(chart0);
 				        
-				    var chart1 = "<h4><strong><${disNo}성별 환자 수(단위 :명)></strong></h4>"
+				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 						$("#chartname1").html(chart1);
 							       
-					var chart2 = "<h4><strong><${disNo}연령별 환자수(단위: 천원)></strong></h4>"
+					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 						$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><${disNo}지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart2);
+					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+						$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({

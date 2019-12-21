@@ -15,41 +15,34 @@
 		<result property="dis_cost" column="dis_cost" />
 		<result property="dis_num_patient" column="dis_num_patient" />
 		<result property="sum_cost" column="sum(dis_cost)" />
-		<result property="sum_cost5" column="(sum(dis_cost/5))" />
 		<result property="sum_num_patient" column="sum(dis_num_patient)" />
-		<result property="sum_num_patient5" column="(sum(dis_num_patient/5))" />
-		<result property="sum_num_patient5" column="(sum(dis_num_patient/5))" />
 	</resultMap>
 
 	<!-- 단일행 조회를 위한 기능 정의 -->
 	<select id="selectItem"
 		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
 		select * from disease_age_gender
-
 	</select>
 	
 	<!-- 다중행 조회를 위한 기능 정의 -->
 	<select id="year"
 		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
-		select dis_month, sum(dis_cost), sum(dis_num_patient) from disease_age_gender where dis_year=2014 and dis_name=#{dis_name} group by dis_month
+		select dis_month, sum(dis_cost), sum(dis_num_patient) from disease_age_gender where dis_year=#{dis_year} and dis_name=#{dis_name} group by dis_month
 	</select>
 
 	<select id="age"
 		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
-		select dis_age, (sum(dis_cost/5)), (sum(dis_num_patient/5)) from disease_age_gender where dis_year=#{dis_year} and dis_name = #{dis_name} group by dis_age
-		
+		select dis_age, sum(dis_cost), sum(dis_num_patient) from disease_age_gender where dis_year=#{dis_year} and dis_name=#{dis_name} group by dis_age
 	</select>
 	
 	<select id="gender"
 		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
-		select dis_gender, (sum(dis_cost/5)), (sum(dis_num_patient/5)) from disease_age_gender where dis_year=#{dis_year} and dis_name = #{dis_name} group by dis_gender
-		
+		select dis_gender, sum(dis_cost), sum(dis_num_patient) from disease_age_gender where dis_year=#{dis_year} and dis_name=#{dis_name} group by dis_gender
 	</select>
 	
-		<select id="hit"
+	<select id="hit"
 		parameterType="fdp.project.spring.model.Disease_age_gender" resultMap="diseaseMap">
-		select dis_month, dis_name, dis_age, dis_gender, dis_cost, dis_num_patient from disease_age_gender where dis_year=#{dis_year} and dis_name = #{dis_name};
-		
+		select dis_month, dis_name, dis_age, dis_gender, dis_cost, dis_num_patient from disease_age_gender where dis_year=#{dis_year} and dis_name=#{dis_name};
 	</select>
 
 </mapper>

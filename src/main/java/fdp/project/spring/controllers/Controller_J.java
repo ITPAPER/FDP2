@@ -1,8 +1,6 @@
 package fdp.project.spring.controllers;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,12 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import fdp.project.spring.helper.RetrofitHelper;
 import fdp.project.spring.helper.WebHelper;
