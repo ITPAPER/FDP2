@@ -65,7 +65,7 @@ h5 {
 						<div class="form-group">
 							<select id="parent" class="form-control">
 								<option value="">-------------- 병원 --------------</option>
-								<option class="hosp" value="인제대학교서울백병원">인제대학교서울백병원</option>
+								<option id="no1" class="hosp" value="인제대학교서울백병원" >인제대학교서울백병원</option>
 								<option class="hosp" value="의료법인풍산의료재단동부제일병원">의료법인풍산의료재단동부제일병원</option>
 								<option class="hosp" value="녹색병원">녹색병원</option>
 								<option class="hosp" value="서울특별시서울의료원">서울특별시서울의료원</option>
@@ -211,6 +211,7 @@ h5 {
 					}
 				}
 			})
+			$("#no1").click();
 			$("#parent").change(function(e){
 				var subj = $("#parent").find("option:selected").val();
 				$("#hosname").html(subj + " 의  응급실 포화도 변화 추이 입니다.");
@@ -221,7 +222,13 @@ h5 {
 					data:{hos:subj},
 					dataType:'json',
 					success: function(hos) {
+						
+						for(var t = 0 ; t < hos.length; t++){
+							
+							hos[t].inserttime= new Date(hos[t].inserttime);
+						}
 						console.log(hos);
+						
 						am4core.ready(function() {
 
 							// Themes begin
@@ -231,18 +238,36 @@ h5 {
 							// Create chart instance
 							var chart = am4core.create("chartdiv", am4charts.XYChart);
 							chart.paddingRight = 20;
-
+	
+							
 							// Add data
 							chart.data = hos;
 
+							
 							// Create axes
-							var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+							/* var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
 							categoryAxis.dataFields.category = "inserttime";
 							categoryAxis.renderer.minGridDistance = 50;
 							categoryAxis.renderer.grid.template.location = 0.5;
 							categoryAxis.startLocation = 0.5;
 							categoryAxis.endLocation = 0.5;
-
+							categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
+								  if (target.dataItem && target.dataItem.index & 2 == 2) {
+								    return dy + 25;
+								  }
+								  return dy;
+								});
+							 */
+							
+							// Create axes
+							 var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+							 dateAxis.renderer.minGridDistance = 30;
+							 dateAxis.skipEmptyPeriods = true;
+							 dateAxis.dateFormats.setKey("minute", "mm'분'");
+							 dateAxis.periodChangeDateFormats.setKey("minute", "HH'시'");
+							 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
+							 dateAxis.tooltipDateFormat = { month: "long", day: "numeric" , hour:"numeric", minute:"numeric"  };
+							 
 							// Create value axis
 							var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 							valueAxis.baseValue = 0;
@@ -250,7 +275,7 @@ h5 {
 							// Create series
 							var series = chart.series.push(new am4charts.LineSeries());
 							series.dataFields.valueY = "hvec";
-							series.dataFields.categoryX = "inserttime";
+							series.dataFields.dateX = "inserttime";
 							series.strokeWidth = 2;
 							series.tensionX = 0.77;
 
@@ -264,14 +289,13 @@ h5 {
 							    }
 							    return fill;
 							})
+							
 							var range = valueAxis.createSeriesRange(series);
 							range.value = 0;
 							range.endValue = -1000;
 							range.contents.stroke = am4core.color("#FF0000");
 							range.contents.fill = range.contents.stroke;
 
-							
-							
 							
 							// Add scrollbar
 							var scrollbarX = new am4charts.XYChartScrollbar();

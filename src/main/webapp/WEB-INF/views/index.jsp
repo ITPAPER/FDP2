@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/plugins/youcover/youCover.css">
     <style type="text/css">
     	#bigbox{
+    		min-width:1170px;
     		height:760px;
     		overflow:hidden;
     	}
@@ -208,13 +209,20 @@
 
 		<div class="container" id="bigbox">
 			<div class="row contentsbox">
-				<div class="col-md-3">
+				<div class="col-xs-3">
 					<c:choose>
 						<c:when test="${cookie.fdpCookie == null }">
 							<div class="row  login_box">
 								<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
 								<a href="#" class="find_id">아이디/비밀번호 찾기</a>
 								<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
+							</div>
+						</c:when>
+						<c:when test="${session_id != null }">
+							<div class="row  login_box">
+								<div class="login_cover"><a class="login_btn" href="#">어서오세요 ${session_id } 님</a></div>
+								<a href="21_Management.do" class="find_id">관리자 페이지</a>
+								<a href="session/delete.do" class="sign_up" id="logout">로그아웃</a>
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -227,7 +235,7 @@
 					</c:choose>
 					
 				</div>
-				<div class="col-md-9 e-container" id="erer">
+				<div class="col-xs-9 e-container" id="erer">
 					<div class="row e-title rr">
 						<h2><strong>응급실 찾기</strong><button id="xx"type="button" class="close" aria-hidden="true">&times;&nbsp;&nbsp;</button>	</h2>
 					</div>
@@ -247,8 +255,8 @@
 							<span class="progtext">지역을 선택해 주세요</span>
 						</div>
 						<div class="mapcover">
-							<div class="col-md-8" id="gmap"></div>
-							<div class="col-md-4 accord">
+							<div class="col-xs-8" id="gmap"></div>
+							<div class="col-xs-4 accord">
 						
 							</div>
 						</div>	
@@ -261,13 +269,13 @@
 
 			<div class="container" id="move">
 				<div class="row mynav">
-					<div class="col-md-3 nav-btn tl">
+					<div class="col-xs-3 nav-btn tl">
 						<a href="07_Statistics.do" class="nav-txt">보건의료 통계
 							<br/>
 							<img src="./assets/img/chart_o.png" width="150px" height="160px">
 						</a>	
 					</div>
-					<div class="col-md-6 nav-btn-cent">						
+					<div class="col-xs-6 nav-btn-cent">						
 						<span  class="nav-txt cccc">병원찾기</span>
 						<br/><br/>
 						<ul class="ll">
@@ -291,7 +299,7 @@
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 nav-btn tr">
+					<div class="col-xs-3 nav-btn tr">
 						<a href="13_Notice_board.do" class="nav-txt">게시판
 						<br/>
 						<img src="./assets/img/navlist.png" width="150px" height="160px">
@@ -299,13 +307,13 @@
 					</div>
 				</div>
 				<div class="row mynav blr">
-					<div class="col-md-3 nav-btn bl">
+					<div class="col-xs-3 nav-btn bl">
 						<a href="#" class="nav-txt">질병 관련 정보
 							<br/>
 							<img src="./assets/img/virus.png" width="150px" height="160px">
 						</a>	
 					</div>
-					<div class="col-md-6 nav-btn-cent">						
+					<div class="col-xs-6 nav-btn-cent">						
 						<span  class="nav-txt cccc">유용한 정보</span>
 						<br/><br/>
 						<ul class="ll">
@@ -329,7 +337,7 @@
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-3 nav-btn br">
+					<div class="col-xs-3 nav-btn br">
 						<a href="18_Intention.do" class="nav-txt">센터소개
 						<br/>
 						<img src="./assets/img/center_intro.png" width="150px" height="160px">
@@ -796,10 +804,11 @@
 					}); 
 					
 					if(${list[0].x} != 0){
-					$(".accord-title a[value='"+c+"']").click();
-					var title = $(".accord-title a[value='"+c+"']").html();
-					console.log(title);
-					$("#gmap").find("div[title='"+title+"']").click();
+						$(".accord-title a[value='"+c+"']").parent().css('background-color', '#f0ad4e');
+						$(".accord-title a[value='"+c+"']").click();
+						var title = $(".accord-title a[value='"+c+"']").html();
+						console.log(title);
+						$("#gmap").find("div[title='"+title+"']").click();
 					}
 					
 				} 		

@@ -43,14 +43,14 @@
 		</interceptor>
 	</interceptors>
 	
-	<!-- 
+	
 	<task:annotation-driven/>
-	 -->
+	
 	<!-- 스케쥴러로 동작할 객체 생성 -->
-	<!-- 
+	
 	<beans:bean id="erInfo" class="fdp.project.spring.controllers.ErScheduler" />
 	<task:scheduled-tasks>
 		<task:scheduled ref="erInfo" method="ErMonitoring" cron="0 0/10 * 1/1 * ?"/>
 	</task:scheduled-tasks>
-	 -->
+	
 </beans:beans>

@@ -263,12 +263,12 @@
 					}); 
 					
 					if(${list[0].x} != 0){
-					$(".accord-title a[value='"+c+"']").parent().css('background-color', '#f0ad4e');
-					$(".accord-title a[value='"+c+"']").click();
-					var title = $(".accord-title a[value='"+c+"']").html();
+						$(".accord-title a[value='"+c+"']").parent().css('background-color', '#f0ad4e');
+						$(".accord-title a[value='"+c+"']").click();
+						var title = $(".accord-title a[value='"+c+"']").html();
 					
-					console.log(title);
-					$("#gmap").find("div[title='"+title+"']").click(); 
+						console.log(title);
+						$("#gmap").find("div[title='"+title+"']").click(); 
 					}
 					
 				} 		

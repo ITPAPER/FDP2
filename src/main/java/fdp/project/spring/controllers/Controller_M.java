@@ -73,8 +73,34 @@ public class Controller_M {
 			
 			try {
 				member  = memberService.getMemberItem(member);
+				String dd = member.getAddr3();
+				
+				if(dd.contains("본동")) {
+					dd = dd.replace("본동", "동");
+				}else if(dd.contains("1동")) {
+					dd = dd.replace("1동", "동");
+				}else if(dd.contains("2동")) {
+					dd = dd.replace("2동", "동");
+				}else if(dd.contains("3동")) {
+					dd = dd.replace("3동", "동");
+				}else if(dd.contains("4동")) {
+					dd = dd.replace("4동", "동");
+				}else if(dd.contains("5동")) {
+					dd = dd.replace("5동", "동");
+				}else if(dd.contains("6동")) {
+					dd = dd.replace("6동", "동");
+				}else if(dd.contains("7동")) {
+					dd = dd.replace("7동", "동");
+				}else if(dd.contains("8동")) {
+					dd = dd.replace("8동", "동");
+				}else if(dd.contains("9동")) {
+					dd = dd.replace("9동", "동");
+				}else if(dd.contains("10동")) {
+					dd = dd.replace("10동", "동");
+				}
+				
 				model.addAttribute("gu", member.getAddr2());
-				model.addAttribute("dong", member.getAddr3());
+				model.addAttribute("dong", dd);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "03_Find_h";
@@ -538,8 +564,19 @@ public class Controller_M {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(input.getDutyName());
-		System.out.println(hosname);
+		for(EmRoom tt : output) {
+			
+			//tt.inserttime= tt.inserttime.substring(0,tt.inserttime.lastIndexOf(":"));
+			//tt.inserttime= tt.inserttime.substring(tt.inserttime.indexOf("-")+1);
+			tt.inserttime = tt.inserttime.replace(" ", "/");
+			tt.inserttime = tt.inserttime.replace("-", "/");
+			//tt.inserttime = tt.inserttime.replace(":", ",");
+			
+			
+			System.out.println(tt.inserttime);
+		}
+		
+		
 		Gson gson = new Gson();
 		return gson.toJson(output);
 	}

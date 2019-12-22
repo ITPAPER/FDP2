@@ -12,7 +12,7 @@
 			<p class="header-btn">어서오세요 ${cookie.Name.value} 님 </p>
 		</c:when>
 		<c:when test="${session_id != null }">
-			<a href="/session/delete.do" class="header-btn">로그아웃</a>
+			<a href="session/delete.do" class="header-btn">로그아웃</a>
 			<p class="header-btn">어서오세요 ${session_id} 관리자님</p>
 		</c:when>
 		<c:otherwise>
@@ -24,8 +24,8 @@
 </div>
 </div>
 		<div class="topm head-border">
-			<div class="col-md-3 ww"><img src="./assets/img/FindDoctor1.png" class="logo "></div>
-			<div class="col-md-9 ww">
+			<div class="col-xs-3 ww"><img src="./assets/img/FindDoctor1.png" class="logo "></div>
+			<div class="col-xs-9 ww">
 				<div class="btn-cover collapse navbar-collapse" id="gnb">
 				<ul class="nav navbar-nav" id="droph">
 					<li><a href="index.do"class="page-move1">홈</a></li>
