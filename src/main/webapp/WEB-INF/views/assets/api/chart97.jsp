@@ -10,7 +10,6 @@
 <script>
 
 var json = ${jsonList};
-var json_length = Object.keys(json).length;
 
 var array = new Array();
 var count = new Array(5);
@@ -24,7 +23,7 @@ for (var i = 0; i < count.length; i++) {
 	count[i] = sum;
 	sum = 0;	
 }
-console.log(Number(json[50].agecount));
+
 for (var i = 0; i < count.length; i++) {
 	obj = new Object();
 	obj.age = ((i+2) + "0 ~ " + (i+2) + "9");

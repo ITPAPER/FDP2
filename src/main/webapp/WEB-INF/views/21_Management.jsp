@@ -170,7 +170,7 @@
 					<div class="imgbox">
 						<h3>관리자 로그인 성공</h3>
 						<button type="button" id="btn6" class="btn btn-primary">
-							로그아웃 연습
+							로그아웃
 						</button>
 					</div>
 				</c:if>
@@ -457,7 +457,7 @@
 						swal('취소', '로그아웃이 취소되었습니다.', 'error');
 					}
 				});
-			});
+			}); // btn6 끝
 			
 		}); // 끝
 	</script>

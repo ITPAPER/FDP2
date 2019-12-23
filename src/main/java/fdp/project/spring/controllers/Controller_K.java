@@ -88,9 +88,23 @@ public class Controller_K {
 	}
 
 	@RequestMapping(value = "/22_Login_s.do")
-	public String Login_s(Model model) {
-
-		return "22_Login_s";
+	public ModelAndView Login_s(Model model) {
+		
+		String coo = webHelper.getCookie("Name", "");
+		
+		if (!coo.equals("")) {
+			// 관리자 로그인 시 쿠키 값이 있으면 삭제
+			webHelper.removeCookie("fdpCookie");
+			webHelper.removeCookie("UserGrade");
+			webHelper.removeCookie("Name");
+			webHelper.removeCookie("PK");
+			
+			String redirectUrl = contextPath + "/22_Login_s.do"; 
+			return webHelper.redirect(redirectUrl, "관리자가 아닌 회원은 로그아웃 됩니다.");
+			 
+		} else {
+			return new ModelAndView("22_Login_s");
+		}
 	}
 
 	// 세션 저장하는 페이지
@@ -452,12 +466,9 @@ public class Controller_K {
 			}
 		} // for문 끝
 		
-		/** 3) 페이지 이동 */
-		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
-		return webHelper.redirect("28_User_stasis.do", "회원 탈퇴가 완료되었습니다.");
-
+		return null;
 	}
-
+	
 	@RequestMapping(value = "/assets/api/chart99.do")
 	public ModelAndView chcart99(Model model) {
 		
@@ -508,4 +519,22 @@ public class Controller_K {
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
 		return new ModelAndView("assets/api/chart97");
 	}
+	
+	@RequestMapping(value = "/assets/api/chart96.do")
+	public ModelAndView chcart96(Model model) {
+		
+		/** 남,여 회원 수 조회하기 */
+		// 조회결과를 저장할 객체 선언
+		List<Count> output = null;
+		
+		try {
+			output = countService.getAgeGenderCount(null);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		return new ModelAndView("assets/api/chart96");
+	}
+
 }

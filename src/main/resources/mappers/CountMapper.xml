@@ -33,5 +33,14 @@
 		SELECT gender, count(*) as genderCount from fdpmember GROUP BY gender HAVING count(*) > 0 ORDER BY genderCount;
 		
     </select>
+    
+    <!-- 성별 + 나이 별 조회 -->
+	<select id="selectCountAgeGender" 
+		parameterType="fdp.project.spring.model.Count" resultMap="CountMap">
+        
+		SELECT (YEAR(now())-YEAR(birthdate) + 1) as age, count(*) as ageCount, gender 
+		FROM fdpmember group by age HAVING count(*) > 0 order by age asc;
+		        
+    </select>
 	
 </mapper>

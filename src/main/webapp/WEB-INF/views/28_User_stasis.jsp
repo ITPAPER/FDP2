@@ -140,10 +140,10 @@
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse out">
 						<div class="panel-body">
-							첫 번째 항목의 내용입니다.
+							<a href="${pageContext.request.contextPath}/29_User_stasis2.do">통계</a>
 						</div>
 						<div class="panel-body">
-							두 번째 항목의 내용입니다.
+							<a href="${pageContext.request.contextPath}/23_Notice_board_s.do">게시판</a>
 						</div>
 					</div>
 				</div>
@@ -157,7 +157,7 @@
 			<!-- 검색폼 -->
 			<form method="get"
 				action="${pageContext.request.contextPath}/28_User_stasis.do">
-				<label for="keyword">검색어: </label> <input type="search"
+				<label for="keyword"></label> <input type="search"
 					name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
 				<button type="submit">검색</button>
 				<button type='button' id="checkbtn">전체 삭제</button>
