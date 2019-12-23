@@ -53,15 +53,19 @@ public class Controller_C {
 	@Autowired
 	DocumentService documentService;
 
+	// --> import study.spring.service.DocAnswerService;
 	@Autowired
 	DocAnswerService docAnswerService;
 
+	// --> import study.spring.service.MemberService;
 	@Autowired
 	MemberService memberService;
 
+	// --> import study.spring.service.CommentService;
 	@Autowired
 	CommentService commentService;
 
+	// --> import study.spring.service.FileService;
 	@Autowired
 	NFileService fileService;
 
@@ -124,6 +128,7 @@ public class Controller_C {
 		// 조회할 대상에 대한 PK 값
 		int document_id = webHelper.getInt("document_id");
 		int fdpmember_id = webHelper.getInt("fdpmember_id");
+		String a = webHelper.getCookie("PK");
 //      이 값이 존재하지 않는다면 데이터가 조회가 불가능하므로 반드시 필수 값으로 처리해야한다.
 		if (document_id == 0) {
 			return webHelper.redirect(null, "게시물 번호가 없습니다.");
@@ -143,7 +148,8 @@ public class Controller_C {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
 
-//      if(output.getFdpmember_id() != Integer.parseInt(webHelper.getCookie("PK"))) {
+		// 
+		if(output.getFdpmember_id() != Integer.parseInt(a)) {
 		output.setHit(output.getHit() + 1);
 
 		try {
@@ -152,7 +158,7 @@ public class Controller_C {
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-//      }
+		}
 		// DocAnswer 테이블 데이터
 		DocAnswer input1 = new DocAnswer();
 		input1.setDocument_id(document_id);

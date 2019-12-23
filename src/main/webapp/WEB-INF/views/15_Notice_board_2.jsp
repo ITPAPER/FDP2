@@ -131,8 +131,8 @@
 											<button type="button" value="${status.index}" class="close"
 												aria-hidden="true">&times;</button>
 											<div class="filediv">
-												<a href="./assets/upload${item.filePath}"> <img
-													src="./assets/upload${item.filePath}" class="fileimg" />
+												<a href="./assets/upload${item.filePath}"> 
+												<img src="./assets/upload${item.filePath}" class="fileimg" />
 												</a>
 											</div> ${item.originName}</li>
 										<c:set var="s" value="${s+1}" />

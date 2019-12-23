@@ -44,6 +44,7 @@ thead {
 
 /** 하단 페이지 번호 표시 */
 .pagination {
+	width:800px;
 	padding-left: 450px;
 	display: inline-block;
 }
@@ -51,12 +52,6 @@ thead {
 /** 하단 우측 버튼 부분 가로로 정렬 */
 .a {
 	display: inline-block;
-}
-
-/** 하단 번호 표시와 우측 버튼들 묶은 박스 -> 페이지 크기 변화에 따라 반응하지 않도록 박스로 고정 */
-#g {
-	margin: auto;
-	width: 1140px;
 }
 
 /** 검색 부분과 하단의 버튼들 위치 조절 */
@@ -68,6 +63,7 @@ thead {
 .subject {
 	width: 50%;
 }
+
 </style>
 </head>
 
@@ -94,15 +90,13 @@ thead {
 			</fieldset>
 		</form>
 
-
 		<!-- 조회 결과 목록 -->
 		<div class="table1">
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="text-center" style="width: 50px;">
-							<input type="checkbox" id="all_check" />
-						</th>
+						<th class="text-center" style="width: 50px;"><input
+							type="checkbox" id="all_check" /></th>
 						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
@@ -156,10 +150,10 @@ thead {
 								</c:url>
 
 								<tr>
-									<td class="text-center">
-										<input type="checkbox" class="checkBtn" name="checkBtn" value="${item.document_id}">
-										<input type="hidden" name="fdpmember_id" value="${item.fdpmember_id }">
-									</td> 
+									<td class="text-center"><input type="checkbox"
+										class="checkBtn" name="checkBtn" value="${item.document_id}">
+										<input type="hidden" name="fdpmember_id"
+										value="${item.fdpmember_id }"></td>
 									<td align="center">${item.document_id}</td>
 									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
 									<td align="center">${writer_name}</td>
@@ -172,70 +166,71 @@ thead {
 				</tbody>
 			</table>
 
-			<!-- 페이지 번호 구현 -->
-			<div class="pagination pagination-md">
-				<%-- 이전 그룹에 대한 링크 --%>
-				<c:choose>
-					<%-- 이전 그룹으로 이동 가능하다면? --%>
-					<c:when test="${pageData.prevPage > 0}">
-						<%-- 이동할 URL 생성 --%>
-						<c:url value="/23_Notice_board_s.do" var="prevPageUrl">
-							<c:param name="page" value="${pageData.prevPage}" />
-							<c:param name="keyword" value="${keyword}" />
-						</c:url>
-						<a href="${prevPageUrl}">&laquo;</a>
-					</c:when>
-					<c:otherwise>
-            &laquo;
-        </c:otherwise>
-				</c:choose>
-
-				<%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
-				<c:forEach var="i" begin="${pageData.startPage}"
-					end="${pageData.endPage}" varStatus="status">
-					<%-- 이동할 URL 생성 --%>
-					<c:url value="/23_Notice_board.do" var="pageUrl">
-						<c:param name="page" value="${i}" />
-						<c:param name="keyword" value="${keyword}" />
-					</c:url>
-
-					<%-- 페이지 번호 출력 --%>
+			<!-- 페이지 번호 구현 div 시작-->
+			
+				<ul class="pagination">			 
+					<li class="disabled">
+					<%-- 이전 그룹에 대한 링크 --%>
 					<c:choose>
-						<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
-						<c:when test="${pageData.nowPage == i}">
-							<strong>[${i}]</strong>
+						<c:when test="${pageData.prevPage > 0}">
+							<%-- 이동할 URL 생성 --%>
+							<c:url value="/23_Notice_board_s.do" var="prevPageUrl">
+								<c:param name="page" value="${pageData.prevPage}" />
+								<c:param name="keyword" value="${keyword}" />
+							</c:url>
+							<li><a href="${prevPageUrl}">&lt;</a></li>
 						</c:when>
-						<%-- 나머지 페이지의 경우 링크 적용함 --%>
 						<c:otherwise>
-							<a href="${pageUrl}">[${i}]</a>
+							<li class="disabled"><a>&lt;</a></li>
 						</c:otherwise>
 					</c:choose>
-				</c:forEach>
-
-				<%-- 다음 그룹에 대한 링크 --%>
-				<c:choose>
-					<%-- 다음 그룹으로 이동 가능하다면? --%>
-					<c:when test="${pageData.nextPage > 0}">
+					</li>
+					
+					<%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
+					<c:forEach var="i" begin="${pageData.startPage}"
+						end="${pageData.endPage}" varStatus="status">
 						<%-- 이동할 URL 생성 --%>
-						<c:url value="/23_Notice_board.do" var="nextPageUrl">
-							<c:param name="page" value="${pageData.nextPage}" />
+						<c:url value="/23_Notice_board_s.do" var="pageUrl">
+							<c:param name="page" value="${i}" />
 							<c:param name="keyword" value="${keyword}" />
 						</c:url>
-						<a href="${nextPageUrl}">&raquo;</a>
-					</c:when>
-					<c:otherwise>
-            &raquo;
-        </c:otherwise>
-				</c:choose>
-			</div>
-		</div>
-		<div id="g" class="clearfix">
-			<ul class="pull-right">
-				<li class="a"><a
-					href="${pageContext.request.contextPath}/23_Notice_board_s.do?document_id="
-					class="btn btn-default btn-sm">공지등록</a></li>
-					<li class="a"><input type="button" value="체크버튼삭제" id="checkbtn" />
-			</ul>
+	
+						<%-- 페이지 번호 출력 --%>
+						<c:choose>
+							<%-- 현재 머물고 있는 페이지 번호를 출력할 경우 링크 적용 안함 --%>
+							<c:when test="${pageData.nowPage == i}">
+								<li class="active"><a>${i}</a></li>
+							</c:when>
+							<%-- 나머지 페이지의 경우 링크 적용함 --%>
+							<c:otherwise>
+								<li><a href="${pageUrl}">${i}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<%-- 다음 그룹에 대한 링크 --%>
+					<c:choose>
+						<%-- 다음 그룹으로 이동 가능하다면? --%>
+						<c:when test="${pageData.nextPage > 0}">
+							<%-- 이동할 URL 생성 --%>
+							<c:url value="/23_Notice_board_s.do" var="nextPageUrl">
+								<c:param name="page" value="${pageData.nextPage}" />
+								<c:param name="keyword" value="${keyword}" />
+							</c:url>
+							<li><a href="${nextPageUrl}">&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="disabled"><a>&gt;</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+		
+			<!-- 페이지 번호구현 div 끝 -->
+
+				<ul class="clearfix pull-right">
+					<li class="a"><input type="button" value="체크버튼삭제"
+						class="btn btn-default btn-sm" />
+				</ul>
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
