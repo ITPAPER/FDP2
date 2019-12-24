@@ -28,19 +28,23 @@ var count_M = new Array(5);
 var count_F = new Array(5);
 
 var obj = new Object();
-var total = 0;
+/* var total = 0; */
+/* 나이대 별 총 합 */
 var sum = 0;
+/* 나이대 별 남자인원 수 */
 var sum2 = 0;
+/* 나이대 별 여자인원 수 */
 var sum3 = 0;
 
-for (var i = 0; i < json.length; i++) {
+/* for (var i = 0; i < json.length; i++) {
 	total += Number(json[i].agecount);
-}
+} */
 
 for (var i = 0; i < count.length; i++) {
 	for (var j = i*10; j < i*10+10; j++) {
 		
 		sum += Number(json[j].agecount);
+		
 		if (json[j].gender == "남자") {
 			sum2++;
 		} else {
@@ -58,6 +62,7 @@ for (var i = 0; i < count.length; i++) {
 for (var i = 0; i < count.length; i++) {
 	obj = new Object();
 	obj.age = ((i+2) + "0 ~ " + (i+2) + "9");
+	/* obj.age = ((i+2)+ "대"); 20대 */
 	obj.male = count_M[i];
 	obj.female = count_F[i];
 	array.push(obj)

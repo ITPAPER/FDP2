@@ -136,7 +136,7 @@
 				<!-- 항목(1) -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 회원 통계 </a></h4>
+						<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 관리자 페이지 </a></h4>
 					</div>
 					<div id="collapseOne" class="panel-collapse collapse out">
 						<div class="panel-body">
@@ -160,7 +160,7 @@
 				<label for="keyword"></label> <input type="search"
 					name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
 				<button type="submit">검색</button>
-				<button type='button' id="checkbtn">전체 삭제</button>
+				<button type='button' id="checkbtn">선택 삭제</button>
 			</form>
 			
 				<table class="table table-hover">
@@ -203,14 +203,6 @@
 										<c:set var="name" value="${fn:replace(name, keyword, mark)}" />
 									</c:if>
 	
-									<%-- 상세페이지로 이동하기 위한 URL --%>
-									
-									<%--
-									<c:url value="/29_User_stasis2.do" var="viewUrl">
-										<c:param name="fdpmember_id" value="${item.fdpmember_id}" />
-									</c:url> 
-									--%>
-									
 									<tr>
 										<th class="text-center">
 											<input type='checkbox' class="checkBtn" name="checkBtn" value="${item.fdpmember_id}">
@@ -408,9 +400,11 @@
 				$("#all_check").prop('checked', false);
 			});
 			
+			/* 선택 삭제 클릭 */
 			$("#checkbtn").click(function() {
 				
 				var check_list = $(".checkBtn:checked");
+				
                 // 배열의 길이가 0이라면 선택된 항목이 없다는 의미이므로 중단
                 if (check_list.length == 0) {
                     alert("선택된 항목이 없습니다.");
@@ -474,6 +468,7 @@
 					data: {fdpmember_id : src},
 					success: function(req) {
 						console.log(req);
+						// 핸들바 템플릿 생성
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req);
 						$("#memberView").html(html);
@@ -487,13 +482,14 @@
 							}
 						});
 						
+						// 닫기 버튼
 						$('.cbtn').click(function(e) {
 							e.preventDefault();
 							$("#memberView").animateCSS('fadeOutRight')
 							setTimeout(function() {
 								$("div[id='memberView']").css("visibility","hidden")
 							}, 1000);
-						}); // click 끝
+						}); // 닫기 끝
 					}
 				});		// ajax	끝
 			});		// click 끝

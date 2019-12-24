@@ -168,7 +168,7 @@
 				
 				<c:if test="${not empty session_id && not empty session_pw}">
 					<div class="imgbox">
-						<h3>관리자 로그인 성공</h3>
+						<h3>관리자 ${my_session_name} 로그인</h3>
 						<button type="button" id="btn6" class="btn btn-primary">
 							로그아웃
 						</button>
@@ -215,7 +215,6 @@
 												${output.get(i).document_id}
 											</td>
 											<c:choose>
-											
 												<c:when test="${fn:length(output.get(i).subject) > 15}">
 													<td class="text-center">
 														${fn:substring(output.get(i).subject,0,15)}&nbsp;· · ·
@@ -272,7 +271,7 @@
 								<td class="text-center">나이별</td>
 							</tr>
 							<tr id="gr4" data-toggle="modal" data-target="#myModal">
-								<td class="text-center">시간</td>
+								<td class="text-center">나이 + 성별</td>
 							</tr>
 							<tr id="gr5" data-toggle="modal" data-target="#myModal">
 								<td class="text-center">등급</td>
@@ -402,7 +401,7 @@
 						$(".modal-body").html(req);
 					}
 				});		//end $.ajax
-			});		// end #gr1 click
+			});		// end #gr2 click
 			
 			$("#gr3").click(function() {
 				$("#chartdiv").empty();
@@ -416,7 +415,21 @@
 						$(".modal-body").html(req);
 					}
 				});		//end $.ajax
-			});		// end #gr1 click
+			});		// end #gr3 click
+			
+			$("#gr4").click(function() {
+				$("#chartdiv").empty();
+				$.ajax({
+					url : './assets/api/chart96.do',// 읽어들일 파일의 경로
+					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success : 
+						function(req) {
+						console.log(">> 성공!!! >> " + req);
+						$(".modal-body").html(req);
+					}
+				});		//end $.ajax
+			});		// end #gr4 click
 
 			/** 페이지 열린 직후의 처리*/
 			var box = $(".page").find(".box1"); 	// 0번째 `.page`요소에 있는 .box 얻기

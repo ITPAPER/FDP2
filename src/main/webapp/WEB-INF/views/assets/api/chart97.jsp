@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!-- Styles -->
 <style>
 #chartdiv {
@@ -27,6 +29,7 @@ for (var i = 0; i < count.length; i++) {
 for (var i = 0; i < count.length; i++) {
 	obj = new Object();
 	obj.age = ((i+2) + "0 ~ " + (i+2) + "9");
+	/* obj.age = ((i+2)+ "대"); 20대 */
 	obj.agecount = count[i];
 	array.push(obj)
 }

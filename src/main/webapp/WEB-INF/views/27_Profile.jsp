@@ -87,12 +87,12 @@
 
 				<div class="form-row">
 					<div class="form-group">
-						<label for='user_pw'>비밀번호&nbsp;<span class='identify'>*</span></label>
+						<label for='user_pw'>비밀번호 수정&nbsp;<span class='identify'>*</span></label>
 						<input type="password" class="form-control" id="user_pw"
 							name="user_pw" placeholder="비밀번호">
 					</div>
 					<div class="form-group">
-						<label for='user_pw'>비밀번호 확인&nbsp;<span class='identify'>*</span></label>
+						<label for='user_pw'>비밀번호 수정 확인&nbsp;<span class='identify'>*</span></label>
 						<input type="password" class="form-control" id="user_pw_re"
 							name="user_pw_re" placeholder="비밀번호 확인">
 					</div>
@@ -210,37 +210,37 @@
 							<select name="medical_field" id="medical_field" class="form-control">
 								<option value="">-----선택하세요-----</option>
 								<option value="01"
-									<c:if test="${output.medical_field == '05'}">selected</c:if>>내과</option>
+									<c:if test="${output.medical_field.equals('01')}">selected</c:if>>내과</option>
 								<option value="03"
-									<c:if test="${output.medical_field == '03'}">selected</c:if>>정신건강의학과</option>
+									<c:if test="${output.medical_field.equals('03')}">selected</c:if>>정신건강의학과</option>
 								<option value="04"
-									<c:if test="${output.medical_field == '04'}">selected</c:if>>외과</option>
+									<c:if test="${output.medical_field.equals('04')}">selected</c:if>>외과</option>
 								<option value="05"
-									<c:if test="${output.medical_field == '05'}">selected</c:if>>정형외과</option>
+									<c:if test="${output.medical_field.equals('05')}">selected</c:if>>정형외과</option>
 								<option value="06"
-									<c:if test="${output.medical_field == '06'}">selected</c:if>>신경외과</option>
+									<c:if test="${output.medical_field.equals('06')}">selected</c:if>>신경외과</option>
 								<option value="08"
-									<c:if test="${output.medical_field == '08'}">selected</c:if>>성형외과</option>
+									<c:if test="${output.medical_field.equals('07')}">selected</c:if>>성형외과</option>
 								<option value="09"
-									<c:if test="${output.medical_field == '09'}">selected</c:if>>마취통증의학과</option>
+									<c:if test="${output.medical_field.equals('09')}">selected</c:if>>마취통증의학과</option>
 								<option value="10"
-									<c:if test="${output.medical_field == '10'}">selected</c:if>>산부인과</option>
+									<c:if test="${output.medical_field.equals('10')}">selected</c:if>>산부인과</option>
 								<option value="11"
-									<c:if test="${output.medical_field == '11'}">selected</c:if>>소아청소년과</option>
+									<c:if test="${output.medical_field.equals('11')}">selected</c:if>>소아청소년과</option>
 								<option value="12"
-									<c:if test="${output.medical_field == '12'}">selected</c:if>>안과</option>
+									<c:if test="${output.medical_field.equals('12')}">selected</c:if>>안과</option>
 								<option value="13"
-									<c:if test="${output.medical_field == '13'}">selected</c:if>>이비인후과</option>
+									<c:if test="${output.medical_field.equals('13')}">selected</c:if>>이비인후과</option>
 								<option value="14"
-									<c:if test="${output.medical_field == '14'}">selected</c:if>>피부과</option>
+									<c:if test="${output.medical_field.equals('14')}">selected</c:if>>피부과</option>
 								<option value="15"
-									<c:if test="${output.medical_field == '15'}">selected</c:if>>비뇨기과</option>
+									<c:if test="${output.medical_field.equals('15')}">selected</c:if>>비뇨기과</option>
 								<option value="21"
-									<c:if test="${output.medical_field == '21'}">selected</c:if>>재활의학과</option>
+									<c:if test="${output.medical_field.equals('21')}">selected</c:if>>재활의학과</option>
 								<option value="49"
-									<c:if test="${output.medical_field == '49'}">selected</c:if>>치과</option>
+									<c:if test="${output.medical_field.equals('49')}">selected</c:if>>치과</option>
 								<option value="80"
-									<c:if test="${output.medical_field == '80'}">selected</c:if>>한의학과</option>
+									<c:if test="${output.medical_field.equals('80')}">selected</c:if>>한의학과</option>
 							</select>
 						</div>
 					</div>
@@ -307,7 +307,7 @@
 							return false;
 						}
 						
-						if ($('#check').val() == '2') {
+						if ($('#check').val() == '1') {
 							if(!regex.value('#medical_field', '전공분야를 선택해주세요.')) {
 								return false;
 							}

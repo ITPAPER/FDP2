@@ -78,11 +78,16 @@ public class Controller_K {
 		if (mySessionPw == null) {
 			mySessionPw = "";
 		}
+		String mySessionName = (String) session.getAttribute("session_name");
+		if (mySessionName == null) {
+			mySessionName = "";
+		}
 
 		model.addAttribute("output", output);
 		model.addAttribute("output2", output2);
 		model.addAttribute("my_session_id", mySessionId);
 		model.addAttribute("my_session_pw", mySessionPw);
+		model.addAttribute("my_session_name", mySessionName);
 
 		return new ModelAndView("21_Management");
 	}
@@ -106,49 +111,7 @@ public class Controller_K {
 			return new ModelAndView("22_Login_s");
 		}
 	}
-
-	// 세션 저장하는 페이지
-	@RequestMapping(value = "/session/save.do", method = RequestMethod.GET)
-	public String sessionSave(Model model, HttpServletRequest request,
-			@RequestParam(value = "user_id", defaultValue = "") String userId,
-			@RequestParam(value = "user_pw", defaultValue = "") String userPw) {
-		
-		/** 1) request 객체를 사용해서 세션 객체 만들기 */
-		HttpSession session = request.getSession();
-
-		/** 2) 세션 저장, 삭제 */
-		if (!userId.equals("")) {
-			session.setAttribute("session_id", userId);
-		} else {
-			session.removeAttribute("session_id");
-		}
-
-		if (!userPw.equals("")) {
-			session.setAttribute("session_pw", userPw);
-		} else {
-			session.removeAttribute("session_pw");
-		}
-		
-		// 세션 유지시간 10분
-		session.setMaxInactiveInterval(600);
-		
-		/** 3) Spring 방식의 페이지 이동 */
-		return "redirect:/21_Management.do";
-	}
-
-	// 세션 삭제 하는 페이지
-	@RequestMapping(value = "/session/delete.do", method = RequestMethod.GET)
-	public String sessionDelete(HttpServletRequest request) {
-		/** 1) request 객체를 사용해서 세션 객체 만들기 */
-		HttpSession session = request.getSession();
-
-		/** 2) 세션 초기화 */
-		session.invalidate();
-
-		/** 3) Spring 방식의 페이지 이동 */
-		return "redirect:/21_Management.do";
-	}
-
+	
 	// 관리자 ID/PW 세션에 저장된 값이랑 비교
 	@RequestMapping(value = "/check.do", method = RequestMethod.POST)
 	public ModelAndView checkFunction(Model model, HttpServletRequest request) {
@@ -180,8 +143,58 @@ public class Controller_K {
 		} else {
 			model.addAttribute("user_id", output.getUser_id());
 			model.addAttribute("user_pw", output.getUser_pw());
+			model.addAttribute("user_name", output.getName());
 			return new ModelAndView("redirect:/session/save.do");
 		}
+	}
+
+	// 세션 저장하는 페이지
+	@RequestMapping(value = "/session/save.do", method = RequestMethod.GET)
+	public String sessionSave(Model model, HttpServletRequest request,
+			@RequestParam(value = "user_id", defaultValue = "") String userId,
+			@RequestParam(value = "user_pw", defaultValue = "") String userPw,
+			@RequestParam(value = "user_name", defaultValue = "") String userName) {
+		
+		/** 1) request 객체를 사용해서 세션 객체 만들기 */
+		HttpSession session = request.getSession();
+
+		/** 2) 세션 저장, 삭제 */
+		if (!userId.equals("")) {
+			session.setAttribute("session_id", userId);
+		} else {
+			session.removeAttribute("session_id");
+		}
+
+		if (!userPw.equals("")) {
+			session.setAttribute("session_pw", userPw);
+		} else {
+			session.removeAttribute("session_pw");
+		}
+		
+		if (!userName.equals("")) {
+			session.setAttribute("session_name", userName);
+		} else {
+			session.removeAttribute("session_name");
+		}
+		
+		// 세션 유지시간 10분
+		session.setMaxInactiveInterval(600);
+		
+		/** 3) Spring 방식의 페이지 이동 */
+		return "redirect:/21_Management.do";
+	}
+
+	// 세션 삭제 하는 페이지
+	@RequestMapping(value = "/session/delete.do", method = RequestMethod.GET)
+	public String sessionDelete(HttpServletRequest request) {
+		/** 1) request 객체를 사용해서 세션 객체 만들기 */
+		HttpSession session = request.getSession();
+
+		/** 2) 세션 초기화 */
+		session.invalidate();
+
+		/** 3) Spring 방식의 페이지 이동 */
+		return "redirect:/21_Management.do";
 	}
 
 	@RequestMapping(value = "/26_Profile_i.do")
@@ -196,6 +209,7 @@ public class Controller_K {
 		/** 1) 필요한 변수값 생성 */
 		String user_pw = webHelper.getString("user_pw");
 		String user_id = webHelper.getCookie("fdpCookie", "");
+		
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Member input = new Member();
