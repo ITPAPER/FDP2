@@ -95,8 +95,8 @@ thead {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="text-center" style="width: 50px;"><input
-							type="checkbox" id="all_check" /></th>
+						<th class="text-center" style="width: 50px;">
+						<input type="checkbox" id="all_check" /></th>
 						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
@@ -226,11 +226,11 @@ thead {
 				</ul>
 		
 			<!-- 페이지 번호구현 div 끝 -->
-
 				<ul class="clearfix pull-right">
-					<li class="a"><input type="button" value="체크버튼삭제"
+					<li class="a"><input type="button" value="체크버튼삭제" id="checkbtn"
 						class="btn btn-default btn-sm" />
 				</ul>
+				
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />

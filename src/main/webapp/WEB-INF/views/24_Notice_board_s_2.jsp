@@ -277,10 +277,9 @@
 				</li>
 					</c:when>
 				</c:choose>
+<!-- 				<li class="a"><a href="23_Notice_board_s.do"
+					class="btn btn-default btn-sm" id="btn2">공지등록 </a></li> -->
 				<li class="a"><a href="23_Notice_board_s.do"
-					class="btn btn-default btn-sm" id="btn2">공지등록 </a></li>
-				<li class="a"><a href="23_Notice_board_s.do"
-				
 					class="btn btn-default btn-sm">메뉴</a></li>
 			</ul>
 		</div>
