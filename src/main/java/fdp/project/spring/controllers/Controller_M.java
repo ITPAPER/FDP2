@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +47,10 @@ public class Controller_M {
 	@RequestMapping(value = "02_Login.do", method = RequestMethod.GET)
 	public String Login(Model model) {
 		int dir = webHelper.getInt("document_id");
+		String id =  webHelper.getCookie("auto","");
 		
 		model.addAttribute("document_id",dir);
+		model.addAttribute("id",id);
 		
 		return "02_Login";
 	}
@@ -64,7 +65,7 @@ public class Controller_M {
 	
 	@RequestMapping(value = "03_Find_h.do", method = RequestMethod.GET)
 	public String Find_h(Model model) {
-		String fdpCookie = webHelper.getCookie("fdpCookie", "");
+		String fdpCookie = (String) webHelper.getSession("fdpCookie", "");
 		
 		
 		if(fdpCookie != "") {
@@ -114,8 +115,7 @@ public class Controller_M {
 	@RequestMapping(value = "05_Find_e.do", method = RequestMethod.GET)
 	public String Find_e(Model model) {
 		
-		String fdpCookie = webHelper.getCookie("fdpCookie", "");
-		System.out.println(fdpCookie);
+		String fdpCookie = (String) webHelper.getSession("fdpCookie", "");
 		List<Documents> list = new ArrayList<Documents>();
 		String gu = "";
 		list.add(new Documents( 0.0, 0.0));
@@ -476,45 +476,16 @@ public class Controller_M {
 			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
 		}
 		if(output != null) {
-			if(autologin == 7 ) {
-				webHelper.setCookie("fdpCookie", user_id, 604800);
-				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
-				
-				Cookie cookie = new Cookie("Name", output.getName());
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(604800);
-				response.addCookie(cookie);
-				
-				String PK = Integer.toString(output.getFdpmember_id());
-				webHelper.setCookie("PK", PK, 604800);
-			}else {
-				Cookie cookie = new Cookie("fdpCookie", user_id);
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
-				
-				cookie = new Cookie("UserGrade", output.getMember_grade());
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
-				
-				cookie = new Cookie("Name", output.getName());
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
-				
-				String PK = Integer.toString(output.getFdpmember_id());
-				cookie = new Cookie("PK", PK);
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
+			webHelper.setSession("fdpCookie", user_id);
+			webHelper.setSession("UserGrade", output.getMember_grade());
+			webHelper.setSession("Name", output.getName());
+			webHelper.setSession("PK", output.getFdpmember_id());
+			
+			if(autologin ==7) {
+				webHelper.setCookie("auto", user_id, 604800);
 			}
 		}
+
 		if(document_id==0) {
 			return new ModelAndView("redirect: index.do");
 		}else {
@@ -524,12 +495,9 @@ public class Controller_M {
 	
 	@RequestMapping(value= "/coodel.do", method= RequestMethod.GET )
 	public ModelAndView coodel( ) {
-		String aa = webHelper.getCookie("Name");
+		String aa = (String) webHelper.getSession("Name");
 		
-		webHelper.removeCookie("fdpCookie");
-		webHelper.removeCookie("UserGrade");
-		webHelper.removeCookie("Name");
-		webHelper.removeCookie("PK");
+		webHelper.removeAllSession();
 		
 		
 		return webHelper.redirect("index.do", "안녕히가세요 "+ aa +"님");
@@ -566,14 +534,9 @@ public class Controller_M {
 		}
 		for(EmRoom tt : output) {
 			
-			//tt.inserttime= tt.inserttime.substring(0,tt.inserttime.lastIndexOf(":"));
-			//tt.inserttime= tt.inserttime.substring(tt.inserttime.indexOf("-")+1);
 			tt.inserttime = tt.inserttime.replace(" ", "/");
 			tt.inserttime = tt.inserttime.replace("-", "/");
-			//tt.inserttime = tt.inserttime.replace(":", ",");
 			
-			
-			System.out.println(tt.inserttime);
 		}
 		
 		

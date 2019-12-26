@@ -6,14 +6,14 @@
 <div class="topbox">
 <div class= "topbar">
 	<c:choose>
-		<c:when test="${cookie.fdpCookie != null }">
-			<a href="coodel.do" class="header-btn">로그아웃</a>
-			<a href="26_Profile_i.do" class="header-btn">회원 정보 수정</a>
-			<p class="header-btn">어서오세요 ${cookie.Name.value} 님 </p>
-		</c:when>
 		<c:when test="${session_id != null }">
 			<a href="session/delete.do" class="header-btn">로그아웃</a>
 			<p class="header-btn">어서오세요 ${session_id} 관리자님</p>
+		</c:when>
+		<c:when test="${fdpCookie != null }">
+			<a href="coodel.do" class="header-btn">로그아웃</a>
+			<a href="26_Profile_i.do" class="header-btn">회원 정보 수정</a>
+			<p class="header-btn">어서오세요 ${Name} 님 </p>
 		</c:when>
 		<c:otherwise>
 			<a href="02_Login.do" class="header-btn">로그인</a>

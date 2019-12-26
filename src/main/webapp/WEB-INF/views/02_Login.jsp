@@ -57,20 +57,20 @@
 					<div class="form-group">
 						<label for="user_id">아이디</label>
 						<br/>
-						<input type="text" id="user_id" name="user_id" class="form-control" placeholder="아이디를 입력하세요."/>
+						<input type="text" id="user_id" name="user_id" class="form-control" value="${id }" placeholder="아이디를 입력하세요."/>
 					</div>
 					<div class="container blank" style="height:30px;"></div>
 					<div class="form-group">
 						<label for="user_pw">비밀번호</label>
 						<br/>
-						<input type="password" id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호를 입력하세요."/>
+						<input type="password" id="user_pw" name="user_pw" class="form-control"  placeholder="비밀번호를 입력하세요."/>
 					</div>
 					<input type="hidden" name="document_id" value="${document_id}" />
 					<div class="container blank" style="height:30px;"></div>
 				
 					<button id="li-btn" type="submit" class="btn btn-primary btn-block">로그인</button>
 					<br/>
-					<label id="check"><input type="checkbox" name="autologin" value="7">자동로그인</label>
+					<label id="check"><input type="checkbox" name="autologin" value="7">아이디 저장</label>
 					<a href="#" class="find_id">아이디/비밀번호 찾기</a>
 					<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
 					<!-- 여기까지 입니다. -->
