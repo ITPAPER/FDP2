@@ -146,7 +146,7 @@ thead {
 								<%-- 상세페이지로 이동하기 위한 URL --%>
 								<c:url value="/24_Notice_board_s_2.do" var="viewUrl">
 									<c:param name="document_id" value="${item.document_id}" />
-									<c:param name="fdpmember_id" value="${cookie.PK.value}" />
+									<c:param name="fdpmember_id" value="${PK}" />
 								</c:url>
 
 								<tr>

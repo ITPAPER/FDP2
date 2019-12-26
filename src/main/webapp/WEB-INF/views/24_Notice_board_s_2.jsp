@@ -224,10 +224,10 @@
 								<h5>
 									<b>댓글</b>
 								</h5> <br />
-									<input type="hidden" value="${cookie.Name.value}"
+									<input type="hidden" value="${Name}"
 										name="writer_name" /> 
 									<input type="hidden" value="${output.document_id}" name="document_id" /> 
-									<input type="hidden" value="${cookie.PK.value}" name="fdpmember_id" />
+									<input type="hidden" value="${PK}" name="fdpmember_id" />
 								<c:choose>
 									<c:when test="${output3 == null || fn:length(output3) == 0}">관리할 댓글이 없습니다.</c:when>
 								<c:otherwise>

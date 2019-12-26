@@ -153,7 +153,7 @@ thead {
 								<%-- 상세페이지로 이동하기 위한 URL --%>
 								<c:url value="/14_Notice_board_i.do" var="viewUrl">
 									<c:param name="document_id" value="${item.document_id}" />
-									<c:param name="fdpmember_id" value="${cookie.PK.value}" />
+									<c:param name="fdpmember_id" value="${PK}" />
 								</c:url>
 
 								<tr>
@@ -231,7 +231,7 @@ thead {
 			<!-- 페이지 번호구현 div 끝 -->
 		
 			<c:choose>
-				<c:when test="${cookie.PK.value != null}">
+				<c:when test="${PK != null}">
 					<ul class="clearfix pull-right">
 						<li class="a"><a
 							href="${pageContext.request.contextPath}/16_Notice_board_new.do?document_id="

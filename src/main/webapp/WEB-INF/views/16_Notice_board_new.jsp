@@ -55,8 +55,8 @@
 								<h5>작성자</h5>
 							</td>
 							<td>
-								<h5>${cookie.Name.value}</h5> <input type="hidden"
-								value="${cookie.Name.value}" name="writer_name" />
+								<h5>${Name}</h5> <input type="hidden"
+								value="${Name}" name="writer_name" />
 							</td>
 						</tr>
 						<tr>

@@ -148,7 +148,7 @@ public class Controller_C {
 		}
 
 		// 로그인한 유저가 자신이 쓴 글을 조회하면 조회수가 증가하지 않음
-		if(output.getFdpmember_id() != Integer.parseInt(webHelper.getCookie("PK", "0"))) {
+		if(output.getFdpmember_id() != (int)webHelper.getSession("PK", "0")) {
 			output.setHit(output.getHit() + 1);
 			try {
 				// 데이터 수정(조회수 증가 관련 업데이트)
@@ -693,7 +693,7 @@ public class Controller_C {
 		String writer_name = paramMap.get("writer_name");
 		String subject = paramMap.get("subject");
 		String content = paramMap.get("content");
-		int fdpmember_id = Integer.parseInt(webHelper.getCookie("PK"));
+		int fdpmember_id = (int)webHelper.getSession("PK");
 		int hit = 0;
 
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
