@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import fdp.project.spring.helper.MailHelper;
 import fdp.project.spring.helper.PageData;
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.WebHelper;
@@ -47,7 +48,10 @@ public class Controller_K {
 	CountService countService;
 
 	@Autowired
-	MemberService memberService;
+	MemberService memberService;	
+	
+	@Autowired
+	MailHelper mailHelper;
 
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
@@ -554,15 +558,13 @@ public class Controller_K {
 	@RequestMapping(value = "25_find_id.do")
 	public ModelAndView find_id(Model model) {
 		
-	return new ModelAndView("25_find_id");
-	
+		return new ModelAndView("25_find_id");
 	}
 	
 	@RequestMapping(value = "25_find_pw.do")
 	public ModelAndView find_pw(Model model) {
 		
-	return new ModelAndView("25_find_pw");
-	
+		return new ModelAndView("25_find_pw");
 	}
 	
 	@RequestMapping(value = "25_find_id_check.do")
@@ -610,18 +612,33 @@ public class Controller_K {
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-
+		
+		// 랜덤 비밀번호
+		String user_pw = "";
+		for (int i = 0; i < 12; i++) {
+			user_pw += (char)((Math.random() * 26) + 97);
+		}
+		
+		output.setUser_pw(user_pw);
+		
+		try {
+			// 데이터 수정
+			memberService.editMember(output);
+		} catch (Exception e) {
+			return webHelper.redirect(null, "일치하는 회원이 없습니다.");
+		}
+		
+		try {
+			mailHelper.sendMail(output.getEmail(), "Find Doctor 임시 비밀번호 발급", output.getUser_pw());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		/** 3) View 처리 */
 		model.addAttribute("output", output);
 		
-		return new ModelAndView("redirect:25_find_pw_change.do");
+		String redirectUrl = contextPath + "/index.do"; 
+		return webHelper.redirect(redirectUrl, "입력하신 메일로 임시 비밀번호가 발급 되었습니다.");
 	}
 	
-	@RequestMapping(value = "25_find_pw_change.do")
-	public ModelAndView find_pw_change(Model model) {
-		
-		return new ModelAndView("Find_pw.do");
-	}
-	
-
 }
