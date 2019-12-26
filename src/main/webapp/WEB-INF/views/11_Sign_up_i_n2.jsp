@@ -61,7 +61,7 @@
 	<div class="container"style="height:950px;">
 	<form name="myform" id="myform" action="12_Sign_up_s.do">
 		<div id="box1">
-			<h3 class="title"><strong>입력하신 정보를 확인해 주세요.</strong></h3>	
+			<h3 class="title"><strong>회원가입이 완료되었습니다!<</strong></h3>	
 		</div>
 		 <div class="b">
 		

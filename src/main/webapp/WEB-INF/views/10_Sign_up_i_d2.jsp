@@ -46,7 +46,7 @@
     	#joinbutton {
     		position: absolute;
     		bottom: 100px;
-    		left: 515px;
+    		left: 490px;
     	}
     	.complete{
     		display: inline-block;
@@ -54,14 +54,37 @@
     		bottom: 200px;
     		left: 380px;
     	}
+    	
+    	.table {
+    		position: relative;
+    		top: 400px;
+    	}
+    	
+    	#welcome {
+    		display: inline;
+    		position: relative;
+    		top: 100px;
+    		left: -60px;
+    		width: 500px;
+    		height: 350px;
+    	}
+    	
+    	#title1 {
+    		position: relative;
+    		top: 50px;
+    		right: 15px;
+    	}
      </style>
 </head>
 <body>
 <jsp:include page="./assets/inc/top.jsp" />
-	<div class="container"style="height:950px;">
+	<div class="container"style="height:1100px;">
 	<form name="myform" id="myform" action="12_Sign_up_s.do">
 		<div id="box1">
-			<h3 class="title"><strong>입력하신 정보를 확인해 주세요.</strong></h3>	
+			<h3 class="title"><strong>회원가입이 완료되었습니다!</strong></h3>
+			<h3 id="title1"><strong>입력하신 정보를 확인해주세요.</strong></h3>	
+			<span><img id="welcome" alt="가입환영" src="./assets/img/welcome.png"></span>
+			
 		</div>
 		 <div class="b">
 		
@@ -160,8 +183,7 @@
 			</tbody>
 		 </table>
 	 	</div>
-	 <!-- <h4 class='complete'>'가입완료' 버튼을 누르시면 가입이 완료됩니다!</h4> -->
-	 <button type="submit" id="joinbutton" class="btn btn-warning btn-lg" >가입 완료</button>
+	 <button type="submit" id="joinbutton" class="btn btn-warning btn-lg" >메인페이지로</button>
 	 </form>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" /> 

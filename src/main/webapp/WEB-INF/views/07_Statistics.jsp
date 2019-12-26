@@ -75,24 +75,28 @@
       	position: relative;
       	left: 100px;
       	top: 30px;
+      	width: 500px;
       }
       
       #chartname1 {
       	position: relative;
       	left: 100px;
       	top: 660px;
+      	width: 500px;
       }
       
       #chartname2 {
       	position: relative;
       	left: 720px;
       	top: 630px;
+      	width: 500px;
       }
       
       #chartname3 {
       	position: relative;
       	left: 100px;
       	top: 1200px;
+      	width: 500px;
       }
 
      </style>
@@ -163,9 +167,6 @@
    <script src="./assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
    <script type="text/javascript">
    
-   $(function submit() {
-
-   })
 
 	$(function() {
 		$("#disName").change(function() {
