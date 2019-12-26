@@ -228,7 +228,7 @@
 						<c:otherwise>
 							<div class="row  login_box">
 								<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
-								<a href="#" class="find_id">아이디/비밀번호 찾기</a>
+								<a href="25_find_id.do" class="find_id">아이디/비밀번호 찾기</a>
 								<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
 							</div>
 						</c:otherwise>
