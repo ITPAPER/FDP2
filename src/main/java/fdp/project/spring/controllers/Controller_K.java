@@ -95,14 +95,11 @@ public class Controller_K {
 	@RequestMapping(value = "/22_Login_s.do")
 	public ModelAndView Login_s(Model model) {
 		
-		String coo = webHelper.getCookie("Name", "");
+		String grade = (String) webHelper.getSession("UserGrade", "0");
 		
-		if (!coo.equals("")) {
-			// 관리자 로그인 시 쿠키 값이 있으면 삭제
-			webHelper.removeCookie("fdpCookie");
-			webHelper.removeCookie("UserGrade");
-			webHelper.removeCookie("Name");
-			webHelper.removeCookie("PK");
+		if (!grade.equals("0")) {
+			// 관리자 로그인 시 관리자가 아니면 로그 아웃
+			webHelper.removeAllSession();
 			
 			String redirectUrl = contextPath + "/22_Login_s.do"; 
 			return webHelper.redirect(redirectUrl, "관리자가 아닌 회원은 로그아웃 됩니다.");
@@ -123,6 +120,8 @@ public class Controller_K {
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Member input = new Member();
+		
+		// 중복확인 때문에 사실상 고유한 값
 		input.setUser_id(checkId);
 		
 		// 조회결과를 저장할 객체 선언
@@ -208,7 +207,7 @@ public class Controller_K {
 
 		/** 1) 필요한 변수값 생성 */
 		String user_pw = webHelper.getString("user_pw");
-		String user_id = webHelper.getCookie("fdpCookie", "");
+		String user_id = (String)webHelper.getSession("fdpCookie", "");
 		
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
@@ -550,5 +549,79 @@ public class Controller_K {
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
 		return new ModelAndView("assets/api/chart96");
 	}
+	
+	// email로 id확인
+	@RequestMapping(value = "25_find_id.do")
+	public ModelAndView find_id(Model model) {
+		
+	return new ModelAndView("25_find_id");
+	
+	}
+	
+	@RequestMapping(value = "25_find_pw.do")
+	public ModelAndView find_pw(Model model) {
+		
+	return new ModelAndView("25_find_pw");
+	
+	}
+	
+	@RequestMapping(value = "25_find_id_check.do")
+	public ModelAndView find_id_check(Model model) {
+		
+		/** 1) 필요한 변수값 생성 */
+		// 조회할 대상에 대한 PK값
+		String email = webHelper.getString("email");
+
+		Member input = new Member();
+		input.setEmail(email);
+
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) View 처리 */
+		model.addAttribute("output", output);
+		
+		return new ModelAndView("Find_id.do");
+	}
+	
+	@RequestMapping(value = "25_find_pw_check.do")
+	public ModelAndView Find_pw_check(Model model) {
+		
+		/** 1) 필요한 변수값 생성 */
+		// 조회할 대상에 대한 PK값
+		String email = webHelper.getString("email");
+		String user_id = webHelper.getString("user_id");
+
+		Member input = new Member();
+		input.setEmail(email);
+		input.setUser_id(user_id);
+
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+
+		/** 3) View 처리 */
+		model.addAttribute("output", output);
+		
+		return new ModelAndView("redirect:25_find_pw_change.do");
+	}
+	
+	@RequestMapping(value = "25_find_pw_change.do")
+	public ModelAndView find_pw_change(Model model) {
+		
+		return new ModelAndView("Find_pw.do");
+	}
+	
 
 }

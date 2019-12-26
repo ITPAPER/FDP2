@@ -210,7 +210,7 @@
 								
 								<c:otherwise>
 									<c:forEach var="i" begin="0" end="4" step="1">
-										<tr onclick="location.href ='14_Notice_board_i.do?document_id=${output.get(i).document_id}'">
+										<tr onclick="location.href ='24_Notice_board_s_2.do?document_id=${output.get(i).document_id}'">
 											<td class="text-center">
 												${output.get(i).document_id}
 											</td>
