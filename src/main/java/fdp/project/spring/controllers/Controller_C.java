@@ -148,14 +148,14 @@ public class Controller_C {
 		}
 
 		// 로그인한 유저가 자신이 쓴 글을 조회하면 조회수가 증가하지 않음
-		if(output.getFdpmember_id() != Integer.parseInt(webHelper.getCookie("PK"))) {
+		if(output.getFdpmember_id() != Integer.parseInt(webHelper.getCookie("PK", "0"))) {
 			output.setHit(output.getHit() + 1);
 			try {
 				// 데이터 수정(조회수 증가 관련 업데이트)
 				documentService.editDocument(output);
 			} catch (Exception e) {
 				return webHelper.redirect(null, e.getLocalizedMessage());
-			}
+			} 
 		}
 		
 		// DocAnswer 테이블 데이터
