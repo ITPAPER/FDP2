@@ -122,9 +122,10 @@ public class Controller_C {
 
 	/** 일반 게시판 상세 페이지 */
 	@RequestMapping(value = "/14_Notice_board_i.do", method = RequestMethod.GET)
-	public ModelAndView Notice_board_i(Model model) {
+	public ModelAndView Notice_board_i(Model model, HttpServletRequest request) {
 		/** 1) 필요한 변수 값 생성 */
 		// 조회할 대상에 대한 PK 값
+		HttpSession session = request.getSession();
 		int document_id = webHelper.getInt("document_id");
 		int fdpmember_id = webHelper.getInt("fdpmember_id");
 		
@@ -148,7 +149,13 @@ public class Controller_C {
 		}
 
 		// 로그인한 유저가 자신이 쓴 글을 조회하면 조회수가 증가하지 않음
-		if(output.getFdpmember_id() != Integer.parseInt((String) webHelper.getSession("PK", "0"))) {
+		int a = 0;
+		if(session.getAttribute("PK") != null) {	
+		a=((Integer)(session.getAttribute("PK"))).intValue(); } 
+
+			
+		
+		if(output.getFdpmember_id() != a) {
 			output.setHit(output.getHit() + 1);
 			try {
 				// 데이터 수정(조회수 증가 관련 업데이트)
@@ -448,6 +455,9 @@ public class Controller_C {
 		String reg_date = paramMap.get("reg_date");
 		// dou 0=삭제, 1=수정, 2=추가
 		String dou = paramMap.get("dou");
+		if (dou == null) {
+			dou = "";
+		}
 		String file_id = paramMap.get("file_id");
 		if (file_id == null) {
 			file_id = "0";
