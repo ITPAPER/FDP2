@@ -197,10 +197,9 @@
 						
 						if(${list[0].x != 0 }){
 							var xlen = ${list[0].x} - req[i].wgs84Lon;
-							console.log(xlen * -1);
-							if(xlen * -1){ xlen = xlen * -1;}
+							xlen = Math.abs(xlen);
 							var ylen = ${list[0].y} - req[i].wgs84Lat;
-							if(ylen * -1){ ylen = ylen * -1;}
+							ylen = Math.abs(ylen);
 							if(i==0){
 								looc= xlen + ylen; 
 								c = i+1;

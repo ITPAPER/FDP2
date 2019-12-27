@@ -198,6 +198,23 @@
         	width:480px;
         	margin:auto;
         }
+        .fi{
+        	font-size: 100px;
+        	display: inline-block;
+        	color:white;
+        	background-color:orange;
+        	width:180px;
+        	border-radius:10px;
+        	padding:5px;
+        	text-align:center;
+        }
+        #fipbody{
+        	width:460px;
+        	margin-top:200px;
+        }
+        #id{
+        	margin-right:50px;
+        }
     </style>
   </head>
   <body>
@@ -228,7 +245,7 @@
 						<c:otherwise>
 							<div class="row  login_box">
 								<div class="login_cover"><a class="login_btn" href="02_Login.do">Find Doctor  로그인</a></div>
-								<a href="25_find_id.do" class="find_id">아이디/비밀번호 찾기</a>
+								<a href="#myModal3"  data-toggle="modal" class="find_id">아이디/비밀번호 찾기</a>
 								<a href="09_Sign_up_a.do" class="sign_up">회원 가입</a>
 							</div>
 						</c:otherwise>
@@ -591,6 +608,28 @@
 					<!-- /.modal-dialog -->
 				</div>
 				<!-- /.modal -->
+				<div id="myModal3" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<!-- .modal-dialog -->
+					<div class="modal-dialog" id="fipbody">
+						<!-- .modal-content -->
+						<div class="modal-content">
+							<!-- 제목 -->
+							<div class="modal-header">
+								<!-- 닫기버튼 -->
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title" id="myModalLabel">아이디/비밀번호 찾기.</h4>
+							</div>
+							<!-- 내용 -->
+							<div class="modal-body">
+								<a href="25_find_id.do" class="fi" id="id">ID</a><a href="25_find_pw.do" class="fi">PW</a>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
 			</div>
 		</div>
 	</section>
