@@ -120,7 +120,6 @@ public class Controller_K {
 		/** 1) 입력값을 받아오기 */
 		String checkId = webHelper.getString("user_id");
 		String checkPw = webHelper.getString("user_pw");
-		
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Member input = new Member();
@@ -574,7 +573,7 @@ public class Controller_K {
 		/** 1) 필요한 변수값 생성 */
 		// 조회할 대상에 대한 PK값
 		String email = webHelper.getString("data");
-
+		
 		Member input = new Member();
 		input.setEmail(email);
 
@@ -591,28 +590,55 @@ public class Controller_K {
 		Gson gson = new Gson();
 		return gson.toJson(output);
 	}
-	
-	@RequestMapping(value = "25_find_pw_check.do")
-	public ModelAndView Find_pw_check(Model model) {
-		
+	@ResponseBody
+	@RequestMapping(value = "25_find_pw_check.do", method =  RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String find_pw_check(Model model) {
 		/** 1) 필요한 변수값 생성 */
 		// 조회할 대상에 대한 PK값
-		String email = webHelper.getString("email");
-		String user_id = webHelper.getString("user_id");
-
+		String email = webHelper.getString("data");
+		String user_id = webHelper.getString("data1");
+		int a = 0;
 		Member input = new Member();
 		input.setEmail(email);
 		input.setUser_id(user_id);
 
 		// 조회결과를 저장할 객체 선언
 		Member output = null;
+		Gson gson = new Gson();
 
 		try {
 			output = memberService.getMemberItem(input);
 		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
+			a++;
 		}
 		
+		if(a == 1) {
+			input.setEmail(null);
+			
+			// 조회
+			try {
+				output = memberService.getMemberItem(input);
+				return gson.toJson(a);
+			} catch (Exception e) {
+				a++;	
+			}
+		}
+		
+		if(a == 2) {
+			input.setUser_id(null);
+			input.setEmail(email);
+
+			// 조회
+			try {
+				output = memberService.getMemberItem(input);
+				return gson.toJson(a);
+			} catch (Exception e) {
+				a++;
+				return gson.toJson(a);
+			}
+		}
+		 
 		// 랜덤 비밀번호
 		String user_pw = "";
 		for (int i = 0; i < 12; i++) {
@@ -621,24 +647,23 @@ public class Controller_K {
 		
 		output.setUser_pw(user_pw);
 		
-		try {
+				try {
 			// 데이터 수정
 			memberService.editMember(output);
 		} catch (Exception e) {
-			return webHelper.redirect(null, "일치하는 회원이 없습니다.");
+			return null;
 		}
 		
 		try {
-			mailHelper.sendMail(output.getEmail(), "Find Doctor 임시 비밀번호 발급", output.getUser_pw());
+			String emailcontent = "<p style='text-align:center;'>" + output.getName() + " 회원님께 임의로 발급된 비밀번호는 <b>"+ output.getUser_pw() + "</b>입니다.<br />"
+					+ "비밀번호 변경 후 사용해주시길 바랍니다.<br /></p><img style='width:500px; margin-left: 190px;' src='https://postfiles.pstatic.net/MjAxOTEyMjdfMjQ4/MDAxNTc3NDE2ODQzOTQz.ZyAwSwKyzpdDFaGDvdqHZ8gl3_E99Dgnd3CNcSmduEMg.gJL9BImjP9zodMnwb8OMwPum-3wCTDL_uC31hsQ8-5Ug.PNG.min_gi115/FindDoctor.png?type=w580' alt='로고'>";
+			mailHelper.sendMail(output.getEmail(), "Find Doctor 임시 비밀번호 발급 안내", emailcontent);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		/** 3) View 처리 */
-		model.addAttribute("output", output);
-		
-		String redirectUrl = contextPath + "/index.do"; 
-		return webHelper.redirect(redirectUrl, "입력하신 메일로 임시 비밀번호가 발급 되었습니다.");
+		return gson.toJson(output);
 	}
 	
 }
