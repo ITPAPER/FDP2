@@ -62,14 +62,16 @@
     <script src="./assets/plugins/ajax/ajax_helper.js"></script>
     <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
     <script type="text/x-handlebars-template" id="list-item-tmpl">
-				<div><h3>아이디 찾기 검색 결과</h3>
-				</div>
-				<div><p>{{name}}님의 ID는 <b>{{user_id}}</b>입니다.</p>
-					<p class="center"><button type="button" onclick = "location.href = '${pageContext.request.contextPath}/02_Login.do'" class="btn btn-lg btn-block">Login하기
-									</button>
-					</p>
-				</div>
-		
+					<div><h3>아이디 찾기 검색 결과</h3>
+					</div>
+						<div>
+							<p>{{name}}님의 ID는 <b>{{user_id}}</b>입니다.</p>
+							<p class="center">
+								<button type="button" onclick = "location.href = '${pageContext.request.contextPath}/02_Login.do'" class="btn btn-lg btn-block">
+									Login하기
+								</button>
+							</p>
+						</div>
 </script>
 	<script>
 	$("#findBtn").click(function(e) {
@@ -83,10 +85,17 @@
 			dataType:'json',
 			success:function(req){
 				// 핸들바 템플릿 생성
-				var template = Handlebars.compile($("#list-item-tmpl").html());
-				var html = template(req);
-				$(".box1").empty();
-				$(".box1").html(html);
+				if (req != null){
+					var template = Handlebars.compile($("#list-item-tmpl").html());
+					var html = template(req);
+					$(".box1").html(html);
+				} else  {
+					var check_id  = "<div><h3>아이디 찾기 검색 결과</h3></div>"
+						check_id += "<div><p>가입된 회원의 Email이 아닙니다. 회원 가입을 해주세요.</p>"
+						check_id +=	"<p class='center'><a href = '${pageContext.request.contextPath}/09_Sign_up_a.do'' class='btn btn-lg btn-block'>회원 가입으로 이동</a></p></div>"
+						
+						$(".box1").html(check_id);
+				}		
 	/* 	var check_id  = "<div class='box0'><div class='box1'><div><h3>아이디 찾기 검색 결과</h3></div>"
 			check_id += "<div><p>req.name'"+"'님의 ID는 <b>req.user_id</b>입니다.</p>"
 			check_id +=	"<p class='center'><button type='button' onclick='window.history.go('02_Login.do?user_id=req.user_id');' class='btn btn-lg btn-block'>Login하기</button></p></div></div></div>"

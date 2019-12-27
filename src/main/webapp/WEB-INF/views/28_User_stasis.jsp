@@ -105,7 +105,7 @@
 	
 	#bbl {
 		width: 65%;
-		height: 150px;
+		height: 50px;
 	}
 	
 	#bbr {
@@ -115,9 +115,13 @@
 	
 	#hheader {
 		width: 390px;
-		height: 150px;
+		height: 50px;
+		margin-bottom: 10px;
 	}
 	
+	thead > tr > td {
+		background-color: #fff;
+	}
 </style>
 </head>
 
@@ -324,29 +328,68 @@
 				<div id="hheader">
 					<div id="bbl" class="pull-left">
 						<h3><strong>{{name}}</strong></h3>
-						<h6>회원 번호&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{fdpmember_id}}</h6>
-						<h6>회원 아이디 :&nbsp;{{user_id}}</h6>
-						<h6>가입일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{reg_date}}</h6>
-					</div>
-					<div id="bbr" class="pull-right">
-						<span></span>
 					</div>
 				</div>
 				<div id="hfooter">
-					<p>비밀번호: {{user_pw}}</p>
-					<p>이메일: {{email}}</p>
-					<p>성별: {{convertGender gender}}</p>
-					<p>생일: {{birthdate}}</p>
-					<p>번호: {{tel}}</p>
-					<p>주소1: {{addr1}}</p>
-					<p>주소2: {{addr2}}</p>
-					<p>주소3: {{addr3}}</p>
-					<p>주소4: {{addr4}}</p>
-					<p>정보수정일: {{edit_date}}</p>
-					<p>의사번호: {{medical_field}}</p>
-					<p>회원등급: {{convertMember_grade member_grade}}</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">회원번호</th>
+								<td align="center">{{fdpmember_id}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">아이디</th>
+								<td align="center">{{user_id}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">비밀번호</th>
+								<td align="center">{{user_pw}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">이메일</th>
+								<td align="center">{{email}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">성별</th>
+								<td align="center">{{convertGender}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 등급</th>
+								<td align="center">{{convertMember_grade}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">생년월일</th>
+								<td align="center">{{birthdate}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">시 / 도</th>
+								<td align="center">{{addr1}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">구</th>
+								<td align="center">{{addr2}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">읍 / 면 / 동</th>
+								<td align="center">{{addr3}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">상세주소</th>
+								<td align="center">{{addr4}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 가입일</th>
+								<td align="center">{{reg_date}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 정보 수정일</th>
+								<td align="center">{{edit_date}}</td>
+							</tr>
+						</thead>
+					</table>
 				</div>
 			</div>
+
     	</div>
 	</script>
 	<jsp:include page="./assets/inc/bottom.jsp" />
