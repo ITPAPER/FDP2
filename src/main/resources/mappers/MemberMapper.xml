@@ -33,6 +33,9 @@
 			<if test="fdpmember_id != null and fdpmember_id != ''">
 				AND fdpmember_id =#{fdpmember_id}
 			</if>
+			<if test="email != null and email != ''">
+				AND email =#{email}
+			</if>
 		</where>
 	</select>
 

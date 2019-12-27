@@ -566,13 +566,14 @@ public class Controller_K {
 		
 		return new ModelAndView("25_find_pw");
 	}
-	
-	@RequestMapping(value = "25_find_id_check.do")
-	public ModelAndView find_id_check(Model model) {
+	@ResponseBody
+	@RequestMapping(value = "25_find_id_check.do", method =  RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String find_id_check(Model model) {
 		
 		/** 1) 필요한 변수값 생성 */
 		// 조회할 대상에 대한 PK값
-		String email = webHelper.getString("email");
+		String email = webHelper.getString("data");
 
 		Member input = new Member();
 		input.setEmail(email);
@@ -583,13 +584,12 @@ public class Controller_K {
 		try {
 			output = memberService.getMemberItem(input);
 		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
+			e.printStackTrace();
 		}
 
 		/** 3) View 처리 */
-		model.addAttribute("output", output);
-		
-		return new ModelAndView("Find_id.do");
+		Gson gson = new Gson();
+		return gson.toJson(output);
 	}
 	
 	@RequestMapping(value = "25_find_pw_check.do")

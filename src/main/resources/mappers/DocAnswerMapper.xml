@@ -24,7 +24,7 @@
 		resultMap="docAnswerMap">
 		SELECT docAnswer_id, writer_name, content, reg_date,
 		edit_date, medical_field, fdpmember_id, document_id
-		FROM docAnswer
+		FROM docanswer
 		WHERE
 		docAnswer_id=#{docAnswer_id};
 
@@ -34,7 +34,7 @@
 		parameterType="fdp.project.spring.model.DocAnswer"
 		resultMap="docAnswerMap">
 		SELECT docAnswer_id, writer_name, content, reg_date,
-		edit_date, medical_field, fdpmember_id, document_id FROM docAnswer
+		edit_date, medical_field, fdpmember_id, document_id FROM docanswer
 		WHERE
 		document_id = #{document_id}
 		ORDER BY reg_date DESC
@@ -44,7 +44,7 @@
 	<insert id="insertItem"
 		parameterType="fdp.project.spring.model.DocAnswer"
 		useGeneratedKeys="true" keyProperty="docAnswer_id">
-		INSERT INTO docAnswer (writer_name,
+		INSERT INTO docanswer (writer_name,
 		content, reg_date, edit_date, medical_field, fdpmember_id,
 		document_id)
 		VALUES (#{writer_name}, #{content}, #{reg_date},
@@ -55,14 +55,14 @@
 	<!-- 데이터 삭제를 위한 기능 정의 -->
 	<delete id="deleteItem"
 		parameterType="fdp.project.spring.model.DocAnswer">
-		DELETE FROM docAnswer WHERE
+		DELETE FROM docanswer WHERE
 		docAnswer_id=#{docAnswer_id} || document_id=#{document_id};
 	</delete>
 
 	<!-- 데이터 갱신을 위한 기능 정의 -->
 	<update id="updateItem"
 		parameterType="fdp.project.spring.model.DocAnswer">
-		UPDATE docAnswer SET writer_name=#{writer_name}, content=#{content},
+		UPDATE docanswer SET writer_name=#{writer_name}, content=#{content},
 		reg_date=#{reg_date}, edit_date=#{edit_date}
 		<!-- ,medical_field=#{medical_field} -->
 		WHERE
@@ -73,7 +73,7 @@
 		경우 Mapper에서는 resultMap이 아닌 resulType으로 반환한다. -->
 	<select id="selectCountAll"
 		parameterType="fdp.project.spring.model.DocAnswer" resultType="int">
-		SELECT COUNT(*) FROM docAnswer
+		SELECT COUNT(*) FROM docanswer
 
 		<where>
 			<if test="writer_name != null and writer_name != ''">

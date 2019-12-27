@@ -1,31 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css">
 <head>
+<style>
+	.btn {
+		background: #666;
+		color: white;
+	}
+
+	
+	.box1 {
+		width: 948px;
+		height: 234px;
+		margin: auto;
+		border: 1px solid #eee;
+		padding: 0.15px 16px;
+		box-shadow: -20px 20px 30px -15px gray;
+	}
+	
+	.emailInput {
+		width: 910px;
+		
+		border: 2px solid #666;
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+	}
+</style>
+<jsp:include page="./assets/inc/head.jsp" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>find ID</title>
 </head>
 <body>
-	<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
-			<form action="../member/find_id.do" method="post">
-				<div class="w3-center w3-large w3-margin-top">
+	<div class="box0">
+		<div class="box1">
+			<form method="post" action="25_find_id_check.do">
+				<div>
 					<h3>아이디 찾기</h3>
 				</div>
 				<div>
 					<p>
 						<label>Email</label>
-						<input class="w3-input" type="text" id="email" name="email" required>
+						<input class="emailInput" type="text" id="email" name="email" placeholder="이메일을 입력하세요." required />
 					</p>
 					<p class="w3-center">
-						<button type="submit" id=findBtn class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">find</button>
-						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">Cancel</button>
+						<button type="submit" id="findBtn" class="btn btn-lg btn-block">find</button>
+						<button type="button" onclick="history.go(-1);" class="btn btn-lg btn-block">Cancel</button>
 					</p>
 				</div>
 			</form>
 		</div>
 	</div>
+	
+	<script src="./assets/js/jquery.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
+    <script type="text/x-handlebars-template" id="list-item-tmpl">
+				<div><h3>아이디 찾기 검색 결과</h3>
+				</div>
+				<div><p>{{name}}님의 ID는 <b>{{user_id}}</b>입니다.</p>
+					<p class="center"><button type="button" onclick = "location.href = '${pageContext.request.contextPath}/02_Login.do'" class="btn btn-lg btn-block">Login하기
+									</button>
+					</p>
+				</div>
+		
+</script>
+	<script>
+	$("#findBtn").click(function(e) {
+		e.preventDefault();
+		var email=$("#email").val();
+		console.log(email);
+		$.ajax( {
+			url:'25_find_id_check.do',
+			method:'post',
+			data:{data:email},
+			dataType:'json',
+			success:function(req){
+				// 핸들바 템플릿 생성
+				var template = Handlebars.compile($("#list-item-tmpl").html());
+				var html = template(req);
+				$(".box1").empty();
+				$(".box1").html(html);
+	/* 	var check_id  = "<div class='box0'><div class='box1'><div><h3>아이디 찾기 검색 결과</h3></div>"
+			check_id += "<div><p>req.name'"+"'님의 ID는 <b>req.user_id</b>입니다.</p>"
+			check_id +=	"<p class='center'><button type='button' onclick='window.history.go('02_Login.do?user_id=req.user_id');' class='btn btn-lg btn-block'>Login하기</button></p></div></div></div>"
+	
+			$(".box1").html(check_id); */
+			}
+		})
+	})
+		
+	
+	</script>
 </body>
 </html>
