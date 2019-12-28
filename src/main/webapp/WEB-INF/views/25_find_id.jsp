@@ -96,11 +96,6 @@
 						
 						$(".box1").html(check_id);
 				}		
-	/* 	var check_id  = "<div class='box0'><div class='box1'><div><h3>아이디 찾기 검색 결과</h3></div>"
-			check_id += "<div><p>req.name'"+"'님의 ID는 <b>req.user_id</b>입니다.</p>"
-			check_id +=	"<p class='center'><button type='button' onclick='window.history.go('02_Login.do?user_id=req.user_id');' class='btn btn-lg btn-block'>Login하기</button></p></div></div></div>"
-	
-			$(".box1").html(check_id); */
 			}
 		})
 	})

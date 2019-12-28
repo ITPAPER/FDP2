@@ -42,5 +42,12 @@
 		FROM fdpmember group by age HAVING count(*) > 0 order by age asc;
 		        
     </select>
+    
+    <!-- 의사 전공별 조회 -->
+	<select id="selectCountDoctor" 
+		parameterType="fdp.project.spring.model.Count" resultMap="CountMap">
+        
+		SELECT medical_field, count(*) as doctorCount FROM fdpmember where medical_field IS NOT NULL group by medical_field having count(*) > 0  ORDER BY doctorCount DESC;       
+    </select>
 	
 </mapper>

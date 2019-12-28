@@ -179,9 +179,11 @@
 			<div class="box1 box-right" style="position: absolute; top: 375px;">
 				<div class="top">
 					<h4 class="pull-left">게시판 관리</h4>
-					<button type="button" class="btn btn-primary pull-right" onclick="location.href ='23_Notice_board_s.do'">
-						더보기
-					</button>
+					<c:if test="${not empty session_id && not empty session_pw}">
+						<button type="button" class="btn btn-primary pull-right" onclick="location.href ='23_Notice_board_s.do'">
+							더보기
+						</button>
+					</c:if>
 				</div>
 				
 				<c:if test="${empty session_id && empty session_pw}">
@@ -242,9 +244,11 @@
 			<div class="box1 box-left">
 				<div class="top">
 					<h4 class="pull-left">누적 접속회원 통계</h4>
-					<button type="button" class="btn btn-primary pull-right" onclick="location.href ='29_User_stasis2.do'">
-						더보기
-					</button>
+					<c:if test="${not empty session_id && not empty session_pw}">
+						<button type="button" class="btn btn-primary pull-right" onclick="location.href ='29_User_stasis2.do'">
+							더보기
+						</button>
+					</c:if>
 				</div>
 				
 				<c:if test="${empty session_id && empty session_pw}">
@@ -274,7 +278,7 @@
 								<td class="text-center">나이 + 성별</td>
 							</tr>
 							<tr id="gr5" data-toggle="modal" data-target="#myModal">
-								<td class="text-center">등급</td>
+								<td class="text-center">의사별</td>
 							</tr>
 						</tbody>
 					</table>
@@ -284,7 +288,9 @@
 			<div class="box1 box-right">
 				<div class="top">
 					<h4 class="pull-left">회원 관리</h4>
-					<button type="button" class="btn btn-primary pull-right" onclick="location.href ='28_User_stasis.do'">더보기</button>
+					<c:if test="${not empty session_id && not empty session_pw}">
+						<button type="button" class="btn btn-primary pull-right" onclick="location.href ='28_User_stasis.do'">더보기</button>
+					</c:if>
 				</div>
 				
 				<c:if test="${empty session_id && empty session_pw}">
@@ -378,7 +384,7 @@
 			$("#gr1").click(function() {
 				$("#chartdiv").empty();
 				$.ajax({
-					url : './assets/api/chart99.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart0.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -392,7 +398,7 @@
 			$("#gr2").click(function() {
 				$("#chartdiv").empty();
 				$.ajax({
-					url : './assets/api/chart98.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart1.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -406,7 +412,7 @@
 			$("#gr3").click(function() {
 				$("#chartdiv").empty();
 				$.ajax({
-					url : './assets/api/chart97.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart02.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -420,7 +426,7 @@
 			$("#gr4").click(function() {
 				$("#chartdiv").empty();
 				$.ajax({
-					url : './assets/api/chart96.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart3.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -430,6 +436,20 @@
 					}
 				});		//end $.ajax
 			});		// end #gr4 click
+			
+			$("#gr5").click(function() {
+				$("#chartdiv").empty();
+				$.ajax({
+					url : './assets/api/chart4.do',// 읽어들일 파일의 경로
+					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success : 
+						function(req) {
+						console.log(">> 성공!!! >> " + req);
+						$(".modal-body").html(req);
+					}
+				});		//end $.ajax
+			});		// end #gr5 click
 
 			/** 페이지 열린 직후의 처리*/
 			var box = $(".page").find(".box1"); 	// 0번째 `.page`요소에 있는 .box 얻기

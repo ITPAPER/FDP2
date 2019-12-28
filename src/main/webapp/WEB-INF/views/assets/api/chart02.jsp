@@ -14,7 +14,7 @@
 var json = ${jsonList};
 
 var array = new Array();
-var count = new Array(5);
+var count = new Array(7);
 var obj = new Object();
 var sum = 0;
 
@@ -28,8 +28,8 @@ for (var i = 0; i < count.length; i++) {
 
 for (var i = 0; i < count.length; i++) {
 	obj = new Object();
-	obj.age = ((i+2) + "0 ~ " + (i+2) + "9");
-	/* obj.age = ((i+2)+ "대"); 20대 */
+	/* obj.age = ((i+1) + "0 ~ " + (i+1) + "9"); */
+	obj.age = ((i+1)+ "0대");
 	obj.agecount = count[i];
 	array.push(obj)
 }

@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -129,7 +130,7 @@
 	<jsp:include page="./assets/inc/top.jsp" />
 		<div class="bbox clearfix">
 		<div class="hhheader">
-			<h2><b>&nbsp;&nbsp;&nbsp;관리자 페이지</b></h2>
+			<h2><b>&nbsp;&nbsp;&nbsp;회원관리 페이지</b></h2>
 		</div>
 		<hr />
 		
@@ -162,7 +163,7 @@
 			<form method="get"
 				action="${pageContext.request.contextPath}/28_User_stasis.do">
 				<label for="keyword"></label> <input type="search"
-					name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
+					name="keyword" id="keyword" placeholder="이름/아이디/지역 검색" value="${keyword}" />
 				<button type="submit">검색</button>
 				<button type='button' id="checkbtn">선택 삭제</button>
 			</form>
@@ -196,15 +197,20 @@
 							<c:otherwise>
 								<%-- 조회 결과에 따른 반복 처리 --%>
 								<c:forEach var="item" items="${output}" varStatus="status">
-									<%-- 출력을 위해 준비한 교수이름 변수 --%>
+									<%-- 출력을 위해 준비한 검색어 변수 --%>
 									<c:set var="name" value="${item.name}" />
+									<c:set var="user_id" value="${item.user_id}" />
+									<c:set var="addr2" value="${item.addr2}" />
 	
 									<%-- 검색어가 있다면? --%>
 									<c:if test="${keyword != ''}">
 										<%-- 검색어에 <mark> 태그를 적용하여 형광펜 효과 준비 --%>
 										<c:set var="mark" value="<mark>${keyword}</mark>" />
+										
 										<%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광펜 효과로 변경 --%>
 										<c:set var="name" value="${fn:replace(name, keyword, mark)}" />
+										<c:set var="user_id" value="${fn:replace(user_id, keyword, mark)}" />
+										<c:set var="addr2" value="${fn:replace(addr2, keyword, mark)}" />
 									</c:if>
 	
 									<tr>
@@ -351,11 +357,7 @@
 							</tr>
 							<tr>
 								<th class="text-center">성별</th>
-								<td align="center">{{convertGender}}</td>
-							</tr>
-							<tr>
-								<th class="text-center">회원 등급</th>
-								<td align="center">{{convertMember_grade}}</td>
+								<td align="center">{{convertGender gender}}</td>
 							</tr>
 							<tr>
 								<th class="text-center">생년월일</th>
@@ -384,6 +386,14 @@
 							<tr>
 								<th class="text-center">회원 정보 수정일</th>
 								<td align="center">{{edit_date}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 등급</th>
+								<td align="center">{{convertMember_grade member_grade}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">전공분야</th>
+								<td align="center">{{convertMedical_field medical_field}}</td>
 							</tr>
 						</thead>
 					</table>
@@ -428,6 +438,43 @@
 				return "의사";
 			} else {
 				return "일반인";
+			}
+		});
+		
+		/** handlebars 플러그인 안에 convertMedical_field 함수 추가 */
+ 		Handlebars.registerHelper('convertMedical_field', function(d) {
+			if (d == "01") {
+				return "내과";
+			} else if (d == '03') {
+				return "정신건강의학과";
+			} else if (d == '04') {
+				return "외과";
+			} else if (d == '05') {
+				return "정형외과";
+			} else if (d == '06') {
+				return "신경외과";
+			} else if (d == '07') {
+				return "성형외과";
+			} else if (d == '09') {
+				return "마취통증의학과";
+			} else if (d == '10') {
+				return "산부인과";
+			} else if (d == '11') {
+				return "소아청소년과";
+			} else if (d == '12') {
+				return "안과";
+			} else if (d == '13') {
+				return "이비인후과";
+			} else if (d == '14') {
+				return "피부과";
+			} else if (d == '15') {
+				return "비뇨기과";
+			} else if (d == '21') {
+				return "재활의학과";
+			} else if (d == '49') {
+				return "치과";
+			} else if (d == '80') {
+				return "한의학과";
 			}
 		});
 		
@@ -510,7 +557,7 @@
 					dataType: 'json',
 					data: {fdpmember_id : src},
 					success: function(req) {
-						console.log(req);
+							
 						// 핸들바 템플릿 생성
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req);

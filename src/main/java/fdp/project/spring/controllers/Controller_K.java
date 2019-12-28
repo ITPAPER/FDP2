@@ -284,7 +284,9 @@ public class Controller_K {
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Member input = new Member();
 		input.setName(keyword);
-
+		input.setUser_id(keyword);
+		input.setAddr2(keyword);
+		
 		List<Member> output = null; // 조회결과가 저장될 객체
 		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
 
@@ -346,7 +348,7 @@ public class Controller_K {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		/** 3) View 처리 */
 		Gson gson = new Gson();
 		return gson.toJson(output);
@@ -485,8 +487,8 @@ public class Controller_K {
 		return null;
 	}
 	
-	@RequestMapping(value = "/assets/api/chart99.do")
-	public ModelAndView chcart99(Model model) {
+	@RequestMapping(value = "/assets/api/chart0.do")
+	public ModelAndView chart00(Model model) {
 		
 		/** 구별 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -499,11 +501,11 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart99");
+		return new ModelAndView("assets/api/chart0");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart98.do")
-	public ModelAndView chcart98(Model model) {
+	@RequestMapping(value = "/assets/api/chart1.do")
+	public ModelAndView chart11(Model model) {
 		
 		/** 남,여 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -516,11 +518,11 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart98");
+		return new ModelAndView("assets/api/chart1");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart97.do")
-	public ModelAndView chcart97(Model model) {
+	@RequestMapping(value = "/assets/api/chart02.do")
+	public ModelAndView chart22(Model model) {
 		
 		/** 회원 나이별로 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -533,11 +535,11 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart97");
+		return new ModelAndView("assets/api/chart02");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart96.do")
-	public ModelAndView chcart96(Model model) {
+	@RequestMapping(value = "/assets/api/chart3.do")
+	public ModelAndView chart33(Model model) {
 		
 		/** 남,여 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -550,7 +552,24 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart96");
+		return new ModelAndView("assets/api/chart3");
+	}
+	
+	@RequestMapping(value = "/assets/api/chart4.do")
+	public ModelAndView chart44(Model model) {
+		
+		/** 남,여 회원 수 조회하기 */
+		// 조회결과를 저장할 객체 선언
+		List<Count> output = null;
+		
+		try {
+			output = countService.getDoctorCount(null);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		return new ModelAndView("assets/api/chart4");
 	}
 	
 	// email로 id확인
@@ -590,6 +609,7 @@ public class Controller_K {
 		Gson gson = new Gson();
 		return gson.toJson(output);
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "25_find_pw_check.do", method =  RequestMethod.POST,
 			produces="text/plain;charset=UTF-8")
@@ -606,17 +626,17 @@ public class Controller_K {
 		// 조회결과를 저장할 객체 선언
 		Member output = null;
 		Gson gson = new Gson();
-
+		
+		// id, email 조회
 		try {
 			output = memberService.getMemberItem(input);
 		} catch (Exception e) {
 			a++;
 		}
 		
+		// 조회 실패 시 id 존재 여부 확인
 		if(a == 1) {
 			input.setEmail(null);
-			
-			// 조회
 			try {
 				output = memberService.getMemberItem(input);
 				return gson.toJson(a);
@@ -625,11 +645,11 @@ public class Controller_K {
 			}
 		}
 		
+		// 조회 실패 시 email 존재 여부 확인
 		if(a == 2) {
 			input.setUser_id(null);
 			input.setEmail(email);
-
-			// 조회
+			
 			try {
 				output = memberService.getMemberItem(input);
 				return gson.toJson(a);
@@ -656,7 +676,7 @@ public class Controller_K {
 		
 		try {
 			String emailcontent = "<p style='text-align:center;'>" + output.getName() + " 회원님께 임의로 발급된 비밀번호는 <b>"+ output.getUser_pw() + "</b>입니다.<br />"
-					+ "비밀번호 변경 후 사용해주시길 바랍니다.<br /></p><img style='width:500px; margin-left: 190px;' src='https://postfiles.pstatic.net/MjAxOTEyMjdfMjQ4/MDAxNTc3NDE2ODQzOTQz.ZyAwSwKyzpdDFaGDvdqHZ8gl3_E99Dgnd3CNcSmduEMg.gJL9BImjP9zodMnwb8OMwPum-3wCTDL_uC31hsQ8-5Ug.PNG.min_gi115/FindDoctor.png?type=w580' alt='로고'>";
+					+ "비밀번호 변경 후 사용해주시길 바랍니다.<br /></p><div style='text-align:center;'><img style='width:500px;' src='https://postfiles.pstatic.net/MjAxOTEyMjdfMjQ4/MDAxNTc3NDE2ODQzOTQz.ZyAwSwKyzpdDFaGDvdqHZ8gl3_E99Dgnd3CNcSmduEMg.gJL9BImjP9zodMnwb8OMwPum-3wCTDL_uC31hsQ8-5Ug.PNG.min_gi115/FindDoctor.png?type=w580' alt='로고'></div>";
 			mailHelper.sendMail(output.getEmail(), "Find Doctor 임시 비밀번호 발급 안내", emailcontent);
 		} catch (Exception e) {
 			e.printStackTrace();

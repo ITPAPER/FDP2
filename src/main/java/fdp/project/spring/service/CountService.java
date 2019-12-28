@@ -13,4 +13,6 @@ public interface CountService {
 	public List<Count> getGenderCount(Count input) throws Exception;
 	
 	public List<Count> getAgeGenderCount(Count input) throws Exception;
+	
+	public List<Count> getDoctorCount(Count input) throws Exception;
 }
