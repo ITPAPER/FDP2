@@ -117,7 +117,7 @@
 					<option value="비염">비염</option>
 					<option value="알레르기성결막염">알레르기성 결막염</option>
 					<option value="위식도 역류질환">위식도 역류질환</option>
-					<option value="접촉피부염">접촉식 피부염</option>
+					<option value="접촉피부염">접촉피부염</option>
 					<option value="척추질환">척추질환</option>
 					<option value="치아우식증">치아우식증</option>
 					<option value="치주질환및치은염">치주질환 및 치은염</option>
@@ -161,18 +161,49 @@
 	$(function() {
 		$("#disName").change(function() {
 			$("#dept").empty();
-			var choice = $(this).find("option:selected").val();
-			if(!choice) {
-				return false;
-			}
+			var choice2 = $("#y1").attr('value');
+            console.log(choice2);
+            if (!choice2) {return false;}
+            
+     	   searchForm.selectedValue.value=$("#y1").val();
 			
-			 $.get('abc.do', {disNo:choice}, function(req) {
-				//var template = Handlebars.compile($("#item_tmpl").html());
-				//var html = template(req); 
-				//$("#result").append(html);
+			$("#chartname0").empty();
+	    	$("#chartname1").empty();
+	        $("#chartname2").empty();
+	        $("#chartname3").empty();
+			
+	        console.log(${output.dis_name});
+	        
+	        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
+			$("#chartname0").html(chart0);
+	        
+		    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
+			$("#chartname1").html(chart1);
+					       
+			var chart2 = "<h4><strong><연령별 환자수></strong></h4>"
+			$("#chartname2").html(chart2);
 				
+			var chart3 = "<h4><strong><지역별 환자수></strong></h4>"
+			$("#chartname3").html(chart3);
+			
+			var queryString = $('form').serializeArray();
+			
+            $.ajax({
+               /** ajax 기본 옵션 */
+               url: './assets/api/chart5.do',// 읽어들일 파일의 경로
+               data : queryString,// 읽어들일 파일의 경로
+               dataType: 'html',   //읽어올 내용 형식(html, xml, json)
+               // 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+               success: function(req) {
+                  console.log(">> 성공!!!! >> " + req);
+                  // 준비된 요소에게 읽어온 내용을 출력한다.
+                  $("#dept").html(req);
+               }
+            });//end $.ajax	 
+			
 				$("#ct1").click(function(e) {
-		            var choice2 = $("#y1").attr('value');
+		            $("#dept").empty();
+					var choice2 = $("#y1").attr('value');
 		            console.log(choice2);
 		            if (!choice2) {return false;}
 		            
@@ -186,16 +217,16 @@
 			        console.log(${output.dis_name});
 			        
 			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
-						$("#chartname0").html(chart0);
+					$("#chartname0").html(chart0);
 			        
 				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
-						$("#chartname1").html(chart1);
+					$("#chartname1").html(chart1);
 							       
 					var chart2 = "<h4><strong><연령별 환자수></strong></h4>"
-						$("#chartname2").html(chart2);
+					$("#chartname2").html(chart2);
 						
 					var chart3 = "<h4><strong><지역별 환자수></strong></h4>"
-						$("#chartname3").html(chart3);
+					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serializeArray();
 					
@@ -214,12 +245,13 @@
 				}); // end #ct1 click
 				
 				$("#ct2").click(function(e) {
-		            var choice2 = $("#y2").attr('value');
+					$("#dept").empty();
+					
+					var choice2 = $("#y2").attr('value');
 		            console.log(choice2);
 		            if (!choice2) {return false;}
 		            
 			     	searchForm.selectedValue.value=$("#y2").val();
-			    	//document.searchForm.submit();
 		            
 					$("#chartname0").empty();
 			    	$("#chartname1").empty();
@@ -227,16 +259,16 @@
 			        $("#chartname3").empty();
 					
 			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
-						$("#chartname0").html(chart0);
+					$("#chartname0").html(chart0);
 				        
 				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
-						$("#chartname1").html(chart1);
+					$("#chartname1").html(chart1);
 							       
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname2").html(chart2);
+					$("#chartname2").html(chart2);
 						
 					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart3);
+					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -254,7 +286,9 @@
 				}); // end #ct2 click
 				
 				$("#ct3").click(function(e) {
-		            var choice2 = $("#y3").attr('value');
+					$("#dept").empty();
+					
+					var choice2 = $("#y3").attr('value');
 		            console.log(choice2);
 		            if (!choice2) {return false;}
 					
@@ -266,16 +300,16 @@
 			        $("#chartname3").empty();
 					
 			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
-						$("#chartname0").html(chart0);
+					$("#chartname0").html(chart0);
 				        
 				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
-						$("#chartname1").html(chart1);
+					$("#chartname1").html(chart1);
 							       
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname2").html(chart2);
+					$("#chartname2").html(chart2);
 						
 					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart3);
+					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -293,7 +327,9 @@
 				}); // end #ct3 click
 				
 				$("#ct4").click(function(e) {
-		            var choice2 = $("#y4").attr('value');
+					$("#dept").empty();
+					
+					var choice2 = $("#y4").attr('value');
 		            console.log(choice2);
 		            if (!choice2) {return false;}
 					
@@ -305,16 +341,16 @@
 			        $("#chartname3").empty();
 					
 			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
-						$("#chartname0").html(chart0);
+					$("#chartname0").html(chart0);
 				        
 				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
-						$("#chartname1").html(chart1);
+					$("#chartname1").html(chart1);
 							       
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname2").html(chart2);
+					$("#chartname2").html(chart2);
 						
 					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart3);
+					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -332,7 +368,9 @@
 				}); // end #ct4 click
 				
 				$("#ct5").click(function(e) {
-		            var choice2 = $("#y5").attr('value');
+					$("#dept").empty();
+					
+					var choice2 = $("#y5").attr('value');
 		            console.log(choice2);
 		            if (!choice2) {return false;}
 					
@@ -344,16 +382,16 @@
 			        $("#chartname3").empty();
 					
 			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
-						$("#chartname0").html(chart0);
+					$("#chartname0").html(chart0);
 				        
 				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
-						$("#chartname1").html(chart1);
+					$("#chartname1").html(chart1);
 							       
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname2").html(chart2);
+					$("#chartname2").html(chart2);
 						
 					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
-						$("#chartname3").html(chart3);
+					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
                     $.ajax({
@@ -370,7 +408,7 @@
                     });//end $.ajax
 				}); // end #ct5 click
 				
-			}) //end $.get (abc.do)
+			//}) //end $.get (abc.do)
 		})
 	})
 		
