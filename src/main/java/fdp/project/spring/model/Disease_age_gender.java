@@ -17,3 +17,4 @@ public class Disease_age_gender {
 		private int sum_cost;
 		private int sum_num_patient;
 }
+

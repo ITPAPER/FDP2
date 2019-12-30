@@ -79,7 +79,7 @@
 <body>
 <jsp:include page="./assets/inc/top.jsp" />
 	<div class="container"style="height:1100px;">
-	<form name="myform" id="myform" action="12_Sign_up_s.do">
+	<form name="myform" id="myform" action="index.do">
 		<div id="box1">
 			<h3 class="title"><strong>회원가입이 완료되었습니다!</strong></h3>
 			<h3 id="title1"><strong>입력하신 정보를 확인해주세요.</strong></h3>	
