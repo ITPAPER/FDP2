@@ -311,6 +311,34 @@ public class Controller_J {
         return gson.toJson(status);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "eamilCheck.do", method= RequestMethod.POST, produces="text/plain;charset=UTF-8") 
+	public String eamilCheck() {
+		String email = webHelper.getString("email");
+		
+		Member member = new Member();
+		member.setEmail(email);
+		Member output = null;
+		
+		try {
+            // 데이터 저장
+            // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+           output = memberService.getMemberItem(member);
+        } catch (Exception e) {
+        	System.out.println("중복된 이메일이 없습니다.");
+        }
+
+		String status = "OK";
+		System.out.println(output);
+		
+		if (output != null) {
+			status = "FAIL";
+		}
+		
+        Gson gson = new Gson();
+        return gson.toJson(status);
+	}
+	
 	@RequestMapping(value = "11_Sign_up_i_n2.do", method = RequestMethod.GET)
 	public ModelAndView signupnn(Model model) {
 		int fdpmember_id = webHelper.getInt("fdpmember_id");

@@ -24,7 +24,7 @@
     		display: inline-block;
     	}
     	
-		#dupcheck { !important;
+		#dupcheck,#dupcheck2 { !important;
 			border: 1.5px solid orange;
 			background-color: white;
 			color: orange;
@@ -65,11 +65,13 @@
     	
     	#joinbutton {
 			position: relative;
+			top: 50px;
 			left: -20px;
 		}
 		
 		#resetbutton {
 			position: relative;
+			top: 50px;
 			right: -20px;
 		}
     	
@@ -97,7 +99,7 @@
   </head>
   <body>
   <jsp:include page="./assets/inc/top.jsp" />
-	<div class="container" style="height: 1000px;">
+	<div class="container" style="height: 1100px;">
 		<h3 class="title">
 			<strong>회원가입 - 의사</strong>
 		</h3>
@@ -155,7 +157,10 @@
 				<label for='email' class="col-md-2">이메일 <span class='identify'>*</span></label>
 				<div class="col-md-10">
 					<input type="email" name="email" id="email" class="form-control" />
-					<br />	
+					<br />
+					<br />
+					<button type="button" id="dupcheck2" value="0">이메일 중복검사</button>
+					<br />
 				</div>
 			</div>
 			<br />
@@ -236,9 +241,6 @@
 				//사용 가능한 아이디인 경우 --> req = {status: "OK"}
 				//사용 불가능한 아이디인 경우 --> req = {status: "FAIL"}
 				
-				console.log(user_id_val);
-				console.log(req);
-				
 				if (req == 'OK') {
 					alert("사용 가능한 아이디 입니다.");
 					$("#dupcheck").attr("value", 1);
@@ -248,6 +250,32 @@
 					$("#dupcheck").attr("value", 0);
 					$("#user_id").val("");
 					$("#user_id").focus();
+				}
+			});
+		});
+		
+		$("#dupcheck2").click(function() {
+			var eamil_val = $("#email").val();
+			
+			if(!eamil_val) {
+				alert("이메일을 입력하세요!!!");
+				$("#email").focus();
+				return false;
+			} 
+			
+			$.post('eamilCheck.do', {email: eamil_val}, function(req) {
+				//사용 가능한 이메일인 경우 --> req = {status: "OK"}
+				//사용 불가능한 이메일인 경우 --> req = {status: "FAIL"}
+				
+				if (req == 'OK') {
+					alert("사용 가능한 이메일 입니다.");
+					$("#dupcheck2").attr("value", 1);
+					
+				} else {
+					alert("사용할 수 없는 아이디 입니다.");
+					$("#dupcheck2").attr("value", 0);
+					$("#email").val("");
+					$("#email").focus();
 				}
 			});
 		});
@@ -264,6 +292,13 @@
 			
 			if (complete == 0) {
 				alert("아이디 중복검사를 실행해주세요");
+				return false;
+			} 
+
+            var complete2 = $("#dupcheck2").val();
+			
+			if (complete2 == 0) {
+				alert("이메일 중복검사를 실행해주세요");
 				return false;
 			} 
 

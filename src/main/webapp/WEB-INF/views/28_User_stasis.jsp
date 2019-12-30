@@ -15,17 +15,12 @@
 
 <style>
 	.bbox {
-		width: 1300px;
-		min-height: 750px;
+		width: 1170px;
+		min-height: 770px;
 		margin: auto;
 		position: relative;
 	}
 
-	nav {
-		width: 20%;
-		margin: 0 20px;
-	}
-	
 	#memberView {
 		height: 750px;
 		width: 30%;
@@ -37,37 +32,24 @@
 		visibility: hidden;
 	}	
 	
-	.center {
-		display: inline-block;
+	.center { 
 		height: 500px;
-		width: 75%;
+		width: 1170px;
 		margin: auto;
-		margin: 0 20px 0 0;
 		border: 1px solid #f7f7f7;
 	}
 	
-	.center-body {
-		height: 600px;
-		background: #fff;
-	}
-	
-	.center-bottom {
-		height: 100px;
-	}
-	
 	.pagination {
-		padding-top: 10px;
-		padding-left: 360px;
-	}
-	
-	.ttap {
-		height: 70px;
-		width: 100%;
-		border-bottom: 1px solid #ccc;
+ 		padding-top: 10px;
+		padding-left: 450px;
 	}
 	
 	thead > tr {
 		background: #ffa500;
+	}
+	
+	.btn {
+		margin-left: 1px;
 	}
 	
 	/* 핸들바 CSS */
@@ -115,7 +97,7 @@
 	}
 	
 	#hheader {
-		width: 390px;
+		width: 200px;
 		height: 50px;
 		margin-bottom: 10px;
 	}
@@ -123,49 +105,28 @@
 	thead > tr > td {
 		background-color: #fff;
 	}
+	
 </style>
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-		<div class="bbox clearfix">
+		<div class="bbox">
 		<div class="hhheader">
 			<h2><b>&nbsp;&nbsp;&nbsp;회원관리 페이지</b></h2>
 		</div>
 		<hr />
 		
-		<nav class="pull-left">
-		
-			<!-- 아코디언 영역 -->
-			<div class="panel-group" id="accordion">
-				<!-- 항목(1) -->
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 관리자 페이지 </a></h4>
-					</div>
-					<div id="collapseOne" class="panel-collapse collapse out">
-						<div class="panel-body">
-							<a href="${pageContext.request.contextPath}/29_User_stasis2.do">통계</a>
-						</div>
-						<div class="panel-body">
-							<a href="${pageContext.request.contextPath}/23_Notice_board_s.do">게시판</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--// 아코디언 영역 -->
-			
-		</nav>
+
 		<div class="center">
-			<div class="center-body">
 			
 			<!-- 검색폼 -->
 			<form method="get"
 				action="${pageContext.request.contextPath}/28_User_stasis.do">
-				<label for="keyword"></label> <input type="search"
+				<label for="keyword"></label> <input type="search" class="form-control pull-left" style="width: 170px;"
 					name="keyword" id="keyword" placeholder="이름/아이디/지역 검색" value="${keyword}" />
-				<button type="submit">검색</button>
-				<button type='button' id="checkbtn">선택 삭제</button>
+				<button type="submit" class="btn btn-default pull-left">검색</button>
+				<button type='button' class="btn btn-default pull-left" id="checkbtn">선택 삭제</button>
 			</form>
 			
 				<table class="table table-hover">
@@ -242,7 +203,7 @@
 				</table>
 				
 			<!-- 페이지 번호 구현 div 시작-->
-			<div >
+			<div id="pageBottom">
 				<ul class="pagination">			 
 					<li class="disabled">
 					<%-- 이전 그룹에 대한 링크 --%>
@@ -303,7 +264,6 @@
 			<!-- 페이지 번호구현 div 끝 -->
 			
 			<input type="hidden" id="check" value="${my_session_id}" />		
-			</div>
 		</div>
 		<aside>
 			<div id="memberView"></div>
@@ -364,19 +324,19 @@
 								<td align="center">{{birthdate}}</td>
 							</tr>
 							<tr>
-								<th class="text-center">시 / 도</th>
+								<th class="text-center">우편번호</th>
 								<td align="center">{{addr1}}</td>
 							</tr>
 							<tr>
-								<th class="text-center">구</th>
+								<th class="text-center">주소</th>
 								<td align="center">{{addr2}}</td>
 							</tr>
 							<tr>
-								<th class="text-center">읍 / 면 / 동</th>
+								<th class="text-center">상세주소</th>
 								<td align="center">{{addr3}}</td>
 							</tr>
 							<tr>
-								<th class="text-center">상세주소</th>
+								<th class="text-center">주소 참고</th>
 								<td align="center">{{addr4}}</td>
 							</tr>
 							<tr>
@@ -453,7 +413,7 @@
 				return "정형외과";
 			} else if (d == '06') {
 				return "신경외과";
-			} else if (d == '07') {
+			} else if (d == '08') {
 				return "성형외과";
 			} else if (d == '09') {
 				return "마취통증의학과";

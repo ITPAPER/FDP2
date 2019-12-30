@@ -26,7 +26,7 @@
 			display: inline-block;
 		}
 		
-		#dupcheck { !important;
+		#dupcheck, #dupcheck2 { !important;
 			border: 1.5px solid orange;
 			background-color: white;
 			color: orange;
@@ -168,6 +168,9 @@
 				<div class="col-md-10">
 					<input type="email" name="email" id="email" class="form-control" />
 					<br />
+					<br />
+					<button type="button" id="dupcheck2" value="0">이메일 중복검사</button>
+					<br />
 				</div>
 			</div>
 			<br />
@@ -232,6 +235,32 @@
 					$("#dupcheck").attr("value", 0);
 					$("#user_id").val("");
 					$("#user_id").focus();
+				}
+			});
+		});
+		
+		$("#dupcheck2").click(function() {
+			var eamil_val = $("#email").val();
+			
+			if(!eamil_val) {
+				alert("이메일을 입력하세요!!!");
+				$("#email").focus();
+				return false;
+			} 
+			
+			$.post('eamilCheck.do', {email: eamil_val}, function(req) {
+				//사용 가능한 이메일인 경우 --> req = {status: "OK"}
+				//사용 불가능한 이메일인 경우 --> req = {status: "FAIL"}
+				
+				if (req == 'OK') {
+					alert("사용 가능한 이메일 입니다.");
+					$("#dupcheck2").attr("value", 1);
+					
+				} else {
+					alert("사용할 수 없는 아이디 입니다.");
+					$("#dupcheck2").attr("value", 0);
+					$("#email").val("");
+					$("#email").focus();
 				}
 			});
 		});

@@ -24,7 +24,7 @@ for(var i=0 ; i < json.length ; i++) {
 		json[i].medical_field = "정형외과";
 	} else if (json[i].medical_field == "06") {
 		json[i].medical_field = "신경외과";
-	} else if (json[i].medical_field == "07") {
+	} else if (json[i].medical_field == "08") {
 		json[i].medical_field = "성형외과";
 	} else if (json[i].medical_field == "09") {
 		json[i].medical_field = "마취통증의학과";
