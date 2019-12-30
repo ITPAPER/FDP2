@@ -16,20 +16,21 @@
         <result property="reg_date" column="reg_date" />
         <result property="edit_date" column="edit_date" />
         <result property="fdpmember_id" column="fdpmember_id" />
+        <result property="docA_ok" column="docA_ok" />
     </resultMap>
 
     <!-- 단일행 조회를 위한 기능 정의 -->
     <select id="selectItem"
         parameterType="fdp.project.spring.model.Document"
         resultMap="documentMap">
-        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id FROM document WHERE document_id=#{document_id};
+        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id, docA_ok FROM document WHERE document_id=#{document_id};
     </select>
 
     <!-- 다중행 조회를 위한 기능 정의 -->
     <select id="selectList"
         parameterType="fdp.project.spring.model.Document"
         resultMap="documentMap">
-        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_date FROM document
+        SELECT document_id, writer_name, subject, content, hit, reg_date, edit_date, docA_ok FROM document
         
         <where>
             <if test="writer_name != null and writer_name != ''">
@@ -51,6 +52,9 @@
             <if test="edit_date != null and edit_date != ''">
                 OR edit_date LIKE concat('%', #{edit_date}, '%')
             </if>
+            <if test="docA_ok != null and docA_ok != ''">
+                OR docA_ok LIKE concat('%', #{docA_ok}, '%')
+            </if>
         </where>
         
         ORDER BY document_id DESC
@@ -65,7 +69,7 @@
         parameterType="fdp.project.spring.model.Document"
         useGeneratedKeys="true"
         keyProperty="document_id">
-        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date}, #{fdpmember_id});
+        INSERT INTO document (writer_name, subject, content, hit, reg_date, edit_date, fdpmember_id, docA_ok) VALUES (#{writer_name}, #{subject}, #{content}, #{hit}, #{reg_date}, #{edit_date}, #{fdpmember_id}, #{docA_ok});
     </insert>
 
     <!-- 데이터 삭제를 위한 기능 정의 -->
@@ -77,9 +81,14 @@
     <!-- 데이터 갱신을 위한 기능 정의 -->
     <update id="updateItem"
         parameterType="fdp.project.spring.model.Document">
-        UPDATE document SET writer_name=#{writer_name}, subject=#{subject}, content=#{content}, hit=#{hit}, reg_date=#{reg_date}, edit_date=#{edit_date} WHERE document_id=#{document_id};
+        UPDATE document SET writer_name=#{writer_name}, subject=#{subject}, content=#{content}, hit=#{hit}, reg_date=#{reg_date}, edit_date=#{edit_date}, docA_ok=#{docA_ok} WHERE document_id=#{document_id};
     </update>
     
+     <!-- 데이터 갱신을 위한 기능 정의 -->
+    <update id="updateDocA_ok"
+        parameterType="fdp.project.spring.model.Document">
+        UPDATE document SET docA_ok=#{docA_ok} WHERE document_id=#{document_id};
+    </update>
     <!--
         조건에 맞는 데이터 수를 집계하여 int 타입으로 반환한다.
         count, max, min, sum, avg 함수를 사용한 경우 Mapper에서는
@@ -111,6 +120,9 @@
             </if>
             <if test="fdpmember_id != null and fdpmember_id != ''">
                 OR fdpmember_id LIKE concat('%', #{fdpmember_id}, '%')
+            </if>
+            <if test="docA_ok != null and docA_ok != ''">
+                OR docA_ok LIKE concat('%', #{docA_ok}, '%')
             </if>
         </where>
     </select>

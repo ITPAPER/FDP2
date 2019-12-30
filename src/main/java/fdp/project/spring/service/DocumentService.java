@@ -43,6 +43,13 @@ public interface DocumentService {
     public int editDocument(Document input) throws Exception;
     
     /**
+     * 게시판 docA_ok 데이터 수정하기
+     * @param Document 수정할 정보를 담고 있는 Beans
+     * @throws Exception
+     */
+    public int editDocA_ok(Document input) throws Exception;
+    
+    /**
      * 게시판 데이터 삭제하기
      * @param Document 삭제할 게시판의 일련번호를 담고 있는 Beans
      * @throws Exception

@@ -220,7 +220,7 @@ public class Controller_C {
 		SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar time = Calendar.getInstance();
 		String reg_date = d.format(time.getTime());
-	
+		
 		// docAnswer_id가 0이면 답글 데이터 저장 처리
 		if (docAnswer_id == 0) {
 
@@ -245,7 +245,7 @@ public class Controller_C {
 			docAnswer.setContent(content);
 			docAnswer.setFdpmember_id(fdpmember_id);
 			docAnswer.setReg_date(reg_date);
-
+			
 			try {
 				// 의사 답글(docAnswer) 데이터 저장
 				docAnswerService.addDocAnswer(docAnswer);
@@ -253,6 +253,18 @@ public class Controller_C {
 				return webHelper.redirect(null, e.getLocalizedMessage());
 			}
 
+			Document document = new Document();
+			document.setDocument_id(document_id);
+			document.setDocA_ok(1);
+			
+			try {
+				// 게시글 의사답변 태그(docA_ok) 데이터 수정(0 --> 1)
+				documentService.editDocA_ok(document);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+
+			
 			/** 3) 결과를 확인하기 위한 페이지 이동 */
 			// 저장 결과를 확인하기 위해서 데이터 저장 시 생성된 PK 값을 상세페이지로 전달해야한다.
 			String redirectUrl = contextPath + "/14_Notice_board_i.do?document_id=" + document_id;
@@ -718,6 +730,7 @@ public class Controller_C {
 		input.setHit(hit);
 		input.setReg_date(reg_date);
 		input.setFdpmember_id(fdpmember_id);
+		input.setDocA_ok(0);
 		System.out.println(input);
 		try {
 			// 데이터 저장
@@ -769,14 +782,36 @@ public class Controller_C {
 		// 데이터 삭제에 필요한 조건값을 Beans에 저장하기
 		DocAnswer input = new DocAnswer();
 		input.setDocAnswer_id(docAnswer_id);
-
+		
 		try {
 			// 데이터 삭제
 			docAnswerService.deleteDocAnswer(input);
 		} catch (Exception e) {
 			return webHelper.redirect(null, e.getLocalizedMessage());
 		}
-
+		
+		input.setDocument_id(document_id);
+		List<DocAnswer> output = null;
+		
+		try {
+			// 의사데이터 조회 
+			output = docAnswerService.getDocAnswerList(input);
+		} catch (Exception e) {
+			System.out.println("의사 답글 없음");
+		}
+		 
+		
+		if(output.isEmpty()) {
+			Document document = new Document();
+			document.setDocument_id(document_id);
+			document.setDocA_ok(0);
+			try {
+				// 데이터 수정
+				documentService.editDocA_ok(document);
+			} catch (Exception e) {
+				return webHelper.redirect(null, e.getLocalizedMessage());
+			}
+		}
 		/** 3) 페이지 이동 */
 		// 확인할 대상이 삭제된 상태이므로 목록 페이지로 이동
 

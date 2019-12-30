@@ -74,7 +74,13 @@ thead {
 
 /** 게시판 레스트에 대한 테이블 비율 설정 */
 .subject {
-	width: 50%;
+	width: 40%;
+}
+
+/** 의사 답변 완료 태그 */
+.danok {
+	background-color: #757575;
+	color: white;
 }
 </style>
 </head>
@@ -106,6 +112,7 @@ thead {
 						<!-- <th class="cbox"></th> -->
 						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
+						<th class></th>
 						<th class="text-center writer">작성자</th>
 						<th class="text-center reg_date">조회수</th>
 						<th class="text-center hit">작성일</th>
@@ -131,6 +138,7 @@ thead {
 								<c:set var="reg_date" value="${item.reg_date}" />
 								<c:set var="edit_date" value="${item.edit_date}" />
 								<c:set var="fdpmember_id" value="${item.fdpmember_id}" />
+								<c:set var="docA_ok" value="${item.docA_ok }"></c:set>
 								<%-- 검색어가 있다면? --%>
 								<c:if test="${keyword != ''}">
 									<%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
@@ -160,7 +168,14 @@ thead {
 									<!-- <td><label><input type='checkbox' class='all'
 											value="checked"></label></td> -->
 									<td align="center">${item.document_id}</td>
-									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
+									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>	
+									<td>
+										<c:choose>
+											<c:when test="${docA_ok != 0}">
+											<span class="danok">답변완료</span>
+											</c:when>
+										</c:choose>
+									</td>
 									<td align="center">${writer_name}</td>
 									<td align="center">${hit}</td>
 									<td align="center">${reg_date}</td>
