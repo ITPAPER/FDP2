@@ -78,13 +78,11 @@
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 720px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table1">

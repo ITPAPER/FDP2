@@ -7,7 +7,6 @@
     <%-- <%@ include file="../inc/head.jsp" %> --%>
     <%-- <%@ include file="../inc/remote_css.jsp"%> --%>
      <jsp:include page="./assets/inc/head.jsp" />
-     <jsp:include page="./assets/inc/remote_css.jsp" />
     
     <style type="text/css">
 
@@ -56,7 +55,6 @@ p {
 	<div class="container"style="min-height:500px;">
 	
 	<%-- <%@ include file="../inc/remote.jsp"%> --%>
-	<jsp:include page="./assets/inc/remote.jsp" />
 	
 				<div class="box" style="height: 950px;">
 				<h1> 사이트 소개 </h1>

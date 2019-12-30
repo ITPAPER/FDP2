@@ -3,7 +3,6 @@
 <html lang="ko">
 <head>
      <jsp:include page="./assets/inc/head.jsp" />
-     <jsp:include page="./assets/inc/remote_css.jsp" />
      <link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css"> 
      <!-- handlebar plugin -->
      

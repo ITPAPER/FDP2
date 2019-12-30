@@ -7,7 +7,6 @@
 <html lang="ko">
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 <title>Notice_board</title>
 <style type="text/css">
 /** 테이블 설정 */
@@ -59,13 +58,6 @@ thead {
 .a {
 	display: inline-block;
 }
-
-/** 하단 번호 표시와 우측 버튼들 묶은 박스 -> 페이지 크기 변화에 따라 반응하지 않도록 박스로 고정 */
-/* #g {
-	margin: auto;
-	width: 1140px;
-}
- */
  
 /** 검색 부분과 하단의 버튼들 위치 조절 */
 .pull-right {
@@ -79,16 +71,23 @@ thead {
 
 /** 의사 답변 완료 태그 */
 .danok {
-	background-color: #757575;
+	background-color: #666;
+	padding: 3.5px;
+	border-radius: 5px;
 	color: white;
+	font-size: 12px;
+}
+
+/** 게시판리스트 페이지 전체 크기 */
+.container {
+	min-height: 700px;
 }
 </style>
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-	<div class="container" style="min-height: 870px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
+	<div class="container">
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
@@ -103,16 +102,14 @@ thead {
 			</fieldset>
 		</form>
 
-
 		<!-- 조회 결과 목록 -->
 		<div class="table1">
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<!-- <th class="cbox"></th> -->
 						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
-						<th class></th>
+						<th></th>
 						<th class="text-center writer">작성자</th>
 						<th class="text-center reg_date">조회수</th>
 						<th class="text-center hit">작성일</th>
@@ -138,7 +135,7 @@ thead {
 								<c:set var="reg_date" value="${item.reg_date}" />
 								<c:set var="edit_date" value="${item.edit_date}" />
 								<c:set var="fdpmember_id" value="${item.fdpmember_id}" />
-								<c:set var="docA_ok" value="${item.docA_ok }"></c:set>
+								<c:set var="docA_ok" value="${item.docA_ok}"></c:set>
 								<%-- 검색어가 있다면? --%>
 								<c:if test="${keyword != ''}">
 									<%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
@@ -165,14 +162,12 @@ thead {
 								</c:url>
 
 								<tr>
-									<!-- <td><label><input type='checkbox' class='all'
-											value="checked"></label></td> -->
 									<td align="center">${item.document_id}</td>
 									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>	
 									<td>
 										<c:choose>
 											<c:when test="${docA_ok != 0}">
-											<span class="danok">답변완료</span>
+											<span class="danok">답변 완료</span>
 											</c:when>
 										</c:choose>
 									</td>
@@ -250,14 +245,13 @@ thead {
 					<ul class="clearfix pull-right">
 						<li class="a"><a
 							href="${pageContext.request.contextPath}/16_Notice_board_new.do?document_id="
-							class="btn btn-default btn-sm">글쓰기</a></li>
+							class="btn btn-default btn-sm">글쓰기</a>
+						</li>
 					</ul>
 				</c:when>
 			</c:choose>
-
 		</div>
 	</div>
-	<!-- </div> -->
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script src="./assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 	<script>
@@ -301,7 +295,5 @@ thead {
 			});
 		});
 	</script>
-
-
 </body>
 </html>

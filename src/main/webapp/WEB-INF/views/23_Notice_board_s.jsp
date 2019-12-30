@@ -7,7 +7,6 @@
 <html lang="ko">
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 <title>Notice_board</title>
 <style type="text/css">
 /** 테이블 설정 */
@@ -70,7 +69,6 @@ thead {
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 870px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
