@@ -117,39 +117,11 @@
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">주소</td>
-						<td class="text-left">${output.addr1}&nbsp;
-							<c:choose>
-								<c:when test="${output.addr2 == '110001' }">강남구</c:when>
-								<c:when test="${output.addr2 == '110002' }">강동구</c:when>
-								<c:when test="${output.addr2 == '110003' }">강서구</c:when>
-								<c:when test="${output.addr2 == '110004' }">관악구</c:when>
-								<c:when test="${output.addr2 == '110005' }">구로구</c:when>
-								<c:when test="${output.addr2 == '110006' }">도봉구</c:when>
-								<c:when test="${output.addr2 == '110007' }">동대문구</c:when>
-								<c:when test="${output.addr2 == '110008' }">동작구</c:when>
-								<c:when test="${output.addr2 == '110009' }">마포구</c:when>
-								<c:when test="${output.addr2 == '110010' }">서대믄구</c:when>
-								<c:when test="${output.addr2 == '110011' }">성동구</c:when>
-								<c:when test="${output.addr2 == '110012' }">성북구</c:when>
-								<c:when test="${output.addr2 == '110013' }">영등포구</c:when>
-								<c:when test="${output.addr2 == '110014' }">용산구</c:when>
-								<c:when test="${output.addr2 == '110015' }">은평구</c:when>
-								<c:when test="${output.addr2 == '110016' }">종로구</c:when>
-								<c:when test="${output.addr2 == '110017' }">중구</c:when>
-								<c:when test="${output.addr2 == '110018' }">송파구</c:when>
-								<c:when test="${output.addr2 == '110019' }">중랑구</c:when>
-								<c:when test="${output.addr2 == '110020' }">양천구</c:when>
-								<c:when test="${output.addr2 == '110021' }">서초구</c:when>
-								<c:when test="${output.addr2 == '110022' }">노원구</c:when>
-								<c:when test="${output.addr2 == '110023' }">광진구</c:when>
-								<c:when test="${output.addr2 == '110024' }">강북구</c:when>
-								<c:when test="${output.addr2 == '110025' }">금천구</c:when>
-								<c:otherwise>
-									${output.addr2}
-								</c:otherwise>
-							</c:choose>
-						
-						&nbsp;${output.addr3}&nbsp;${output.addr4}</td>
+						<td class="text-left">
+							${output.addr1}&nbsp;
+							${output.addr2}&nbsp;
+							${output.addr3}&nbsp;
+							${output.addr4}</td>
 					</tr>
 					<tr>
 						<td class="text-center active" style="font-weight:bold;">연락처</td>
