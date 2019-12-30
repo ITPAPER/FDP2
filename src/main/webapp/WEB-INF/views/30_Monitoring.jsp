@@ -224,7 +224,7 @@ h5 {
 					 dateAxis.renderer.minGridDistance = 30;
 					 dateAxis.skipEmptyPeriods = true;
 					 dateAxis.dateFormats.setKey("minute", "mm'분'");
-					 dateAxis.periodChangeDateFormats.setKey("minute", "HH'시'");
+					 dateAxis.periodChangeDateFormats.setKey("minute", "[bold]HH'시'");
 					 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
 					 dateAxis.tooltipDateFormat = { month: "long", day: "numeric" , hour:"numeric", minute:"numeric"  };
 					 

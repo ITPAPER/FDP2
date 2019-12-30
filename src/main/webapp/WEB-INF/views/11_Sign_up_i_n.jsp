@@ -6,7 +6,6 @@
 <html lang="ko">
 <head>
      <jsp:include page="./assets/inc/head.jsp" />
-     <jsp:include page="./assets/inc/remote_css.jsp" />
      <style type="text/css">
 	     .container {
 		position: relative;

@@ -619,7 +619,7 @@
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 									&times;
 								</button>
-								<h4 class="modal-title" id="myModalLabel">아이디/비밀번호 찾기.</h4>
+								<h4 class="modal-title" id="myModalLabel">아이디/비밀번호 찾기</h4>
 							</div>
 							<!-- 내용 -->
 							<div class="modal-body">

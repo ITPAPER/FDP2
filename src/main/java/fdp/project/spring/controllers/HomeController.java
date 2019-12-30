@@ -36,8 +36,8 @@ public class HomeController {
 	@RequestMapping(value = {"/", "index.do"}, method = RequestMethod.GET)
 	public String home(Model model) {
 		
-		String fdpCookie = webHelper.getCookie("fdpCookie", "");
-		System.out.println(fdpCookie);
+		String fdpCookie = (String)webHelper.getSession("fdpCookie", "");
+		
 		List<Documents> list = new ArrayList<Documents>();
 		String gu = "";
 		list.add(new Documents( 0.0, 0.0));

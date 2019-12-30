@@ -7,7 +7,6 @@
  <%-- <%@ include file="../inc/head.jsp" %> --%>
  <jsp:include page="./assets/inc/head.jsp" />
   <%-- <%@ include file="../inc/remote_css.jsp" %> --%>
-  <jsp:include page="./assets/inc/remote_css.jsp" />
 <style type="text/css">
 
 .box {
@@ -95,7 +94,6 @@
 <%-- <%@ include file="../inc/top.jsp" %> --%>
 <%-- <%@ include file="../inc/remote.jsp" %> --%>
 <jsp:include page="./assets/inc/top.jsp" />
-<jsp:include page="./assets/inc/remote.jsp" />
 	<div class="container" style="min-height: 500px;">
 
 	
