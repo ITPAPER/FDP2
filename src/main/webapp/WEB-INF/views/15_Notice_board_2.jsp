@@ -107,6 +107,8 @@
 								name="hit" value="${output.hit}" /> <input type="hidden"
 								name="reg_date" value="${output.reg_date}" /> <input
 								type="hidden" name="edit_date" value="${output.edit_date}" />
+<%-- 								<input
+								type="hidden" name="docA_ok" value="${output.docA_ok}" /> --%>
 							</td>
 
 							<td><input type="text" name="subject" class="subject"

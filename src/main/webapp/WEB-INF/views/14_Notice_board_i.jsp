@@ -147,7 +147,7 @@
 							</td>
 						</tr>
 						<c:choose>
-							<c:when test="${output4 != null}">
+							<c:when test="${output4 ne '[]'}">
 								<tr>
 									<td>
 										<ul>
@@ -210,12 +210,12 @@
 										<h6>
 											전문 분야 :
 											<c:choose>
-												<c:when test="${item.medical_field == '4' }">외과</c:when>
-												<c:when test="${item.medical_field == '5' }">정형외과</c:when>
-												<c:when test="${item.medical_field == '6' }">신경외과</c:when>
-												<c:when test="${item.medical_field == '8' }">성형외과</c:when>
-												<c:when test="${item.medical_field == '1' }">내과</c:when>
-												<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
+												<c:when test="${item.medical_field == '04' }">외과</c:when>
+												<c:when test="${item.medical_field == '05' }">정형외과</c:when>
+												<c:when test="${item.medical_field == '06' }">신경외과</c:when>
+												<c:when test="${item.medical_field == '08' }">성형외과</c:when>
+												<c:when test="${item.medical_field == '01' }">내과</c:when>
+												<c:when test="${item.medical_field == '09' }">마취통증의학과</c:when>
 												<c:when test="${item.medical_field == '10' }">산부인과</c:when>
 												<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
 												<c:when test="${item.medical_field == '12' }">안과</c:when>
