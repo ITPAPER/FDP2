@@ -160,9 +160,17 @@
 	$(function() {
 		$("#disName").change(function() {
 			$("#dept").empty();
-			var choice2 = $("#y1").attr('value');
+			
+			$("#y2").attr("class", "");
+			$("#y3").attr("class", "");
+			$("#y4").attr("class", "");
+			$("#y5").attr("class", "");
+			
+			$("#y1").attr("class", "active");
+			
+			/* var choice2 = $("#y1").attr('value');
             console.log(choice2);
-            if (!choice2) {return false;}
+            if (!choice2) {return false;} */
             
      	   searchForm.selectedValue.value=$("#y1").val();
 			
@@ -171,18 +179,16 @@
 	        $("#chartname2").empty();
 	        $("#chartname3").empty();
 			
-	        console.log(${output.dis_name});
-	        
 	        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 			$("#chartname0").html(chart0);
 	        
 		    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 			$("#chartname1").html(chart1);
 					       
-			var chart2 = "<h4><strong><연령별 환자수></strong></h4>"
+			var chart2 = "<h4><strong><연령별 환자수(단위 :명)></strong></h4>"
 			$("#chartname2").html(chart2);
 				
-			var chart3 = "<h4><strong><지역별 환자수></strong></h4>"
+			var chart3 = "<h4><strong><지역별 환자수(단위 :명)></strong></h4>"
 			$("#chartname3").html(chart3);
 			
 			var queryString = $('form').serializeArray();
@@ -202,9 +208,12 @@
 			
 				$("#ct1").click(function(e) {
 		            $("#dept").empty();
-					var choice2 = $("#y1").attr('value');
-		            console.log(choice2);
-		            if (!choice2) {return false;}
+					
+		            $("#y2").attr("class", "");
+					$("#y3").attr("class", "");
+					$("#y4").attr("class", "");
+					$("#y5").attr("class", "");
+					$("#y1").attr("class", "active");
 		            
 		     	   searchForm.selectedValue.value=$("#y1").val();
 					
@@ -213,18 +222,16 @@
 			        $("#chartname2").empty();
 			        $("#chartname3").empty();
 					
-			        console.log(${output.dis_name});
-			        
 			        var chart0 = "<h4><strong><월별 환자 수 및 진료비용></strong></h4>"
 					$("#chartname0").html(chart0);
 			        
 				    var chart1 = "<h4><strong><성별 환자 수(단위 :명)></strong></h4>"
 					$("#chartname1").html(chart1);
 							       
-					var chart2 = "<h4><strong><연령별 환자수></strong></h4>"
+					var chart2 = "<h4><strong><연령별 환자수(단위 :명)></strong></h4>"
 					$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><지역별 환자수></strong></h4>"
+					var chart3 = "<h4><strong><지역별 환자수(단위 :명)></strong></h4>"
 					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serializeArray();
@@ -246,10 +253,12 @@
 				$("#ct2").click(function(e) {
 					$("#dept").empty();
 					
-					var choice2 = $("#y2").attr('value');
-		            console.log(choice2);
-		            if (!choice2) {return false;}
-		            
+					$("#y1").attr("class", "");
+					$("#y3").attr("class", "");
+					$("#y4").attr("class", "");
+					$("#y5").attr("class", "");
+					$("#y2").attr("class", "active");
+					
 			     	searchForm.selectedValue.value=$("#y2").val();
 		            
 					$("#chartname0").empty();
@@ -266,7 +275,7 @@
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 					$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+					var chart3 = "<h4><strong><지역별 환자수(단위: 명)></strong></h4>"
 					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
@@ -287,9 +296,11 @@
 				$("#ct3").click(function(e) {
 					$("#dept").empty();
 					
-					var choice2 = $("#y3").attr('value');
-		            console.log(choice2);
-		            if (!choice2) {return false;}
+					$("#y1").attr("class", "");
+					$("#y2").attr("class", "");
+					$("#y4").attr("class", "");
+					$("#y5").attr("class", "");
+					$("#y3").attr("class", "active");
 					
 		            searchForm.selectedValue.value=$("#y3").val();
 		            
@@ -307,7 +318,7 @@
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 					$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+					var chart3 = "<h4><strong><지역별 환자수(단위: 명)></strong></h4>"
 					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
@@ -328,9 +339,11 @@
 				$("#ct4").click(function(e) {
 					$("#dept").empty();
 					
-					var choice2 = $("#y4").attr('value');
-		            console.log(choice2);
-		            if (!choice2) {return false;}
+					$("#y1").attr("class", "");
+					$("#y2").attr("class", "");
+					$("#y3").attr("class", "");
+					$("#y5").attr("class", "");
+					$("#y4").attr("class", "active");
 					
 		            searchForm.selectedValue.value=$("#y4").val();
 		            
@@ -348,7 +361,7 @@
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 					$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+					var chart3 = "<h4><strong><지역별 환자수(단위: 명)></strong></h4>"
 					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
@@ -368,6 +381,12 @@
 				
 				$("#ct5").click(function(e) {
 					$("#dept").empty();
+					
+					$("#y1").attr("class", "");
+					$("#y2").attr("class", "");
+					$("#y3").attr("class", "");
+					$("#y4").attr("class", "");
+					$("#y5").attr("class", "active");
 					
 					var choice2 = $("#y5").attr('value');
 		            console.log(choice2);
@@ -389,7 +408,7 @@
 					var chart2 = "<h4><strong><연령별 환자수(단위: 천원)></strong></h4>"
 					$("#chartname2").html(chart2);
 						
-					var chart3 = "<h4><strong><지역별 환자수(단위: 천원)></strong></h4>"
+					var chart3 = "<h4><strong><지역별 환자수(단위: 명)></strong></h4>"
 					$("#chartname3").html(chart3);
 					
 					var queryString = $('form').serialize();
