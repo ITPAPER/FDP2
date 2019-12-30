@@ -71,15 +71,23 @@ thead {
 
 /** 의사 답변 완료 태그 */
 .danok {
-	background-color: #757575;
+	background-color: #666;
+	padding: 3.5px;
+	border-radius: 5px;
 	color: white;
+	font-size: 12px;
+}
+
+/** 게시판리스트 페이지 전체 크기 */
+.container {
+	min-height: 700px;
 }
 </style>
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-	<div class="container" style="min-height: 870px;">
+	<div class="container">
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
@@ -93,7 +101,6 @@ thead {
 				<button type="submit">검색</button>
 			</fieldset>
 		</form>
-
 
 		<!-- 조회 결과 목록 -->
 		<div class="table1">
@@ -128,7 +135,7 @@ thead {
 								<c:set var="reg_date" value="${item.reg_date}" />
 								<c:set var="edit_date" value="${item.edit_date}" />
 								<c:set var="fdpmember_id" value="${item.fdpmember_id}" />
-								<c:set var="docA_ok" value="${item.docA_ok }"></c:set>
+								<c:set var="docA_ok" value="${item.docA_ok}"></c:set>
 								<%-- 검색어가 있다면? --%>
 								<c:if test="${keyword != ''}">
 									<%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
@@ -160,7 +167,7 @@ thead {
 									<td>
 										<c:choose>
 											<c:when test="${docA_ok != 0}">
-											<span class="danok">답변완료</span>
+											<span class="danok">답변 완료</span>
 											</c:when>
 										</c:choose>
 									</td>

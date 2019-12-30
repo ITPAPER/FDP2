@@ -299,7 +299,6 @@
             if (!regex.value('input[name=addr1]', '우편번호를 입력하세요.')) { return false; }
             if (!regex.value('input[name=addr2]', '주소를 입력하세요.')) { return false; }
             if (!regex.value('input[name=addr3]', '상세 주소를 입력하세요.')) { return false; }
-            if (!regex.value('input[name=addr4]', '참고 항목을 입력하세요.')) { return false; }
             
             /** 연락처 검사 */
             if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
