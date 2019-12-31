@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import fdp.project.spring.helper.MailHelper;
 import fdp.project.spring.helper.PageData;
 import fdp.project.spring.helper.RegexHelper;
 import fdp.project.spring.helper.WebHelper;
@@ -47,7 +48,10 @@ public class Controller_K {
 	CountService countService;
 
 	@Autowired
-	MemberService memberService;
+	MemberService memberService;	
+	
+	@Autowired
+	MailHelper mailHelper;
 
 	@Value("#{servletContext.contextPath}")
 	String contextPath;
@@ -78,11 +82,16 @@ public class Controller_K {
 		if (mySessionPw == null) {
 			mySessionPw = "";
 		}
+		String mySessionName = (String) session.getAttribute("session_name");
+		if (mySessionName == null) {
+			mySessionName = "";
+		}
 
 		model.addAttribute("output", output);
 		model.addAttribute("output2", output2);
 		model.addAttribute("my_session_id", mySessionId);
 		model.addAttribute("my_session_pw", mySessionPw);
+		model.addAttribute("my_session_name", mySessionName);
 
 		return new ModelAndView("21_Management");
 	}
@@ -90,14 +99,11 @@ public class Controller_K {
 	@RequestMapping(value = "/22_Login_s.do")
 	public ModelAndView Login_s(Model model) {
 		
-		String coo = webHelper.getCookie("Name", "");
+		String grade = (String) webHelper.getSession("UserGrade", "0");
 		
-		if (!coo.equals("")) {
-			// 관리자 로그인 시 쿠키 값이 있으면 삭제
-			webHelper.removeCookie("fdpCookie");
-			webHelper.removeCookie("UserGrade");
-			webHelper.removeCookie("Name");
-			webHelper.removeCookie("PK");
+		if (!grade.equals("0")) {
+			// 관리자 로그인 시 관리자가 아니면 로그 아웃
+			webHelper.removeAllSession();
 			
 			String redirectUrl = contextPath + "/22_Login_s.do"; 
 			return webHelper.redirect(redirectUrl, "관리자가 아닌 회원은 로그아웃 됩니다.");
@@ -106,12 +112,50 @@ public class Controller_K {
 			return new ModelAndView("22_Login_s");
 		}
 	}
+	
+	// 관리자 ID/PW 세션에 저장된 값이랑 비교
+	@RequestMapping(value = "/check.do", method = RequestMethod.POST)
+	public ModelAndView checkFunction(Model model, HttpServletRequest request) {
+		
+		/** 1) 입력값을 받아오기 */
+		String checkId = webHelper.getString("user_id");
+		String checkPw = webHelper.getString("user_pw");
+		/** 2) 데이터 조회하기 */
+		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
+		Member input = new Member();
+		
+		// 중복확인 때문에 사실상 고유한 값
+		input.setUser_id(checkId);
+		
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+		
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}		
+		
+		if (!checkId.equals(output.getUser_id()) || !checkPw.equals(output.getUser_pw())) {
+			String redirectUrl = contextPath + "/22_Login_s.do";
+			return webHelper.redirect(redirectUrl, "아이디 또는 비밀번호를 확인해주세요.");
+		} else if (!output.getMember_grade().equals("0")) {
+			String redirectUrl = contextPath + "/22_Login_s.do";
+			return webHelper.redirect(redirectUrl, "관리자 계정이 아닙니다.");
+		} else {
+			model.addAttribute("user_id", output.getUser_id());
+			model.addAttribute("user_pw", output.getUser_pw());
+			model.addAttribute("user_name", output.getName());
+			return new ModelAndView("redirect:/session/save.do");
+		}
+	}
 
 	// 세션 저장하는 페이지
 	@RequestMapping(value = "/session/save.do", method = RequestMethod.GET)
 	public String sessionSave(Model model, HttpServletRequest request,
 			@RequestParam(value = "user_id", defaultValue = "") String userId,
-			@RequestParam(value = "user_pw", defaultValue = "") String userPw) {
+			@RequestParam(value = "user_pw", defaultValue = "") String userPw,
+			@RequestParam(value = "user_name", defaultValue = "") String userName) {
 		
 		/** 1) request 객체를 사용해서 세션 객체 만들기 */
 		HttpSession session = request.getSession();
@@ -127,6 +171,12 @@ public class Controller_K {
 			session.setAttribute("session_pw", userPw);
 		} else {
 			session.removeAttribute("session_pw");
+		}
+		
+		if (!userName.equals("")) {
+			session.setAttribute("session_name", userName);
+		} else {
+			session.removeAttribute("session_name");
 		}
 		
 		// 세션 유지시간 10분
@@ -149,41 +199,6 @@ public class Controller_K {
 		return "redirect:/21_Management.do";
 	}
 
-	// 관리자 ID/PW 세션에 저장된 값이랑 비교
-	@RequestMapping(value = "/check.do", method = RequestMethod.POST)
-	public ModelAndView checkFunction(Model model, HttpServletRequest request) {
-		
-		/** 1) 입력값을 받아오기 */
-		String checkId = webHelper.getString("user_id");
-		String checkPw = webHelper.getString("user_pw");
-		
-		/** 2) 데이터 조회하기 */
-		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
-		Member input = new Member();
-		input.setUser_id(checkId);
-		
-		// 조회결과를 저장할 객체 선언
-		Member output = null;
-		
-		try {
-			output = memberService.getMemberItem(input);
-		} catch (Exception e) {
-			return webHelper.redirect(null, e.getLocalizedMessage());
-		}		
-		
-		if (!checkId.equals(output.getUser_id()) || !checkPw.equals(output.getUser_pw())) {
-			String redirectUrl = contextPath + "/22_Login_s.do";
-			return webHelper.redirect(redirectUrl, "아이디 또는 비밀번호를 확인해주세요.");
-		} else if (!output.getMember_grade().equals("0")) {
-			String redirectUrl = contextPath + "/22_Login_s.do";
-			return webHelper.redirect(redirectUrl, "관리자 계정이 아닙니다.");
-		} else {
-			model.addAttribute("user_id", output.getUser_id());
-			model.addAttribute("user_pw", output.getUser_pw());
-			return new ModelAndView("redirect:/session/save.do");
-		}
-	}
-
 	@RequestMapping(value = "/26_Profile_i.do")
 	public ModelAndView Profile_i(Model model, HttpServletRequest request, HttpServletResponse response) {
 
@@ -195,7 +210,8 @@ public class Controller_K {
 
 		/** 1) 필요한 변수값 생성 */
 		String user_pw = webHelper.getString("user_pw");
-		String user_id = webHelper.getCookie("fdpCookie", "");
+		String user_id = (String)webHelper.getSession("fdpCookie", "");
+		
 		/** 2) 데이터 조회하기 */
 		// 데이터 조회에 필요한 조건값을 Beans에 저장하기
 		Member input = new Member();
@@ -268,7 +284,9 @@ public class Controller_K {
 		// 조회에 필요한 조건값(검색어)를 Beans에 담는다.
 		Member input = new Member();
 		input.setName(keyword);
-
+		input.setUser_id(keyword);
+		input.setAddr2(keyword);
+		
 		List<Member> output = null; // 조회결과가 저장될 객체
 		PageData pageData = null; // 페이지 번호를 계산한 결과가 저장될 객체
 
@@ -330,7 +348,7 @@ public class Controller_K {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		/** 3) View 처리 */
 		Gson gson = new Gson();
 		return gson.toJson(output);
@@ -469,8 +487,8 @@ public class Controller_K {
 		return null;
 	}
 	
-	@RequestMapping(value = "/assets/api/chart99.do")
-	public ModelAndView chcart99(Model model) {
+	@RequestMapping(value = "/assets/api/chart0.do")
+	public ModelAndView chart00(Model model) {
 		
 		/** 구별 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -483,11 +501,11 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart99");
+		return new ModelAndView("assets/api/chart0");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart98.do")
-	public ModelAndView chcart98(Model model) {
+	@RequestMapping(value = "/assets/api/chart1.do")
+	public ModelAndView chart11(Model model) {
 		
 		/** 남,여 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -500,11 +518,11 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart98");
+		return new ModelAndView("assets/api/chart1");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart97.do")
-	public ModelAndView chcart97(Model model) {
+	@RequestMapping(value = "/assets/api/chart02.do")
+	public ModelAndView chart22(Model model) {
 		
 		/** 회원 나이별로 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -517,11 +535,11 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart97");
+		return new ModelAndView("assets/api/chart02");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart96.do")
-	public ModelAndView chcart96(Model model) {
+	@RequestMapping(value = "/assets/api/chart3.do")
+	public ModelAndView chart33(Model model) {
 		
 		/** 남,여 회원 수 조회하기 */
 		// 조회결과를 저장할 객체 선언
@@ -534,7 +552,138 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart96");
+		return new ModelAndView("assets/api/chart3");
 	}
+	
+	@RequestMapping(value = "/assets/api/chart4.do")
+	public ModelAndView chart44(Model model) {
+		
+		/** 남,여 회원 수 조회하기 */
+		// 조회결과를 저장할 객체 선언
+		List<Count> output = null;
+		
+		try {
+			output = countService.getDoctorCount(null);
+		} catch (Exception e) {
+			return webHelper.redirect(null, e.getLocalizedMessage());
+		}
+		
+		model.addAttribute("jsonList", JSONArray.fromObject(output));
+		return new ModelAndView("assets/api/chart4");
+	}
+	
+	// email로 id확인
+	@RequestMapping(value = "25_find_id.do")
+	public ModelAndView find_id(Model model) {
+		
+		return new ModelAndView("25_find_id");
+	}
+	
+	@RequestMapping(value = "25_find_pw.do")
+	public ModelAndView find_pw(Model model) {
+		
+		return new ModelAndView("25_find_pw");
+	}
+	@ResponseBody
+	@RequestMapping(value = "25_find_id_check.do", method =  RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String find_id_check(Model model) {
+		
+		/** 1) 필요한 변수값 생성 */
+		// 조회할 대상에 대한 PK값
+		String email = webHelper.getString("data");
+		
+		Member input = new Member();
+		input.setEmail(email);
 
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/** 3) View 처리 */
+		Gson gson = new Gson();
+		return gson.toJson(output);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "25_find_pw_check.do", method =  RequestMethod.POST,
+			produces="text/plain;charset=UTF-8")
+	public String find_pw_check(Model model) {
+		/** 1) 필요한 변수값 생성 */
+		// 조회할 대상에 대한 PK값
+		String email = webHelper.getString("data");
+		String user_id = webHelper.getString("data1");
+		int a = 0;
+		Member input = new Member();
+		input.setEmail(email);
+		input.setUser_id(user_id);
+
+		// 조회결과를 저장할 객체 선언
+		Member output = null;
+		Gson gson = new Gson();
+		
+		// id, email 조회
+		try {
+			output = memberService.getMemberItem(input);
+		} catch (Exception e) {
+			a++;
+		}
+		
+		// 조회 실패 시 id 존재 여부 확인
+		if(a == 1) {
+			input.setEmail(null);
+			try {
+				output = memberService.getMemberItem(input);
+				return gson.toJson(a);
+			} catch (Exception e) {
+				a++;	
+			}
+		}
+		
+		// 조회 실패 시 email 존재 여부 확인
+		if(a == 2) {
+			input.setUser_id(null);
+			input.setEmail(email);
+			
+			try {
+				output = memberService.getMemberItem(input);
+				return gson.toJson(a);
+			} catch (Exception e) {
+				a++;
+				return gson.toJson(a);
+			}
+		}
+		 
+		// 랜덤 비밀번호
+		String user_pw = "";
+		for (int i = 0; i < 12; i++) {
+			user_pw += (char)((Math.random() * 26) + 97);
+		}
+		
+		output.setUser_pw(user_pw);
+		
+				try {
+			// 데이터 수정
+			memberService.editMember(output);
+		} catch (Exception e) {
+			return null;
+		}
+		
+		try {
+			String emailcontent = "<p style='text-align:center;'>" + output.getName() + " 회원님께 임의로 발급된 비밀번호는 <b>"+ output.getUser_pw() + "</b>입니다.<br />"
+					+ "비밀번호 변경 후 사용해주시길 바랍니다.<br /></p><div style='text-align:center;'><img style='width:500px;' src='https://postfiles.pstatic.net/MjAxOTEyMjdfMjQ4/MDAxNTc3NDE2ODQzOTQz.ZyAwSwKyzpdDFaGDvdqHZ8gl3_E99Dgnd3CNcSmduEMg.gJL9BImjP9zodMnwb8OMwPum-3wCTDL_uC31hsQ8-5Ug.PNG.min_gi115/FindDoctor.png?type=w580' alt='로고'></div>";
+			mailHelper.sendMail(output.getEmail(), "Find Doctor 임시 비밀번호 발급 안내", emailcontent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		/** 3) View 처리 */
+		return gson.toJson(output);
+	}
+	
 }

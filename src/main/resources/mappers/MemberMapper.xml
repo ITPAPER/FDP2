@@ -33,6 +33,9 @@
 			<if test="fdpmember_id != null and fdpmember_id != ''">
 				AND fdpmember_id =#{fdpmember_id}
 			</if>
+			<if test="email != null and email != ''">
+				AND email =#{email}
+			</if>
 		</where>
 	</select>
 
@@ -45,6 +48,12 @@
 		<where>
 			<if test="name != null and name != ''">
 				name LIKE concat('%', #{name}, '%')
+			</if>
+			<if test="addr2 != null and addr2 != ''">
+				OR addr2 LIKE concat('%', #{addr2}, '%')
+			</if>
+			<if test="user_id != null and user_id != ''">
+				OR user_id LIKE concat('%', #{user_id}, '%')
 			</if>
 		</where>
 

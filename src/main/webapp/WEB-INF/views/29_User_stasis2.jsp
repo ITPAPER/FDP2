@@ -42,7 +42,7 @@
 				<li><a href="#dept" id="gr2" data-toggle="tab">성별</a></li>
 				<li><a href="#dept" id="gr3" data-toggle="tab">나이</a></li>
 				<li><a href="#dept" id="gr4" data-toggle="tab">나이+성별</a></li>
-				<li><a href="#dept" id="gr5" data-toggle="tab">접속시간</a></li>
+				<li><a href="#dept" id="gr5" data-toggle="tab">의사</a></li>
 			</ul>
 
 			<div class="tab-content">
@@ -78,10 +78,8 @@
 		$(function() {
 			
 			$("#gr1").click(function(e) {
-				$("#chartdiv").empty();
-				$("#dept").empty();
 				$.ajax({
-					url : './assets/api/chart99.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart0.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -93,10 +91,8 @@
 			});		// end #gr1 click
 			
 			$("#gr2").click(function(e) {
-				$("#chartdiv").empty();
-				$("#dept").empty();
 				$.ajax({
-					url : './assets/api/chart98.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart1.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -108,10 +104,8 @@
 			});	// end #gr2 click
 			
 			$("#gr3").click(function(e) {
-				$("#chartdiv").empty();
-				$("#dept").empty();
 				$.ajax({
-					url : './assets/api/chart97.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart02.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -123,10 +117,8 @@
 			});	// end #gr3 click
 			
 			$("#gr4").click(function(e) {
-				$("#chartdiv").empty();
-				$("#dept").empty();
 				$.ajax({
-					url : './assets/api/chart96.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart3.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
@@ -138,9 +130,17 @@
 			});	// end #gr4 click
 			
 			$("#gr5").click(function(e) {
-				$("#chartdiv").empty();
-				$("#dept").empty();
-			});	// end #gr5 click
+				$.ajax({
+					url : './assets/api/chart4.do',// 읽어들일 파일의 경로
+					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
+					success : 
+						function(req) {
+						console.log(">> 성공!!! >> " + req);
+						$("#dept").html(req);
+					}
+				});		//end $.ajax
+			});	// end #gr4 click
 		});
 	</script>
 

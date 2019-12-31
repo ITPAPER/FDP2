@@ -78,13 +78,11 @@
 <script src="//cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 720px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table1">
@@ -107,6 +105,8 @@
 								name="hit" value="${output.hit}" /> <input type="hidden"
 								name="reg_date" value="${output.reg_date}" /> <input
 								type="hidden" name="edit_date" value="${output.edit_date}" />
+<%-- 								<input
+								type="hidden" name="docA_ok" value="${output.docA_ok}" /> --%>
 							</td>
 
 							<td><input type="text" name="subject" class="subject"

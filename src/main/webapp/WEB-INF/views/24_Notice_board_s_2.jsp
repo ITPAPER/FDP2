@@ -96,13 +96,11 @@
 </style>
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 500px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 		<div class="table2">
@@ -224,10 +222,10 @@
 								<h5>
 									<b>댓글</b>
 								</h5> <br />
-									<input type="hidden" value="${cookie.Name.value}"
+									<input type="hidden" value="${Name}"
 										name="writer_name" /> 
 									<input type="hidden" value="${output.document_id}" name="document_id" /> 
-									<input type="hidden" value="${cookie.PK.value}" name="fdpmember_id" />
+									<input type="hidden" value="${PK}" name="fdpmember_id" />
 								<c:choose>
 									<c:when test="${output3 == null || fn:length(output3) == 0}">관리할 댓글이 없습니다.</c:when>
 								<c:otherwise>
@@ -277,10 +275,9 @@
 				</li>
 					</c:when>
 				</c:choose>
+<!-- 				<li class="a"><a href="23_Notice_board_s.do"
+					class="btn btn-default btn-sm" id="btn2">공지등록 </a></li> -->
 				<li class="a"><a href="23_Notice_board_s.do"
-					class="btn btn-default btn-sm" id="btn2">공지등록 </a></li>
-				<li class="a"><a href="23_Notice_board_s.do"
-				
 					class="btn btn-default btn-sm">메뉴</a></li>
 			</ul>
 		</div>

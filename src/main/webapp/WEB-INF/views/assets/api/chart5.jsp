@@ -24,7 +24,6 @@
 		  top: 530px;
 		  position:absolute;
 		  padding : 0 50px 0 0;
-
 		}
 		
 #chartdiv2 {

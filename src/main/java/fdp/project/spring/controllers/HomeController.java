@@ -36,8 +36,8 @@ public class HomeController {
 	@RequestMapping(value = {"/", "index.do"}, method = RequestMethod.GET)
 	public String home(Model model) {
 		
-		String fdpCookie = webHelper.getCookie("fdpCookie", "");
-		System.out.println(fdpCookie);
+		String fdpCookie = (String)webHelper.getSession("fdpCookie", "");
+		
 		List<Documents> list = new ArrayList<Documents>();
 		String gu = "";
 		list.add(new Documents( 0.0, 0.0));
@@ -51,8 +51,10 @@ public class HomeController {
 			
 			try {
 				member  = memberService.getMemberItem(member);
-				addr += member.getAddr1() + " " + member.getAddr2() + " " + member.getAddr3() + " " + member.getAddr4() ;
-				gu = member.getAddr2();
+				addr = member.getAddr2();
+				int kk = member.getAddr2().indexOf(" ");
+				int bb = member.getAddr2().indexOf(" ", kk+1);
+				gu = member.getAddr2().substring(kk+1, bb);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "index";

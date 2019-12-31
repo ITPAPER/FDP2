@@ -7,7 +7,6 @@
 <html lang="ko">
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 <title>Notice_board</title>
 <style type="text/css">
 /** 테이블 설정 */
@@ -70,7 +69,6 @@ thead {
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="container" style="min-height: 870px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
@@ -95,8 +93,8 @@ thead {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="text-center" style="width: 50px;"><input
-							type="checkbox" id="all_check" /></th>
+						<th class="text-center" style="width: 50px;">
+						<input type="checkbox" id="all_check" /></th>
 						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
 						<th class="text-center writer">작성자</th>
@@ -146,7 +144,7 @@ thead {
 								<%-- 상세페이지로 이동하기 위한 URL --%>
 								<c:url value="/24_Notice_board_s_2.do" var="viewUrl">
 									<c:param name="document_id" value="${item.document_id}" />
-									<c:param name="fdpmember_id" value="${cookie.PK.value}" />
+									<c:param name="fdpmember_id" value="${PK}" />
 								</c:url>
 
 								<tr>
@@ -226,11 +224,11 @@ thead {
 				</ul>
 		
 			<!-- 페이지 번호구현 div 끝 -->
-
 				<ul class="clearfix pull-right">
-					<li class="a"><input type="button" value="체크버튼삭제"
+					<li class="a"><input type="button" value="체크버튼삭제" id="checkbtn"
 						class="btn btn-default btn-sm" />
 				</ul>
+				
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />

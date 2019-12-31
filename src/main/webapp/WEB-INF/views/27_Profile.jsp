@@ -50,12 +50,48 @@
 .identify {
 	color: #f00;
 }
+
+#btn9  {
+	padding: 5px;
+}
+
+#postcode {
+    border: 1.5px solid orange;
+	background-color: white;
+	color: orange;
+	border-radius: 5px;
+	height: 30px;
+	width: 120px;
+}
+
+#btn9 {
+	border: 1.5px solid orange;
+	background-color: orange;
+	color: white;
+	border-radius: 5px;
+	height: 40px;
+	width: 120px;
+	margin-bottom: 10px;
+}
+
+.form-group>div>.findAdd1 {
+	width: 200px;
+}
+    	
+.form-group>div>.findAdd2 {
+	width: 700px;
+	margin: 5px 0;
+}
+    	
+.form-group>div>.findAdd3 {
+	width: 400px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 	<div class="bbox">
-		<div class="container" style="min-height: 750px;">
+		<div class="container" style="min-height: 800px;">
 			<div class="top">
 				<span> <img
 					src="${pageContext.request.contextPath}/assets/img/user.png">
@@ -66,10 +102,11 @@
 
 
 			<form class="content" name="join_form" id="join_form"
-				action="edit_ok.do">
+				action="edit_ok.do">	
 				<input type="hidden" name="fdpmember_id" value="${output.fdpmember_id}" /> 
 				<input type="hidden" name="member_grade" value="${output.member_grade}" /> 
 				<input type="hidden" name="reg_date" value="${output.reg_date}" />
+				<input type="hidden" name="user_pw" id="pwCheck" value="${output.user_pw}" disabled />
 				
 				<div class="form-row">
 					<div class="form-group">
@@ -84,17 +121,10 @@
 							placeholder="${output.name}" readonly />
 					</div>
 				</div>
-
-				<div class="form-row">
+				<div class="form-row" id="changePw">
 					<div class="form-group">
-						<label for='user_pw'>비밀번호&nbsp;<span class='identify'>*</span></label>
-						<input type="password" class="form-control" id="user_pw"
-							name="user_pw" placeholder="비밀번호">
-					</div>
-					<div class="form-group">
-						<label for='user_pw'>비밀번호 확인&nbsp;<span class='identify'>*</span></label>
-						<input type="password" class="form-control" id="user_pw_re"
-							name="user_pw_re" placeholder="비밀번호 확인">
+						<label for='user_pw'><a id="btn8">비밀번호 수정</a></label>
+						<input type='password' class='form-control' id='user_pw' name='user_pw' placeholder='비밀번호 수정 클릭' readonly/>
 					</div>
 				</div>
 
@@ -112,72 +142,18 @@
 
 				<div class="form-row">
 					<div class="form-group">
-						<label for='address'>주소</label>
-						<div>
-							<select name="addr1" id="addr1" class="form-control">
-								<option value="">-----시/도-----</option>
-								<option value="서울특별시"
-									<c:if test="${output.addr1 == '서울특별시'}">selected</c:if>>서울특별시</option>
-							</select> <select name="addr2" id="addr2" class="form-control">
-								<option value="">---- 구를 선택해 주세요 ----</option>
-
-								<option value="강남구"
-									<c:if test="${output.addr2 == '강남구'}">selected</c:if>>강남구</option>
-								<option value="강동구"
-									<c:if test="${output.addr2 == '강동구'}">selected</c:if>>강동구</option>
-								<option value="강서구"
-									<c:if test="${output.addr2 == '강서구'}">selected</c:if>>강서구</option>
-								<option value="관악구"
-									<c:if test="${output.addr2 == '관악구'}">selected</c:if>>관악구</option>
-								<option value="구로구"
-									<c:if test="${output.addr2 == '구로구'}">selected</c:if>>구로구</option>
-								<option value="도봉구"
-									<c:if test="${output.addr2 == '도봉구'}">selected</c:if>>도봉구</option>
-								<option value="동대문구"
-									<c:if test="${output.addr2 == '동대문구'}">selected</c:if>>동대문구</option>
-								<option value="동작구"
-									<c:if test="${output.addr2 == '동작구'}">selected</c:if>>동작구</option>
-								<option value="마포구"
-									<c:if test="${output.addr2 == '마포구'}">selected</c:if>>마포구</option>
-								<option value="서대문구"
-									<c:if test="${output.addr2 == '서대문구'}">selected</c:if>>서대문구</option>
-								<option value="성동구"
-									<c:if test="${output.addr2 == '성동구'}">selected</c:if>>성동구</option>
-								<option value="성북구"
-									<c:if test="${output.addr2 == '성북구'}">selected</c:if>>성북구</option>
-								<option value="영등포구"
-									<c:if test="${output.addr2 == '영등포구'}">selected</c:if>>영등포구</option>
-								<option value="용산구"
-									<c:if test="${output.addr2 == '용산구'}">selected</c:if>>용산구</option>
-								<option value="은평구"
-									<c:if test="${output.addr2 == '은평구'}">selected</c:if>>은평구</option>
-								<option value="종로구"
-									<c:if test="${output.addr2 == '종로구'}">selected</c:if>>종로구</option>
-								<option value="중구"
-									<c:if test="${output.addr2 == '중구'}">selected</c:if>>중구</option>
-								<option value="송파구"
-									<c:if test="${output.addr2 == '송파구'}">selected</c:if>>송파구</option>
-								<option value="중랑구"
-									<c:if test="${output.addr2 == '중랑구'}">selected</c:if>>중랑구</option>
-								<option value="양천구"
-									<c:if test="${output.addr2 == '양천구'}">selected</c:if>>양천구</option>
-								<option value="서초구"
-									<c:if test="${output.addr2 == '서초구'}">selected</c:if>>서초구</option>
-								<option value="노원구"
-									<c:if test="${output.addr2 == '노원구'}">selected</c:if>>노원구</option>
-								<option value="광진구"
-									<c:if test="${output.addr2 == '광진구'}">selected</c:if>>광진구</option>
-								<option value="강북구"
-									<c:if test="${output.addr2 == '강북구'}">selected</c:if>>강북구</option>
-								<option value="금천구"
-									<c:if test="${output.addr2 == '금천구'}">selected</c:if>>금천구</option>
-							</select> <input type="text" name="addr3" id="addr3"
-								value="${output.addr3}" placeholder="동/읍/면 입력"
-								class="form-control" /> <input type="text" name="addr4"
-								id="addr4" value="${output.addr4}" placeholder="상세주소"
-								class="form-control" />
-						</div>
-					</div>
+		            <label for='address'>주소</label>
+			            <div>
+				            <input type="text" id="sample6_postcode" name="addr1" class="form-control findAdd1" placeholder="우편번호" value="${output.addr1}" >
+							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="postcode" ><br>
+							<input type="text" id="sample6_address" name="addr2" class="form-control findAdd2" placeholder="주소" value="${output.addr2}" ><br>
+							<input type="text" id="sample6_detailAddress" name="addr3" class="form-control findAdd3" placeholder="상세주소" value="${output.addr3}" >
+							<input type="text" id="sample6_extraAddress" name="addr4" class="form-control findAdd3" placeholder="참고항목" value="${output.addr4}">
+							<br/>
+							<br/>
+								<p style="font-style:italic; font-size: 13px;">입력하신 주소는 '병원찾기' 및 '응급실찾기' 이용 시 기본 주소로 사용됩니다.</p>            
+				    	</div>
+			        </div>
 				</div>
 
 				<div class="form-group">
@@ -210,37 +186,37 @@
 							<select name="medical_field" id="medical_field" class="form-control">
 								<option value="">-----선택하세요-----</option>
 								<option value="01"
-									<c:if test="${output.medical_field == '05'}">selected</c:if>>내과</option>
+									<c:if test="${output.medical_field.equals('01')}">selected</c:if>>내과</option>
 								<option value="03"
-									<c:if test="${output.medical_field == '03'}">selected</c:if>>정신건강의학과</option>
+									<c:if test="${output.medical_field.equals('03')}">selected</c:if>>정신건강의학과</option>
 								<option value="04"
-									<c:if test="${output.medical_field == '04'}">selected</c:if>>외과</option>
+									<c:if test="${output.medical_field.equals('04')}">selected</c:if>>외과</option>
 								<option value="05"
-									<c:if test="${output.medical_field == '05'}">selected</c:if>>정형외과</option>
+									<c:if test="${output.medical_field.equals('05')}">selected</c:if>>정형외과</option>
 								<option value="06"
-									<c:if test="${output.medical_field == '06'}">selected</c:if>>신경외과</option>
+									<c:if test="${output.medical_field.equals('06')}">selected</c:if>>신경외과</option>
 								<option value="08"
-									<c:if test="${output.medical_field == '08'}">selected</c:if>>성형외과</option>
+									<c:if test="${output.medical_field.equals('08')}">selected</c:if>>성형외과</option>
 								<option value="09"
-									<c:if test="${output.medical_field == '09'}">selected</c:if>>마취통증의학과</option>
+									<c:if test="${output.medical_field.equals('09')}">selected</c:if>>마취통증의학과</option>
 								<option value="10"
-									<c:if test="${output.medical_field == '10'}">selected</c:if>>산부인과</option>
+									<c:if test="${output.medical_field.equals('10')}">selected</c:if>>산부인과</option>
 								<option value="11"
-									<c:if test="${output.medical_field == '11'}">selected</c:if>>소아청소년과</option>
+									<c:if test="${output.medical_field.equals('11')}">selected</c:if>>소아청소년과</option>
 								<option value="12"
-									<c:if test="${output.medical_field == '12'}">selected</c:if>>안과</option>
+									<c:if test="${output.medical_field.equals('12')}">selected</c:if>>안과</option>
 								<option value="13"
-									<c:if test="${output.medical_field == '13'}">selected</c:if>>이비인후과</option>
+									<c:if test="${output.medical_field.equals('13')}">selected</c:if>>이비인후과</option>
 								<option value="14"
-									<c:if test="${output.medical_field == '14'}">selected</c:if>>피부과</option>
+									<c:if test="${output.medical_field.equals('14')}">selected</c:if>>피부과</option>
 								<option value="15"
-									<c:if test="${output.medical_field == '15'}">selected</c:if>>비뇨기과</option>
+									<c:if test="${output.medical_field.equals('15')}">selected</c:if>>비뇨기과</option>
 								<option value="21"
-									<c:if test="${output.medical_field == '21'}">selected</c:if>>재활의학과</option>
+									<c:if test="${output.medical_field.equals('21')}">selected</c:if>>재활의학과</option>
 								<option value="49"
-									<c:if test="${output.medical_field == '49'}">selected</c:if>>치과</option>
+									<c:if test="${output.medical_field.equals('49')}">selected</c:if>>치과</option>
 								<option value="80"
-									<c:if test="${output.medical_field == '80'}">selected</c:if>>한의학과</option>
+									<c:if test="${output.medical_field.equals('80')}">selected</c:if>>한의학과</option>
 							</select>
 						</div>
 					</div>
@@ -255,29 +231,20 @@
 
 	<script src="${pageContext.request.contextPath}/assets/js/regex.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			
+			$("#btn8").click(function(e) {
+				e.preventDefault
+				var changeForm  = "<div class='form-group'><label for='user_pw'>비밀번호 수정</label><input type='password' class='form-control' id='user_pw' name='user_pw' placeholder='비밀번호' /></div>"
+				    changeForm += "<div class='form-group'><label for='user_pw'>비밀번호 수정 확인</label><input type='password' class='form-control' id='user_pw_re' name='user_pw_re' placeholder='비밀번호 확인' /></div>"
+				    
+				    $("#changePw").html(changeForm);
+			})
+			
 			$("#btn9").click(function(e) {
 						e.preventDefault();
-
-						if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
-							return false;
-						}
-
-						if (!regex.min_length('#user_pw', 4,
-								'비밀번호는 최소 4자 이상 입력 가능합니다.')) {
-							return false;
-						}
-
-						if (!regex.max_length('#user_pw', 20,
-								'비밀번호는 최대 20자 까지만 입력 가능합니다.')) {
-							return false;
-						}
-
-						if (!regex.compare_to('#user_pw', '#user_pw_re',
-								'비밀번호 확인이 잘못되었습니다.')) {
-							return false;
-						}
 
 						if (!regex.phone('#tel', '연락처가 잘못되었습니다.')) {
 							return false;
@@ -286,31 +253,56 @@
 						if (!regex.email('#email', '이메일이 잘못되었습니다.')) {
 							return false;
 						}
-
-						if (!regex.value('#addr1', '시 / 도를 선택해주세요.')) {
-							return false;
-						}
-						
-						if (!regex.value('#addr2', '구를 선택해 주세요.')) {
-							return false;
-						}
-
-						if (!regex.value('#addr3', '동/읍/면 입력해 주세요.')) {
-							return false;
-						}
-
-						if (!regex.value('#addr4', '상세주소를 입력해주세요.')) {
-							return false;
-						}
+			            
+			            if (!regex.value('input[name=addr1]', '우편번호를 입력하세요.')) {
+			            	return false; 
+			            }
+			            
+			            if (!regex.value('input[name=addr2]', '주소를 입력하세요.')) { 
+			            	return false; 
+			            }
+			            
+			            if (!regex.value('input[name=addr3]', '상세 주소를 입력하세요.')) { 
+			            	return false; 
+			            }
 						
 						if (!regex.value('#birthdate', '생년월일을 입력해주세요.')) {
 							return false;
 						}
 						
-						if ($('#check').val() == '2') {
+						if ($('#check').val() == '1') {
 							if(!regex.value('#medical_field', '전공분야를 선택해주세요.')) {
 								return false;
 							}
+						}
+						
+						if ($('#user_pw').val() != "") {
+							
+							if (!regex.value('#user_pw', '비밀번호를 입력하세요.')) {
+								return false;
+							}
+
+							if (!regex.min_length('#user_pw', 4,
+									'비밀번호는 최소 4자 이상 입력 가능합니다.')) {
+								return false;
+							}
+
+							if (!regex.max_length('#user_pw', 20,
+									'비밀번호는 최대 20자 까지만 입력 가능합니다.')) {
+								return false;
+							}
+
+							if (!regex.compare_to('#user_pw', '#user_pw_re',
+									'비밀번호 확인이 잘못되었습니다.')) {
+								return false;
+							}
+							
+							$("#pwCheck").attr("disabled", true);
+							$("#user_pw").attr("disabled", false);
+							
+						} else {
+							$("#pwCheck").attr("disabled", false);
+							$("#user_pw").attr("disabled", true);
 						}
 
 						swal({
@@ -333,6 +325,54 @@
 						}) // swal 끝
 					});
 		});
+		
+		function sample6_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    document.getElementById("sample6_extraAddress").value = extraAddr;
+	                
+	                } else {
+	                    document.getElementById("sample6_extraAddress").value = '';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('sample6_postcode').value = data.zonecode;
+	                document.getElementById("sample6_address").value = addr;
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById("sample6_detailAddress").focus();
+	            }
+	        }).open();
+	    }
 	</script>
 </body>
 </html>

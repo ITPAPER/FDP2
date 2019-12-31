@@ -236,10 +236,8 @@ public class Controller_S {
 	 
 		System.out.println("***********************************"+output);
 		
-		
 	     /** 5) View 처리 */
 	     // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
-	     
 		 Gson gson = new Gson();
 		 
 		 JSONObject json = new JSONObject();
@@ -264,7 +262,6 @@ public class Controller_S {
 		List<Disease_age_gender> output = null;
 		//AppInterceptor.preHandle.String.format();
 		
-		
 		  String dname = webHelper.getString("disName"); 
 		  Disease_age_gender input = new Disease_age_gender(); 
 		  input.setDis_name(dname);
@@ -277,9 +274,8 @@ public class Controller_S {
     		return webHelper.redirect(null, e.getLocalizedMessage());
     	}
 	 
-
-	        /** 5) View 처리 */
-	        // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
+	     /** 5) View 처리 */
+	     // View에게 변수를 전달하기 위한 값들을 Model 객체에 담는다.
 	     model.addAttribute("output", output);
 	     model.addAttribute("jsonList", JSONArray.fromObject(output));
 	     

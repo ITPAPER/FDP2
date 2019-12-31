@@ -3,6 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -14,17 +15,12 @@
 
 <style>
 	.bbox {
-		width: 1300px;
-		min-height: 750px;
+		width: 1170px;
+		min-height: 770px;
 		margin: auto;
 		position: relative;
 	}
 
-	nav {
-		width: 20%;
-		margin: 0 20px;
-	}
-	
 	#memberView {
 		height: 750px;
 		width: 30%;
@@ -36,37 +32,24 @@
 		visibility: hidden;
 	}	
 	
-	.center {
-		display: inline-block;
+	.center { 
 		height: 500px;
-		width: 75%;
+		width: 1170px;
 		margin: auto;
-		margin: 0 20px 0 0;
 		border: 1px solid #f7f7f7;
 	}
 	
-	.center-body {
-		height: 600px;
-		background: #fff;
-	}
-	
-	.center-bottom {
-		height: 100px;
-	}
-	
 	.pagination {
-		padding-top: 10px;
-		padding-left: 360px;
-	}
-	
-	.ttap {
-		height: 70px;
-		width: 100%;
-		border-bottom: 1px solid #ccc;
+ 		padding-top: 10px;
+		padding-left: 450px;
 	}
 	
 	thead > tr {
 		background: #ffa500;
+	}
+	
+	.btn {
+		margin-left: 1px;
 	}
 	
 	/* 핸들바 CSS */
@@ -105,7 +88,7 @@
 	
 	#bbl {
 		width: 65%;
-		height: 150px;
+		height: 50px;
 	}
 	
 	#bbr {
@@ -114,8 +97,13 @@
 	}
 	
 	#hheader {
-		width: 390px;
-		height: 150px;
+		width: 200px;
+		height: 50px;
+		margin-bottom: 10px;
+	}
+	
+	thead > tr > td {
+		background-color: #fff;
 	}
 	
 </style>
@@ -123,44 +111,22 @@
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
-		<div class="bbox clearfix">
+		<div class="bbox">
 		<div class="hhheader">
-			<h2><b>&nbsp;&nbsp;&nbsp;관리자 페이지</b></h2>
+			<h2><b>&nbsp;&nbsp;&nbsp;회원관리 페이지</b></h2>
 		</div>
 		<hr />
 		
-		<nav class="pull-left">
-		
-			<!-- 아코디언 영역 -->
-			<div class="panel-group" id="accordion">
-				<!-- 항목(1) -->
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 회원 통계 </a></h4>
-					</div>
-					<div id="collapseOne" class="panel-collapse collapse out">
-						<div class="panel-body">
-							<a href="${pageContext.request.contextPath}/29_User_stasis2.do">통계</a>
-						</div>
-						<div class="panel-body">
-							<a href="${pageContext.request.contextPath}/23_Notice_board_s.do">게시판</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--// 아코디언 영역 -->
-			
-		</nav>
+
 		<div class="center">
-			<div class="center-body">
 			
 			<!-- 검색폼 -->
 			<form method="get"
 				action="${pageContext.request.contextPath}/28_User_stasis.do">
-				<label for="keyword"></label> <input type="search"
-					name="keyword" id="keyword" placeholder="이름 검색" value="${keyword}" />
-				<button type="submit">검색</button>
-				<button type='button' id="checkbtn">전체 삭제</button>
+				<label for="keyword"></label> <input type="search" class="form-control pull-left" style="width: 170px;"
+					name="keyword" id="keyword" placeholder="이름/아이디/지역 검색" value="${keyword}" />
+				<button type="submit" class="btn btn-default pull-left">검색</button>
+				<button type='button' class="btn btn-default pull-left" id="checkbtn">선택 삭제</button>
 			</form>
 			
 				<table class="table table-hover">
@@ -192,25 +158,22 @@
 							<c:otherwise>
 								<%-- 조회 결과에 따른 반복 처리 --%>
 								<c:forEach var="item" items="${output}" varStatus="status">
-									<%-- 출력을 위해 준비한 교수이름 변수 --%>
+									<%-- 출력을 위해 준비한 검색어 변수 --%>
 									<c:set var="name" value="${item.name}" />
+									<c:set var="user_id" value="${item.user_id}" />
+									<c:set var="addr2" value="${item.addr2}" />
 	
 									<%-- 검색어가 있다면? --%>
 									<c:if test="${keyword != ''}">
 										<%-- 검색어에 <mark> 태그를 적용하여 형광펜 효과 준비 --%>
 										<c:set var="mark" value="<mark>${keyword}</mark>" />
+										
 										<%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광펜 효과로 변경 --%>
 										<c:set var="name" value="${fn:replace(name, keyword, mark)}" />
+										<c:set var="user_id" value="${fn:replace(user_id, keyword, mark)}" />
+										<c:set var="addr2" value="${fn:replace(addr2, keyword, mark)}" />
 									</c:if>
 	
-									<%-- 상세페이지로 이동하기 위한 URL --%>
-									
-									<%--
-									<c:url value="/29_User_stasis2.do" var="viewUrl">
-										<c:param name="fdpmember_id" value="${item.fdpmember_id}" />
-									</c:url> 
-									--%>
-									
 									<tr>
 										<th class="text-center">
 											<input type='checkbox' class="checkBtn" name="checkBtn" value="${item.fdpmember_id}">
@@ -240,7 +203,7 @@
 				</table>
 				
 			<!-- 페이지 번호 구현 div 시작-->
-			<div >
+			<div id="pageBottom">
 				<ul class="pagination">			 
 					<li class="disabled">
 					<%-- 이전 그룹에 대한 링크 --%>
@@ -301,7 +264,6 @@
 			<!-- 페이지 번호구현 div 끝 -->
 			
 			<input type="hidden" id="check" value="${my_session_id}" />		
-			</div>
 		</div>
 		<aside>
 			<div id="memberView"></div>
@@ -332,29 +294,72 @@
 				<div id="hheader">
 					<div id="bbl" class="pull-left">
 						<h3><strong>{{name}}</strong></h3>
-						<h6>회원 번호&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{fdpmember_id}}</h6>
-						<h6>회원 아이디 :&nbsp;{{user_id}}</h6>
-						<h6>가입일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{reg_date}}</h6>
-					</div>
-					<div id="bbr" class="pull-right">
-						<span></span>
 					</div>
 				</div>
 				<div id="hfooter">
-					<p>비밀번호: {{user_pw}}</p>
-					<p>이메일: {{email}}</p>
-					<p>성별: {{convertGender gender}}</p>
-					<p>생일: {{birthdate}}</p>
-					<p>번호: {{tel}}</p>
-					<p>주소1: {{addr1}}</p>
-					<p>주소2: {{addr2}}</p>
-					<p>주소3: {{addr3}}</p>
-					<p>주소4: {{addr4}}</p>
-					<p>정보수정일: {{edit_date}}</p>
-					<p>의사번호: {{medical_field}}</p>
-					<p>회원등급: {{convertMember_grade member_grade}}</p>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th class="text-center">회원번호</th>
+								<td align="center">{{fdpmember_id}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">아이디</th>
+								<td align="center">{{user_id}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">비밀번호</th>
+								<td align="center">{{user_pw}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">이메일</th>
+								<td align="center">{{email}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">성별</th>
+								<td align="center">{{convertGender gender}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">생년월일</th>
+								<td align="center">{{birthdate}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">우편번호</th>
+								<td align="center">{{addr1}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">주소</th>
+								<td align="center">{{addr2}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">상세주소</th>
+								<td align="center">{{addr3}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">주소 참고</th>
+								<td align="center">{{addr4}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 가입일</th>
+								<td align="center">{{reg_date}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 정보 수정일</th>
+								<td align="center">{{edit_date}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">회원 등급</th>
+								<td align="center">{{convertMember_grade member_grade}}</td>
+							</tr>
+							<tr>
+								<th class="text-center">전공분야</th>
+								<td align="center">{{convertMedical_field medical_field}}</td>
+							</tr>
+						</thead>
+					</table>
 				</div>
 			</div>
+
     	</div>
 	</script>
 	<jsp:include page="./assets/inc/bottom.jsp" />
@@ -396,6 +401,43 @@
 			}
 		});
 		
+		/** handlebars 플러그인 안에 convertMedical_field 함수 추가 */
+ 		Handlebars.registerHelper('convertMedical_field', function(d) {
+			if (d == "01") {
+				return "내과";
+			} else if (d == '03') {
+				return "정신건강의학과";
+			} else if (d == '04') {
+				return "외과";
+			} else if (d == '05') {
+				return "정형외과";
+			} else if (d == '06') {
+				return "신경외과";
+			} else if (d == '08') {
+				return "성형외과";
+			} else if (d == '09') {
+				return "마취통증의학과";
+			} else if (d == '10') {
+				return "산부인과";
+			} else if (d == '11') {
+				return "소아청소년과";
+			} else if (d == '12') {
+				return "안과";
+			} else if (d == '13') {
+				return "이비인후과";
+			} else if (d == '14') {
+				return "피부과";
+			} else if (d == '15') {
+				return "비뇨기과";
+			} else if (d == '21') {
+				return "재활의학과";
+			} else if (d == '49') {
+				return "치과";
+			} else if (d == '80') {
+				return "한의학과";
+			}
+		});
+		
 		$(function() {
 			/* #all_check의 선택 상태가 변경되었을 때의 이벤트 */
 			$("#all_check").change(function() {
@@ -408,9 +450,11 @@
 				$("#all_check").prop('checked', false);
 			});
 			
+			/* 선택 삭제 클릭 */
 			$("#checkbtn").click(function() {
 				
 				var check_list = $(".checkBtn:checked");
+				
                 // 배열의 길이가 0이라면 선택된 항목이 없다는 의미이므로 중단
                 if (check_list.length == 0) {
                     alert("선택된 항목이 없습니다.");
@@ -473,7 +517,8 @@
 					dataType: 'json',
 					data: {fdpmember_id : src},
 					success: function(req) {
-						console.log(req);
+							
+						// 핸들바 템플릿 생성
 						var template = Handlebars.compile($("#list-item-tmpl").html());
 						var html = template(req);
 						$("#memberView").html(html);
@@ -487,13 +532,14 @@
 							}
 						});
 						
+						// 닫기 버튼
 						$('.cbtn').click(function(e) {
 							e.preventDefault();
 							$("#memberView").animateCSS('fadeOutRight')
 							setTimeout(function() {
 								$("div[id='memberView']").css("visibility","hidden")
 							}, 1000);
-						}); // click 끝
+						}); // 닫기 끝
 					}
 				});		// ajax	끝
 			});		// click 끝

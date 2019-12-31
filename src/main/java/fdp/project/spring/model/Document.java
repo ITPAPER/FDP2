@@ -13,7 +13,7 @@ public class Document {
 	private int hit;
 	private String reg_date;
 	private String edit_date;
-	
+	private int docA_ok;
 	// 2) Join절에 따른 추가 컬럼
 	private int fdpmember_id;
 	

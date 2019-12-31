@@ -8,7 +8,6 @@
 <%-- <%@ include file="../inc/head.jsp"%> --%>
 <%-- <%@ include file="../inc/remote_css.jsp"%> --%>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 <style type="text/css">
 body {
 background-color: eee;
@@ -100,7 +99,6 @@ background-color: eee;
 
 	<div class="container" style="min-height: 1000px;">
 	<%-- <%@ include file="../inc/remote.jsp"%> --%>
-	<jsp:include page="./assets/inc/remote.jsp" />
 
 		<div class="box1" style="height: 400px;">
 			<ul id="gallery">

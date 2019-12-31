@@ -112,14 +112,12 @@
 
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
-<jsp:include page="./assets/inc/remote_css.jsp" />
 </head>
 
 <body>
 	<jsp:include page="./assets/inc/top.jsp" />
 
 	<div class="container" style="min-height: 500px;">
-		<jsp:include page="./assets/inc/remote.jsp" />
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
@@ -147,7 +145,7 @@
 							</td>
 						</tr>
 						<c:choose>
-							<c:when test="${output4 != null}">
+							<c:when test="${output4 ne '[]'}">
 								<tr>
 									<td>
 										<ul>
@@ -194,7 +192,7 @@
 											의사님 처방 <span style='display: none' id="DAI${status.index}">${item.docAnswer_id}</span>
 
 											<c:choose>
-												<c:when test="${cookie.PK.value == item.fdpmember_id}">
+												<c:when test="${PK == item.fdpmember_id}">
 													<a
 														href="14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}"
 														title="삭제" class="pull-right bcd"> <i
@@ -210,12 +208,12 @@
 										<h6>
 											전문 분야 :
 											<c:choose>
-												<c:when test="${item.medical_field == '4' }">외과</c:when>
-												<c:when test="${item.medical_field == '5' }">정형외과</c:when>
-												<c:when test="${item.medical_field == '6' }">신경외과</c:when>
-												<c:when test="${item.medical_field == '8' }">성형외과</c:when>
-												<c:when test="${item.medical_field == '1' }">내과</c:when>
-												<c:when test="${item.medical_field == '9' }">마취통증의학과</c:when>
+												<c:when test="${item.medical_field == '04' }">외과</c:when>
+												<c:when test="${item.medical_field == '05' }">정형외과</c:when>
+												<c:when test="${item.medical_field == '06' }">신경외과</c:when>
+												<c:when test="${item.medical_field == '08' }">성형외과</c:when>
+												<c:when test="${item.medical_field == '01' }">내과</c:when>
+												<c:when test="${item.medical_field == '09' }">마취통증의학과</c:when>
 												<c:when test="${item.medical_field == '10' }">산부인과</c:when>
 												<c:when test="${item.medical_field == '11' }">소아청소년과</c:when>
 												<c:when test="${item.medical_field == '12' }">안과</c:when>
@@ -259,7 +257,7 @@
 								</h5> <br />
 								<div class="input-group">
 									<c:choose>
-										<c:when test="${cookie.PK.value != null}">
+										<c:when test="${PK != null}">
 											<input type="text" class="form-control" name="content"
 												placeholder="댓글을 입력하세요.">
 											<span class="input-group-btn">
@@ -274,10 +272,10 @@
 											</p>
 										</c:otherwise>
 									</c:choose>
-									<input type="hidden" value="${cookie.Name.value}"
+									<input type="hidden" value="${Name}"
 										name="writer_name" /> 
 									<input type="hidden" value="${output.document_id}" name="document_id" /> 
-									<input type="hidden" value="${cookie.PK.value}" name="fdpmember_id" />
+									<input type="hidden" value="${PK}" name="fdpmember_id" />
 									</div> 
 								<c:forEach var="item1" items="${output3}" varStatus="status">
 									<span style='display: none' id="CIa${status.index}">${item1.comment_id}</span>
@@ -300,7 +298,7 @@
 												<!-- 제목에 float: right 적용 - pull-right -->
 												<div class="pull-right">
 													<c:choose>
-														<c:when test="${cookie.PK.value == item1.fdpmember_id}">
+														<c:when test="${PK == item1.fdpmember_id}">
 															<a
 																href="14_Notice_board_comment_delete.do?comment_id=${item1.comment_id}&document_id=${item1.document_id}"
 																title="삭제" class="pull-right bcd"> <i
@@ -328,7 +326,7 @@
 		<div class="clearfix b">
 			<ul class="pull-right bottom-button">
 				<c:choose>
-					<c:when test="${cookie.PK.value == output.fdpmember_id}">
+					<c:when test="${PK == output.fdpmember_id}">
 				<li class="a"><input type="button" value="삭제"
 					onclick="del(${output.document_id})" class="btn btn-default btn-sm"
 					id="btn1" /></li>
@@ -341,7 +339,7 @@
 					href="${pageContext.request.contextPath}/13_Notice_board.do"
 					class="btn btn-default btn-sm">메뉴</a></li>
 				<c:choose>
-					<c:when test="${cookie.UserGrade.value == 1}">
+					<c:when test="${UserGrade == 1}">
 						<li class="a"><input type="button" value="의사 글쓰기"
 							class="btn btn-default btn-sm doc_a" id="btn2" /></li>
 					</c:when>
@@ -368,8 +366,8 @@
 			var doc_feedback;
 			$("#btn2").click(function(){
 					$("#doc_del").empty();	// 의사가 글 작성할 때 아래의 의사 답변 내용이 없습니다 테이블 삭제됨
-						doc_feedback = "<tr><td><h5>${cookie.Name.value}의사님 답변</h5></td></tr>"
-						doc_feedback +="<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'></textarea></td></tr>"
+						doc_feedback = "<tr><td><h5>${Name}의사님 답변</h5></td></tr>"
+						doc_feedback +="<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${PK}' name='fdpmember_id' /><textarea name='content' id='d_content'></textarea></td></tr>"
 						doc_feedback +=	"<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA'/><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn3'/></td></tr>"
 						$("#abc").html(doc_feedback);
 					CKEDITOR.replace('d_content', {height: 200});
@@ -399,7 +397,7 @@
 						e = $("#DAI"+ c).html();
 					/* console.log(d); */
 					var doc_feedback1 = "<input type='hidden' name='docAnswer_id' value='"+e+"' />"
-						doc_feedback1 += "<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.writer_name}' name='writer_name' /><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${cookie.PK.value}' name='fdpmember_id' /><textarea name='content' id='d_content'>"+d+"</textarea></td></tr>"
+						doc_feedback1 += "<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.writer_name}' name='writer_name' /><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${PK}' name='fdpmember_id' /><textarea name='content' id='d_content'>"+d+"</textarea></td></tr>"
 						doc_feedback1 += "<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA' /><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn5'></td></tr>"
 						$("#"+c).empty();
 						$("#"+c).html(doc_feedback1);

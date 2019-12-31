@@ -8,8 +8,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hello JSP</title>
-<%-- <%@ include file="../inc/head.jsp"%> --%>
 <jsp:include page="./assets/inc/head.jsp" />
 <link rel="stylesheet" type="text.css" href="./assets/plugins/ajax/ajax_helper.css">
 	<!-- handlebar plugin -->
@@ -53,8 +51,8 @@ h5 {
 			<br/>
 			<br/>
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#home" data-toggle="tab">응급실 상황판</a></li>
-				<li><a href="#graph" data-toggle="tab">응급실 그래프</a></li>
+				<li class="active"><a href="#home" data-toggle="tab" id="board">응급실 상황판</a></li>
+				<li><a href="#graph" data-toggle="tab" id="erg">응급실 그래프</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class=" tab-pane fade in active" id="home">
@@ -65,7 +63,7 @@ h5 {
 						<div class="form-group">
 							<select id="parent" class="form-control">
 								<option value="">-------------- 병원 --------------</option>
-								<option id="no1" class="hosp" value="인제대학교서울백병원" >인제대학교서울백병원</option>
+								<option id="no1" class="hosp" value="인제대학교서울백병원" selected>인제대학교서울백병원</option>
 								<option class="hosp" value="의료법인풍산의료재단동부제일병원">의료법인풍산의료재단동부제일병원</option>
 								<option class="hosp" value="녹색병원">녹색병원</option>
 								<option class="hosp" value="서울특별시서울의료원">서울특별시서울의료원</option>
@@ -175,7 +173,8 @@ h5 {
 	<script src="https://www.amcharts.com/lib/4/charts.js"></script>
 	<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 	<script type="text/javascript">
-	setInterval(function(){
+	
+	function getBoard(){
 		$.ajax( {
 			url:'getErInfo.do',
 			method:'get',
@@ -191,12 +190,87 @@ h5 {
 				}
 			}
 		})
-	}, 60000);
-	</script>
-	<!-- Chart code -->
-	<script>
+	}
+	function getGraph(pp){
+		$.ajax({
+			url:'ErGraph.do',
+			method:'post',
+			data:{hos:pp},
+			dataType:'json',
+			success: function(hos) {
+				
+				for(var t = 0 ; t < hos.length; t++){
+					
+					hos[t].inserttime= new Date(hos[t].inserttime);
+				}
+				console.log(hos);
+				
+				am4core.ready(function() {
+
+					// Themes begin
+					am4core.useTheme(am4themes_animated);
+					// Themes end
+
+					// Create chart instance
+					var chart = am4core.create("chartdiv", am4charts.XYChart);
+					chart.paddingRight = 20;
+
+					
+					// Add data
+					chart.data = hos;
+
+					// Create axes
+					 var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+					 dateAxis.renderer.minGridDistance = 30;
+					 dateAxis.skipEmptyPeriods = true;
+					 dateAxis.dateFormats.setKey("minute", "mm'분'");
+					 dateAxis.periodChangeDateFormats.setKey("minute", "[bold]HH'시'");
+					 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
+					 dateAxis.tooltipDateFormat = { month: "long", day: "numeric" , hour:"numeric", minute:"numeric"  };
+					 
+					// Create value axis
+					var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+					valueAxis.baseValue = 0;
+
+					// Create series
+					var series = chart.series.push(new am4charts.LineSeries());
+					series.dataFields.valueY = "hvec";
+					series.dataFields.dateX = "inserttime";
+					series.strokeWidth = 2;
+					series.tensionX = 0.77;
+
+					// bullet is added because we add tooltip to a bullet for it to change color
+					var bullet = series.bullets.push(new am4charts.Bullet());
+					bullet.tooltipText = "{valueY}";
+
+					bullet.adapter.add("fill", function(fill, target){
+					    if(target.dataItem.valueY < 0){
+					        return am4core.color("#FF0000");
+					    }
+					    return fill;
+					})
+					
+					var range = valueAxis.createSeriesRange(series);
+					range.value = 0;
+					range.endValue = -1000;
+					range.contents.stroke = am4core.color("#FF0000");
+					range.contents.fill = range.contents.stroke;
+
+					
+					// Add scrollbar
+					var scrollbarX = new am4charts.XYChartScrollbar();
+					scrollbarX.series.push(series);
+					chart.scrollbarX = scrollbarX;
+
+					chart.cursor = new am4charts.XYCursor();
+
+					}); // end am4core.ready()	
+			}
+		}); //end ajax
+	}
+	var itv =setInterval(getBoard, 60000);
 		$(function(){
-			$.ajax( {
+			 $.ajax({
 				url:'getErInfo.do',
 				method:'get',
 				dataType:'json',
@@ -210,107 +284,27 @@ h5 {
 						$("#erer").append(html);
 					}
 				}
-			})
-			$("#no1").click();
+			}); //end ajax
+
+			var subj = $("#no1").val();
+			$("#hosname").html(subj + " 의  응급실 포화도 변화 추이 입니다.");
+			getGraph(subj);
+			
+			
 			$("#parent").change(function(e){
 				var subj = $("#parent").find("option:selected").val();
 				$("#hosname").html(subj + " 의  응급실 포화도 변화 추이 입니다.");
-				
-				$.ajax({
-					url:'ErGraph.do',
-					method:'post',
-					data:{hos:subj},
-					dataType:'json',
-					success: function(hos) {
-						
-						for(var t = 0 ; t < hos.length; t++){
-							
-							hos[t].inserttime= new Date(hos[t].inserttime);
-						}
-						console.log(hos);
-						
-						am4core.ready(function() {
-
-							// Themes begin
-							am4core.useTheme(am4themes_animated);
-							// Themes end
-
-							// Create chart instance
-							var chart = am4core.create("chartdiv", am4charts.XYChart);
-							chart.paddingRight = 20;
-	
-							
-							// Add data
-							chart.data = hos;
-
-							
-							// Create axes
-							/* var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-							categoryAxis.dataFields.category = "inserttime";
-							categoryAxis.renderer.minGridDistance = 50;
-							categoryAxis.renderer.grid.template.location = 0.5;
-							categoryAxis.startLocation = 0.5;
-							categoryAxis.endLocation = 0.5;
-							categoryAxis.renderer.labels.template.adapter.add("dy", function(dy, target) {
-								  if (target.dataItem && target.dataItem.index & 2 == 2) {
-								    return dy + 25;
-								  }
-								  return dy;
-								});
-							 */
-							
-							// Create axes
-							 var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-							 dateAxis.renderer.minGridDistance = 30;
-							 dateAxis.skipEmptyPeriods = true;
-							 dateAxis.dateFormats.setKey("minute", "mm'분'");
-							 dateAxis.periodChangeDateFormats.setKey("minute", "HH'시'");
-							 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
-							 dateAxis.tooltipDateFormat = { month: "long", day: "numeric" , hour:"numeric", minute:"numeric"  };
-							 
-							// Create value axis
-							var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-							valueAxis.baseValue = 0;
-
-							// Create series
-							var series = chart.series.push(new am4charts.LineSeries());
-							series.dataFields.valueY = "hvec";
-							series.dataFields.dateX = "inserttime";
-							series.strokeWidth = 2;
-							series.tensionX = 0.77;
-
-							// bullet is added because we add tooltip to a bullet for it to change color
-							var bullet = series.bullets.push(new am4charts.Bullet());
-							bullet.tooltipText = "{valueY}";
-
-							bullet.adapter.add("fill", function(fill, target){
-							    if(target.dataItem.valueY < 0){
-							        return am4core.color("#FF0000");
-							    }
-							    return fill;
-							})
-							
-							var range = valueAxis.createSeriesRange(series);
-							range.value = 0;
-							range.endValue = -1000;
-							range.contents.stroke = am4core.color("#FF0000");
-							range.contents.fill = range.contents.stroke;
-
-							
-							// Add scrollbar
-							var scrollbarX = new am4charts.XYChartScrollbar();
-							scrollbarX.series.push(series);
-							chart.scrollbarX = scrollbarX;
-
-							chart.cursor = new am4charts.XYCursor();
-
-							}); // end am4core.ready()	
-					}
-				});
+				getGraph(subj);
 			});
 		});
 		
-	
+		$("#board").click(function(){
+			setInterval(getBoard, 60000);
+		});
+		$("#erg").click(function(){
+			clearInterval(itv);
+			
+		});
 	
 	
 	</script>

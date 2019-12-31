@@ -4,7 +4,6 @@
 <html lang="ko">
   <head>
      <jsp:include page="./assets/inc/head.jsp" />
-     <jsp:include page="./assets/inc/remote_css.jsp" />
      <style type="text/css">
      	.container {
     		position: relative;
@@ -25,7 +24,7 @@
     		display: inline-block;
     	}
     	
-		#dupcheck { !important;
+		#dupcheck,#dupcheck2 { !important;
 			border: 1.5px solid orange;
 			background-color: white;
 			color: orange;
@@ -66,21 +65,41 @@
     	
     	#joinbutton {
 			position: relative;
-			top: -50px;
+			top: 50px;
 			left: -20px;
 		}
 		
 		#resetbutton {
 			position: relative;
-			top: -50px;
+			top: 50px;
 			right: -20px;
 		}
     	
+    	#postcode {
+    	border: 1.5px solid orange;
+			background-color: white;
+			color: orange;
+			border-radius: 5px;
+			height: 30px;
+    	}
+    	
+    	.findAdd1 {
+    		width: 200px;
+    	}
+    	
+    	.findAdd2 {
+    		width: 700px;
+    		margin: 5px 0;
+    	}
+    	
+    	.findAdd3 {
+    		width: 400px;
+    	}
      </style>
   </head>
   <body>
   <jsp:include page="./assets/inc/top.jsp" />
-	<div class="container" style="height: 1000px;">
+	<div class="container" style="height: 1100px;">
 		<h3 class="title">
 			<strong>회원가입 - 의사</strong>
 		</h3>
@@ -138,47 +157,21 @@
 				<label for='email' class="col-md-2">이메일 <span class='identify'>*</span></label>
 				<div class="col-md-10">
 					<input type="email" name="email" id="email" class="form-control" />
-					<br />	
+					<br />
+					<br />
+					<button type="button" id="dupcheck2" value="0">이메일 중복검사</button>
+					<br />
 				</div>
 			</div>
 			<br />
 			<div class="form-group">
             <label for='address' class="col-md-2">주소 <span class='identify'>*</span></label>
             <div class="col-md-10">
-                <select name="addr1" id="addr1" class="form-control" style="width: 150px;">
-                	<option value="">-----시/도-----</option>
-                	<option value="서울특별시">서울특별시</option>
-                </select>
-                <select name="addr2" id="addr2" class="form-control" style="width: 155px;">
-                	<option value="">-----군/구-----</option>
-                	<option value="강서구">강서구</option>
-                	<option value="양천구">양천구</option>
-                	<option value="구로구">구로구</option>
-                	<option value="영등포구">영등포구</option>
-                	<option value="금천구">금천구</option>
-                	<option value="동작구">동작구</option>
-                	<option value="관악구">관악구</option>
-                	<option value="서초구">서초구</option>
-                	<option value="강남구">강남구</option>
-                	<option value="송파구">송파구</option>
-                	<option value="강동구">강동구</option>
-                	<option value="광진구">광진구</option>
-                	<option value="성동구">성동구</option>
-                	<option value="동대문구">동대문구</option>
-                	<option value="중랑구">중랑구</option>
-                	<option value="노원구">노원구</option>
-                	<option value="도봉구">도봉구</option>
-                	<option value="강북구">강북구</option>
-                	<option value="성북구">성북구</option>
-                	<option value="종로구">종로구</option>
-                	<option value="중구">중구</option>
-                	<option value="용산구">용산구</option>
-                	<option value="은평구">은평구</option>
-                	<option value="서대문구">서대문구</option>
-                	<option value="마포구">마포구</option>
-                </select>
-                <input type="text" name="addr3" id="addr3" placeholder="동/읍/면 입력" class="form-control" style="width: 255px;">
-                <input type="text" name="addr4" id="addr4" placeholder="상세주소" class="form-control" style="width: 255px;">
+            <input type="text" id="sample6_postcode" name="addr1" class="form-control findAdd1" placeholder="우편번호">
+			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" id="postcode"><br>
+			<input type="text" id="sample6_address" name="addr2" class="form-control findAdd2" placeholder="주소"><br>
+			<input type="text" id="sample6_detailAddress" name="addr3" class="form-control findAdd3" placeholder="상세주소">
+			<input type="text" id="sample6_extraAddress" name="addr4" class="form-control findAdd3" placeholder="참고항목">
 				<br/>
 				<br/>
 				<p style="font-style:italic; font-size: 13px;">입력하신 주소는 '병원찾기' 및 '응급실찾기' 이용 시 기본 주소로 사용됩니다.</p>            
@@ -248,9 +241,6 @@
 				//사용 가능한 아이디인 경우 --> req = {status: "OK"}
 				//사용 불가능한 아이디인 경우 --> req = {status: "FAIL"}
 				
-				console.log(user_id_val);
-				console.log(req);
-				
 				if (req == 'OK') {
 					alert("사용 가능한 아이디 입니다.");
 					$("#dupcheck").attr("value", 1);
@@ -260,6 +250,32 @@
 					$("#dupcheck").attr("value", 0);
 					$("#user_id").val("");
 					$("#user_id").focus();
+				}
+			});
+		});
+		
+		$("#dupcheck2").click(function() {
+			var eamil_val = $("#email").val();
+			
+			if(!eamil_val) {
+				alert("이메일을 입력하세요!!!");
+				$("#email").focus();
+				return false;
+			} 
+			
+			$.post('eamilCheck.do', {email: eamil_val}, function(req) {
+				//사용 가능한 이메일인 경우 --> req = {status: "OK"}
+				//사용 불가능한 이메일인 경우 --> req = {status: "FAIL"}
+				
+				if (req == 'OK') {
+					alert("사용 가능한 이메일 입니다.");
+					$("#dupcheck2").attr("value", 1);
+					
+				} else {
+					alert("사용할 수 없는 아이디 입니다.");
+					$("#dupcheck2").attr("value", 0);
+					$("#email").val("");
+					$("#email").focus();
 				}
 			});
 		});
@@ -276,6 +292,13 @@
 			
 			if (complete == 0) {
 				alert("아이디 중복검사를 실행해주세요");
+				return false;
+			} 
+
+            var complete2 = $("#dupcheck2").val();
+			
+			if (complete2 == 0) {
+				alert("이메일 중복검사를 실행해주세요");
 				return false;
 			} 
 
@@ -308,10 +331,9 @@
             if (!regex.email('#email', '이메일 주소가 잘못되었습니다.')) { return false; }
             
             /* 주소 검사 */
-            if (!regex.value('#addr1', '주소 - 시/도를 입력하세요.')) { return false; }
-            if (!regex.value('#addr2', '주소 - 군/구를 입력하세요.')) { return false; }
-            if (!regex.value('#addr3', '주소 - 동/읍/면을 입력하세요.')) { return false; }
-            if (!regex.value('#addr4', '주소 - 상세주소를 입력하세요.')) { return false; }
+            if (!regex.value('input[name=addr1]', '우편번호를 입력하세요.')) { return false; }
+            if (!regex.value('input[name=addr2]', '주소를 입력하세요.')) { return false; }
+            if (!regex.value('input[name=addr3]', '상세 주소를 입력하세요.')) { return false; }
             
             /** 연락처 검사 */
             if (!regex.value('#tel', '연락처를 입력하세요.')) { return false; }
@@ -326,5 +348,55 @@
     });
     </script>
     <script src="./assets/js/regex.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+	</script>
   </body>
 </html>

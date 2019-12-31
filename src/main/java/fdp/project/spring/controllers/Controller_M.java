@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +47,10 @@ public class Controller_M {
 	@RequestMapping(value = "02_Login.do", method = RequestMethod.GET)
 	public String Login(Model model) {
 		int dir = webHelper.getInt("document_id");
+		String id =  webHelper.getCookie("auto","");
 		
 		model.addAttribute("document_id",dir);
+		model.addAttribute("id",id);
 		
 		return "02_Login";
 	}
@@ -64,7 +65,7 @@ public class Controller_M {
 	
 	@RequestMapping(value = "03_Find_h.do", method = RequestMethod.GET)
 	public String Find_h(Model model) {
-		String fdpCookie = webHelper.getCookie("fdpCookie", "");
+		String fdpCookie = (String) webHelper.getSession("fdpCookie", "");
 		
 		
 		if(fdpCookie != "") {
@@ -73,7 +74,22 @@ public class Controller_M {
 			
 			try {
 				member  = memberService.getMemberItem(member);
-				String dd = member.getAddr3();
+				String dd = "";
+
+				int kk = member.getAddr2().indexOf(" ");
+				int bb = member.getAddr2().indexOf(" ", kk+1);
+				String gu = member.getAddr2().substring(kk+1, bb);
+				
+				String dong = "";
+				if(member.getAddr4()==null || member.getAddr4()=="") {
+					int cc = member.getAddr2().indexOf(" ", bb+1);
+					dong = member.getAddr2().substring(bb+1, cc);
+				} else {
+					int ee = member.getAddr4().indexOf("(");
+					int ff = member.getAddr4().indexOf("동");
+					
+					dong = member.getAddr4().substring(ee+1, ff+1);
+				}	
 				
 				if(dd.contains("본동")) {
 					dd = dd.replace("본동", "동");
@@ -99,8 +115,8 @@ public class Controller_M {
 					dd = dd.replace("10동", "동");
 				}
 				
-				model.addAttribute("gu", member.getAddr2());
-				model.addAttribute("dong", dd);
+				model.addAttribute("gu", gu);
+				model.addAttribute("dong", dong);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "03_Find_h";
@@ -113,9 +129,9 @@ public class Controller_M {
 	
 	@RequestMapping(value = "05_Find_e.do", method = RequestMethod.GET)
 	public String Find_e(Model model) {
+
+		String fdpCookie = (String)webHelper.getSession("fdpCookie", "");
 		
-		String fdpCookie = webHelper.getCookie("fdpCookie", "");
-		System.out.println(fdpCookie);
 		List<Documents> list = new ArrayList<Documents>();
 		String gu = "";
 		list.add(new Documents( 0.0, 0.0));
@@ -129,8 +145,10 @@ public class Controller_M {
 			
 			try {
 				member  = memberService.getMemberItem(member);
-				addr += member.getAddr1() + " " + member.getAddr2() + " " + member.getAddr3() + " " + member.getAddr4() ;
-				gu = member.getAddr2();
+				addr = member.getAddr2();
+				int kk = member.getAddr2().indexOf(" ");
+				int bb = member.getAddr2().indexOf(" ", kk+1);
+				gu = member.getAddr2().substring(kk+1, bb);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "index";
@@ -168,7 +186,7 @@ public class Controller_M {
 		
 		/** 1) 필요한 객체 생성 부분 */
 		
-		String gu = webHelper.getString("data");
+		String gu = webHelper.getString("data", "0");
 		
 		List<String> ergu = new ArrayList<String>();
 		
@@ -476,45 +494,16 @@ public class Controller_M {
 			return webHelper.redirect(null, "해당하는 아이디와 비밀번호의 회원이 없습니다.");
 		}
 		if(output != null) {
-			if(autologin == 7 ) {
-				webHelper.setCookie("fdpCookie", user_id, 604800);
-				webHelper.setCookie("UserGrade", output.getMember_grade(), 604800);
-				
-				Cookie cookie = new Cookie("Name", output.getName());
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(604800);
-				response.addCookie(cookie);
-				
-				String PK = Integer.toString(output.getFdpmember_id());
-				webHelper.setCookie("PK", PK, 604800);
-			}else {
-				Cookie cookie = new Cookie("fdpCookie", user_id);
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
-				
-				cookie = new Cookie("UserGrade", output.getMember_grade());
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
-				
-				cookie = new Cookie("Name", output.getName());
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
-				
-				String PK = Integer.toString(output.getFdpmember_id());
-				cookie = new Cookie("PK", PK);
-				cookie.setPath("/");
-				cookie.setDomain("localhost");
-				cookie.setMaxAge(-111);
-				response.addCookie(cookie);
+			webHelper.setSession("fdpCookie", user_id);
+			webHelper.setSession("UserGrade", output.getMember_grade());
+			webHelper.setSession("Name", output.getName());
+			webHelper.setSession("PK", output.getFdpmember_id());
+			
+			if(autologin ==7) {
+				webHelper.setCookie("auto", user_id, 604800);
 			}
 		}
+
 		if(document_id==0) {
 			return new ModelAndView("redirect: index.do");
 		}else {
@@ -524,12 +513,9 @@ public class Controller_M {
 	
 	@RequestMapping(value= "/coodel.do", method= RequestMethod.GET )
 	public ModelAndView coodel( ) {
-		String aa = webHelper.getCookie("Name");
+		String aa = (String) webHelper.getSession("Name");
 		
-		webHelper.removeCookie("fdpCookie");
-		webHelper.removeCookie("UserGrade");
-		webHelper.removeCookie("Name");
-		webHelper.removeCookie("PK");
+		webHelper.removeAllSession();
 		
 		
 		return webHelper.redirect("index.do", "안녕히가세요 "+ aa +"님");
@@ -566,14 +552,9 @@ public class Controller_M {
 		}
 		for(EmRoom tt : output) {
 			
-			//tt.inserttime= tt.inserttime.substring(0,tt.inserttime.lastIndexOf(":"));
-			//tt.inserttime= tt.inserttime.substring(tt.inserttime.indexOf("-")+1);
 			tt.inserttime = tt.inserttime.replace(" ", "/");
 			tt.inserttime = tt.inserttime.replace("-", "/");
-			//tt.inserttime = tt.inserttime.replace(":", ",");
 			
-			
-			System.out.println(tt.inserttime);
 		}
 		
 		
