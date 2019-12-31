@@ -111,7 +111,7 @@
 							src="./assets/img/emergecy1.png" alt="응급실 찾기" />
 					</span> <span class="text">응급실 찾기</span><span class="comment">서울 응급실 위치 찾기 서비스 입니다.<br />응급실 위치를 통해 응급환자의 <br />골든 타임을 지키기위해<br /> 노력하겠습니다.</span>
 				</a></li>
-				<li><a href="06_Find_e_i.do"> <span class="thumb"> <img
+				<li><a href="30_Monitoring.do"> <span class="thumb"> <img
 							src="./assets/img/monitoring1.png" alt="응급실 모니터링" />
 					</span> <span class="text">응급실 모니터링</span><span class="comment">서울 응급실 현황입니다.<br />실시간 가용 병실 수를 나타냅니다.<br />응급한 순간 헛된 걸음이 되지 않도록<br />정확한 정보를 제공하겠습니다.</span>
 				</a></li>

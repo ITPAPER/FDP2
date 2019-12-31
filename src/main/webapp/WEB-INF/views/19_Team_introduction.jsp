@@ -105,12 +105,12 @@ background-color: eee;
 		<div class="box1" style="height: 400px;">
 			<ul id="gallery">
 				<li><a><span class="thumb"> <img
-							src="./assets/img/icon.png" alt="병원찾기" />
-					</span> <span class="text">김체리<p>하고자하면 할 수 있다.</p></span>
+							src="./assets/img/kcr.jpg" alt="병원찾기" />
+					</span> <span class="text">김체리<p>게시판 장인!</p></span>
 				</a></li>
 				<li><a><span class="thumb"> <img
-							src="./assets/img/icon.png" alt="응급실 찾기" />
-					</span> <span class="text">박기협<p>하고자하면 할 수 있다.</p></span>
+							src="./assets/img/pkh.jpg" alt="응급실 찾기" />
+					</span> <span class="text">박기협<p>이것이 관리자다!</p></span>
 				</a></li>
 			</ul>
 		</div>
@@ -118,15 +118,15 @@ background-color: eee;
 			<ul id="gallery">
 				<li><a><span class="thumb"> <img
 							src="./assets/img/lss.jpg" alt="응급실 모니터링" />
-					</span> <span class="text">이승석 <p>하고자하면 할 수 있다.</p></span>
+					</span> <span class="text">이승석 <p>프로젝트를 조율하는 자</p></span>
 				</a></li>
 				<li><a><span class="thumb"> <img
-							src="./assets/img/icon.png" alt="질병 통계 현황" />
-					</span> <span class="text">정민기<p>하고자하면 할 수 있다.</p></span>
+							src="./assets/img/jmk.jpg" alt="질병 통계 현황" />
+					</span> <span class="text">정민기<p>코드는 머릿속에 있다!</p></span>
 				</a></li>
 				<li><a><span class="thumb"> <img
-							src="./assets/img/icon.png" alt="게시판" />
-					</span> <span class="text">조지현<p>하고자하면 할 수 있다.</p></span>
+							src="./assets/img/jjh.jpg" alt="게시판" />
+					</span> <span class="text">조지현<p>통계란 이런것이다!</p></span>
 				</a></li>
 			</ul>
 		</div>
