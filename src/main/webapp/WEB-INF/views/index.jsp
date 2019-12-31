@@ -325,7 +325,7 @@
 				</div>
 				<div class="row mynav blr">
 					<div class="col-xs-3 nav-btn bl">
-						<a href="#" class="nav-txt">질병 관련 정보
+						<a href="http://dw.nemc.or.kr/nemcMonitoring/mainmgr/Main.do" class="nav-txt">질병 관련 정보
 							<br/>
 							<img src="./assets/img/virus.png" width="150px" height="160px">
 						</a>	
