@@ -116,7 +116,7 @@
 					<option value="비염">비염</option>
 					<option value="알레르기성결막염">알레르기성 결막염</option>
 					<option value="위식도 역류질환">위식도 역류질환</option>
-					<option value="접촉피부염">접촉피부염</option>
+					<option value="알레르기질환">알레르기질환</option>
 					<option value="척추질환">척추질환</option>
 					<option value="치아우식증">치아우식증</option>
 					<option value="치주질환및치은염">치주질환 및 치은염</option>
