@@ -51,8 +51,10 @@ public class HomeController {
 			
 			try {
 				member  = memberService.getMemberItem(member);
-				addr += member.getAddr1() + " " + member.getAddr2() + " " + member.getAddr3() + " " + member.getAddr4() ;
-				gu = member.getAddr2();
+				addr = member.getAddr2();
+				int kk = member.getAddr2().indexOf(" ");
+				int bb = member.getAddr2().indexOf(" ", kk+1);
+				gu = member.getAddr2().substring(kk+1, bb);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "index";

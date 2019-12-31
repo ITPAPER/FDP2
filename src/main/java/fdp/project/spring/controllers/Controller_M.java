@@ -74,7 +74,22 @@ public class Controller_M {
 			
 			try {
 				member  = memberService.getMemberItem(member);
-				String dd = member.getAddr3();
+				String dd = "";
+
+				int kk = member.getAddr2().indexOf(" ");
+				int bb = member.getAddr2().indexOf(" ", kk+1);
+				String gu = member.getAddr2().substring(kk+1, bb);
+				
+				String dong = "";
+				if(member.getAddr4()==null || member.getAddr4()=="") {
+					int cc = member.getAddr2().indexOf(" ", bb+1);
+					dong = member.getAddr2().substring(bb+1, cc);
+				} else {
+					int ee = member.getAddr4().indexOf("(");
+					int ff = member.getAddr4().indexOf("동");
+					
+					dong = member.getAddr4().substring(ee+1, ff+1);
+				}	
 				
 				if(dd.contains("본동")) {
 					dd = dd.replace("본동", "동");
@@ -100,8 +115,8 @@ public class Controller_M {
 					dd = dd.replace("10동", "동");
 				}
 				
-				model.addAttribute("gu", member.getAddr2());
-				model.addAttribute("dong", dd);
+				model.addAttribute("gu", gu);
+				model.addAttribute("dong", dong);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "03_Find_h";
@@ -114,8 +129,9 @@ public class Controller_M {
 	
 	@RequestMapping(value = "05_Find_e.do", method = RequestMethod.GET)
 	public String Find_e(Model model) {
+
+		String fdpCookie = (String)webHelper.getSession("fdpCookie", "");
 		
-		String fdpCookie = (String) webHelper.getSession("fdpCookie", "");
 		List<Documents> list = new ArrayList<Documents>();
 		String gu = "";
 		list.add(new Documents( 0.0, 0.0));
@@ -129,8 +145,10 @@ public class Controller_M {
 			
 			try {
 				member  = memberService.getMemberItem(member);
-				addr += member.getAddr1() + " " + member.getAddr2() + " " + member.getAddr3() + " " + member.getAddr4() ;
-				gu = member.getAddr2();
+				addr = member.getAddr2();
+				int kk = member.getAddr2().indexOf(" ");
+				int bb = member.getAddr2().indexOf(" ", kk+1);
+				gu = member.getAddr2().substring(kk+1, bb);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "index";
@@ -168,7 +186,7 @@ public class Controller_M {
 		
 		/** 1) 필요한 객체 생성 부분 */
 		
-		String gu = webHelper.getString("data");
+		String gu = webHelper.getString("data", "0");
 		
 		List<String> ergu = new ArrayList<String>();
 		

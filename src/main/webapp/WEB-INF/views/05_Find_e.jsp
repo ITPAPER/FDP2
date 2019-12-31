@@ -120,7 +120,7 @@
     	
     	
     	$(".gu").click(function(){
-    		var gu = $(this).val();
+			var gu = $(this).val();
 			var place =null;
 			if (gu == 1) {
 				place="(도봉구, 강북구, 성북구, 노원구)";
@@ -139,8 +139,9 @@
 			} else {
 				place="(종로구, 중구, 용산구)";
 			}
+			console.log(gu);
 			$(".prog").html( $(this).html() +" 응급실 위치 " + place);
-			$.ajax( {
+			$.ajax({
 				url:'fer.do',
 				method:'get',
 				data:{data:gu},
@@ -197,9 +198,10 @@
 						
 						if(${list[0].x != 0 }){
 							var xlen = ${list[0].x} - req[i].wgs84Lon;
-							xlen = Math.abs(xlen);
+							console.log(xlen * -1);
+							if(xlen * -1){ xlen = xlen * -1;}
 							var ylen = ${list[0].y} - req[i].wgs84Lat;
-							ylen = Math.abs(ylen);
+							if(ylen * -1){ ylen = ylen * -1;}
 							if(i==0){
 								looc= xlen + ylen; 
 								c = i+1;
@@ -265,15 +267,14 @@
 						$(".accord-title a[value='"+c+"']").parent().css('background-color', '#f0ad4e');
 						$(".accord-title a[value='"+c+"']").click();
 						var title = $(".accord-title a[value='"+c+"']").html();
-					
 						console.log(title);
-						$("#gmap").find("div[title='"+title+"']").click(); 
+						$("#gmap").find("div[title='"+title+"']").click();
 					}
 					
 				} 		
 			});//end ajax
 		}); 
-		if("${gu}" != null){
+    	if("${gu}" != null){
 			if("${gu}" == "도봉구" || "${gu}" == "강북구" || "${gu}" == "성북구" || "${gu}" =="노원구"){
 				$("button[value='1']").click()
 			}else if("${gu}" == "동대문구" || "${gu}" == "중랑구" || "${gu}" == "성동구" || "${gu}" =="광진구"){
