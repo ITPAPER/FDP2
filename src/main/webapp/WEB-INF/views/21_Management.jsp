@@ -412,7 +412,7 @@
 			$("#gr3").click(function() {
 				$("#chartdiv").empty();
 				$.ajax({
-					url : './assets/api/chart02.do',// 읽어들일 파일의 경로
+					url : './assets/api/chart2.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 

@@ -336,7 +336,7 @@
 								<td align="center">{{addr3}}</td>
 							</tr>
 							<tr>
-								<th class="text-center">주소 참고</th>
+								<th class="text-center">참고항목</th>
 								<td align="center">{{addr4}}</td>
 							</tr>
 							<tr>

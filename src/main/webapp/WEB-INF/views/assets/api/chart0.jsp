@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <style>
 #chartdiv {
 	width: 100%;
@@ -6,9 +8,35 @@
 }
 </style>
 <script>
-	am4core.ready(function() {
 
-		console.log('${jsonList}')
+	// ex)서울 강남구 강남대로 -> 강남구 
+	var json = ${jsonList}
+	
+    for (var i = 0; i < json.length; i++) {
+    	// 더미 데이터 이용할 수 있도록
+    	if (json[i].addr2.length < 5) {
+    		json[i].addr2 = json[i].addr2.trim();
+    	} else {
+        	var text1 = json[i].addr2.indexOf(" ") + 1
+        	var text2 = json[i].addr2.indexOf(" ", text1)
+        	var text3 = json[i].addr2.substring(text1, text2).trim()
+        	
+        	
+    		for (var j = 0; j < json.length; j++) {
+    			if (text3 == json[j].addr2) {
+    				
+    				json[j].addrcount ++;
+    				delete json[i].addr2;
+    				delete json[i].addrcount;
+    			} // if end
+    		} // for j end
+
+    		
+    	} // else end
+    } // for i end
+    
+    console.log(json)
+	am4core.ready(function() {
 
 		// Themes begin
 		am4core.useTheme(am4themes_animated);
@@ -18,7 +46,7 @@
 		var chart = am4core.create("chartdiv", am4charts.PieChart);
 		chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-		chart.data = ${jsonList}
+		chart.data = json
 
 		var series = chart.series.push(new am4charts.PieSeries());
 		series.dataFields.value = "addrcount";

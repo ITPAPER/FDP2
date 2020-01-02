@@ -521,7 +521,7 @@ public class Controller_K {
 		return new ModelAndView("assets/api/chart1");
 	}
 	
-	@RequestMapping(value = "/assets/api/chart02.do")
+	@RequestMapping(value = "/assets/api/chart2.do")
 	public ModelAndView chart22(Model model) {
 		
 		/** 회원 나이별로 조회하기 */
@@ -535,7 +535,7 @@ public class Controller_K {
 		}
 		
 		model.addAttribute("jsonList", JSONArray.fromObject(output));
-		return new ModelAndView("assets/api/chart02");
+		return new ModelAndView("assets/api/chart2");
 	}
 	
 	@RequestMapping(value = "/assets/api/chart3.do")
