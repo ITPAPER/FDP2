@@ -20,7 +20,8 @@
 	}
 	
 	am4core.ready(function() {
-
+	am4core.disposeAllCharts();
+	
 		// Themes begin
 		am4core.useTheme(am4themes_animated);
 		// Themes end

@@ -382,7 +382,6 @@
 		$(function() {
 			
 			$("#gr1").click(function() {
-				$("#chartdiv").empty();
 				$.ajax({
 					url : './assets/api/chart0.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
@@ -396,7 +395,6 @@
 			});		// end #gr1 click
 			
 			$("#gr2").click(function() {
-				$("#chartdiv").empty();
 				$.ajax({
 					url : './assets/api/chart1.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
@@ -410,7 +408,6 @@
 			});		// end #gr2 click
 			
 			$("#gr3").click(function() {
-				$("#chartdiv").empty();
 				$.ajax({
 					url : './assets/api/chart2.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
@@ -424,7 +421,6 @@
 			});		// end #gr3 click
 			
 			$("#gr4").click(function() {
-				$("#chartdiv").empty();
 				$.ajax({
 					url : './assets/api/chart3.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
@@ -438,7 +434,6 @@
 			});		// end #gr4 click
 			
 			$("#gr5").click(function() {
-				$("#chartdiv").empty();
 				$.ajax({
 					url : './assets/api/chart4.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)

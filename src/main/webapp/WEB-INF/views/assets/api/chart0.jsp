@@ -21,11 +21,11 @@
         	var text2 = json[i].addr2.indexOf(" ", text1)
         	var text3 = json[i].addr2.substring(text1, text2).trim()
         	
-        	
     		for (var j = 0; j < json.length; j++) {
     			if (text3 == json[j].addr2) {
     				
     				json[j].addrcount ++;
+    				// JSON key value 삭제
     				delete json[i].addr2;
     				delete json[i].addrcount;
     			} // if end
@@ -37,7 +37,8 @@
     
     console.log(json)
 	am4core.ready(function() {
-
+	am4core.disposeAllCharts();
+	
 		// Themes begin
 		am4core.useTheme(am4themes_animated);
 		// Themes end

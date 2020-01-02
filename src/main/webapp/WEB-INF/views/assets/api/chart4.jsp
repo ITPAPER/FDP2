@@ -50,6 +50,7 @@ for(var i=0 ; i < json.length ; i++) {
 }
 
 am4core.ready(function() {
+am4core.disposeAllCharts();
 
 // Themes begin
 am4core.useTheme(am4themes_animated);

@@ -120,6 +120,7 @@
 				$.ajax({
 					url : './assets/api/chart3.do',// 읽어들일 파일의 경로
 					dataType : 'html', 				//읽어올 내용 형식(html, xml, json)
+					
 					// 통신 성공시 호출될 함수 (파라미터는 읽어온 내용)
 					success : 
 						function(req) {
@@ -140,7 +141,7 @@
 						$("#dept").html(req);
 					}
 				});		//end $.ajax
-			});	// end #gr4 click
+			});	// end #gr5 click
 		});
 	</script>
 

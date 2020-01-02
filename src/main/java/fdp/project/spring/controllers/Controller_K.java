@@ -618,11 +618,11 @@ public class Controller_K {
 		// 조회할 대상에 대한 PK값
 		String email = webHelper.getString("data");
 		String user_id = webHelper.getString("data1");
-		int a = 0;
 		Member input = new Member();
 		input.setEmail(email);
 		input.setUser_id(user_id);
-
+		
+		int a = 0;
 		// 조회결과를 저장할 객체 선언
 		Member output = null;
 		Gson gson = new Gson();
@@ -677,7 +677,10 @@ public class Controller_K {
 		try {
 			String emailcontent = "<p style='text-align:center;'>" + output.getName() + " 회원님께 임의로 발급된 비밀번호는 <b>"+ output.getUser_pw() + "</b>입니다.<br />"
 					+ "비밀번호 변경 후 사용해주시길 바랍니다.<br /></p><div style='text-align:center;'><img style='width:500px;' src='https://postfiles.pstatic.net/MjAxOTEyMjdfMjQ4/MDAxNTc3NDE2ODQzOTQz.ZyAwSwKyzpdDFaGDvdqHZ8gl3_E99Dgnd3CNcSmduEMg.gJL9BImjP9zodMnwb8OMwPum-3wCTDL_uC31hsQ8-5Ug.PNG.min_gi115/FindDoctor.png?type=w580' alt='로고'></div>";
+			
+			// 메일 Helper 사용
 			mailHelper.sendMail(output.getEmail(), "Find Doctor 임시 비밀번호 발급 안내", emailcontent);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
