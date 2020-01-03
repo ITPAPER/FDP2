@@ -114,17 +114,9 @@
 	<bean id="hospital" class="fdp.project.spring.model.Em_Hospital" />
 	<bean id="emergencyAddr" class="fdp.project.spring.model.EmergencyAddr" />
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- DownloadHelper 주입 설정 -->
+   <bean id="downloadHelper" class="fdp.project.spring.helper.DownloadHelper">
+      <property name="uploadDir" value="#{config['uploadDir']}"></property>
+   </bean>
 		
 </beans>
