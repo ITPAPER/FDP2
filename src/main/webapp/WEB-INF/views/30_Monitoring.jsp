@@ -191,6 +191,7 @@ h5 {
 			}
 		})
 	}
+	var itv =setInterval(getBoard, 60000);
 	function getGraph(pp){
 		$.ajax({
 			url:'ErGraph.do',
@@ -198,15 +199,11 @@ h5 {
 			data:{hos:pp},
 			dataType:'json',
 			success: function(hos) {
-				
 				for(var t = 0 ; t < hos.length; t++){
 					
 					hos[t].inserttime= new Date(hos[t].inserttime);
 				}
-				console.log(hos);
-				
 				am4core.ready(function() {
-
 					// Themes begin
 					am4core.useTheme(am4themes_animated);
 					// Themes end
@@ -215,7 +212,6 @@ h5 {
 					var chart = am4core.create("chartdiv", am4charts.XYChart);
 					chart.paddingRight = 20;
 
-					
 					// Add data
 					chart.data = hos;
 
@@ -226,7 +222,8 @@ h5 {
 					 dateAxis.dateFormats.setKey("minute", "mm'분'");
 					 dateAxis.periodChangeDateFormats.setKey("minute", "[bold]HH'시'");
 					 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
-					 dateAxis.tooltipDateFormat = { month: "long", day: "numeric" , hour:"numeric", minute:"numeric"  };
+					 dateAxis.tooltipDateFormat = { month: "long", day: "numeric", 
+							 hour:"numeric", minute:"numeric"  };
 					 
 					// Create value axis
 					var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -242,7 +239,6 @@ h5 {
 					// bullet is added because we add tooltip to a bullet for it to change color
 					var bullet = series.bullets.push(new am4charts.Bullet());
 					bullet.tooltipText = "{valueY}";
-
 					bullet.adapter.add("fill", function(fill, target){
 					    if(target.dataItem.valueY < 0){
 					        return am4core.color("#FF0000");
@@ -255,7 +251,6 @@ h5 {
 					range.endValue = -1000;
 					range.contents.stroke = am4core.color("#FF0000");
 					range.contents.fill = range.contents.stroke;
-
 					
 					// Add scrollbar
 					var scrollbarX = new am4charts.XYChartScrollbar();
@@ -263,12 +258,11 @@ h5 {
 					chart.scrollbarX = scrollbarX;
 
 					chart.cursor = new am4charts.XYCursor();
-
 					}); // end am4core.ready()	
 			}
 		}); //end ajax
 	}
-	var itv =setInterval(getBoard, 60000);
+	
 		$(function(){
 			 $.ajax({
 				url:'getErInfo.do',

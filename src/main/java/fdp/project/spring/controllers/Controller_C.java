@@ -1139,7 +1139,7 @@ public class Controller_C {
 	// --> 다운로드 ex) /upload/download.dp?file=이미지 경로&origin=원본파일이름
 	// --> 썸네일 ex) /upload/download.dp?file=이미지 경로&size=240x320&crop=true
 	@RequestMapping(value = "/download.do", method= RequestMethod.GET)
-	public ModelAndView download(Model model) {
+	public ModelAndView download0(Model model) {
 		//서버상에 저장되어 있는 파일 경로 (필수)
 		String filePath = webHelper.getString("file");
 		// 원본 파일이름(미필수)
@@ -1179,4 +1179,5 @@ public class Controller_C {
 		//View를 사용하지 않고 FileStream을 출력하므로 리턴값은 없다
 		return null;
 	}
+	
 }

@@ -94,6 +94,7 @@
 .file {
 	display: inline-block;
 	margin-right: 30px;
+	width:320px !important;
 }
 
 .fileimg {
@@ -108,6 +109,12 @@
 	width: 320px;
 	height: 200px;
 }
+.fname{
+	display:block;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	}
 </style>
 
 <head>
@@ -157,24 +164,18 @@
 														</a>
 													</div> ${item.originName}
 												</li> --%>
-									
-													<c:url value="/download.do" var="thumbnail_url">
+													<c:url value="/download.do" var="thumb">
 														<c:param name="file" value="${item.filePath }" />
 														<c:param name="size" value="480x320" />
 														<c:param name="crop" value="false" />
 													</c:url>
 													<li class="file">
 													<div class="filediv">
-														<a href="${thumbnail_url}"> 
-															<img src="${thumbnail_url}" class="fileimg" />
+														<a href="${thumb}"> 
+															<img src="${thumb}" class="fileimg" />
 														</a>
-													</div> ${item.originName}
-												</li>
-											
-											
-												
-												
-												
+													</div> <span class="fname">${item.originName}</span>
+													</li>
 											</c:forEach>
 										</ul>
 									</td>

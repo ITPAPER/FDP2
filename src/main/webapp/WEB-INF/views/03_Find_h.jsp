@@ -156,7 +156,11 @@
 	<!-- Ajax로 읽어온 내용을 출력하는데 사용될 HTML 템플릿 -->
 	<script id="list-item-tmpl" type="text/x-hendlebars-template">
 		<div class='accord-item'>
-    		<h4 class='accord-title'  ><a href="#content{{num}}" value="{{num}}" id="cc{{num}}" class="magam"><span>{{yadmNm}}</span></a></h4>
+    		<h4 class='accord-title'  >
+				<a href="#content{{num}}" value="{{num}}" id="cc{{num}}" class="magam">
+					<span>{{yadmNm}}</span>
+				</a>
+			</h4>
     		<div id="content{{num}}" class="content">
 				주소 : {{addr}}<br/>
 				<a href="tel:{{telno}}"> 전화번호 : {{telno}}</a>
