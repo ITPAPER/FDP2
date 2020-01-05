@@ -135,8 +135,8 @@
 											<c:forEach var="item" items="${output4}" varStatus="status">
 												<li class="file">
 													<div class="filediv">
-														<a href="./assets/upload${item.filePath}"> 
-															<img src="./assets/upload${item.filePath}" class="fileimg" />
+														<a href="${pageContext.request.contextPath}/download.do?file=${item.filePath}">
+															<img src="${pageContext.request.contextPath}/download.do?file=${item.filePath}" class="fileimg" />
 														</a>
 													</div> ${item.originName}
 												</li>
@@ -158,7 +158,7 @@
 								<td colspan="6">
 									<h5>
 										<b>전문의 소견</b>
-									</h5> <br /> 
+									</h5> <br />
 									관리할 의사의 답변이 없습니다.
 								</td>
 							</tr>
@@ -213,7 +213,7 @@
 					<tbody id="abc"></tbody>
 				</table>
 			</form>
-			
+
 			<form method="post" action="14_Notice_board_comment_ok.do">
 				<table class="table table-bordered">
 					<tbody>
@@ -223,8 +223,8 @@
 									<b>댓글</b>
 								</h5> <br />
 									<input type="hidden" value="${Name}"
-										name="writer_name" /> 
-									<input type="hidden" value="${output.document_id}" name="document_id" /> 
+										name="writer_name" />
+									<input type="hidden" value="${output.document_id}" name="document_id" />
 									<input type="hidden" value="${PK}" name="fdpmember_id" />
 								<c:choose>
 									<c:when test="${output3 == null || fn:length(output3) == 0}">관리할 댓글이 없습니다.</c:when>
@@ -248,7 +248,7 @@
 													</c:choose>
 												</h5>
 												<!-- 제목에 float: right 적용 - pull-right -->
-												<div class="pull-right cmtmng">	
+												<div class="pull-right cmtmng">
 												</div>
 											</div>
 											<p id="a${status.index}">${item1.content}</p>
@@ -292,7 +292,7 @@
 			location.href='15_Notice_board_delete.do?document_id=' + ${output.document_id};
 		}
 	}
-	
+
 		/* $(function() {
 			$("#btn1").click(function(e) {
 				e.preventDefault();
@@ -335,14 +335,14 @@
 				});
 			});
 		});
-		
+
 		$(".btn3").click(
 				function() {
 					var mng1  = "<a href='14_Notice_board_comment_delete.do?comment_id=${item1.comment_id}&document_id=${item1.document_id}' title='삭제' class='pull-right bcd'>"
 						mng1 += "<i class='glyphicon glyphicon-remove'></i></a>"
-						mng1 += "<a href='a${status.index}' title='수정' class='pull-right bcd btn6'>"		
+						mng1 += "<a href='a${status.index}' title='수정' class='pull-right bcd btn6'>"
 						mng1 += "<i class='glyphicon glyphicon-edit'></i></a>"
-						
+
 					var	mng2  = "<a href='14_Notice_board_docAnswer_delete.do?docAnswer_id=${item.docAnswer_id}&document_id=${output.document_id}' title='삭제' class='pull-right bcd'>"
 						mng2 += "<i class='glyphicon glyphicon-remove'></i></a>"
 						mng2 += "<a href='${status.index}' title='수정' class='pull-right bcd btn4'>"
@@ -350,8 +350,8 @@
 						$(".cmtmng").html(mng1);
 						$(".docmng").html(mng2);
 				})
-				
-				
+
+
 	</script>
 </body>
 </html>

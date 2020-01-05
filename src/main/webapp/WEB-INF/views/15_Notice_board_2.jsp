@@ -131,15 +131,12 @@
 											<button type="button" value="${status.index}" class="close"
 												aria-hidden="true">&times;</button>
 											<div class="filediv">
-												<%-- <a href="./assets/upload${item.filePath}"> 
-												<img src="./assets/upload${item.filePath}" class="fileimg" />
-												</a> --%>
 												<c:url value="/download.do" var="thumb">
 													<c:param name="file" value="${item.filePath }" />
 													<c:param name="size" value="480x320" />
 													<c:param name="crop" value="false" />
 												</c:url>
-												<a href="${thumb}"> 
+												<a href="${thumb}">
 													<img src="${thumb}" class="fileimg" />
 												</a>
 											</div> ${item.originName}</li>
@@ -149,7 +146,7 @@
 										varStatus="status">
 										<li class="file file1">
 											<div class="filediv">
-												<label for="photo">첨부파일${i}</label> 
+												<label for="photo">첨부파일${i}</label>
 												<input type="file" name="photo" class="newf" />
 											</div>
 										</li>
@@ -179,8 +176,8 @@
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />
 	<script>
-	
-	
+
+
 		$(".close").click(
 						function() {
 							var result = confirm("정말  삭제하시겠습니까?");
@@ -194,13 +191,13 @@
 								});
 							};
 						})
-						
+
 		$(".newf").change(
 			function() {
 				var a = "<input type='hidden' name='dou' value='2'/>";
 				$(this).parent("div").append(a);
-			}		
-		)				
+			}
+		)
 	</script>
 </body>
 </html>
