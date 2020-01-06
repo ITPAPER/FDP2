@@ -288,6 +288,31 @@ public class Controller_M {
         int bbb = Integer.parseInt(sgguCd);
         String aaa = "";
 
+        if (emdongNm.contains("본동")) {
+            emdongNm = emdongNm.replace("본동", "동");
+        } else if (emdongNm.contains("1동")) {
+            emdongNm = emdongNm.replace("1동", "동");
+        } else if (emdongNm.contains("2동")) {
+            emdongNm = emdongNm.replace("2동", "동");
+        } else if (emdongNm.contains("3동")) {
+            emdongNm = emdongNm.replace("3동", "동");
+        } else if (emdongNm.contains("4동")) {
+            emdongNm = emdongNm.replace("4동", "동");
+        } else if (emdongNm.contains("5동")) {
+            emdongNm = emdongNm.replace("5동", "동");
+        } else if (emdongNm.contains("6동")) {
+            emdongNm = emdongNm.replace("6동", "동");
+        } else if (emdongNm.contains("7동")) {
+            emdongNm = emdongNm.replace("7동", "동");
+        } else if (emdongNm.contains("8동")) {
+            emdongNm = emdongNm.replace("8동", "동");
+        } else if (emdongNm.contains("9동")) {
+            emdongNm = emdongNm.replace("9동", "동");
+        } else if (emdongNm.contains("10동")) {
+            emdongNm = emdongNm.replace("10동", "동");
+        }
+        
+        
         switch (bbb) {
         case 110001:
             aaa = "강남구";
