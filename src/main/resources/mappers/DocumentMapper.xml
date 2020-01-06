@@ -40,7 +40,7 @@
             <if test="subject != null and subject != ''">
                 OR subject LIKE concat('%', #{subject}, '%')
             </if>
-            <if test="content != null and content != ''">
+            <!-- <if test="content != null and content != ''">
                 OR content LIKE concat('%', #{content}, '%')
             </if>
             <if test="hit != null and hit != ''">
@@ -54,7 +54,7 @@
             </if>
             <if test="docA_ok != null and docA_ok != ''">
                 OR docA_ok LIKE concat('%', #{docA_ok}, '%')
-            </if>
+            </if> -->
         </where>
         
         ORDER BY document_id DESC

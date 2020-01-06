@@ -146,13 +146,13 @@ thead {
 										value="${fn:replace(writer_name, keyword, mark)}" />
 									<c:set var="subject"
 										value="${fn:replace(subject, keyword, mark)}" />
-									<c:set var="content"
+									<%-- <c:set var="content"
 										value="${fn:replace(content, keyword, mark)}" />
 									<c:set var="hit" value="${fn:replace(hit, keyword, mark)}" />
 									<c:set var="reg_date"
 										value="${fn:replace(reg_date, keyword, mark)}" />
 									<c:set var="edit_date"
-										value="${fn:replace(edit_date, keyword, mark)}" />
+										value="${fn:replace(edit_date, keyword, mark)}" /> --%>
 								</c:if>
 
 								<%-- 상세페이지로 이동하기 위한 URL --%>
