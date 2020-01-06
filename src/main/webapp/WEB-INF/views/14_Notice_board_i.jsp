@@ -94,12 +94,13 @@
 .file {
 	display: inline-block;
 	margin-right: 30px;
+	width:320px !important;
 }
 
 .fileimg {
 	display: block;
-	min-width: 50%;
-	min-height: 50%;
+	width: 100%;
+	height: 100%;
 	align: center;
 }
 
@@ -108,6 +109,12 @@
 	width: 320px;
 	height: 200px;
 }
+.fname{
+	display:block;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	}
 </style>
 
 <head>
@@ -129,7 +136,7 @@
 
 							<td><h4>${output.subject}</h4>
 								<h6 class="title_info">
-									작성자:${output.writer_name} &nbsp;&nbsp; 작성일: ${output.reg_date}
+									작성자: ${output.writer_name} &nbsp;&nbsp; 작성일: ${output.reg_date}
 									&nbsp;&nbsp; <span style='display: none'>${item.fdpmember_id}</span>
 									<c:choose>
 										<c:when test="${output.edit_date != null}">
@@ -150,14 +157,18 @@
 									<td>
 										<ul>
 											<c:forEach var="item" items="${output4}" varStatus="status">
-												<li class="file">
+													<c:url value="/download.do" var="thumb">
+														<c:param name="file" value="${item.filePath }" />
+														<c:param name="size" value="480x320" />
+														<c:param name="crop" value="false" />
+													</c:url>
+													<li class="file">
 													<div class="filediv">
-														<a href="./assets/upload${item.filePath}"> <img
-															src="./assets/upload${item.filePath}" class="fileimg" />
+														<a href="${thumb}">
+															<img src="${thumb}" class="fileimg" />
 														</a>
-													</div> ${item.originName}
-												</li>
-
+													</div> <span class="fname">${item.originName}</span>
+													</li>
 											</c:forEach>
 										</ul>
 									</td>
@@ -245,16 +256,15 @@
 					<tbody id="abc"></tbody>
 				</table>
 			</form>
-
-
+			<br />
+			<h4>
+				<b>댓글</b>
+			</h4>
 			<form method="post" action="14_Notice_board_comment_ok.do">
-				<table class="table table-bordered">
+				<table class="table">
 					<tbody>
 						<tr>
 							<td>
-								<h5>
-									<b>댓글</b>
-								</h5> <br />
 								<div class="input-group">
 									<c:choose>
 										<c:when test="${PK != null}">
@@ -273,10 +283,10 @@
 										</c:otherwise>
 									</c:choose>
 									<input type="hidden" value="${Name}"
-										name="writer_name" /> 
-									<input type="hidden" value="${output.document_id}" name="document_id" /> 
+										name="writer_name" />
+									<input type="hidden" value="${output.document_id}" name="document_id" />
 									<input type="hidden" value="${PK}" name="fdpmember_id" />
-									</div> 
+									</div>
 								<c:forEach var="item1" items="${output3}" varStatus="status">
 									<span style='display: none' id="CIa${status.index}">${item1.comment_id}</span>
 									<ul class="comment">
@@ -371,7 +381,7 @@
 						doc_feedback +=	"<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA'/><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn3'/></td></tr>"
 						$("#abc").html(doc_feedback);
 					CKEDITOR.replace('d_content', {height: 200});
-						
+
 					$("#btn3").click(function() {
 						console.log("${output1}");
 						if(${output1 == "[]"}){
@@ -383,9 +393,9 @@
 						}
 						})
 			})
-			
+
 			var p = 0;
-			
+
 			$(".btn4").click(function(e){
 					e.preventDefault();
 					var d;
@@ -397,8 +407,11 @@
 						e = $("#DAI"+ c).html();
 					/* console.log(d); */
 					var doc_feedback1 = "<input type='hidden' name='docAnswer_id' value='"+e+"' />"
-						doc_feedback1 += "<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.writer_name}' name='writer_name' /><input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${PK}' name='fdpmember_id' /><textarea name='content' id='d_content'>"+d+"</textarea></td></tr>"
-						doc_feedback1 += "<tr ><td class='clearfix' style='border-top: 0;'><input type='submit' value='완료' class='btn btn-default btn-sm docA' /><input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn5'></td></tr>"
+						doc_feedback1 += "<tr><td colspan='2' style='border-bottom: 0;'><input type='hidden' value='${output.writer_name}' name='writer_name' />"
+						doc_feedback1 += "<input type='hidden' value='${output.document_id}' name='document_id' /><input type='hidden' value='${PK}' name='fdpmember_id' />"
+						doc_feedback1 += "<textarea name='content' id='d_content'>"+d+"</textarea></td></tr><tr ><td class='clearfix' style='border-top: 0;'>"
+						doc_feedback1 += "<input type='submit' value='완료' class='btn btn-default btn-sm docA' />"
+						doc_feedback1 += "<input type='button' value='취소' class='btn btn-default btn-sm docA' id='btn5'></td></tr>"
 						$("#"+c).empty();
 						$("#"+c).html(doc_feedback1);
 					CKEDITOR.replace('d_content', {height: 100});
@@ -408,9 +421,9 @@
 						$("#"+c).html("<td>"+d+"</td>");
 					p = 0;
 					})
-						
+
 			})
-			
+
 			$(".btn6").click(function(e){
 				e.preventDefault();
 				var g;
@@ -426,7 +439,7 @@
 						$("#"+f).html(c_edit);
 						p = 1;
 					}
-				
+
 							$(".btn7").click(function() {
 								$("#"+f).html(g);
 								p = 0;

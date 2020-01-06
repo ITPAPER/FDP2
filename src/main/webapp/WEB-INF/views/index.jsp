@@ -795,7 +795,8 @@
 					} //end for
 					
 					
-					if(${list[0].x} != 0){
+					if(${list[0].x != 0 } && ${ list[0].x != null} ){
+						console.log("${list[0].x}");
 						var text = "<div class='accord-item'><h4 class='accord-title'><a class='hinfo' href='#content0' value='0'>우리집!</a></h4><div id='content0' class='content'>집</a></div></div>";
 						$(".accord").prepend(text);
 						map.addMarker({
@@ -853,7 +854,7 @@
 				} 		
 			});//end ajax
 		}); 
-		if("${gu}" != null){
+		if(${gu ne null }){
 			if("${gu}" == "도봉구" || "${gu}" == "강북구" || "${gu}" == "성북구" || "${gu}" =="노원구"){
 				$("button[value='1']").click()
 			}else if("${gu}" == "동대문구" || "${gu}" == "중랑구" || "${gu}" == "성동구" || "${gu}" =="광진구"){

@@ -55,9 +55,10 @@
 		array.push(obj)
 	}
 	console.log(array)
-
+	
 	am4core.ready(function() {
-
+	am4core.disposeAllCharts();
+	
 		// Themes begin
 		am4core.useTheme(am4themes_animated);
 		// Themes end
@@ -132,6 +133,6 @@
 		femaleRange.label.fontWeight = '600';
 		femaleRange.grid.strokeOpacity = 1;
 		femaleRange.grid.stroke = female.stroke;
-
+		
 	}); // end am4core.ready()
 </script>
