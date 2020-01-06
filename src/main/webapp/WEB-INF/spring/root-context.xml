@@ -13,7 +13,7 @@
 		<!-- <prop key="uploadDir">/home/student/fdp2/upload</prop> -->
 		<prop key="uploadDir">D:/fdp2/upload</prop>
 		<!-- 최대 업로드 가능 용량 -->
-		<prop key="uploadMaxFileSize">210000000</prop>
+		<prop key="uploadMaxFileSize">21000000</prop>
 		<!-- 기본 도메인 (쿠키설정용) -->
 		<prop key="domain">localhost</prop>
 		<!-- 메일발송 서버 주소 -->
