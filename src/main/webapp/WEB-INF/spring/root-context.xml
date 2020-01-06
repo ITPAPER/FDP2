@@ -12,7 +12,7 @@
 		<!-- 업로드 디렉토리 -->
 		<prop key="uploadDir">D:/project/workspace/FDP2/src/main/webapp/WEB-INF/views/assets/upload</prop>
 		<!-- 최대 업로드 가능 용량 -->
-		<prop key="uploadMaxFileSize">1000000</prop>
+		<prop key="uploadMaxFileSize">210000000</prop>
 		<!-- 기본 도메인 (쿠키설정용) -->
 		<prop key="domain">localhost</prop>
 		<!-- 메일발송 서버 주소 -->
