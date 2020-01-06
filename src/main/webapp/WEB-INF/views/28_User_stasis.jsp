@@ -3,7 +3,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -168,10 +168,13 @@
 										<%-- 검색어에 <mark> 태그를 적용하여 형광펜 효과 준비 --%>
 										<c:set var="mark" value="<mark>${keyword}</mark>" />
 										
-										<%-- 출력을 위해 준비한 교수이름에서 검색어와 일치하는 단어를 형광펜 효과로 변경 --%>
-										<c:set var="name" value="${fn:replace(name, keyword, mark)}" />
-										<c:set var="user_id" value="${fn:replace(user_id, keyword, mark)}" />
-										<c:set var="addr2" value="${fn:replace(addr2, keyword, mark)}" />
+										<%-- 출력을 위해 준비한 이름에서 검색어와 일치하는 단어를 형광펜 효과로 변경 --%>
+										<c:set var="name"
+										value="${fn:replace(name, keyword, mark)}" />
+										<c:set var="user_id"
+										value="${fn:replace(user_id, keyword, mark)}" />
+										<c:set var="addr2"
+										value="${fn:replace(addr2, keyword, mark)}" />
 									</c:if>
 	
 									<tr>
@@ -179,15 +182,15 @@
 											<input type='checkbox' class="checkBtn" name="checkBtn" value="${item.fdpmember_id}">
 										</th>
 										<td align="center">${item.fdpmember_id}</td>
-										<td align="center"><a class="bbttnn" href="${item.fdpmember_id}">${item.name}</a></td>
-										<td align="center">${item.user_id}</td>
+										<td align="center"><a class="bbttnn" href="${item.fdpmember_id}">${name}</a></td>
+										<td align="center">${user_id}</td>
 										<td align="center">${item.email}</td>
 										<td align="center">${item.tel}</td>
 										<td align="center">
 											<c:if test="${item.gender eq 1}">남</c:if>
 											<c:if test="${item.gender eq 2}">여</c:if>
 										</td>
-										<td align="center">${item.addr2}</td>
+										<td align="center">${addr2}</td>
 										<td align="center">
 											<c:if test="${item.member_grade eq 0}">관리자</c:if>
 											<c:if test="${item.member_grade eq 1}">의사</c:if>

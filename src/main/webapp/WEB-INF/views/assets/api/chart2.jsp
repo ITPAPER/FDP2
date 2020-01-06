@@ -9,10 +9,7 @@
 
 <!-- Chart code -->
 <script>
-    var json = $
-    {
-        jsonList
-    };
+    var json = ${jsonList};
 
     var array = new Array();
     var count = new Array(7);

@@ -655,6 +655,7 @@ public class Controller_K {
         }
 
         // 랜덤 비밀번호
+        // 0 ~ 25 랜덤 실수 만들고 소문자 'a' 의 아스키 코드 번호는 97
         String user_pw = "";
         for (int i = 0; i < 12; i++) {
             user_pw += (char) ((Math.random() * 26) + 97);

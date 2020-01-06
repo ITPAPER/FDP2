@@ -109,7 +109,7 @@
 </head>
 <body>
 <jsp:include page="./assets/inc/top.jsp" />
-	<div class="container" style="height: 1000px;">
+	<div class="container" style="height: 1100px;">
 		<h3 class="title">
 			<strong>회원가입 - 일반인</strong>
 		</h3>
