@@ -28,14 +28,6 @@
     				$(this).css("background-color","white").css("color","#ffa500");
     			}	
     		);
-    		/* $(".page-move2").hover(
-        			function(e){
-        				$(this).css("background-color","#ffa500").css("color","white");
-        			},
-        			function(e){
-        				$(this).css("background-color","white").css("color","#ffa500");
-        			}	
-        		); */
     		
     		
     		
@@ -64,21 +56,22 @@
         	
         	
         	$(document).on("click","body",function(e){
-        		if($("#d2").attr('class') == 'dropdown open'){
-        			$(".intro").click();
+        		
+        		if($("#d2").hasClass('open')){
+        			$(".intro").css("background-color","ffa500").css("color","#white");
         		}
         		if($("#d2").attr('class') == 'dropdown'){
         			$(".intro").css("background-color","white").css("color","#ffa500");
         		}
         		
-        		if($("#d1").attr('class') == 'dropdown open'){
-        			$(".fdp").click();
+        		if($("#d1").hasClass('open')){
+        			$(".fdp").css("background-color","ffa500").css("color","#white");
         		}
             	if($("#d1").attr('class') == 'dropdown'){
             		$(".fdp").css("background-color","white").css("color","#ffa500");
             	}
         	});
-        	
+        	 
         	
         	
         		

@@ -203,6 +203,7 @@ h5 {
 					
 					hos[t].inserttime= new Date(hos[t].inserttime);
 				}
+				am4core.disposeAllCharts();
 				am4core.ready(function() {
 					// Themes begin
 					am4core.useTheme(am4themes_animated);
@@ -222,8 +223,7 @@ h5 {
 					 dateAxis.dateFormats.setKey("minute", "mm'분'");
 					 dateAxis.periodChangeDateFormats.setKey("minute", "[bold]HH'시'");
 					 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
-					 dateAxis.tooltipDateFormat = { month: "long", day: "numeric", 
-							 hour:"numeric", minute:"numeric"  };
+					 dateAxis.tooltipDateFormat = { month: "long", day: "numeric", hour:"numeric", minute:"numeric"  };
 					 
 					// Create value axis
 					var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -244,7 +244,7 @@ h5 {
 					        return am4core.color("#FF0000");
 					    }
 					    return fill;
-					})
+					});
 					
 					var range = valueAxis.createSeriesRange(series);
 					range.value = 0;
