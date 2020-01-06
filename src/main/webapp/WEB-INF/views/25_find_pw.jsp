@@ -68,7 +68,7 @@
 	<script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/plugins/ajax/ajax_helper.js"></script>
-				
+    <script src="./assets/js/regex.js"></script>
 		
 	<script>
 	$("#findBtn").click(function(e) {
@@ -77,6 +77,11 @@
 		var user_id=$("#user_id").val();
 		console.log(email);
 		console.log(user_id);
+		
+		if (!regex.value('#user_id', '아이디를 입력하세요.')) { return false; }
+        if (!regex.value('#email', '이메일을 입력하세요.')) { return false; }
+        if (!regex.email('#email', '이메일 주소가 잘못되었습니다.')) { return false; }
+		
 		$.ajax( {
 			url:'25_find_pw_check.do',
 			method:'post',

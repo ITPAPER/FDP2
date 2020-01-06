@@ -74,13 +74,13 @@
 		
 		#joinbutton {
 			position: relative;
-			top: -50px;
+			top: 0px;
 			left: -20px;
 		}
 		
 		#resetbutton {
 			position: relative;
-			top: -50px;
+			top: 0px;
 			right: -20px;
 		}
 		
@@ -109,7 +109,7 @@
 </head>
 <body>
 <jsp:include page="./assets/inc/top.jsp" />
-	<div class="container" style="height: 1100px;">
+	<div class="container" style="height: 1000px;">
 		<h3 class="title">
 			<strong>회원가입 - 일반인</strong>
 		</h3>

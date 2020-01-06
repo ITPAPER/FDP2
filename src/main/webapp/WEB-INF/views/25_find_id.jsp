@@ -60,6 +60,8 @@
 	<script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/plugins/ajax/ajax_helper.js"></script>
+    <script src="./assets/js/regex.js"></script>
+    
     <script src="${pageContext.request.contextPath}/assets/plugins/handlebars/handlebars-v4.3.1.js"></script>
     <script type="text/x-handlebars-template" id="list-item-tmpl">
 					<div><h3>아이디 찾기 검색 결과</h3>
@@ -72,12 +74,15 @@
 								</button>
 							</p>
 						</div>
-</script>
+	</script>
 	<script>
 	$("#findBtn").click(function(e) {
 		e.preventDefault();
 		var email=$("#email").val();
 		console.log(email);
+		
+		if (!regex.value('#user_id', '아이디를 입력하세요.')) { return false; }
+		
 		$.ajax( {
 			url:'25_find_id_check.do',
 			method:'post',
