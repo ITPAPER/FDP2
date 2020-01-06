@@ -22,6 +22,7 @@ import fdp.project.spring.helper.WebHelper;
 import fdp.project.spring.model.Addr;
 import fdp.project.spring.model.ErItem;
 import fdp.project.spring.model.HosItem;
+import fdp.project.spring.model.HosItemUno;
 import fdp.project.spring.model.HospInfo;
 import fdp.project.spring.model.Member;
 import fdp.project.spring.model.MyErList;
@@ -455,64 +456,126 @@ public class Controller_M {
             try {
                 hos = call.execute().body();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("배열이 아님");
             }
 
-            list = hos.getResponse().getBody().getItems().getItem();
-            
-            for (fdp.project.spring.model.HosItem.Response.Body.Items.Item abc : list) {
-                if (abc == null) {
-                    continue;
-                }
-                String yadmNm = abc.getYadmNm();
-                String addr = abc.getAddr();
-                Double XPos = abc.getXPos();
-                Double YPos = abc.getYPos();
-                String clCdNm = abc.getClCdNm();
-                String hospUrl = abc.getHospUrl();
-                String hosTel = abc.getTelno();
-                String subj = dgsbjtCd;
-
-                HospInfo tmp = new HospInfo(yadmNm, XPos, YPos, addr, clCdNm, hospUrl, hosTel, subj);
-                output.add(tmp);
-            }
-            try {
-                // 데이터 저장
-                // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
-                hospInfoService.addHospInfo(output);
-
-                int i = 0;
-                Calendar c = Calendar.getInstance();
-                for (HospInfo cc : output) {
-                    cc.setDay_of_week(c.get(Calendar.DAY_OF_WEEK));
-                    HospInfo dd = cc;
-                    try {
-                        cc = hospInfoService.getHospInfo(cc);
-
-                        dd.setOpentime(cc.getOpentime());
-                        dd.setClosetime(cc.getClosetime());
-                    } catch (Exception e) {
-                        if (c.get(Calendar.DAY_OF_WEEK) == 7) {
-                            dd.setOpentime("0900");
-                            dd.setClosetime("1230");
-                        } else if (c.get(Calendar.DAY_OF_WEEK) == 1) {
-                            dd.setOpentime("0000");
-                            dd.setClosetime("0000");
-                        } else {
-                            dd.setOpentime("0900");
-                            dd.setClosetime("1700");
-                        }
-                    }
-
-                    if (!output.isEmpty()) {
-                        output.set(i, dd);
-                    }
-
-                    i++;
-                }
-            } catch (Exception e) {
-                System.out.println("--------------------------------");
-                e.printStackTrace();
+            if(hos  != null) {
+            	
+            	 list = hos.getResponse().getBody().getItems().getItem();
+	            for (fdp.project.spring.model.HosItem.Response.Body.Items.Item abc : list) {
+	                if (abc == null) {
+	                    continue;
+	                } else if(abc.getXPos()==null) {
+	                	continue;
+	                } else if(abc.getXPos()==null) {
+	                	continue;
+	                }
+	                System.out.println(abc);
+	                String yadmNm = abc.getYadmNm();
+	                String addr = abc.getAddr();
+	                Double XPos = abc.getXPos();
+	                Double YPos = abc.getYPos();
+	                String clCdNm = abc.getClCdNm();
+	                String hospUrl = abc.getHospUrl();
+	                String hosTel = abc.getTelno();
+	                String subj = dgsbjtCd;
+	
+	                HospInfo tmp = new HospInfo(yadmNm, XPos, YPos, addr, clCdNm, hospUrl, hosTel, subj);
+	                System.out.println("zzzzzzz"+ tmp);
+	                output.add(tmp);
+	            }
+	            try {
+	                // 데이터 저장
+	                // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+	                hospInfoService.addHospInfo(output);
+	
+	                int i = 0;
+	                Calendar c = Calendar.getInstance();
+	                for (HospInfo cc : output) {
+	                    cc.setDay_of_week(c.get(Calendar.DAY_OF_WEEK));
+	                    HospInfo dd = cc;
+	                    try {
+	                        cc = hospInfoService.getHospInfo(cc);
+	
+	                        dd.setOpentime(cc.getOpentime());
+	                        dd.setClosetime(cc.getClosetime());
+	                    } catch (Exception e) {
+	                        if (c.get(Calendar.DAY_OF_WEEK) == 7) {
+	                            dd.setOpentime("0900");
+	                            dd.setClosetime("1230");
+	                        } else if (c.get(Calendar.DAY_OF_WEEK) == 1) {
+	                            dd.setOpentime("0000");
+	                            dd.setClosetime("0000");
+	                        } else {
+	                            dd.setOpentime("0900");
+	                            dd.setClosetime("1700");
+	                        }
+	                    }
+	
+	                    if (!output.isEmpty()) {
+	                        output.set(i, dd);
+	                    }
+	
+	                    i++;
+	                }
+	            } catch (Exception e) {
+	                System.out.println("--------------------------------");
+	                e.printStackTrace();
+	            }
+            }else if(hos == null) {
+            	 Call<HosItemUno> call1 = ErService.getHospiUno(dgsbjtCd, sgguCd, emdongNm);
+            	 HosItemUno  hosUno = null;
+            	 try {
+                     hosUno = call1.execute().body();
+                     fdp.project.spring.model.HosItemUno.Response.Body.Items.Item abc =null;
+                	 abc = hosUno.getResponse().getBody().getItems().getItema();
+                	 HospInfo tmp = new HospInfo(abc.getYadmNm(), abc.getXPos(), abc.getYPos(), abc.getAddr(), abc.getClCdNm(), abc.getHospUrl(), abc.getTelno(), dgsbjtCd);
+    	             System.out.println("zzzzzzz"+ tmp);
+    	             output.add(tmp);
+    	             
+    	             try {
+ 		                // 데이터 저장
+ 		                // --> 데이터 저장에 성공하면 파라미터로 전달하는 input 객체에 PK값이 저장된다.
+ 		                hospInfoService.addHospInfo(output);
+ 		
+ 		                int i = 0;
+ 		                Calendar c = Calendar.getInstance();
+ 		                for (HospInfo cc : output) {
+ 		                    cc.setDay_of_week(c.get(Calendar.DAY_OF_WEEK));
+ 		                    HospInfo dd = cc;
+ 		                    try {
+ 		                        cc = hospInfoService.getHospInfo(cc);
+ 		
+ 		                        dd.setOpentime(cc.getOpentime());
+ 		                        dd.setClosetime(cc.getClosetime());
+ 		                    } catch (Exception e) {
+ 		                        if (c.get(Calendar.DAY_OF_WEEK) == 7) {
+ 		                            dd.setOpentime("0900");
+ 		                            dd.setClosetime("1230");
+ 		                        } else if (c.get(Calendar.DAY_OF_WEEK) == 1) {
+ 		                            dd.setOpentime("0000");
+ 		                            dd.setClosetime("0000");
+ 		                        } else {
+ 		                            dd.setOpentime("0900");
+ 		                            dd.setClosetime("1700");
+ 		                        }
+ 		                    }
+ 		
+ 		                    if (!output.isEmpty()) {
+ 		                        output.set(i, dd);
+ 		                    }
+ 		
+ 		                    i++;
+ 		                }
+ 		            } catch (Exception e) {
+ 		                System.out.println("--------------------------------");
+ 		                e.printStackTrace();
+ 		            }
+                 } catch (Exception e) {
+                     output = null;
+                 }
+            	 
+	            
             }
         }
         return gson.toJson(output);

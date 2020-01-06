@@ -1,6 +1,7 @@
 package fdp.project.spring.service;
 
 import fdp.project.spring.model.HosItem;
+import fdp.project.spring.model.HosItemUno;
 import fdp.project.spring.model.MyErList;
 import fdp.project.spring.model.MyErListUno;
 import retrofit2.Call;
@@ -18,4 +19,7 @@ public static final String BASE_URL ="http://apis.data.go.kr";
 	
 	@GET("/B551182/hospInfoService/getHospBasisList?ServiceKey=yt%2Fieh%2Fbe%2Fjap6NlGQZMqUd%2Bu0hfmIjkuSp4ROnxTK9TgWw5rx%2F2uNEI7TvW%2BGOGQUsN%2BXNsVSmNBz0xmICjOA%3D%3D&_type=json&sidoCd=110000&numOfRows=100")
 	Call<HosItem> getHospi(@Query("dgsbjtCd") String dgsbjtCd, @Query("sgguCd") String sgguCd,  @Query("emdongNm") String emdongNm);
+	
+	@GET("/B551182/hospInfoService/getHospBasisList?ServiceKey=yt%2Fieh%2Fbe%2Fjap6NlGQZMqUd%2Bu0hfmIjkuSp4ROnxTK9TgWw5rx%2F2uNEI7TvW%2BGOGQUsN%2BXNsVSmNBz0xmICjOA%3D%3D&_type=json&sidoCd=110000&numOfRows=100")
+	Call<HosItemUno> getHospiUno(@Query("dgsbjtCd") String dgsbjtCd, @Query("sgguCd") String sgguCd,  @Query("emdongNm") String emdongNm);
 }

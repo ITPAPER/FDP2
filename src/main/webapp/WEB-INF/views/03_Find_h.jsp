@@ -106,7 +106,7 @@
 					<option class="gu" value="110007" <c:if test="${gu eq '동대문구'}">selected</c:if>>동대문구</option>
 					<option class="gu" value="110008" <c:if test="${gu eq '동작구'}">selected</c:if>>동작구</option>
 					<option class="gu" value="110009" <c:if test="${gu eq '마포구'}">selected</c:if>>마포구</option>
-					<option class="gu" value="110010" <c:if test="${gu eq '서대문구'}">selected</c:if>>서대믄구</option>
+					<option class="gu" value="110010" <c:if test="${gu eq '서대문구'}">selected</c:if>>서대문구</option>
 					<option class="gu" value="110011" <c:if test="${gu eq '성동구'}">selected</c:if>>성동구</option>
 					<option class="gu" value="110012" <c:if test="${gu eq '성북구'}">selected</c:if>>성북구</option>
 					<option class="gu" value="110013" <c:if test="${gu eq '영등포구'}">selected</c:if>>영등포구</option>
@@ -235,116 +235,121 @@
 						 
 					},
 					success:function(req){
-						console.log(req)
-						
-						var map = new GMaps({
-							el: '#gmap',		//지도를 표시할 div의 id값
-							lat: req[0].YPos,		//지도가 표시될 위도
-							lng: req[0].XPos,		//지도가 표시될 경도
-							zoom: 15
-						});
-						
-						$(".accord").empty();
-						
-						for(var i=0; i <req.length; i++){
-							if(req[i].YPos ==null){
-								continue;
-							}
-							req[i].yadmNm= i+1 + "." + req[i].yadmNm;
-							var desc = "<h3>";				
-							desc += req[i].yadmNm;
-							desc += "</h3><br/>";
-							desc += req[i].addr;
+						if(req == null){
+							alert(gu1 +" "+ txt + "의 " + subj1 + " 검색결과가 존재하지 않습니다.")
+						}
+						if(req != null){
+							console.log(req)
 							
-							req[i].num = i+1;
+							var map = new GMaps({
+								el: '#gmap',		//지도를 표시할 div의 id값
+								lat: req[0].YPos,		//지도가 표시될 위도
+								lng: req[0].XPos,		//지도가 표시될 경도
+								zoom: 15
+							});
 							
-							var template = Handlebars.compile($("#list-item-tmpl").html());
-							var html = template(req[i]);
+							$(".accord").empty();
 							
-							$(".accord").append(html);
-							
-							var d = new Date();
-							var ttt = d.getHours() * 100;
-							ttt += d.getMinutes();
-							d= i+1;
-								if(ttt > req[i].closetime || req[i].opentime > ttt){
-									$('#time' + d).html("문닫음!");
-								}else if(ttt < req[i].closetime && req[i].opentime < ttt ){
-									$('#time' + d).html("영업중!");
-								} else{
-									$('#time' + d).html("병원 운영시간이 입력되지 않았습니다");
+							for(var i=0; i <req.length; i++){
+								if(req[i].YPos ==null){
+									continue;
 								}
-
-							if($("#time"+ d).html()=="영업중!"){
-								$("#cc" + d).append("<img src='./assets/img/glight.png' height='10px' weight='10px' class='glight' />");
-								map.addMarker({
-									//마우스 오버시 노란박스
-										title: req[i].yadmNm,
-										lat: req[i].YPos,
-										lng: req[i].XPos,
-										icon:{
-											url:"./assets/plugins/gmaps/map-marker.png",
-											scaledSize: new google.maps.Size(50, 50)
-										},
-										
-										infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
-											content: desc
-										}
-									})
-							} else{
-								map.addMarker({
-									//마우스 오버시 노란박스
-										title: req[i].yadmNm,
-										lat: req[i].YPos,
-										lng: req[i].XPos,
-										icon:{
-											url:"./assets/plugins/gmaps/map-marker2.png",
-											scaledSize: new google.maps.Size(50, 50)
-										},
-										
-										infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
-											content: desc
-										}
-									})
-							}
-							if(i == req.length-1){
-								$(".accord-title a").click(function(e) {
-						            // 링크의 기본 동작(페이지 이동) 방지
-									e.preventDefault();
-									var a=0;
-									var target = $(this).attr('href');
-									$(target).slideDown(100);
-									$(".content").not($(target)).slideUp(100);
+								req[i].yadmNm= i+1 + "." + req[i].yadmNm;
+								var desc = "<h3>";				
+								desc += req[i].yadmNm;
+								desc += "</h3><br/>";
+								desc += req[i].addr;
 								
-									var title = $(this).children('span').html();
-									console.log(title);
-									a++;
-									$("#gmap").find("div[title='"+ title +"']").click();
+								req[i].num = i+1;
+								
+								var template = Handlebars.compile($("#list-item-tmpl").html());
+								var html = template(req[i]);
+								
+								$(".accord").append(html);
+								
+								var d = new Date();
+								var ttt = d.getHours() * 100;
+								ttt += d.getMinutes();
+								d= i+1;
+									if(ttt > req[i].closetime || req[i].opentime > ttt){
+										$('#time' + d).html("문닫음!");
+									}else if(ttt < req[i].closetime && req[i].opentime < ttt ){
+										$('#time' + d).html("영업중!");
+									} else{
+										$('#time' + d).html("병원 운영시간이 입력되지 않았습니다");
+									}
+	
+								if($("#time"+ d).html()=="영업중!"){
+									$("#cc" + d).append("<img src='./assets/img/glight.png' height='10px' weight='10px' class='glight' />");
+									map.addMarker({
+										//마우스 오버시 노란박스
+											title: req[i].yadmNm,
+											lat: req[i].YPos,
+											lng: req[i].XPos,
+											icon:{
+												url:"./assets/plugins/gmaps/map-marker.png",
+												scaledSize: new google.maps.Size(50, 50)
+											},
+											
+											infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
+												content: desc
+											}
+										})
+								} else{
+									map.addMarker({
+										//마우스 오버시 노란박스
+											title: req[i].yadmNm,
+											lat: req[i].YPos,
+											lng: req[i].XPos,
+											icon:{
+												url:"./assets/plugins/gmaps/map-marker2.png",
+												scaledSize: new google.maps.Size(50, 50)
+											},
+											
+											infoWindow:{	//클릭시 표시될 말풍선 <-- HTML코딩 가능함.
+												content: desc
+											}
+										})
+								}
+								if(i == req.length-1){
+									$(".accord-title a").click(function(e) {
+							            // 링크의 기본 동작(페이지 이동) 방지
+										e.preventDefault();
+										var a=0;
+										var target = $(this).attr('href');
+										$(target).slideDown(100);
+										$(".content").not($(target)).slideUp(100);
 									
-								});
-							 	
-								$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
-									var aa= $(this).attr('title');
-									console.log($(this).attr('title'));
-									
-									var num = aa.indexOf(".");
-									var key = aa.substring(0, num);
-									console.log(key);
-									
-									
-									$('.accord').animate({scrollTop : 254}, 0);
-									var offset = $("#content" + key).parent('.accord-item').offset();
-									console.log(offset);
-									$("#content" +key).slideDown(100);
-									$(".content").not($("#content" +key)).slideUp(100);
-									var cc=$(".accord-item:first-child").offset();
-									console.log(cc);
-									
-									$('.accord').animate({scrollTop : offset.top-100}, 50);
-								}); 
-							}
-							
-						};
+										var title = $(this).children('span').html();
+										console.log(title);
+										a++;
+										$("#gmap").find("div[title='"+ title +"']").click();
+										
+									});
+								 	
+									$(document).on('click','#gmap > div > div > div > div > div > div > div',function(e) {
+										var aa= $(this).attr('title');
+										console.log($(this).attr('title'));
+										
+										var num = aa.indexOf(".");
+										var key = aa.substring(0, num);
+										console.log(key);
+										
+										
+										$('.accord').animate({scrollTop : 254}, 0);
+										var offset = $("#content" + key).parent('.accord-item').offset();
+										console.log(offset);
+										$("#content" +key).slideDown(100);
+										$(".content").not($("#content" +key)).slideUp(100);
+										var cc=$(".accord-item:first-child").offset();
+										console.log(cc);
+										
+										$('.accord').animate({scrollTop : offset.top-100}, 50);
+									}); 
+								}
+								
+							};
+						}
 					} 		
 				}); //end ajax	
 			});
