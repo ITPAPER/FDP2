@@ -674,7 +674,8 @@ public class Controller_M {
 
             tt.inserttime = tt.inserttime.replace(" ", "/");
             tt.inserttime = tt.inserttime.replace("-", "/");
-
+            
+            System.out.println(tt.inserttime);
         }
 
         Gson gson = new Gson();

@@ -157,15 +157,10 @@
 									<td>
 										<ul>
 											<c:forEach var="item" items="${output4}" varStatus="status">
-													<c:url value="/download.do" var="thumb">
-														<c:param name="file" value="${item.filePath }" />
-														<c:param name="size" value="480x320" />
-														<c:param name="crop" value="false" />
-													</c:url>
 													<li class="file">
 													<div class="filediv">
-														<a href="${thumb}">
-															<img src="${thumb}" class="fileimg" />
+														<a href="${pageContext.request.contextPath}/download.do?file=${item.filePath}">
+															<img src="${pageContext.request.contextPath}/download.do?file=${item.filePath}" class="fileimg" />
 														</a>
 													</div> <span class="fname">${item.originName}</span>
 													</li>

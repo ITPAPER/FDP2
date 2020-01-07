@@ -131,14 +131,9 @@
 											<button type="button" value="${status.index}" class="close"
 												aria-hidden="true">&times;</button>
 											<div class="filediv">
-												<c:url value="/download.do" var="thumb">
-													<c:param name="file" value="${item.filePath }" />
-													<c:param name="size" value="480x320" />
-													<c:param name="crop" value="false" />
-												</c:url>
-												<a href="${thumb}">
-													<img src="${thumb}" class="fileimg" />
-												</a>
+												<a href="${pageContext.request.contextPath}/download.do?file=${item.filePath}">
+													<img src="${pageContext.request.contextPath}/download.do?file=${item.filePath}" class="fileimg" />
+												</a>											
 											</div> ${item.originName}</li>
 										<c:set var="s" value="${s+1}" />
 									</c:forEach>
@@ -159,8 +154,7 @@
 
 
 					<!-- <label for="photo">첨부파일</label>
-					<input type="file" name="photo" id="photo" />
- -->
+					<input type="file" name="photo" id="photo" /> -->
 				</table>
 
 				<div class="b">

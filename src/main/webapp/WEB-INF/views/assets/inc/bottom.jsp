@@ -36,18 +36,18 @@
     			function(){$(".intro").css("background-color","#ffa500").css("color","white");},
     			
     			function(){
-    				if($("#d2").attr('class') == 'dropdown'){
-    					$(".intro").css("background-color","white").css("color","#ffa500");
-        			} else{
-        				
-        			}	
+    				if($("#d2").hasClass('open')){
+               			$('.intro').css("background-color","#ffa500").css("color","white");
+               		} else{
+              			$(".intro").css("background-color","white").css("color","#ffa500");
+               		}	
     		});
         	
         	$(".fdp").hover(
             	function(){$(".fdp").css("background-color","#ffa500").css("color","white");},
               			
             	function(){
-            		if($("#d1").attr('class') == 'dropdown open'){
+            		if($("#d1").hasClass('open')){
                			$('.fdp').css("background-color","#ffa500").css("color","white");
                		} else{
               			$(".fdp").css("background-color","white").css("color","#ffa500");

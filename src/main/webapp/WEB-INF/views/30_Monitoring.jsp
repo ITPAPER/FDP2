@@ -189,7 +189,7 @@ h5 {
 					$("#erer").append(html);
 				}
 			}
-		})
+		});
 	}
 	var itv =setInterval(getBoard, 60000);
 	function getGraph(pp){
@@ -200,7 +200,7 @@ h5 {
 			dataType:'json',
 			success: function(hos) {
 				for(var t = 0 ; t < hos.length; t++){
-					
+					console.log(hos[t].inserttime);
 					hos[t].inserttime= new Date(hos[t].inserttime);
 				}
 				am4core.disposeAllCharts();
@@ -212,7 +212,7 @@ h5 {
 					// Create chart instance
 					var chart = am4core.create("chartdiv", am4charts.XYChart);
 					chart.paddingRight = 20;
-
+					chart.dateFormatter.intlLocales = "ko-Kr";
 					// Add data
 					chart.data = hos;
 
@@ -220,6 +220,7 @@ h5 {
 					 var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
 					 dateAxis.renderer.minGridDistance = 30;
 					 dateAxis.skipEmptyPeriods = true;
+					// 
 					 dateAxis.dateFormats.setKey("minute", "mm'분'");
 					 dateAxis.periodChangeDateFormats.setKey("minute", "[bold]HH'시'");
 					 dateAxis.periodChangeDateFormats.setKey("hour", "MMM dd"); 
@@ -258,7 +259,7 @@ h5 {
 					chart.scrollbarX = scrollbarX;
 
 					chart.cursor = new am4charts.XYCursor();
-					}); // end am4core.ready()	
+				}); // end am4core.ready()	
 			}
 		}); //end ajax
 	}
@@ -280,9 +281,7 @@ h5 {
 				}
 			}); //end ajax
 
-			var subj = $("#no1").val();
-			$("#hosname").html(subj + " 의  응급실 포화도 변화 추이 입니다.");
-			getGraph(subj);
+			
 			
 			
 			$("#parent").change(function(e){
@@ -290,15 +289,21 @@ h5 {
 				$("#hosname").html(subj + " 의  응급실 포화도 변화 추이 입니다.");
 				getGraph(subj);
 			});
+			
+			$("#board").click(function(){
+				itv = setInterval(getBoard, 60000);
+			});
+			
+			$("#erg").click(function(){
+				clearInterval(itv);
+				var subj = $("#no1").val();
+				$("#hosname").html(subj + " 의  응급실 포화도 변화 추이 입니다.");
+				getGraph(subj);
+				
+			});
 		});
 		
-		$("#board").click(function(){
-			setInterval(getBoard, 60000);
-		});
-		$("#erg").click(function(){
-			clearInterval(itv);
-			
-		});
+		
 	
 	
 	</script>
