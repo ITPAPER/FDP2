@@ -20,6 +20,11 @@
 		margin: auto;
 		position: relative;
 	}
+	.table-main {
+	width: 1170px;
+	margin: auto;
+	border: 1px solid #ddd;
+	}
 
 	#memberView {
 		height: 750px;
@@ -33,15 +38,17 @@
 	}	
 	
 	.center { 
-		height: 500px;
 		width: 1170px;
 		margin: auto;
-		border: 1px solid #f7f7f7;
 	}
 	
 	.pagination {
  		padding-top: 10px;
 		padding-left: 450px;
+	}
+	
+	.search {
+		padding-left: 300px;
 	}
 	
 	thead > tr {
@@ -50,6 +57,10 @@
 	
 	.btn {
 		margin-left: 1px;
+	}
+	
+	.btndel {
+		margin-top: 15px;
 	}
 	
 	/* 핸들바 CSS */
@@ -120,16 +131,7 @@
 
 		<div class="center">
 			
-			<!-- 검색폼 -->
-			<form method="get"
-				action="${pageContext.request.contextPath}/28_User_stasis.do">
-				<label for="keyword"></label> <input type="search" class="form-control pull-left" style="width: 170px;"
-					name="keyword" id="keyword" placeholder="이름/아이디/지역 검색" value="${keyword}" />
-				<button type="submit" class="btn btn-default pull-left">검색</button>
-				<button type='button' class="btn btn-default pull-left" id="checkbtn">선택 삭제</button>
-			</form>
-			
-				<table class="table table-hover">
+				<table class="table table-main table-hover">
 					<thead>
 						<tr>
 							<th class="text-center" style="width: 50px;">
@@ -206,6 +208,7 @@
 				</table>
 				
 			<!-- 페이지 번호 구현 div 시작-->
+			<button type='button' class="btn btn-default pull-right btndel" id="checkbtn">선택 삭제</button>
 			<div id="pageBottom">
 				<ul class="pagination">			 
 					<li class="disabled">
@@ -263,11 +266,21 @@
 						</c:otherwise>
 					</c:choose>
 				</ul>
+			
+			<!-- 검색폼 -->
+			<form method="get" class="search"
+				action="${pageContext.request.contextPath}/28_User_stasis.do">
+				<label for="keyword"></label> <input type="search" class="form-control pull-left" style="width: 500px;"
+					name="keyword" id="keyword" placeholder="이름/아이디/지역 검색" value="${keyword}" />
+				<button type="submit" class="btn btn-default pull-left">검색</button>
+			</form>
+			
 			</div>
 			<!-- 페이지 번호구현 div 끝 -->
 			
 			<input type="hidden" id="check" value="${my_session_id}" />		
 		</div>
+		
 		<aside>
 			<div id="memberView"></div>
 		</aside>
