@@ -82,6 +82,15 @@ thead {
 .container {
 	min-height: 700px;
 }
+
+
+.bottombox {
+	width: 1140px;
+}
+
+.searchingbox {
+	padding-left: 300px;
+}
 </style>
 </head>
 
@@ -90,17 +99,6 @@ thead {
 	<div class="container">
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
-
-		<!-- 검색폼 -->
-		<form method="get"
-			action="${pageContext.request.contextPath}/13_Notice_board.do">
-			<fieldset class="pull-right">
-				<!-- <label for="keyword">검색 </label> -->
-				<input type="search" name="keyword" id="keyword search"
-					placeholder="작성자명 or 제목 검색" value="${keyword}" />
-				<button type="submit">검색</button>
-			</fieldset>
-		</form>
 
 		<!-- 조회 결과 목록 -->
 		<div class="table1">
@@ -146,13 +144,6 @@ thead {
 										value="${fn:replace(writer_name, keyword, mark)}" />
 									<c:set var="subject"
 										value="${fn:replace(subject, keyword, mark)}" />
-									<%-- <c:set var="content"
-										value="${fn:replace(content, keyword, mark)}" />
-									<c:set var="hit" value="${fn:replace(hit, keyword, mark)}" />
-									<c:set var="reg_date"
-										value="${fn:replace(reg_date, keyword, mark)}" />
-									<c:set var="edit_date"
-										value="${fn:replace(edit_date, keyword, mark)}" /> --%>
 								</c:if>
 
 								<%-- 상세페이지로 이동하기 위한 URL --%>
@@ -180,7 +171,7 @@ thead {
 					</c:choose>
 				</tbody>
 			</table>
-		
+		<div class="bottombox">
 		<!-- 페이지 번호 구현 div 시작-->
 				<ul class="pagination">			 
 					<li class="disabled">
@@ -239,7 +230,8 @@ thead {
 					</c:choose>
 				</ul>
 			<!-- 페이지 번호구현 div 끝 -->
-		
+			
+			<!-- 로그인 시 글쓰기 버튼 활성화 -->
 			<c:choose>
 				<c:when test="${PK != null}">
 					<ul class="clearfix pull-right">
@@ -250,6 +242,18 @@ thead {
 					</ul>
 				</c:when>
 			</c:choose>
+			
+				<!-- 검색폼 -->
+			<form method="get"
+				action="${pageContext.request.contextPath}/23_Notice_board_s.do">
+				<fieldset class="searchingbox">
+					<input type="search" name="keyword" id="keyword search"
+						class="form-control pull-left" style="width: 500px;"
+						placeholder="작성자명 or 제목 검색" value="${keyword}" />
+					<button class="btn btn-default pull-left" type="submit">검색</button>
+				</fieldset>
+			</form>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />

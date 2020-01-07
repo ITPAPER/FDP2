@@ -27,13 +27,7 @@ thead {
 	width: 1140px;
 }
 
-/** 우측 상단 검색 부분 설정 */
-#search {
-	padding: 5px 12px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	display: inline-block;
-}
+
 
 /** 검색에 placeholder 색상 밑 투명도 조절 */
 ::placeholder {
@@ -63,6 +57,22 @@ thead {
 	width: 50%;
 }
 
+/** 의사 답변 완료 태그 */
+.danok {
+	background-color: #666;
+	padding: 3.5px;
+	border-radius: 5px;
+	color: white;
+	font-size: 12px;
+}
+
+.searchingbox {
+	padding-left: 300px;
+}
+
+.bottombox {
+	width: 1140px;
+}
 </style>
 </head>
 
@@ -72,21 +82,7 @@ thead {
 		<h1 id="title">Q &amp; A</h1>
 		<p id="description">자유로운 질문과 전문의의 답변을 확인하실 수 있습니다.</p>
 
-		<!-- <form id="h" class="clearfix">
-			<fieldset class="pull-left">
-				<label><input type='checkbox' id='all_check'>&nbsp;&nbsp;전체선택</label>
-			</fieldset>
-		</form> -->
-		<!-- 검색폼 -->
-		<form method="get"
-			action="${pageContext.request.contextPath}/23_Notice_board_s.do">
-			<fieldset class="pull-right">
-				<!-- <label for="keyword">검색 </label> -->
-				<input type="search" name="keyword" id="keyword search"
-					placeholder="작성자명 or 제목 검색" value="${keyword}" />
-				<button type="submit">검색</button>
-			</fieldset>
-		</form>
+	
 
 		<!-- 조회 결과 목록 -->
 		<div class="table1">
@@ -97,6 +93,7 @@ thead {
 						<input type="checkbox" id="all_check" /></th>
 						<th class="text-center numbering">#</th>
 						<th class="subject">제목</th>
+						<th></th>
 						<th class="text-center writer">작성자</th>
 						<th class="text-center reg_date">조회수</th>
 						<th class="text-center hit">작성일</th>
@@ -122,6 +119,7 @@ thead {
 								<c:set var="reg_date" value="${item.reg_date}" />
 								<c:set var="edit_date" value="${item.edit_date}" />
 								<c:set var="fdpmember_id" value="${item.fdpmember_id}" />
+								<c:set var="docA_ok" value="${item.docA_ok}"></c:set>
 								<%-- 검색어가 있다면? --%>
 								<c:if test="${keyword != ''}">
 									<%-- 검색어에 <mark> 태그를 적용하여 형광팬 효과 준비 --%>
@@ -132,13 +130,6 @@ thead {
 										value="${fn:replace(writer_name, keyword, mark)}" />
 									<c:set var="subject"
 										value="${fn:replace(subject, keyword, mark)}" />
-									<c:set var="content"
-										value="${fn:replace(content, keyword, mark)}" />
-									<c:set var="hit" value="${fn:replace(hit, keyword, mark)}" />
-									<c:set var="reg_date"
-										value="${fn:replace(reg_date, keyword, mark)}" />
-									<c:set var="edit_date"
-										value="${fn:replace(edit_date, keyword, mark)}" />
 								</c:if>
 
 								<%-- 상세페이지로 이동하기 위한 URL --%>
@@ -154,6 +145,13 @@ thead {
 										value="${item.fdpmember_id }"></td>
 									<td align="center">${item.document_id}</td>
 									<td><a href="${viewUrl}" id="sub1">${subject}</a></td>
+									<td>
+										<c:choose>
+											<c:when test="${docA_ok != 0}">
+											<span class="danok">답변 완료</span>
+											</c:when>
+										</c:choose>
+									</td>
 									<td align="center">${writer_name}</td>
 									<td align="center">${hit}</td>
 									<td align="center">${reg_date}</td>
@@ -163,7 +161,7 @@ thead {
 					</c:choose>
 				</tbody>
 			</table>
-
+			<div class="bottombox">
 			<!-- 페이지 번호 구현 div 시작-->
 			
 				<ul class="pagination">			 
@@ -183,7 +181,6 @@ thead {
 						</c:otherwise>
 					</c:choose>
 					</li>
-					
 					<%-- 페이지 번호 (시작 페이지 부터 끝 페이지까지 반복) --%>
 					<c:forEach var="i" begin="${pageData.startPage}"
 						end="${pageData.endPage}" varStatus="status">
@@ -225,10 +222,19 @@ thead {
 		
 			<!-- 페이지 번호구현 div 끝 -->
 				<ul class="clearfix pull-right">
-					<li class="a"><input type="button" value="체크버튼삭제" id="checkbtn"
+					<li class="a"><input type="button" value="선택 삭제" id="checkbtn"
 						class="btn btn-default btn-sm" />
 				</ul>
-				
+					<!-- 검색폼 -->
+		<form method="get"
+			action="${pageContext.request.contextPath}/23_Notice_board_s.do">
+			<fieldset class="searchingbox">
+				<input type="search" name="keyword" id="keyword search" class="form-control pull-left" style="width:500px;"
+					placeholder="작성자명 or 제목 검색" value="${keyword}" />
+				<button class="btn btn-default pull-left" type="submit">검색</button>
+			</fieldset>
+		</form>
+		</div>
 		</div>
 	</div>
 	<jsp:include page="./assets/inc/bottom.jsp" />

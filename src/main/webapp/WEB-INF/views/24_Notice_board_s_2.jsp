@@ -79,12 +79,13 @@
 .file {
 	display: inline-block;
 	margin-right: 30px;
+	width:320px !important;
 }
 
 .fileimg {
 	display: block;
-	min-width: 50%;
-	min-height: 50%;
+	width: 100%;
+	height: 100%;
 	align: center;
 }
 
@@ -93,6 +94,12 @@
 	width: 320px;
 	height: 200px;
 }
+.fname{
+	display:block;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	}
 </style>
 <head>
 <jsp:include page="./assets/inc/head.jsp" />
@@ -138,7 +145,7 @@
 														<a href="${pageContext.request.contextPath}/download.do?file=${item.filePath}">
 															<img src="${pageContext.request.contextPath}/download.do?file=${item.filePath}" class="fileimg" />
 														</a>
-													</div> ${item.originName}
+													</div> <span class="fname">${item.originName}</span>
 												</li>
 											</c:forEach>
 										</ul>

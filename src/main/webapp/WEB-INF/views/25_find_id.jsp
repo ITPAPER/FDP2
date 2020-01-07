@@ -81,7 +81,7 @@
 		var email=$("#email").val();
 		console.log(email);
 		
-		if (!regex.value('#user_id', '아이디를 입력하세요.')) { return false; }
+		if (!regex.value('#email', '이메일을 입력하세요.')) { return false; }
 		
 		$.ajax( {
 			url:'25_find_id_check.do',
