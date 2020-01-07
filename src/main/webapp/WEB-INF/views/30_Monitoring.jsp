@@ -148,7 +148,7 @@ h5 {
 				<th class="text-center ththth">신경과입원실</th>
 				<th class="text-center ththth">신경외과 중환자실</th>
 				<th class="text-center ththth">인큐베이터 유무</th>
-				<th class="text-center ththth">소아당직의 직통번호</th>
+				<th class="text-center ththth">외상중환자</th>
 				<th class="text-center ththth">신경 중환자실</th>
 				<th class="text-center ththth">신생아중환자실</th>
 			</tr>
@@ -160,7 +160,7 @@ h5 {
 				<td class="tdtdtd">{{hv5}}</td>
 				<td class="tdtdtd">{{hv6}}</td>
 				<td class="tdtdtd">{{hv11}}</td>
-				<td class="tdtdtd">{{hv12}}</td>
+				<td class="tdtdtd">{{hv9}}</td>
 				<td class="tdtdtd">{{hvcc}}</td>
 				<td class="tdtdtd">{{hvncc}}</td>
 			</tr>
@@ -200,7 +200,6 @@ h5 {
 			dataType:'json',
 			success: function(hos) {
 				for(var t = 0 ; t < hos.length; t++){
-					console.log(hos[t].inserttime);
 					hos[t].inserttime= new Date(hos[t].inserttime);
 				}
 				am4core.disposeAllCharts();
@@ -212,7 +211,6 @@ h5 {
 					// Create chart instance
 					var chart = am4core.create("chartdiv", am4charts.XYChart);
 					chart.paddingRight = 20;
-					chart.dateFormatter.intlLocales = "ko-Kr";
 					// Add data
 					chart.data = hos;
 
@@ -254,15 +252,15 @@ h5 {
 					range.contents.fill = range.contents.stroke;
 					
 					// Add scrollbar
-					var scrollbarX = new am4charts.XYChartScrollbar();
+					 var scrollbarX = new am4charts.XYChartScrollbar();
 					scrollbarX.series.push(series);
-					chart.scrollbarX = scrollbarX;
+					chart.scrollbarX = scrollbarX; 
 
 					chart.cursor = new am4charts.XYCursor();
 				}); // end am4core.ready()	
 			}
 		}); //end ajax
-	}
+	};
 	
 		$(function(){
 			 $.ajax({
