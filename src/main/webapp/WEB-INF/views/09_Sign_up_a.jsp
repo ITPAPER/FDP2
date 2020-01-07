@@ -326,6 +326,46 @@
 				$(".agree").prop('checked', $(this).prop('checked'));
 			});
 			
+			$("#agree1").change(function() {
+				var aa = $("#agree1").prop('checked');
+				var bb = $("#agree2").prop('checked');
+				
+				if (aa && bb) {
+					$("#all_check").prop("checked", true);
+				} else {
+					$("all_check").prop("checked", false);
+				}
+			})
+			
+			$("#agree1").change(function() {
+				var aa = $("#agree1").prop('checked');
+				var bb = $("#agree2").prop('checked');
+				
+				if (!aa || !bb) {
+					$("#all_check").prop("checked", false);
+				} 
+			})
+			
+			$("#agree2").change(function() {
+				var aa = $("#agree1").prop('checked');
+				var bb = $("#agree2").prop('checked');
+				
+				if (aa && bb) {
+					$("#all_check").prop("checked", true);
+				} else {
+					$("all_check").prop("checked", false);
+				}
+			})
+			
+			$("#agree2").change(function() {
+				var aa = $("#agree1").prop('checked');
+				var bb = $("#agree2").prop('checked');
+				
+				if (!aa || !bb) {
+					$("#all_check").prop("checked", false);
+				} 
+			})
+			
 			$('#proceedD').click(function(e) {
 				e.preventDefault;
 				

@@ -257,7 +257,7 @@
 					$("#dupcheck2").attr("value", 1);
 					
 				} else {
-					alert("사용할 수 없는 아이디 입니다.");
+					alert("사용할 수 없는 이메일 입니다.");
 					$("#dupcheck2").attr("value", 0);
 					$("#email").val("");
 					$("#email").focus();
